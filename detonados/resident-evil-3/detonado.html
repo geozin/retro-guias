@@ -3,41 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resident Evil 1 — Detonado</title>
+<title>Resident Evil 3: Nemesis — Detonado</title>
 <style>
   :root {
-    --bg:#f4f6fa;--bg2:#e8ecf5;--text:#1a1a2e;--text2:#4a4a6a;--border:#ccd;
-    --header-bg:#0a0a1a;--h2-color:#1a3a8a;--h2-border:#1a3a8a;--h3-border:#99a;
-    --dica-bg:#eef2ff;--dica-border:#1a3a8a;
+    --bg:#faf8f4;--bg2:#f0ebe0;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#1a0d00;--h2-color:#8b4500;--h2-border:#8b4500;--h3-border:#aaa;
+    --dica-bg:#fff9f0;--dica-border:#c07000;
+    --live-bg:#1a1a2a;--live-border:#4466cc;--live-title:#88aaff;
     --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#922b21;
-    --puzzle-bg:#eef2ff;--puzzle-border:#1a3a8a;--puzzle-title:#1a3a8a;
-    --table-head:#e8ecf5;--bar-bg:#fff;--bar-border:#ccd;
-    --bar-shadow:rgba(0,0,0,0.10);--btn-bg:#1a3a8a;--btn-text:#fff;
-    --search-bg:#f4f6fa;--search-text:#1a1a2e;--search-border:#99a;
+    --table-head:#f0ebe0;--bar-bg:#fff;--bar-border:#ddd;
+    --bar-shadow:rgba(0,0,0,0.10);--btn-bg:#8b4500;--btn-text:#fff;
+    --search-bg:#f5f5f5;--search-text:#222;--search-border:#ccc;
     --highlight-bg:#ffe066;--highlight-text:#111;
     --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
   }
   [data-theme="dark"] {
-    --bg:#07070f;--bg2:#0e0e1e;--text:#d0d4f0;--text2:#8080a8;--border:#222244;
-    --header-bg:#030308;--h2-color:#5577cc;--h2-border:#5577cc;--h3-border:#2a2a44;
-    --dica-bg:#0a0a1a;--dica-border:#3355aa;
-    --chefe-bg:#1a0808;--chefe-border:#922b21;--chefe-title:#f1948a;
-    --puzzle-bg:#0a0a1a;--puzzle-border:#3355aa;--puzzle-title:#6688dd;
-    --table-head:#0e0e1e;--bar-bg:#07070f;--bar-border:#222244;
-    --bar-shadow:rgba(0,0,0,0.5);--btn-bg:#2244aa;--btn-text:#fff;
-    --search-bg:#07070f;--search-text:#d0d4f0;--search-border:#222244;
-    --highlight-bg:#4a3a00;--highlight-text:#fff;
+    --bg:#0d0a06;--bg2:#1a1206;--text:#e8e0d0;--text2:#b0a080;--border:#333;
+    --header-bg:#080500;--h2-color:#e07030;--h2-border:#e07030;--h3-border:#555;
+    --dica-bg:#1a1000;--dica-border:#c07000;
+    --live-bg:#060610;--live-border:#334499;--live-title:#6688ee;
+    --chefe-bg:#2a0a0a;--chefe-border:#922b21;--chefe-title:#f1948a;
+    --table-head:#1a1200;--bar-bg:#0d0a06;--bar-border:#333;
+    --bar-shadow:rgba(0,0,0,0.40);--btn-bg:#c06020;--btn-text:#fff;
+    --search-bg:#0d0a06;--search-text:#e8e0d0;--search-border:#444;
+    --highlight-bg:#7a5000;--highlight-text:#fff;
     --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
   }
   body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:20px 16px 90px;background:var(--bg);transition:background .25s,color .25s;}
   .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:22px 26px 18px;margin-bottom:28px;}
-  .game-header h1{margin:0 0 4px;font-size:26px;color:#88aaff;}
-  .game-header .sub{font-size:15px;color:#6688cc;margin-bottom:6px;font-style:italic;}
-  .game-header .meta{font-size:13px;color:#5566aa;font-family:monospace;}
+  .game-header h1{margin:0 0 4px;font-size:26px;color:#f0a060;}
+  .game-header .sub{font-size:15px;color:#c08060;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#a08060;font-family:monospace;}
   .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
   .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
   h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;}
-  .cap-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;border-left:4px solid var(--h2-border);padding-left:12px;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;border-left:4px solid var(--h2-border);padding-left:12px;}
   h3{font-size:17px;color:var(--text);margin-top:28px;margin-bottom:10px;border-left:4px solid var(--h3-border);padding-left:10px;}
   p{margin:0 0 13px;}
   .npc{color:var(--npc);font-weight:bold;}
@@ -46,14 +46,15 @@
   .local{color:var(--local);font-weight:bold;}
   .inimigo{color:var(--inimigo);font-weight:bold;}
   .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;}
-  .puzzle-box{background:var(--puzzle-bg);border:2px dashed var(--puzzle-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
-  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--puzzle-title);margin-bottom:8px;letter-spacing:.5px;}
+  .live-box{background:var(--live-bg);border:2px solid var(--live-border);border-radius:8px;padding:12px 16px;margin:16px 0;}
+  .live-box .live-title{font-weight:bold;font-size:13px;color:var(--live-title);letter-spacing:1px;margin-bottom:8px;}
+  .live-box p{color:#cce0ff;font-size:14px;margin:0 0 6px;}
+  .live-box ul{margin:4px 0 0 16px;padding:0;}
+  .live-box li{color:#cce0ff;margin-bottom:4px;font-size:14px;}
   .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
   .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
-  .pers-tag{display:inline-block;font-size:11px;font-weight:bold;padding:2px 8px;border-radius:3px;margin:0 3px 2px 0;font-family:monospace;vertical-align:middle;}
-  .tag-jill{background:#2244aa;color:#adf;}
-  .tag-chris{background:#226622;color:#afa;}
-  .tag-ambos{background:#442244;color:#daf;}
   table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
   td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
   th{background:var(--table-head);font-weight:bold;}
@@ -64,42 +65,48 @@
   mark.search-hl.current{outline:2px solid var(--alerta);background:var(--alerta);color:#fff;}
   .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
   .sidebar-overlay.open{display:block;}
-  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
   .sidebar.open{transform:translateX(0);}
-  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
   .sidebar-close:hover{opacity:1;}
   .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
-  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
   .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
   .menu-h2{font-weight:bold;color:var(--h2-color);}
   .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
   .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:58px;background:var(--bar-bg);border-top:1px solid var(--bar-border);box-shadow:0 -2px 12px var(--bar-shadow);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;}
-  .bar-btn,.menu-toggle-btn{background:var(--btn-bg);color:var(--btn-text);border:none;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;}
+  .bar-btn,.menu-toggle-btn{background:var(--btn-bg);color:var(--btn-text);border:none;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .15s;}
   .bar-btn:active,.menu-toggle-btn:active{transform:scale(0.92);}
   .search-pill{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;}
   .search-input-wrap{display:none;align-items:center;background:var(--search-bg);border:1.5px solid var(--search-border);border-radius:24px;padding:4px 10px 4px 14px;gap:6px;flex:1;max-width:420px;}
   .search-input-wrap.open{display:flex;}
   .search-input-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:var(--search-text);flex:1;min-width:0;}
   .search-count{font-size:12px;color:var(--text2);white-space:nowrap;min-width:32px;text-align:center;}
-  .search-nav-btn,.search-close{background:none;border:none;cursor:pointer;font-size:15px;color:var(--text2);padding:2px 4px;}
+  .search-nav-btn,.search-close{background:none;border:none;cursor:pointer;font-size:15px;color:var(--text2);padding:2px 4px;border-radius:4px;}
 </style>
 </head>
 <body>
+
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 <div class="sidebar" id="sidebar">
-  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-header">
+    <span>📋 ÍNDICE DO DETONADO</span>
+    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  </div>
   <div class="sidebar-body" id="sidebarBody"></div>
 </div>
 
 <div class="capa-revista">
-  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/resident-evil-1/capa.png"
-       alt="Capa Resident Evil 1"
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/resident-evil-3-nemesis/capa.png"
+       alt="Capa Resident Evil 3: Nemesis"
        onerror="this.parentElement.style.display='none'">
 </div>
 
 <div class="game-header">
-  <h1>Resident Evil 1</h1>
+  <h1>Resident Evil 3: Nemesis</h1>
   <div class="meta">PlayStation</div>
 </div>
 
@@ -109,14 +116,16 @@
   <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
   <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
   <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
-  <span style="background:#2244aa;color:#adf;padding:3px 10px;border-radius:4px;font-weight:bold;">JILL</span>
-  <span style="background:#226622;color:#afa;padding:3px 10px;border-radius:4px;font-weight:bold;">CHRIS</span>
 </div>
 
+<!-- ══════════════════════════════════════════════════════ -->
 <h2 id="intro">Introdução</h2>
-<p>Quando foi lançado, <em>Resident Evil</em> inovou em seu gênero, tornando-se um grande sucesso em pouco tempo. No ano de 1998, estranhos assassinatos começaram a acontecer nos arredores da cidade — um casal de turistas foi encontrado brutalmente mutilado próximo ao rio que passa ao lado da cidade. Diante de tais circunstâncias, foi criado o Esquadrão de Salvamento e Táticas Especiais, formado por dois grupos: o <span class="npc">Alpha Team</span> e o <span class="npc">Bravo Team</span>. O Bravo Team foi enviado primeiro para a montanha, mas não voltou — e horas depois, o Alpha Team foi designado para procurar o primeiro grupo e investigar os incidentes.</p>
-<p>Você poderá jogar com os dois personagens <span class="npc">Chris Redfield</span> e <span class="npc">Jill Valentine</span>. Apesar de a aventura de ambos se passar no mesmo ambiente, uma série de acontecimentos diferentes acontecerão em cada um, criando assim uma atmosfera muito envolvente.</p>
 
+<p>Após o lançamento de Resident Evil 2, a Capcom surpreendeu com <em>Resident Evil 3: Nemesis</em>. O enredo se passa vinte e quatro horas antes de Resident Evil 2, mostrando como a cidade foi infectada, a força policial sendo exterminada e também alguns dos personagens de Resident Evil 1 indo para a Europa — enquanto <span class="npc">Jill</span> ficou na cidade para investigar os acontecimentos. Em meio ao caos, ela conhece <span class="npc">Carlos</span>, um mercenário a procura de sobreviventes e com a missão de apagar vestígios que incriminam a Umbrella. Juntos eles veem a cidade ser destruída e enfrentam <span class="inimigo">Nemesis</span>, a maior arma biológica produzida pela Umbrella, cuja missão é exterminar os integrantes da S.T.A.R.S.</p>
+
+<p>As vinte e quatro horas depois de Resident Evil 2 mostrarão o fim de Raccoon City. A Capcom uniu o suspense do primeiro jogo com a ação do segundo em um enredo semi-linear que permite alterar muitas das cenas — aumentando ainda mais a vida útil do jogo.</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
 <h2 id="conceitos">Conceitos Básicos</h2>
 
 <h3 id="comandos">Comandos</h3>
@@ -125,504 +134,455 @@
   <tr><td>↑</td><td>Andar para frente</td></tr>
   <tr><td>↓</td><td>Andar para trás</td></tr>
   <tr><td>← / →</td><td>Virar à esquerda / direita</td></tr>
-  <tr><td>■</td><td>Correr / Cancelar</td></tr>
+  <tr><td>■</td><td>Correr</td></tr>
   <tr><td>X</td><td>Ação / Atirar</td></tr>
-  <tr><td>R1</td><td>Empunhar arma</td></tr>
-  <tr><td>Start</td><td>Inventário</td></tr>
-  <tr><td>Start + Select</td><td>Opções</td></tr>
+  <tr><td>●</td><td>Inventário</td></tr>
+  <tr><td>R1</td><td>Empunhar arma (um alvo)</td></tr>
+  <tr><td>R2</td><td>Empunhar arma (mais de um alvo)</td></tr>
+  <tr><td>L1</td><td>Selecionar alvo</td></tr>
+  <tr><td>L2</td><td>Mostrar mapas</td></tr>
+  <tr><td>Select</td><td>Configuração</td></tr>
+  <tr><td>↑ + R1</td><td>Esquiva (Alta)</td></tr>
+  <tr><td>↓ + R1</td><td>Esquiva (Baixa)</td></tr>
+  <tr><td>↓ + ■</td><td>Virar rápido</td></tr>
 </table>
-<div class="dica">💡 Apertando Start e Select juntos você ativará a tela de opções com Config (tipos de comando A, B ou C), Edit (personalizar funções) e Sound. No inventário você terá: File (arquivos), Map (mapas), Radio (disponível após conseguir o rádio) e Combn (combinar itens). Aperte R2 para aproximar e L2 para afastar o item no inventário.</div>
 
-<h3 id="personagens-dif">Personagens e Dificuldades</h3>
-<p><span class="pers-tag tag-jill">JILL</span> Pode carregar até <strong>oito itens</strong> em seu inventário, conta com a ajuda de <span class="npc">Barry</span>, tem mais resistência física e conseguirá a <span class="item">Bazooka</span>. Recomendada para iniciantes.</p>
-<p><span class="pers-tag tag-chris">CHRIS</span> Pode carregar apenas <strong>seis itens</strong>, possui mais força e resistência nos combates, mas precisará de <span class="item">Small Keys</span> para trancas simples que Jill abre com o <span class="item">Lockpick</span>. Conta com a ajuda de <span class="npc">Rebecca</span>. Recomendado para jogadores experientes.</p>
+<div class="dica">💡 Ao equipar uma arma, aperte R1 para mirar automaticamente. Com R2 você pode acertar mais de um alvo ao mesmo tempo. Se houver muitos inimigos, mantenha R2 pressionado para atirar. Você pode desativar a mira automática mudando para MANUAL no Key Config. As esquivas funcionam a todo momento — faça R1+↑ ou ↓ quando for atacado, mas <span class="alerta">não empunhe armas ou deixe outros botões pressionados.</span></div>
+
+<h3 id="explosivos">Usando Explosivos e Mapas</h3>
+<p>Você poderá explodir barris ou bombas de dinamite encontrados nas paredes em alguns pontos da cidade. Quando um grande número de zumbis estiver por perto, atraia-os próximo ao barril ou à bomba e em seguida atire de um lugar distante para não sofrer nenhum dano. Quanto aos mapas, use-os sempre que possível para não se perder. Aperte X para dar zoom ou trocar de andar, podendo mover o foco com o direcional. Ao entrar em uma nova área, o mapa aparecerá automaticamente. Você poderá apertar R1 na tela do mapa para ver os mapas de outras áreas.</p>
+
+<h3 id="municao">Criando Munição</h3>
+<p>Você terá dois tipos de pólvora (Gun Powder): tipo A e B. Combinando os dois tipos, você terá o tipo C. Para fazer a mistura, selecione o tipo de pólvora, escolha a opção "Combine" e depois escolha o outro tipo de pólvora. Combine a pólvora com a ferramenta <span class="item">Reloading Tool</span> e a munição estará pronta para uso.</p>
+
+<table>
+  <tr><th>Combinação de Pólvoras</th><th>Resultado com Reloading Tool</th></tr>
+  <tr><td>A</td><td>15 Hand Gun Bullets</td></tr>
+  <tr><td>B</td><td>7 Shotgun Shells</td></tr>
+  <tr><td>C</td><td>7 Grenade Launcher Rounds</td></tr>
+  <tr><td>AA</td><td>35 Hand Gun Bullets</td></tr>
+  <tr><td>BB</td><td>18 Shotgun Shells</td></tr>
+  <tr><td>CC</td><td>20 Freeze Rounds</td></tr>
+  <tr><td>AC</td><td>10 Flame Rounds</td></tr>
+  <tr><td>BC</td><td>10 Acid Rounds</td></tr>
+  <tr><td>AAA</td><td>55 Hand Gun Bullets</td></tr>
+  <tr><td>AAB</td><td>20 Shotgun Shells</td></tr>
+  <tr><td>BBA</td><td>60 Hand Gun Bullets</td></tr>
+  <tr><td>BBB</td><td>30 Shotgun Shells</td></tr>
+  <tr><td>CCC</td><td>24 Magnum Rounds</td></tr>
+</table>
+
+<div class="dica">⚠️ Ao criar muita munição para Hand Gun e Shotgun, elas entrarão no segundo "estágio" e usarão munição especial.</div>
+
+<h3 id="dificuldade">Dificuldade</h3>
+<p>Jogando no modo <strong>Easy</strong>, você poderá começar com mais armas, enfrentar inimigos mais fáceis, pegar munição em dobro e encontrar inimigos ou ervas em outros lugares. No modo <strong>Hard</strong>, você somente poderá conseguir armas ao derrotar Nemesis — ele deixará pedaços de armas que poderão ser montadas. Você também poderá descobrir os segredos e liberar os Epilogos dos outros personagens. <span class="alerta">A estratégia deste detonado é baseada na dificuldade Hard.</span></p>
+
+<h3 id="live-selection">Live Selection</h3>
+<p>Em determinados lugares do jogo, você será obrigado a tomar decisões: escolher entre duas opções que influenciarão e modificarão o enredo. Se durante uma Live Selection você não escolher uma das opções, Jill poderá morrer ou lutar contra Nemesis.</p>
 
 <h3 id="ervas">Usando Ervas</h3>
+<p>Se combinar ervas adequadamente, o uso dos F. Aid Sprays passará a ser desnecessário (o uso de muitos F. Aid Spray influenciará no ranking final). Há três tipos: <span class="item">Green Herb</span> (recupera um terço da vida), <span class="item">Red Herb</span> (aumenta a eficácia da Green Herb — combine uma Red com uma ou duas Green Herbs para duplicar a eficácia) e <span class="item">Blue Herb</span> (cura envenenamento).</p>
+
 <table>
-  <tr><th>Combinação</th><th>Efeito</th></tr>
+  <tr><th>Combinação</th><th>HP recuperado</th></tr>
   <tr><td>Green Herb</td><td>50 HP</td></tr>
   <tr><td>Green Herb ×2</td><td>100 HP</td></tr>
   <tr><td>Green Herb ×3</td><td>200 HP (máximo)</td></tr>
   <tr><td>Green Herb + Red Herb</td><td>200 HP (máximo)</td></tr>
-  <tr><td>Blue Herb</td><td>Cura envenenamento</td></tr>
 </table>
-<div class="dica">⚠️ O uso de muitos F. Aid Sprays influenciará no ranking final. Priorize sempre as combinações de ervas.</div>
 
+<div class="dica">⚠️ O uso excessivo de itens afetará o ranking em RE3 (confira a seção Dicas).</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
 <h2 id="personagens">Conheça os Personagens</h2>
+
 <h3 id="jill">Jill Valentine</h3>
-<p>Reconhecida por sua inteligência e conhecimento em diversos dispositivos eletrônicos, <span class="npc">Jill</span> foi encaminhada para Raccoon City para integrar o Alpha Team. Ela é uma pessoa que valoriza muito as suas amizades.</p>
-<h3 id="chris">Chris Redfield</h3>
-<p>Após ser expulso da força aérea por desacatar ordens, <span class="npc">Chris</span> conheceu Barry e ambos se tornaram grandes amigos. Chris foi indicado para integrar o Alpha Team em Raccoon City por ser um perito em armas. Seu comportamento o deixou na posição de escolher entre ser piloto ou servir de apoio para outros integrantes.</p>
-<h3 id="barry">Barry Burton</h3>
-<p>Ex-membro do S.W.A.T., <span class="npc">Barry</span> possui um vasto conhecimento em armas. Seus dezesseis anos de experiência lhe tornaram o responsável pelo abastecimento de armas da S.T.A.R.S.</p>
-<h3 id="wesker">Albert Wesker</h3>
-<p>Misterioso e prepotente, <span class="npc">Wesker</span> assumiu a liderança do Alpha Team. Apesar de sua arrogância, ele considera Barry seu braço direito, pois este é um dos poucos que sabem que Wesker foi um dos fundadores da unidade S.T.A.R.S.</p>
-<h3 id="rebecca">Rebecca Chambers</h3>
-<p>Recém-recrutada para a unidade S.T.A.R.S., <span class="npc">Rebecca</span> tem dezoito anos de idade e um grande conhecimento em enfermagem. Ela atua no cargo de Primeiros Socorros da Bravo Team.</p>
+<p>Policial experiente e dedicada, <span class="npc">Jill</span> já resgatou muitos membros da S.T.A.R.S. que estavam correndo perigo. Ela é sempre muito habilidosa nos combates — pode manusear qualquer tipo de arma com grande habilidade, mesmo que nunca tenha utilizado uma arma similar antes. Ela também é uma ótima arrombadora de trancas e está sempre disposta a ajudar.</p>
+
+<h3 id="carlos">Carlos Oliveira</h3>
+<p>Membro do time U.B.C.S., <span class="npc">Carlos</span> é despachado para Raccoon City com a missão de acabar com o vírus e resgatar possíveis sobreviventes. Apesar de trabalhar para a Umbrella, ele não concorda em "limpar" a sujeira deixada pela corporação. Ainda por cima, começa a ter afeição por Jill e arrisca a própria vida para salvá-la. Carlos pretende mudar de vida e passar a lutar por uma causa que de fato valha a pena.</p>
+
 <h3 id="brad">Brad Vickers</h3>
-<p>Perito em computadores e encarregado do setor de informações, <span class="npc">Brad</span> é um dos mais competentes integrantes do Alpha Team. Seus amigos o chamam de "coração de galinha" por ele ser muito medroso. Ele detesta usar armas de fogo.</p>
-<h3 id="forest">Forest Speyer</h3>
-<p>É o especialista em veículos do Bravo Team. <span class="npc">Forest</span> é muito observador, além de ser um atirador de elite. Ele e Chris se tornaram grandes amigos em pouco tempo.</p>
-<h3 id="richard">Richard Aiken</h3>
-<p>Sendo um importante membro da S.T.A.R.S., <span class="npc">Richard</span> é um expert em comunicação. Diferente do que muitos poderiam imaginar, ele é um cara muito positivo e conquista a amizade dos novos integrantes.</p>
-<h3 id="enrico">Enrico Marine</h3>
-<p>É o líder do Bravo Team e o segundo no comando da S.T.A.R.S. <span class="npc">Enrico</span> é muito dedicado ao trabalho e é o responsável nas operações quando Wesker está ausente.</p>
-<h3 id="kenneth">Kennet J. Sullivan</h3>
-<p>Um espião muito talentoso, embora um pouco calado. <span class="npc">Kenneth</span> se alistou na S.T.A.R.S. e é um expert em Química — seus conhecimentos são muito úteis, motivo pelo qual Wesker o recrutou.</p>
+<p>É o piloto do helicóptero do time da S.T.A.R.S. Durante o ataque ocorrido em Raccoon City, <span class="npc">Brad</span> fugiu desesperado, estava assustado com algo gigantesco que viu e que ainda o persegue como uma sombra. Mas poucos segundos antes de sua morte, ele descobre que está sendo perseguido pela arma mais letal e eficiente já criada pela Umbrella — o <span class="inimigo">Nemesis</span>.</p>
+
+<h3 id="dario">Dario Rosso</h3>
+<p><span class="npc">Dario</span> é um vendedor que perdeu toda a família no caos que se formou na cidade. Em pânico, ele não quer mais ir embora sem encontrar sua filha, pois acredita que ela ainda esteja viva.</p>
+
+<h3 id="nicholai">Nicholai Genovaef</h3>
+<p>Encarregado da U.B.C.S., o sargento <span class="npc">Nicholai</span> é uma pessoa desconfiada e misteriosa. Com uma visão totalmente preconceituosa sobre as mulheres, ele subestima as habilidades de Jill, hesitando em permitir que ela ajude os poucos homens de seu grupo que ainda estão vivos.</p>
+
+<h3 id="mikhail">Mikhail Victor</h3>
+<p><span class="npc">Mikhail</span> é outro membro da U.B.C.S. que veio da Rússia, como a maioria dos outros mercenários. Seriamente ferido durante o incidente em Raccoon City, ele passa a maior parte do tempo em completo delírio. Apesar de trabalhar para a Umbrella, ele valoriza muito a amizade e a vida de seus companheiros de missão.</p>
+
+<h3 id="nemesis">Nemesis</h3>
+<p>Sua missão é caçar e infectar todos os sobreviventes da S.T.A.R.S. — os únicos que podem deter a corporação Umbrella. <span class="inimigo">Nemesis</span> é a mais mortal arma biológica criada até então, pois sua inteligência permite desviar-se de ataques, usar Bazooka e perseguir suas vítimas. Com sua nova remessa de vírus chamada de NE-T, a morte dos seres infectados é quase que imediata se o vírus for usado em grandes doses.</p>
+
+<h3 id="murphy">Murphy Seeker</h3>
+<p><span class="npc">Murphy</span> é um dos poucos americanos integrados à U.B.C.S. Ele foi infectado pelo T-vírus e pode se transformar em zumbi e atacar seus amigos a qualquer momento. Desesperado, ele implora para seus companheiros ser morto.</p>
+
+<h3 id="tyrell">Tyrell Patrick</h3>
+<p>Um dos soldados mais inteligentes da U.B.C.S., <span class="npc">Tyrell</span> sabe que algo está errado com esta missão, devido a inúmeras armadilhas espalhadas em pontos estratégicos da cidade — pontos estes vinculados à Umbrella. Ele começa a desconfiar de traição de um dos integrantes da U.B.C.S.</p>
 
 <hr>
 
-<h2 id="jill-cap1">A Aventura de Jill — Primeiro Capítulo</h2>
-<p class="cap-intro">Estranhos casos de morte aconteceram em Raccoon City. O Bravo Team foi enviado até a montanha para investigar e não se teve mais notícia do grupo. O Alpha Team foi designado para procurar o primeiro grupo e investigar os incidentes. Logo que os destroços do primeiro helicóptero são encontrados, Joseph, um dos integrantes do Alpha Team, encontra parte de um corpo e é morto subitamente. Os integrantes do Alpha Team são então atacados — Brad foge com o helicóptero e Chris, Jill, Barry e Wesker, sem alternativa, refugiam-se em uma velha mansão, onde um estranho pesadelo então tem início.</p>
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="cap1">Primeiro Capítulo — Cidade Condenada</h2>
+<p class="capitulo-intro">Muitas mortes misteriosas aconteceram nos arredores da cidade e monstruosidades foram avistadas aos pés da montanha de Raccoon City. Apesar das autoridades serem informadas, nenhuma providência foi tomada e ninguém acreditou que a Umbrella, na condição de responsável pelo desenvolvimento da cidade, estivesse envolvida neste fato. Repentinamente, os zumbis invadiram a cidade, espalhando o caos. Reforços foram chamados — a Umbrella então manda sua organização U.B.C.S. (Umbrella Biohazard Countermeasure Service), cheia de mercenários, para resgatar os sobreviventes e apagar qualquer informação comprometedora. No entanto, a agente Jill Valentine, um dos membros da S.T.A.R.S., estava na cidade e já sabia da verdade.</p>
 
-<h3 id="jill-a">O desaparecimento de Wesker</h3>
-<p>Dentro da mansão, Jill não encontra Chris e Wesker não a deixa sair para procurá-lo. Pouco depois ouve-se um tiro — Wesker manda Jill investigar e <span class="npc">Barry</span> a acompanhará. Ao entrar na sala de jantar, siga Barry e encontrará sangue no chão. Entre na porta ao lado e, no corredor, siga para o lado esquerdo, até avistar um <span class="inimigo">zumbi</span>. Volte até Barry e, antes de Jill avisá-lo, o zumbi reaparecerá. Após acabar com ele, Barry mandará informar Wesker sobre o acontecido. Voltando até a sala principal, Wesker terá desaparecido.</p>
-<p>Quando procurar por ele, olhe atrás da escada e depois fale com Barry. Antes de sair para investigar, Barry entregará a Jill o <span class="item">Lockpick</span>. Controlando Jill, entre na porta azul à direita e atrás da estátua adiante há uma escada — empurre-a até ela encoste na estátua e use-a para pegar o <span class="item">1st Floor Map</span> no alto. Ao fundo, empurre o móvel que está ao lado da porta para o lado esquerdo. No final do corredor você poderá pegar um <span class="item">Ink Ribbon</span>, mas tome cuidado com um <span class="inimigo">zumbi</span> que está caído (mate-o ou passe longe dele).</p>
+<h3 id="cap1-a">Evacuando Raccoon City</h3>
+<p>Jill entrará nas ruas da cidade ao escapar da explosão de um prédio, chegando até um corredor. Vá até a rua derrubando o <span class="inimigo">zumbi</span> que está no caminho, suba na caixa de lixo e, ao descer do outro lado, Jill fugirá dos inimigos que aparecerem. Ela encontrará <span class="npc">Dario</span>, a quem tenta convencer a ir embora — mas ele não quer ir sem a sua filha. Siga para a área abaixo da plataforma, do outro lado, e pegue um <span class="item">F. Aid Spray</span> sobre os barris. Mexa no armário que está com a luz verde acesa para encontrar munição. Suba a escada e vá para o lado oposto e suba outro lance de escada. Entre na porta no final da plataforma — pegue a <span class="item">Warehouse Key</span> na parede; no armário ao lado haverá <span class="item">pólvora A</span>. Na máquina de escrever tem um <span class="item">Ink Ribbon</span> (quando quiser gravar seu jogo, tenha este item no inventário e mexa na máquina de escrever). Leia os dois manuais do jogo para arquivá-los em seu inventário (você os encontrará na opção Files). Deixe todos os outros itens no baú, exceto a Hand Gun, munição e a Warehouse Key. Saia e destranque a porta no andar abaixo. Siga em frente e entre na porta da esquerda, chegando até uma esquina onde uma porta se abrirá — um homem sairá correndo (caso a porta não se abra, vá até ela para abri-la).</p>
 
-<h3 id="jill-b">O relógio da sala de jantar</h3>
-<p>Volte até o hall de entrada e pegue mais um <span class="item">Ink Ribbon</span> na máquina de escrever ao lado da escada. Vá para a sala de jantar e retire o <span class="item">Emblem</span> sobre a lareira, entre na porta ao lado e visite o local onde encontrou o primeiro zumbi. Examine o corpo de <span class="npc">Kenneth</span> para pegar munição. Em seguida, vá para o final do corredor e destranque a porta para entrar no bar. Do outro lado, empurre o armário para pegar as <span class="item">Music Notes</span> e use-as no piano para tocar uma música que abrirá uma passagem secreta. Retire o <span class="item">Gold Emblem</span> e use o Emblem para manter a entrada aberta.</p>
+<h3 id="cap1-b">Vagando pelas ruas</h3>
+<p>Mate os <span class="inimigo">zumbis</span> que aparecerem, entre na porta e desça a escada para pegar o <span class="item">Lighter Oil</span> sobre o balcão e uma <span class="item">Shotgun</span> no cadáver ao lado (não use a Shotgun por enquanto). Do lado de fora, você poderá seguir <span class="npc">Brad</span>, aquele cara que está correndo, ou continuar no beco à direita abrindo uma porta que dará acesso à rua (você poderá encontrar a filha de Dario). Seguindo Brad, haverá duas <span class="item">Green Herbs</span> no caminho. Entre na porta no final do beco, ignore os zumbis e continue pela rua. Suba nas caixas, abaixo da escada verde na próxima esquina, e suba outro lance de escada. Entre na porta no final do beco. O beco se bifurcará mais adiante — antes disso, desça a escada e continue seguindo <span class="npc">Brad</span> (mate ou ignore os zumbis que encontrar). Seguindo Brad, haverá duas <span class="item">Green Herbs</span> no caminho. Entre na porta no final do beco, ignore os zumbis e continue pela rua. Suba nas <span class="local">caixas</span>, abaixo da escada verde na próxima esquina, e suba outro lance de escada. Entre na porta no final e encontrará o <span class="item">Uptown Map</span>.</p>
 
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Relógio da Sala de Jantar</div>
-  <p>Use o <span class="item">Gold Emblem</span> sobre a lareira da sala de jantar para encontrar a <span class="item">Shield Key</span> atrás do relógio (use a opção Check para encontrar figuras atrás das chaves e descobrir seu verdadeiro nome). Feito isso, volte ao hall principal e suba a escada — vá até a porta que está mais à direita. No corredor haverá sangue e, do outro lado da porta, você encontrará Barry, que avistou o corpo de Forest.</p>
+<div class="dica">🔍 <strong>A filha de Dario:</strong> Se quiser ver a filha de Dario, vá na rua até o carro de polícia, mate todos os zumbis explodindo um barril e volte ao início do jogo. Você então encontrará o corpo da jovem.</div>
+
+<h3 id="cap1-c">Encontrando o piloto Brad</h3>
+<p>Entrando na porta seguinte, <span class="npc">Brad</span> estará sendo atacado por um <span class="inimigo">zumbi</span>. Após a cena, ele ficará assustado e irá embora dizendo que alguma coisa o está perseguindo. Antes de sair, pegue o <span class="item">Clock Tower Postcard</span> sobre o balcão e a munição na caixa registradora. Pegue também o <span class="item">Lighter</span> ao lado da porta por onde Brad saiu e combine-o com o Lighter Oil. Volte pela porta por onde entrou. No beco que se bifurca, vá para a direita, destranque a porta adiante e entre. Você voltará para a rua. Vá até o carro de polícia e mate o zumbi que sair, e combine-o com o Lighter para pegar a <span class="item">Photo A</span>. Se quiser, pegue duas <span class="item">Red Herbs</span> (combine-as com as Green Herbs). Neste beco há um lixão em chamas. Assim que avançar, um <span class="inimigo">cachorro</span> saltará do meio das chamas sobre você e o outro virá pelo lado direito. Mate os dois, entre na porta à esquerda e pegue a <span class="item">pólvora</span> no armário. Faça mais munição. Leve suas armas, munição e ervas combinadas — mas antes salve seu progresso.</p>
+
+<h3 id="cap1-d">Nemesis: o primeiro contato</h3>
+<p>Saia da sala e, de lado de fora, entre no portão ao lado, chegando até uma esquina com carros danificados. Siga na rua à esquerda, passando por um hidrante destruído, e entre no R.P.D. Esta cena o apresentará ao terrível <span class="inimigo">Nemesis</span>, a mais letal criação da Umbrella, que eliminará o pobre <span class="npc">Brad</span>. Lutar ou fugir? Caberá a você agora tomar esta decisão — ela terá influência decisiva ao longo do jogo. Duas opções aparecerão na tela (veja o quadro Live Selection). Caso não escolha uma delas rapidamente, a seleção desaparecerá e Nemesis atacará você. Faça sua opção e siga a estratégia de acordo com os acontecimentos que você definir.</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — 1ª Batalha contra Nemesis</div>
+  <ul>
+    <li><strong>1. Lutar com o monstro:</strong> Use a Shotgun e esquive-se (jogar no modo Easy não oferece vantagens em lutar com Nemesis — a não ser pegar a Card Case de Brad). Faça o gigante atacá-lo e esquive-se, atirando em seguida. Ao cair a primeira vez, permaneça atirando e use a Hand Gun se for necessário. Derrotando-o, pegue a <span class="item">Eagle Parts A</span> e a <span class="item">Card Case</span> no corpo de Brad.</li>
+    <li><strong>2. Entrar na delegacia de polícia:</strong> Você não poderá abrir a porta se não introduzir o cartão de identificação no computador.</li>
+  </ul>
 </div>
 
-<h3 id="jill-c">Explorando a mansão</h3>
-<p>Pegue a <span class="item">Bazooka</span> e volte para o hall da mansão, entrando na porta azul. Destranque a porta ao fundo da sala para chegar até um corredor. Equipe a Bazooka e quando chegar na curva do corredor, vire-se rapidamente e atire no <span class="inimigo">cachorro</span>. No final do corredor, outro cachorro aparecerá — mate-o e empurre o móvel de cor diferente para pegar a munição da Beretta. Entrando na porta no final do corredor, você encontrará uma <span class="item">Green Herb</span>. Ignore a porta de metal e a porta seguinte o levará ao banheiro. No final do caminho há duas portas — a da direita é uma armadilha, então <span class="alerta">use a da esquerda</span>. Mate os zumbis e entre na porta verde para chegar a uma escada. Mate outro zumbi e pegue mais uma <span class="item">Green Herb</span>. Depois entre na porta ao lado. Salve seu progresso e guarde todos os itens no baú, exceto a Beretta, a munição e a chave. Pegue o <span class="item">Chemical</span> ao lado do baú e volte até a área da porta verde. Mais adiante da porta verde, há outras três portas — entre na última do lado esquerdo para chegar a uma galeria com alguns quadros (não atire nos corvos).</p>
+<h3 id="cap1-e">Dentro da delegacia</h3>
+<p>Dentro da delegacia, à direita da porta, há algumas <span class="item">Green Herbs</span>. Vá até o balcão e pegue a munição, então mexa no computador e, se estiver com a Card Case de Brad, abra o inventário e examine-o (opção Check) para pegar o <span class="item">S.T.A.R.S. Card</span>. Não deixe de pegar o <span class="item">Police Station Map</span> ao lado. Com o cartão, o código será exibido no computador — marque-o bem, pois ele sempre muda a cada vez que jogar. Vá para a porta do outro lado da balcão, que dará acesso a uma sala que está toda revirada e com alguns zumbis. Você poderá enganá-los ou derrubá-los para entrar no escritório. Nele estará o corpo de Marvin e um documento em suas mãos: o <span class="item">Marvin's Report</span> (se escolheu a primeira opção, haverá munição sobre a mesa). Entre na porta do outro lado, chegando à sala de evidências.</p>
 
-<h3 id="jill-d">O enigma da galeria de arte</h3>
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Retratos da Galeria</div>
-  <p>Exceto o primeiro quadro no corredor, os demais possuem um botão que deve ser acionado, seguindo uma certa ordem dos quadros. Acione os botões escolhendo a opção "Yes" na seguinte ordem:</p>
-  <ol>
-    <li>Newborn Baby</li>
-    <li>Infant</li>
-    <li>Lively Boy</li>
-    <li>Young Man</li>
-    <li>Tired Middle Aged Man</li>
-    <li>Bold-looking Old Man</li>
-    <li>Give me the Peace of Death (quadro no final do corredor)</li>
-  </ol>
-  <p>Feito isso, o quadro revelará a <span class="item">Star Crest</span>. Pegue o item, saia da galeria e entre na porta à sua frente.</p>
+<div class="dica">🔍 <strong>A 2ª Escolha:</strong> Se escolheu a segunda opção na Live Selection, entre na porta no corredor, antes da escada, e na porta dupla para pegar o cartão de Jill. Veja o código no computador e pegue a <span class="item">Emblem Key</span>. Depois disso, entre na porta abaixo da escada.</div>
+
+<h3 id="cap1-f">A sala de operações da S.T.A.R.S.</h3>
+<p>Pegue a <span class="item">Blue Gem</span> na gaveta que tem uma luz vermelha acesa e, do outro lado do armário (se você pegou o cartão de Brad), use a combinação mostrada no computador para pegar a <span class="item">Emblem Key</span>. Abra a outra porta desta sala e derrube alguns zumbis no corredor, entrando na porta abaixo da escada mais adiante. Nesta sala você pegará pólvora no armário, <span class="item">Ink Ribbon</span> e o arquivo <span class="item">David's Memo</span> atrás da máquina de escrever. Deixe todos os itens, levando só a Hand Gun com munição e a Emblem Key. Saia e suba a escada. Vá até o outro lado do corredor e desvie dos zumbis, e entre na porta. Mais adiante, entre por uma outra porta e jogue esta chave fora (uma opção deverá aparecer, apenas confirme "Yes"). Esta é a sala da <span class="local">S.T.A.R.S.</span> — arquive em seu inventário o <span class="item">Fax de Kendo</span> que está na máquina à esquerda de Jill. Atrás da mesa de Wesker há uma foto do time e, na mesa de Barry (ao lado), há munição. O <span class="item">Lockpick</span> estará na mesa de Jill. E na bolsa de primeiros socorros tem um <span class="item">F. Aid Spray</span>. No armário ao lado da porta, você encontrará um <span class="item">Grenade Launcher</span> (se escolheu a primeira opção) ou a <span class="item">Magnum</span>.</p>
+
+<h3 id="cap1-g">Seguindo para a cidade</h3>
+<p>Ao tentar sair da sala, uma mensagem chegará. Quando estiver no corredor, poderá haver <span class="item">Red Herbs</span> (depende da sua opção no jogo). Do lado de fora da delegacia, siga na rua para chegar até em alguns carros em chamas. Destranque a porta adiante e terá acesso a mais um corredor onde você encontrará, na próxima esquina, um barril junto a um corpo. Pegue munição e arquive em seu inventário o <span class="item">Merc's Memo</span> que está sobre o cadáver. Depois entre na porta no final do corredor. No próximo beco, siga para o lado esquerdo podendo pegar algumas ervas se quiser. Passe através dos <span class="inimigo">cachorros</span> para o outro lado do portão e entre no estacionamento (seguindo em frente, você encontrará um corpo — nele pegue a <span class="item">pólvora B</span>). Dentro do estacionamento, pegue o <span class="item">Power Cable</span> no motor do carro, se tiver espaço em seu inventário, e entre na porta do outro lado (ao lado dela há um vaso de <span class="item">Blue Herbs</span>). Nesta nova sala, pegue mais munição no lado da porta e, perto da máquina de escrever, tem <span class="item">Ink Ribbon</span>. Esvazie seu inventário, leve o Lockpick, a Hand Gun e munição, depois abra a porta ao lado. Desvie dos inimigos e entre na última porta.</p>
+
+<h3 id="cap1-h">Os caminhos opcionais</h3>
+<p>No corredor seguinte, você pegará o <span class="item">Downtown Map</span> que está na parede e, mais adiante, uma cena mostrará as criaturas <span class="inimigo">Brain Suckers</span>. Mate as duas (se puder, derrube a caixa que está pendurada sobre estas criaturas). Examine o corpo para pegar pólvora e entre na porta à esquerda, chegando nos fundos do restaurante (olhe o mapa). Você terá de escolher entre dois caminhos. É obrigatório ir nos dois lugares, mas se for a um deles primeiro, você poderá ver cenas diferentes de alguns acontecimentos ao longo desta aventura. Os pontos onde você deverá ir são: primeiro no <span class="local">Restaurant</span> (veja a estratégia referente e depois vá ao Newspaper Office). Segundo, <span class="local">Newspaper Office</span> (veja a estratégia referente e depois vá ao Restaurant). Nemesis aparecerá somente no primeiro lugar que você for — podendo enfrentá-lo ou então fugir. O importante é pegar a <span class="item">Green Gem</span> (que aparecerá no segundo lugar onde você for). <span class="alerta">A estratégia voltará ao normal na parte "OS PORTÕES DA CIDADE".</span></p>
+
+<h3 id="cap1-i">Seguindo para o Newspaper Office</h3>
+<p>Entre na porta à esquerda, atrás do restaurante, e em seguida entre na porta após a esquina. Pegue a <span class="item">Rust Hex Crank</span> e munição — leve suas armas, não esquecendo a <span class="item">Blue Gem</span>. Ao sair, entre na porta no final do beco. Há um portão com um painel na rua adiante (há munição no corpo ao lado). Use a <span class="item">Blue Gem</span> no painel e vá para a rua de cima, chegando ao <span class="local">Newspaper Office</span>. Lá, pegue um <span class="item">F. Aid Spray</span> e empurre a escada para o outro lado da sala. Arquive em seu inventário a <span class="item">Photo B</span> que está na máquina. Ao sair, entre na porta no final do beco. Há um portão com um painel na rua adiante. Independente de sua escolha na Live Selection, procure a <span class="item">Photo C</span> e o <span class="item">Reporter's Memo</span> no escritório; haverá pólvora sobre a mesa (se for ao restaurante primeiro, a Green Gem estará aqui). Vá para o Restaurant e entre na porta dos fundos, levando o Lockpick em seu inventário.</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Newspaper Office</div>
+  <ul>
+    <li><strong>1. Pular pela janela:</strong> Você encontrará duas Red Herbs, deixando alguns itens na sala de onde pulou. Você poderá enfrentar Nemesis fora do prédio.</li>
+    <li><strong>2. Se esconder no escritório:</strong> Garanta a <span class="item">Eagle Parts B</span> (ou A, se ainda não a pegou).</li>
+  </ul>
 </div>
-<p>Ela o levará a outro corredor com um <span class="inimigo">cachorro</span> — mate-o e use a <span class="item">Star Crest</span> em um painel perto da porta. Feito isso, volte para o hall da mansão pelo mesmo caminho. Suba a escada e entre na porta do lado esquerdo. Você estará na sala de jantar. Vá para o lado esquerdo e empurre a estátua até um espaço onde falta a proteção do corrimão. Mate os zumbis e empurre a estátua para o andar de baixo. Em seguida, entre na porta mais adiante.</p>
-
-<h3 id="jill-e">Empurrando a estátua do segundo andar</h3>
-<p>Mate mais zumbis e desça pela escada. Entre na porta ao lado, pegue um <span class="item">Ink Ribbon</span> para salvar seu progresso (lembre-se desta sala). Saia da sala e entre na última porta que encontrar, livrando-se dos zumbis. Na área seguinte, mate outro zumbi e entre na porta no final do corredor de onde ele saiu. Você chegará a uma sala com uma fonte de água com estranhas raízes. Ao lado da porta há um motor que bombeia a água da fonte — use o <span class="item">Chemical</span> para matar as raízes e vá pegar a <span class="item">Armor Key</span>. Combine as <span class="item">Green Herbs</span>, deixando três espaços em seu inventário. Siga para o outro lado do corredor e entre na porta do lado direito de Jill, chegando a um quarto. Pegue a munição de Beretta sobre a cama e examine o móvel do outro lado — um <span class="inimigo">zumbi</span> aparecerá. Proteja-se do outro lado da cama e mate-o. Depois examine o móvel novamente para arquivar em seu inventário o <span class="item">Keeper's Diary</span>.</p>
-
-<h3 id="jill-f">O olho da estátua de tigre</h3>
-<p>Pegue munição de Shotgun no armário e saia do quarto, abrindo a porta no final do corredor. Você terá acesso à sala de jantar — pegue a <span class="item">Blue Jewel</span> na estátua que você derrubou e volte até a entrada do quarto. Pegue munição de Beretta e a <span class="item">Broken Shotgun</span> na estante — destranque a gaveta do móvel ao fundo para pegar munição de Shotgun. Vá até o baú e guarde os itens extras, levando sua Beretta com munição, as chaves e a Broken Shotgun.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Estátua de Tigre</div>
-  <p>Use a <span class="item">Blue Jewel</span> para pegar o <span class="item">Wind Crest</span> na estátua de tigre. Volte ao corredor perto da escada e abra a porta ao lado. Pegue munição de Beretta e a <span class="item">Broken Shotgun</span> na estante. Vá até aquela sala armadilha perto da galeria e entre na porta seguinte para chegar a uma sala com uma <span class="item">Shotgun</span> na parede. Pegue-a e coloque a Broken Shotgun no lugar, depois volte ao corredor e destranque a porta de metal. Mate os <span class="inimigo">cachorros</span> e combine algumas <span class="item">Green Herbs</span>.</p>
-</div>
-
-<h3 id="jill-g">Em busca da cura para Richard</h3>
-<p>Volte ao hall de entrada da mansão e abra a porta ao lado da porta azul. Pegue munição de Beretta no móvel adiante, mate um zumbi atrás da estante e lá abra a mesinha para pegar munição de Shotgun. Entrando na porta do outro lado do corredor, você chegará a um vestiário com a porta ao fundo trancada (há <span class="item">Ink Ribbon</span>, <span class="item">Green Herbs</span> e um zumbi — ignore-os). Voltando ao hall de entrada, suba a escada e entre na primeira porta do lado direito. Mate um zumbi no caminho e entre na primeira porta que encontrar. Você encontrará <span class="npc">Richard</span>, que está gravemente ferido e envenenado. Jill buscará o soro para salvá-lo. Faça o caminho até o andar de cima da sala de jantar, desça a escada da área ao lado e entre na porta próxima à escada. Pegue o <span class="item">Serum</span> na estante e volte até Richard. Mesmo recebendo o soro, Richard não resistirá. Antes de morrer, ele entregará seu <span class="item">Radio</span> para Jill. Examine o corpo de Richard para pegar munição de Beretta, depois entre na porta adiante.</p>
-
-<h3 id="jill-h">Abrindo novas localidades</h3>
-<p>Mate o zumbi à esquerda, suba a escada e destranque a porta, mas não entre ainda. Volte para o corredor escuro, antes da sala onde encontrou Richard, e continue. No meio do corredor, entre na porta verde para chegar na sala das armaduras.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Sala das Armaduras</div>
-  <p>Empurre as duas estátuas, posicionando-as sobre os buracos no chão, para evitar liberar o gás venenoso. Acione o botão para abrir o compartimento adiante — onde encontrará a <span class="item">Sun Crest</span>. Volte ao corredor e entre na última porta.</p>
-</div>
-<p>Na sala seguinte, arquive em seu inventário o <span class="item">Botany Book</span> sobre a mesa e acione o painel de insetos ao lado da porta para esvaziar o aquário. Empurre o aquário para o lado direito, depois empurre a estante para o lugar do aquário — podendo pegar <span class="item">Explosive Rounds</span> na pequena porta secreta da parede (há <span class="item">Ink Ribbon</span> na jaqueta branca). Volte ao corredor e vá até o final, chegando a uma sala com lareira. Use o <span class="item">Lighter</span> na lareira para descobrir o <span class="item">2nd Floor Map</span>. Depois visite a sala do baú e pegue a <span class="item">Bazooka</span> e <span class="item">Shotgun</span> com munição, o Lighter, ervas combinadas ou um <span class="item">F. Aid Spray</span>. Salve seu progresso e vá até a sala onde está o corpo de Richard.</p>
-
-<h3 id="jill-i">A área norte do segundo andar</h3>
-<p>Saia do quarto e entre na porta adiante para chegar ao estúdio, onde poderá encontrar <span class="npc">Barry</span> (confira na seção Dicas). Independente de encontrá-lo ou não, arquive em seu inventário o <span class="item">Researcher's Will</span> que está sobre a mesa e acione o painel de insetos ao lado da porta para esvaziar o aquário. Empurre o aquário para o lado direito, em seguida empurre a estante para o lugar do aquário — podendo pegar <span class="item">Explosive Rounds</span> na pequena porta secreta da parede (há <span class="item">Ink Ribbon</span> na jaqueta branca). Volte ao corredor e vá até o final, chegando a uma sala com lareira. Use o <span class="item">Lighter</span> na lareira para descobrir o <span class="item">2nd Floor Map</span>. Depois visite a sala do baú e pegue a Bazooka e Shotgun com munição, o Lighter, ervas combinadas ou um F. Aid Spray. Salve seu progresso e vá até a sala onde está o corpo de Richard. Até a sala onde está o corpo de Richard, entrando em seguida na porta adiante. Depois entre na sala no final do corredor à esquerda. Use o <span class="item">Lighter</span> no candelabro e empurre a estante para pegar <span class="item">Acid Rounds</span> no móvel escondido. No gabinete ao lado do candelabro há munição de Beretta e sobre a mesa há um <span class="item">Ink Ribbon</span>.</p>
-
-<h3 id="jill-j">Enfrentando a cobra gigante</h3>
-<p>Volte até a porta anterior, suba a escada e entre naquela porta ignorada. Equipe a <span class="item">Bazooka</span> carregada com Explosive ou Acid Rounds. Nesta sala há uma <span class="inimigo">cobra gigante</span> — você poderá enganá-la e ir pegar a <span class="item">Moon Crest</span> na abertura da parede, ou enfrentá-la atirando nela. Independente de sua escolha, você provavelmente ficará envenenado. Pegue a Moon Crest e uma caixa de munição sobre os barris e saia da sala. Dependendo dos encontros que teve com Barry até então, Jill poderá desmaiar e ser ajudada por seu amigo, ou terá de pegar o Serum e usá-lo para não morrer (o Serum está na mesma sala que você visitou para tentar salvar Richard). Independente destes acontecimentos, você deverá ir para a sala onde conseguiu o Serum. Pegue todas as Crests que reuniu, a Shotgun e a Beretta, ambas com munição, e salve seu progresso.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Painel das Crests</div>
-  <p>Feito isso, use as Crests naquele painel onde foi usada a <span class="item">Star Crest</span>, para abrir a porta. Na área seguinte, empurre a escada para frente e depois para a parede do outro lado.</p>
-</div>
-
-<h3 id="jill-k">Brad entra em contato</h3>
-<p>Use a escada para pegar a <span class="item">Square Crank</span>, depois entre na porta dupla ao lado. Seu Rádio tocará — Brad está tentando contato (examine o Rádio no inventário). Fora da mansão, mate os <span class="inimigo">cachorros</span> e combine as ervas. Siga o corredor à esquerda das Blue Herbs para pegar o <span class="item">Garden Map</span>. Depois entre no portão do outro lado do pátio e use a <span class="item">Square Crank</span> para esvaziar o tanque de água. Vá para o outro lado e corra sem parar até o elevador, evitando as cobras. No pátio abaixo, siga para o portão do outro lado — ignore as ervas e os cachorros indo direto para a porta que encontrará no final do corredor. Dentro da casa, empurre a estátua para o corredor ao lado e deixe-a sobre um buraco no chão. No corredor seguinte, entre na primeira porta do corredor — pegue <span class="item">Explosive Rounds</span> e um <span class="item">F. Aid Spray</span> na estante, e salve seu progresso. Leve a Shotgun e munição, ou então a Beretta. Ao sair do quarto, entre na porta seguinte para chegar em outro quarto. Entre no banheiro ao lado da porta e esvazie a banheira para pegar a <span class="item">C. Room Key</span>.</p>
-
-<hr>
-
-<h2 id="jill-cap2">A Aventura de Jill — Segundo Capítulo</h2>
-<p class="cap-intro">Após os incidentes na mansão, Jill passa a suspeitar de que alguém não quer que a verdade apareça. Novos mistérios terão início, especialmente em relação ao comportamento de Barry e suas ações. Wesker também aparecerá e mandará Jill abrir mais portas na mansão, fazendo-a descobrir um laboratório secreto da Umbrella e seus interesses. Ela está desenvolvendo um super vírus capaz de mutacionar um organismo vivo ou matá-lo em pouco tempo.</p>
-
-<h3 id="jill2-a">Os mistérios da casa do jardim</h3>
-<p>No fundo do quarto, mate dois zumbis e pegue a munição de Shotgun na gaveta da mesa. Pegue o <span class="item">Red Book</span> sobre a cama, saia do quarto e entre na porta vermelha ao fundo. Há duas aranhas gigantes — ignore-as e vá para a esquerda, onde encontrará uma mesa de bilhar com tacos cruzados que indicam um código (há <span class="item">Ink Ribbon</span> e munição de Beretta do outro lado da sala). Saia desta sala e guarde todos os itens, exceto a chave que pegou e sua Shotgun com munição. Entre na porta do corredor onde você deixou a estátua e, depois, entre na porta seguinte. Note que há uma porta à sua esquerda com um painel.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Painel da Porta (código 345 ou 1245)</div>
-  <p>Para abrir esta porta, será preciso ligar todas as luzes do painel. Digite os números <strong>345</strong> e a porta será destrancada, mas não entre. Vá para a porta do outro lado e então siga para a esquerda, onde encontrará uma colmeia. Pegue a <span class="item">002 Key</span> sobre a mesa e volte para o corredor anterior rapidamente.</p>
-</div>
-
-<h3 id="jill2-b">A entrada secreta para o tanque de água</h3>
-<p>Siga até o corredor e empurre a estátua para o fundo, permitindo pegar algumas <span class="item">Green Herbs</span>. Destranque a porta ao lado e, possivelmente, você ouvirá <span class="npc">Barry</span> conversando com alguém. Se isso acontecer, ao entrar na sala, Barry dirá que estava conversando com ele mesmo. Pegue o <span class="item">Dormitory Map</span> na parede e abra a gaveta para pegar uma caixa de munição. Arquivo em seu inventário o <span class="item">Plant 42 Report</span> que está sobre a cama e empurre os armários para revelar uma escada (no banheiro há munição). Desça a escada para acessar um corredor com três caixas. Empurre as duas caixas que estão no final do corredor para dentro do buraco com água, depois empurre a última caixa até as outras duas para formar uma ponte. Ignore as duas <span class="item">Green Herbs</span> do outro lado e vá para a porta dentro da água — do outro lado há um tanque gigante. Corra para a direita até encontrar duas portas — abra a da esquerda com a <span class="item">C. Room Key</span> (cuidado com os tubarões).</p>
-
-<h3 id="jill2-c">A raiz da planta gigante</h3>
-<p>Dentro da sala, acione a alavanca para escoar a água, depois acione o botão na luz de cor vermelha para abrir a porta ao lado. Entre na sala e pegue munição de Beretta e a <span class="item">Shotgun</span>, sem esquecer a <span class="item">003 Key</span> que está no balcão. Volte até uma porta, no canto da parede, para avistar uma grande raiz. Volte até a sala da colmeia e abra a porta ao lado. Ignore o banheiro e pegue o arquivo <span class="item">V-Jolt Report</span> (na gaveta da mesa há <span class="item">Ink Ribbon</span>). Vá para a sala do baú e deixe lá seus itens, levando só a Bazooka carregada, a Shotgun com munição, o Red Book e uma erva combinada. Volte ao quarto ao lado da colmeia e entre no banheiro para pegar munição de Beretta. Use o <span class="item">Red Book</span> na estante ao fundo do quarto para revelar uma passagem secreta. Equipe a Shotgun e prepare-se para enfrentar uma planta gigante.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Fórmula V-Jolt (Jill)</div>
-  <p>Entre naquela sala ao lado que tem um painel e colete três das quatro <span class="item">Empty Bottles</span> (garrafas vazias). No armário ao lado da porta você encontrará o elemento <strong>Umb No. 2</strong>, na pia você encontrará <strong>Water</strong> (água) e no armário ao fundo encontrará o <strong>Umb No. 4</strong>. Siga as combinações:</p>
-  <ol>
-    <li>Combine Water com Umb No. 2 → <strong>NP-003</strong></li>
-    <li>Combine Umb No. 4 com NP-003 → <strong>Umb No. 7</strong></li>
-    <li>Combine Umb No. 2 com Umb No. 4 → <strong>Yellow-6</strong></li>
-    <li>Combine Yellow-6 com Umb No. 7 → <strong>Umb No. 13</strong></li>
-    <li>Combine Water com Umb No. 2 → outro <strong>NP-003</strong></li>
-    <li>Combine NP-003 com Umb No. 13 → <span class="item">V-Jolt</span></li>
-  </ol>
-  <p>Deixe as garrafas vazias no baú e depois use o V-Jolt naquela raiz de planta gigante para enfraquecê-la.</p>
-</div>
-
-<h3 id="jill2-d">Enfrentando a planta gigante</h3>
-<p>Use o <span class="item">Red Book</span> na estante ao fundo do quarto para revelar uma passagem secreta. Equipe a Bazooka e prepare-se para enfrentar uma planta gigante. Dê três tiros de Bazooka para destruir a planta e pegue a <span class="item">Helmet Key</span> na lareira. Vá para a sala do baú e você encontrará <span class="npc">Wesker</span>. Ele pedirá para Jill voltar à mansão e destrancar mais portas.</p>
-
-<h3 id="jill2-e">Voltando para a mansão</h3>
-<p>Após a conversa, deixe os itens desnecessários no baú e leve sua Shotgun ou Bazooka com muita munição, a <span class="item">Helmet Key</span> e uma erva combinada. Volte para a mansão e Brad tentará contato novamente. Ao entrar na mansão, criaturas chamadas de <span class="inimigo">Hunters</span> estarão presentes. Dê quatro tiros de Shotgun para acabar com o primeiro Hunter, depois destranque a porta que está antes da porta verde.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Red Jewel no Olho do Veado</div>
-  <p>Examine a mesa para ascender a luz, pegue munição de Colt Python que está sobre a mesa e o <span class="item">Doom Book 1</span> na estante à esquerda (use a opção Check e abra este livro para descobrir a <span class="item">Eagle Medal</span>). Saia da sala e entre na porta verde ao lado — haverá um Hunter mais adiante. Mate-o e veja o bilhete de Wesker na parede. Ele deixou itens na sala ao lado da escada. Após guardar os itens, saia da sala e suba a escada. Mate os dois Hunters no corredor e vá até o segundo andar da sala de jantar. Mate um dos Hunters e entre na porta adiante — onde encontrará mais Hunters. Mate-os e entre na porta ao lado da escada para chegar na sala de troféus. Empurre a escada para baixo da cabeça de alce, arquive em seu inventário o <span class="item">Orders</span> que está sobre a mesa e pegue as munições ao lado. Acione o interruptor ao lado da porta para apagar a luz, suba na escada e pegue a <span class="item">Red Jewel</span>. Saia da sala e desça pela escada ao lado — mate mais alguns Hunters no caminho e vá até a sala da estátua de tigre (um Hunter tentará surpreendê-lo). Use a Red Jewel na estátua para obter a arma <span class="item">Colt Python</span>, muito eficiente contra os Hunters.</span></p>
-</div>
-
-<h3 id="jill2-f">A ajuda de Barry</h3>
-<p>Mate-os e entre na porta ao lado da escada para obter a <span class="item">Colt Python</span>. Agora volte até a sala onde Barry deixou os itens e salve seu progresso. Leve a <span class="item">Shotgun</span> e a Colt Python com munição, além de uma erva combinada. Suba a escada novamente e entre na porta no final do corredor à esquerda. Após entrar na porta seguinte, você chegará a uma sala com um piano. Mexa nele e aquela <span class="inimigo">cobra gigante</span> aparecerá novamente. Ela abrirá um buraco no chão e você terá de matá-la. Dê tiros certeiros em sua cabeça e fique atento com seu medidor de vida. Vencendo-a, examine o buraco para descer. Acione o botão no túmulo adiante, revelando uma escada. Você chegará aos corredores subterrâneos da mansão.</p>
-
-<p>Mate os dois zumbis e peque munição de Shotgun no corredor ao lado e entre na porta mais adiante. No corredor seguinte, mate dois zumbis se quiser pegar <span class="item">Green Herbs</span> — caso contrário, ignore-os. Entrando na porta seguinte, você chegará na cozinha. Mate o zumbi do lado direito e suba no elevador.</p>
-
-<h3 id="jill2-g">Descobrindo a biblioteca da mansão</h3>
-<p>Dê tiros certeiros em sua cabeça e fique atento com seu medidor de vida. Vencendo-a, examine o buraco e <span class="npc">Barry</span> aparecerá para ajudar. Jill descerá — Acorda escorregará da mão de Barry e ele irá buscar outra. Acione o botão no túmulo mais adiante, revelando uma escada. Você chegará aos corredores subterrâneos da mansão. Mate os dois zumbis e peque munição de Shotgun no corredor ao lado e entre na porta mais adiante. No corredor seguinte, mate dois zumbis se quiser pegar Green Herbs — caso contrário, ignore-os. Entrando na porta seguinte, você chegará na cozinha. Mate o zumbi do lado direito e suba no elevador. No segundo andar, mate outro zumbi que está à direita de Jill e entre na porta do mesmo lado. Você encontrará <span class="item">Explosive Rounds</span> e a <span class="item">Battery</span> (muito importante). Saindo da sala, você poderá entrar na porta do corredor à sua esquerda, que o levará até a porta ao lado da sala dos troféus (a porta só poderá ser aberta por fora). Siga para o corredor do outro lado do elevador e entre na porta dupla, chegando à biblioteca. Mate o zumbi e abra a gaveta à direita para pegar munição (tenha certeza de deixar um espaço vazio em seu inventário). Atrás das estantes de livros, mate outro zumbi e arquive o <span class="item">Scrap Book</span>. Empurre o armário do lado direito para revelar uma sala secreta, onde há <span class="item">Ink Ribbon</span> e munição de Beretta (se olhar a janela, descobrirá um heliponto). Na biblioteca, entre na porta do outro lado e acione um botão no peito da estátua que está na parede, para ascender uma luz no canto desta sala. Então empurre a estátua até esta luz para revelar um compartimento secreto — onde encontrará o <span class="item">MO Disc</span> (item importante para fazer o melhor final do jogo).</p>
-
-<h3 id="jill2-h">A entrada secreta para o subterrâneo</h3>
-<p>No segundo andar, mate o zumbi à direita de Jill e entre na porta do mesmo lado. Você encontrará <span class="item">Explosive Rounds</span> e a <span class="item">Battery</span> (muito importante). Saindo da sala, você poderá entrar na porta do corredor à sua esquerda, que o levará até a porta ao lado da sala dos troféus (a porta só poderá ser aberta por fora). Siga para o corredor do outro lado do elevador e entre na porta dupla, chegando à biblioteca. Pegando-o, volte até a sala do baú, onde Barry deixou o bilhete, e esvazie seu inventário. Leve um <span class="item">Square Crank</span>, a <span class="item">Battery</span>, a <span class="item">Shotgun</span> com munição e uma Colt Python ou Bazooka (com Flame Rounds), além de uma erva combinada. Vá para fora da mansão, indo para o segundo pátio, onde poderá usar a Battery no elevador que está do lado oposto à cachoeira. Suba no elevador e represe a água do tanque. Use o elevador para descer e volte para a cachoeira, onde encontrará uma outra escada.</p>
-
-<h3 id="jill2-i">Decidindo o destino de Barry</h3>
-<p>Pegando-o, volte até a sala do baú e esvazie seu inventário. Leve o <span class="item">Square Crank</span>, a <span class="item">Battery</span>, a Shotgun com munição e uma Colt Python ou Bazooka com Flame Rounds, além de uma erva combinada. Vá para fora da mansão indo para o segundo pátio, onde poderá usar a Battery no elevador do lado oposto à cachoeira. Suba no elevador e represe a água do tanque. Use o elevador para descer e volte para a cachoeira, onde encontrará uma outra escada. Entre na porta ao lado, onde <span class="npc">Barry</span> deverá aparecer. Ele contará o que tem investigado e aparecerão duas perguntas que definirão se Barry morrerá ou viverá. Na primeira, escolha <strong>"Yes"</strong> para acompanhá-lo e na segunda escolha <strong>"No"</strong> para Jill ir na frente. Assim, Barry seguirá Jill. Entre na porta do lado esquerdo no final do corredor, onde você encontrará <span class="item">F. Aid Spray</span> e <span class="item">Explosive Rounds</span> (é obrigatório manter um espaço vazio em seu inventário).</p>
-
-<h3 id="jill2-j">O ataque da viúva negra</h3>
-<p>Saia pela porta do outro lado da caverna e atravesse o corredor — no final você encontrará <span class="npc">Enrico</span>. Ele informará que há um traidor na S.T.A.R.S., mas alguém o matará antes que revele quem é. Barry examinará o corpo de Enrico (faça o mesmo, se quiser pegar munição de Beretta). Pegue a <span class="item">Hex Crank</span> no corredor e faça o caminho de volta até a escada. Tome cuidado com alguns <span class="inimigo">Hunters</span> que aparecerão. Chegando na escada, siga o corredor normal e use a Hex Crank na parte vermelha da parede. Esta parte do corredor irá girar e dará acesso à porta adiante. Na área seguinte, corra até a pedra que está no caminho e volte para a porta novamente. Há <span class="item">Flame Rounds</span> onde esta pedra estava — um Hunter aparecerá. Matando-o e equipe sua Bazooka com Flame Rounds ou a Colt Python. A pedra revelou uma porta secreta e, do outro lado desta, há uma <span class="inimigo">aranha viúva negra</span>. Mate-a também, pegue o <span class="item">Combat Knife</span> que está sobre os barris e corte as teias que bloqueiam a porta (há também um <span class="item">Ink Ribbon</span>). Do outro lado da porta, siga para o lado esquerdo de Chris, chegando a uma sala com um baú.</p>
-
-<h3 id="jill2-k">A entrada secreta do laboratório</h3>
-<p>Do outro lado da porta, siga para o lado esquerdo de Jill, chegando a uma sala com um baú. Salve seu progresso e recolha os itens da sala, deixando-os no baú. Leve sua Shotgun e munição, a Hex Crank e a <span class="item">Eagle Medal</span>. Entre na porta do outro lado do corredor e siga para a direita. Use a Hex Crank duas vezes para girar o corredor novamente e revelar uma porta. Vá até a pedra próxima e depois volte, entrando na porta revelada. Nesta nova sala, empurre a estátua para perto da porta e depois use a Hex Crank duas vezes para deslocar a estátua da parede para a direita. Empurre a estátua até a parte do chão destacada, que está diante do painel ao lado, para pegar o <span class="item">Doom Book 2</span> (dentro dele você pegará a <span class="item">Wolf Medal</span>). Saia da sala e vá até onde estava a pedra anterior, para pegar o <span class="item">Underground Map</span> e o segundo <span class="item">MO Disk</span>. Agora volte até a porta antes do corredor da sala do baú e siga para o lado esquerdo, onde encontrará um elevador. Ele o levará para uma nova área, onde há ervas para combinar.</p>
-
-<h3 id="jill2-l">Descobrindo as senhas do computador</h3>
-<p>Use a <span class="item">Eagle Medal</span> e a <span class="item">Wolf Medal</span> nas laterais da fonte para revelar um elevador — use-o para chegar ao laboratório secreto. Desça pela escada e na sala abaixo você encontrará outro baú. Leve uma arma e munição, depois entre na porta adiante. Detone os <span class="inimigo">zumbis</span> do caminho e, antes de descer pela escada, siga para o lado oposto do corredor para encontrar o terceiro <span class="item">MO Disk</span> sobre a mesa. Agora desça pela escada e entre na porta ao lado, fazendo o mesmo na porta seguinte. Acione o interruptor da sala que está ao lado da porta, arquive em seu inventário o <span class="item">Researcher's Letter</span> que está sobre a mesa para ficar sabendo dos códigos <strong>JOHN</strong> e <strong>ADA</strong>, mas ainda falta um password (há munição de Beretta ao lado da pia). Ao fundo da sala tem um quadro com escritos estranhos — empurre o armário da sala, acione o interruptor e olhe o quadro novamente para ver que o escrito está compreensível, descobrindo que o password é <strong>MOLE</strong>.</p>
-
-<h3 id="jill2-m">O traidor por trás da S.T.A.R.S.</h3>
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Computador do Laboratório</div>
-  <p>Saia da sala e entre na porta ao lado, siga para a direita até encontrar alguns zumbis e um buraco na parede (há <span class="item">Ink Ribbon</span>). Em seguida entre na porta com uma placa vermelha no alto para chegar a um laboratório. Ligue o computador e ele pedirá as senhas de acesso. No login, digite <strong>JOHN</strong> e aperte a tecla que tem uma grande seta. Depois digite o password <strong>ADA</strong>. Você terá acesso ao sistema de portas eletrônicas — escolha o bloco <strong>B2</strong> e digite o password <strong>MOLE</strong> para destrancar uma porta. Selecione <strong>B3</strong> e depois escolha a última opção para desligar o computador.</p>
-</div>
-<p>Na sala do laboratório, pegue o <span class="item">Slides</span> ao fundo e entre por aquela porta ao lado da escada. Mais adiante no corredor, entre na porta para chegar a uma sala com zumbis. Mate todos, arquive em seu inventário o <span class="item">Fax</span> que está no buraco da parede e use o MO Disk na máquina de códigos que está sobre a mesa, para obter o <span class="item">Pass Code 01</span> (há <span class="item">Ink Ribbon</span> perto do pôster na parede). Suba a escada e entre na porta do corredor à esquerda, para chegar na sala de conferência.</p>
-
-<h3 id="jill2-n">A sala do gerador</h3>
-<p>Arquive em seu inventário o <span class="item">Security System</span> que está no armário ao lado da porta, use o <span class="item">Slides</span> no projetor sobre a mesa para ver alguns monstros e o traidor da S.T.A.R.S. Examine o painel no fundo da sala para pegar a <span class="item">Lab Key</span>, então desça pela escada novamente. No andar abaixo, abra a porta que tem um desenho vermelho no chão e mate os zumbis que encontrar. Entre na porta adiante para chegar a uma sala com baú — salve seu progresso e pegue <span class="item">Flame Rounds</span> e <span class="item">Ink Ribbon</span> na estante. Pegue os dois MO Disks no baú, leve uma arma com munição e saia. Volte à porta de entrada desta área e entre na porta ao lado, chegando a uma sala com duas caixas e uma escada. Pegue a caixa de munição e posicione as duas caixas sobre os buracos do chão, mas <span class="alerta">não toque no interruptor</span>. Posicionando as caixas, empurre a escada entre as duas caixas para acessar o duto de ventilação e você chegará então ao necrotério. Pegue munição na estante, vá para o outro lado do necrotério e use um MO Disk na máquina para obter o <span class="item">Pass Code 02</span>.</p>
-
-<h3 id="jill2-o">A revelação de Wesker</h3>
-<p>Saia desta sala e entre na porta próxima ao desenho vermelho. Vá em direção à sala do baú, mas não entre. Siga o corredor à direita para chegar na sala do gerador (há criaturas parecidas com macacos). Nesta primeira área, siga para a direita de Jill e acione um painel de força no final do caminho. Depois vá para o lado esquerdo da sala e entre na porta. Na área seguinte, siga em linha reta e use o MO Disk para obter o <span class="item">Pass Code 03</span>. Em seguida vá para o lado direito da sala e entre na porta seguinte para chegar à sala de força. Use o terminal do lado esquerdo do grande gerador para ligar o elevador. Depois vá para o elevador ao lado da sala do baú e acione-o. <span class="npc">Barry</span> aparecerá para acompanhar Jill e, pouco depois, <span class="npc">Wesker</span> também aparecerá. Ele contará a Chris que matou alguns membros da S.T.A.R.S. para se beneficiar com os projetos da Umbrella, pois pretende desenvolver uma arma biológica perfeita.</p>
-
-<h3 id="jill2-p">A rota de fuga para o heliporto</h3>
-<p>Após as explicações, ele forçará Jill a entrar no laboratório para ver o projeto Tyrant. Neste momento, Barry aparecerá e desmaiará Wesker com um golpe. Jill sabia que Barry não era uma pessoa má — no entanto, Wesker ameaçou matar sua família caso ele não colaborasse. Jill e Barry entrarão no laboratório, onde Barry desligará o suporte de vida artificial de Tyrant. O monstro deixará Barry inconsciente. Equipe uma arma e fique correndo em círculos no laboratório — fique em um lugar onde a visão seja favorável e atire em <span class="inimigo">Tyrant</span>, mas não o deixe se aproximar.</p>
 
 <div class="chefe-box">
-  <div class="titulo-chefe">⚔️ Chefe — Tyrant (1ª fase)</div>
-  <p>Derrotando o monstro, fale com Barry e, do lado de fora do laboratório, Wesker desaparecerá. O código de evacuação será acionado. Barry irá atrás de Wesker, enquanto você poderá libertar Chris (se quiser — ver o corpo de Wesker, procure na sala do gerador). Entre por aquela porta ao lado da escada e acione as três luzes que estão ao lado da porta no final do corredor. Abra a porta da cela para libertar Chris.</p>
+  <div class="titulo-chefe">⚔️ Nemesis — 2ª Batalha</div>
+  <p>Use <span class="npc">Carlos</span> para manter Nemesis ocupado, então aproveite para atacá-lo, mas fique longe.</p>
 </div>
 
-<h3 id="jill2-q">A batalha final contra Tyrant</h3>
-<p>Feito isso, suba pela escada. Depois vá até a sala onde você viu o primeiro baú. Ao chegar lá, pegue duas ervas combinadas ou F. Aid Sprays e deixe lá suas armas. Suba a escada de metal e Barry estará esperando por você. Abra então a grande porta ao lado. Ao longo do corredor, Brad entrará em contato. No final do corredor, pegue a <span class="item">Battery</span> e coloque-a no encaixe ao lado do elevador. Em seguida, o sistema de auto destruição será acionado. <span class="inimigo">Tyrant</span> ainda está vivo, mas siga para o heliporto. No heliporto, examine a caixa ao lado do elevador para pegar um <span class="item">Flare</span>. Use-o no centro do heliporto — Tyrant aparecerá e em alguns momentos ele correrá para atacar você (escape sempre pelo lado direito dele).</p>
+<h3 id="cap1-j">Seguindo para o Restaurant</h3>
+<p>Siga para a direita e você verá alguém atirando em um zumbi, e em seguida subindo a rua de cima. Siga-o. Dentro do <span class="local">restaurante</span>, você encontrará pólvora sobre a mesa e o arquivo <span class="item">City Guide</span> para o seu arquivo. Vá à cozinha, siga até o final e abra o armário ao lado da porta (tenha o Lockpick). Pegue o <span class="item">Fire Hook</span> e use-o no alçapão de metal no corredor da cozinha. <span class="npc">Carlos</span> aparecerá e irá tirar satisfações com Jill (esta cena só acontecerá se você foi ao Restaurant primeiro). Pouco depois, Nemesis chegará à porta dos fundos, ocasionando uma Live Selection. Independente de sua escolha na Live Selection, vá para o Newspaper Office, encontrando alguns zumbis no escritório e a <span class="item">Green Gem</span> (pegue a Rust Hex Crank e a Blue Gem na sala do beco, rumo ao seu objetivo).</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Restaurant</div>
+  <ul>
+    <li><strong>1. Correr para a dispensa:</strong> Jill e Carlos descem no alçapão, mas uma explosão os obriga a voltar e lutar.</li>
+    <li><strong>2. Se esconder na cozinha:</strong> Jill provocará uma explosão na cozinha, podendo pegar a <span class="item">Eagle Parts B</span> (ou A, se ainda não a pegou), além de enfrentar Nemesis.</li>
+  </ul>
+</div>
 
 <div class="chefe-box">
-  <div class="titulo-chefe">⚔️ Chefe Final — Tyrant (2ª fase)</div>
-  <p>Resista até os últimos trinta segundos e Brad jogará uma <span class="item">Rocket Launcher</span> para você destruir Tyrant. Espere o melhor momento para dar um tiro certeiro em Tyrant e depois você poderá assistir ao melhor final.</p>
+  <div class="titulo-chefe">⚔️ Nemesis — 2ª Batalha (Restaurant)</div>
+  <p>Use Carlos para manter Nemesis ocupado e então aproveite para atacá-lo de longe. Se escolheu a primeira opção, você terá que derrubar Nemesis duas vezes.</p>
 </div>
+
+<h3 id="cap1-k">Os portões da cidade</h3>
+<p>Obtendo a <span class="item">Green Gem</span>, pegue a <span class="item">Blue Gem</span> no baú e vá para os <span class="local">portões da cidade</span> (do outro lado da rua, próximo ao Newspaper Office). Use a <span class="item">Blue Gem</span> e a <span class="item">Green Gem</span> no painel, então abra o portão. No final do caminho você encontrará uma bifurcação: o caminho da direita o levará para a <span class="local">Gas Station</span>, enquanto o da esquerda o levará para o <span class="local">Trolley</span> (veja em seu mapa). Siga para este último e, após a porta, mate os zumbis que estão no beco. Abrindo o portão adiante, você chegará ao beco seguinte e encontrará duas <span class="item">Green Herbs</span>. Entrando na próxima porta, verifique o corpo à esquerda (nele há munição). Alguns zumbis ou cachorros aparecerão (isso dependerá de sua escolha entre o Newspaper Office e o Restaurant). Atire no barril e, então, passe a barricada e mate mais alguns inimigos, entrando no Trolley (o vagão). Há outro barril perto do Trolley — mas se o explodir, poderá alterar uma cena futuramente.</p>
 
 <hr>
 
-<h2 id="chris-cap1">A Aventura de Chris — Primeiro Capítulo</h2>
-<p class="cap-intro">Apenas Barry não entrou na mansão. De repente, lá dentro, ouve-se um tiro e Chris vai sozinho investigar. Estando na sala de jantar, entre na porta perto da lareira e siga para o lado esquerdo do corredor, para encontrar um zumbi. Faça o caminho de volta ao hall de entrada da mansão e não haverá ninguém — somente a arma de Jill.</p>
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="cap2">Segundo Capítulo — Os Mercenários</h2>
+<p class="capitulo-intro">Raccoon City está morrendo após uma invasão de zumbis. A força policial foi reduzida a nada e Nemesis, uma máquina biológica programada para matar, está perseguindo Jill. Por outro lado, há também o mercenário Carlos, integrante da U.B.C.S., enviado pela Umbrella para resgatar sobreviventes. Jill não acredita muito em Carlos, pois levando-se em conta que a Umbrella é a responsável por tudo isso que está acontecendo, não dá para acreditar. Mas suas maiores preocupações são: sair viva da cidade e fugir de Nemesis. Para isso, Jill terá escolha e terá que confiar em Carlos e, assim, se certificar de que há mais sobreviventes na cidade e depois fugir.</p>
 
-<h3 id="chris-a">Procurando evidências na mansão</h3>
-<p>Controlando Chris, entre na porta azul à direita, atrás da estátua mais adiante há uma escada. Empurre-a até à estátua e use-a para pegar o <span class="item">1st Floor Map</span>. Ao fundo, empurre o móvel da entrada para o lado esquerdo. No final do corredor você poderá pegar um <span class="item">Ink Ribbon</span>, mas tome cuidado com um zumbi que está caído (mate-o ou passe longe dele). Volte para o hall de entrada e pegue outro Ink Ribbon na máquina de escrever, suba a escada e vá até a porta do lado direito. No pequeno corredor, pegue a <span class="item">Small Key</span> ao lado do vaso azul e entre na porta que tem em frente marcas de sangue no chão. Chegando ao terraço, você encontrará o corpo de <span class="npc">Forest</span> — pegue munição e, caso você examine o corpo, os corvos o atacarão. Volte ao hall de entrada e, no segundo andar, entre na porta do outro lado. Equipe uma <span class="item">Combat Knife</span> e na estátua que está do lado esquerdo, empurre-a até chegar no zumbi.</p>
+<h3 id="cap2-a">As partes do Trolley</h3>
+<p>Dentro do Trolley, examine o painel à direita para pegar o <span class="item">Mechanic's Memo</span> e saber que faltam alguns acessórios para fazer este vagão se mover. Ao fundo, Jill encontrará o sargento <span class="npc">Nicholai</span>, um dos mercenários sobreviventes, que fica intrigado pensando como uma garota indefesa conseguiu sobreviver. Jill fala que é da S.T.A.R.S., sendo questionada por Nicholai, que vai para o vagão seguinte. Siga-o para encontrar <span class="npc">Mikhail</span>, que está ferido e delirando. No vagão seguinte Carlos falará com Nicholai para aceitar a ajuda de Jill, já que todos os outros morreram. Rapidamente Nicholai aceita e explica seu plano para sair da cidade, mas será necessário procurar as peças que faltam para poder utilizar o vagão como meio transporte. Carlos entrega um <span class="item">Side Pack</span> para Jill, garantindo dois espaços a mais no inventário. Pegue a <span class="item">Wrench</span> sobre a cadeira e saia através da porta ao lado. Se você estiver com a <span class="item">Rust Hex Crank</span>, dirija-se para a Gas Station (se não, vá pegá-la antes).</p>
 
-<h3 id="chris-b">Conhecendo a jovem Rebecca</h3>
-<p>Fique atrás da estátua e ataque o zumbi com a sua faca. Depois empurre a estátua para o andar abaixo e entre na porta adiante. Equipe a Beretta e mate mais zumbis, depois desça pela escada. No andar abaixo, mate mais dois zumbis e entre na porta ao lado. Chris será atacado por <span class="npc">Rebecca</span>, que se desculpará em seguida. Após a conversa, pegue a <span class="item">Sword Key</span> sobre a cama e salve seu progresso. Ao tentar sair, Rebecca perguntará se ela poderá ir com Chris. A sua escolha aqui definirá alguns encontros inusitados e influenciará o final do jogo. Escolha <strong>"Yes"</strong> e saia, indo para o final do corredor escuro — desvie dos zumbis no caminho e entre na última porta. Na área seguinte, siga no corredor à direita e destranque a porta no final (ela dará acesso ao corredor perto da sala de jantar). Vá para o outro lado da sala e empurre a estante para pegar as <span class="item">Music Notes</span>. Use-as no piano. Rebecca aparecerá para tentar tocar a música e depois ela perguntará se pode continuar praticando. Escolha "Yes" e saia da sala.</p>
+<h3 id="cap2-b">Acidente 1: Gas Station</h3>
+<p>Quando passar através do beco com alguns zumbis, um outro sairá de dentro do carro, onde você poderá então pegar a <span class="item">pólvora B</span>. Chegando no <span class="local">posto de gasolina</span>, use a <span class="item">Rust Hex Crank</span> no encaixe para abrir a porta — mas esta se quebrará. Use então a <span class="item">Wrench</span>. Do lado de dentro, <span class="npc">Carlos</span> aparecerá (se você foi para o Newspaper Office primeiro, <span class="npc">Nicholai</span> é que aparecerá). No armário atrás do balcão tem um <span class="item">F. Aid Spray</span>. <div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Painel Elétrico da Gas Station</div>
+  <p>O painel tem as letras A, B, C e D com luzes acima (acesas ou apagadas). Uma letra estará acesa — seu objetivo é acender a luz <strong>vermelha</strong> sobre ela deixando as demais apagadas. Critério: <span class="alerta">letras de canto (A ou D) acendem, apagando a luz acima e acendendo B e C ao lado</span>. Letras B e C acendem, apagando a luz acima e apagando as letras ao lado. A ordem inicial muda a cada jogada. Acenda a luz vermelha sobre a letra correta <strong>três vezes</strong> para pegar a <span class="item">Machine Oil</span>.</p>
+</div>
+<p>Ao tentar sair, acontecerá uma explosão — o posto de gasolina será destruído.</p></p>
 
-<h3 id="chris-c">O segredo dos quadros da galeria</h3>
-<p>Enquanto Rebecca tocar, vá para o hall de entrada e entre na porta azul (não se esqueça de pegar a <span class="item">Blue Jewel</span> na sala de jantar). Destranque a porta atrás da estátua e ignore os cachorros no corredor, indo direto para a porta. Entre na porta mais adiante do próximo corredor, para chegar ao banheiro. Esvazie a banheira para encontrar outra <span class="item">Small Key</span>. Saia e continue até o final do corredor, então entre na porta do lado esquerdo (a porta da direita é uma armadilha). Mate os zumbis que encontrar e entre na última porta do lado esquerdo, para chegar a uma galeria com alguns quadros (não ataque os corvos). Exceto o primeiro quadro no corredor, os demais possuem um botão que deve ser acionado, seguindo a ordem dos quadros.</p>
+<h3 id="cap2-c">O segredo da estátua</h3>
+<p>Volte até a área do Newspaper Office e, no caminho, a porta verde se abrirá, liberando alguns <span class="inimigo">zumbis</span>. Mate-os e então entre nesta porta e poderá pegar <span class="item">Green Herbs</span> ao lado. Mexa na estátua, obtendo o <span class="item">Bronze Book</span> e faça o caminho até o restaurante. <span class="npc">Carlos</span> poderá fugir de alguns zumbis, deixando-os para você. Siga Carlos e, depois da porta, continue em linha reta até o outro lado da rua, onde usará o <span class="item">Bronze Book</span> no espaço ao lado da <span class="local">figura de cavalo</span> na parede. Feito isso, pegue o <span class="item">Bronze Compass</span>. Pegue as <span class="item">Green Herbs</span>, se tiver espaço no inventário, e deixe-as no baú quando estiver voltando para a estátua. Durante seu retorno, alguns corvos poderão aparecer. Use o <span class="item">Bronze Compass</span> na estátua para pegar a <span class="item">Battery</span> atrás dela. Leve duas armas, munição e deixe os demais itens no baú, levando apenas a Battery.</p>
 
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Retratos da Galeria (Chris)</div>
-  <p>Acione os botões escolhendo a opção "Yes" na seguinte ordem:</p>
-  <ol>
-    <li>Newborn Baby</li>
-    <li>Infant</li>
-    <li>Lively Boy</li>
-    <li>Young Man</li>
-    <li>Tired Middle Aged Man</li>
-    <li>Bold-looking Old Man</li>
-    <li>Give me the Peace of Death (último quadro no corredor)</li>
-  </ol>
-  <p>Este quadro revelará a <span class="item">Star Crest</span> — pegue-a e saia da galeria.</p>
+<h3 id="cap2-d">Acidente 2: Sub Station</h3>
+<p>Lembra-se daquele ponto onde enfrentou dois Brain Suckers, antes de escolher entre o Newspaper Office e o Restaurant? Entre por aquela porta e suba a escada após o corpo, usando a <span class="item">Battery</span> para descer de elevador no final. Pegue munição no corpo ao próximo e, na rua, uma legião de <span class="inimigo">zumbis</span> aparecerá. Se conseguir avançar até a caixa de dinamite adiante, poderá explodir os zumbis. Entre no portão adiante e, após passar o outro portão, olhe as duas portas à direita de Jill. Note que há uma voltagem especificada (120V e 25V) para abri-las. Adiante há um painel sem força para operá-lo e, ao lado, está o painel de força do gerador. <div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Painel de Força da Sub Station</div>
+  <p>Aparecerão quatro opções: <strong>Red, Blue, Reset e Cancel</strong>. Escolha <span class="item">Red, Red, Red e Blue</span> para abrir a primeira porta. Depois escolha <span class="item">Red, Blue, Blue e Blue</span> para abrir a segunda porta. Na primeira porta, o armário ao lado terá a <span class="item">Magnum</span> ou o <span class="item">Grenade Launcher</span> (dependerá da arma que você pegou na delegacia).</p>
 </div>
 
-<h3 id="chris-d">A música da sala secreta</h3>
-<p>Entre na porta à sua frente — ela o levará a outro corredor com um cachorro, mate-o e use a <span class="item">Star Crest</span> em um painel perto da porta. Feito isso, volte até o corredor anterior e entre na porta verde para chegar a uma escada. Mate o zumbi e pegue uma <span class="item">Green Herb</span>, depois entre na porta ao lado. Pegue o <span class="item">Chemical</span>, salve seu progresso e guarde todos os itens no baú, exceto a Beretta, a munição e a chave. Vá para a sala de jantar e pegue o <span class="item">Emblem</span> sobre a lareira, em seguida vá onde Rebecca ficou. Ela tocará a música novamente, abrindo uma passagem secreta. Retire o <span class="item">Gold Emblem</span> e use o Emblem para manter a entrada aberta. Use o Gold Emblem sobre a lareira da sala de jantar para encontrar a <span class="item">Shield Key</span> atrás do relógio. Saia da sala e vá para a área seguinte — no final do corredor escuro, mate os zumbis e vá até o final do corredor adiante, para chegar a uma sala com uma fonte e estranhas raízes.</p>
+<h3 id="cap2-e">O caminho de volta</h3>
+<p>Ao sair desse lugar, alguns zumbis tentarão invadir a área, o que ocasionará uma Live Selection. Independente de sua escolha, volte até a segunda porta aberta com o painel e pegue o <span class="item">Fuse</span> no armário ao lado. Volte depois pelo elevador. Seu objetivo agora será voltar para perto do ponto de partida do jogo e seguir para o <span class="local">Sales Office</span> (lembre-se daquele lixão em chamas?). Antes de entrar no Sales Office, haverá <span class="inimigo">Brain Suckers</span> ou zumbis (se houver os zumbis, um deles sairá do carro na volta, permitindo a você pegar pólvora B ou G. Rounds).</p>
 
-<h3 id="chris-e">Obtendo a Shotgun na sala armadilha</h3>
-<p>Ao lado da porta há um motor que bombeia água da fonte — use o <span class="item">Chemical</span> para matar as raízes e vá pegar a <span class="item">Armor Key</span> (você pode misturar as Green Herbs e Red Herbs aqui e levá-las para o baú). Saindo da sala da fonte, mate os zumbis e vá para o corredor à esquerda. Entre na abertura da parede para chegar na porta que dá acesso à sala da estátua de tigre. Use a <span class="item">Blue Jewel</span> para descobrir o <span class="item">Wind Crest</span>. Volte ao corredor e abra a porta do outro lado, chegando a um quarto. Pegue a munição sobre a cama e examine o móvel do outro lado — um zumbi aparecerá. Proteja-se do outro lado da cama e mate-o, então examine o móvel para arquivar em seu inventário o <span class="item">Keeper's Diary</span>. Pegue munição de Shotgun no armário e saia do quarto. Volte para a sala do baú no corredor escuro e aproveite para destrancar a primeira porta que encontrar. Leve uma <span class="item">Small Key</span> e entre por aquela porta que você destranque. Pegue munição de Beretta e a <span class="item">Broken Shotgun</span> na estante, destranque a gaveta do móvel ao fundo para pegar munição de Shotgun. Vá até o baú e guarde os itens extras, levando a Beretta, munição, <span class="item">Armor Key</span>, Small Key e a Broken Shotgun.</p>
-
-<h3 id="chris-f">A sala das armaduras</h3>
-<p>Vá até a sala armadilha perto da galeria e entre na porta seguinte para chegar a uma sala com uma <span class="item">Shotgun</span> na parede. Pegue-a e coloque a Broken Shotgun no lugar, então volte ao corredor e destranque a porta de metal. Mate os cachorros e combine algumas <span class="item">Green Herbs</span>. Pegue a munição de Beretta sobre o móvel e mate o zumbi atrás da estante — lá abra a mesinha para pegar munição de Shotgun e entre na porta do outro lado do corredor. Você chegará a um vestiário com a porta ao fundo trancada (há Ink Ribbon, Green Herbs e um zumbi — ignore-os). Voltando ao hall de entrada, suba pela escada e entre na primeira porta do lado direito. Mate um zumbi no caminho e entre na primeira porta que encontrar. Vá para o outro lado do corredor de onde o zumbi saiu, para entrar na porta verde para chegar na sala das armaduras.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Sala das Armaduras</div>
-  <p>Empurre as duas estátuas, posicionando-as sobre os buracos no chão, para evitar liberar o gás venenoso. Acione o botão para abrir o compartimento adiante — onde encontrará a <span class="item">Sun Crest</span>. Volte ao corredor e entre na última porta.</p>
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Sub Station</div>
+  <ul>
+    <li><strong>1. Seguir para a saída de emergência:</strong> Jill será atacada por Nemesis, que usará uma Bazooka no telhado do prédio.</li>
+    <li><strong>2. Aumentar a voltagem:</strong> Jill sobrecarregará o gerador, explodindo todos os zumbis.</li>
+  </ul>
 </div>
-
-<h3 id="chris-g">Destrancando as portas da área norte</h3>
-<p>Na sala seguinte, arquive em seu inventário o <span class="item">Botany Book</span> que está sobre a mesa e use a porta ao lado. Mate dois zumbis e destranque a porta adiante no corredor, mas não entre. Desça pela escada e vá para a sala do baú, deixando os itens que estão em excesso. Leve sua Shotgun e munição. Suba pela escada e entre por aquela porta ignorada a pouco — onde encontrará outras duas portas. Mate o zumbi e entre na porta à direita de Chris, chegando até um quarto. Pegue o <span class="item">Lighter</span> sobre o armário, a munição atrás da segunda cama e uma <span class="item">Red Herb</span>. Saia deste quarto e entre na porta do outro lado, chegando ao estúdio. Arquive em seu inventário o <span class="item">Researcher's Will</span> que está sobre a mesa e acione o painel de insetos ao lado da porta para esvaziar o aquário. Empurre o aquário para o lado direito, depois empurre a estante para o lugar do aquário e pegue munição na porta secreta da parede (há Ink Ribbon na jaqueta branca). Volte ao corredor e vá até o final, chegando a uma sala com lareira. Use o <span class="item">Lighter</span> na lareira para descobrir o <span class="item">2nd Floor Map</span>. Deixe os itens na sala do baú e leve somente sua Shotgun com munição, o Lighter, ervas combinadas e a <span class="item">Shield Key</span>.</p>
-
-<h3 id="chris-h">Enfrentando a cobra gigante</h3>
-<p>Salve seu progresso e vá até o corredor da sala das armaduras, então entre por aquela primeira porta ignorada. Você encontrará <span class="item">Green Herbs</span> e o corpo de <span class="npc">Richard</span> — examine-o para pegar munição de Beretta. Então entre na porta adiante, mate o zumbi no corredor ao lado, suba a escada e destranque a porta, mas não entre ainda. Vá primeiro para a sala no final do corredor à esquerda. Use o <span class="item">Lighter</span> no candelabro, empurre a estante para pegar munição de Shotgun no móvel escondido. No gabinete ao lado do candelabro há munição de Beretta e sobre a mesa há um Ink Ribbon. Entre por aquela porta ignorada a pouco e equipe sua Shotgun. Você poderá então enganar a cobra gigante e ir pegar a <span class="item">Moon Crest</span> na abertura da parede. Se decidir enfrentá-la, atire em sua cabeça. Independente de sua escolha, você provavelmente ficará envenenado. Pegue a Moon Crest e munição de Shotgun que estão sobre os barris e saia da sala. Dependendo de suas escolhas até o momento, Chris poderá desmaiar e ser ajudado por Rebecca, ou você o controlará para que ela vá pegar um <span class="item">Serum</span> para Chris na sala onde você a conheceu.</p>
-
-<h3 id="chris-i">O lado de fora da mansão</h3>
-<p>Independente dos acontecimentos, você deverá ir para a sala onde conseguiu o Serum. Pegue todas as Crests que reuniu, a Shotgun e a Beretta, ambas com munição, e salve seu progresso. Feito isso, use as Crests naquele painel onde foi usada a Star Crest, para abrir a porta. Na área seguinte, empurre a escada para frente e depois para a parede da direita. Use a escada para pegar a <span class="item">Square Crank</span>, depois pegue uma Small Key sobre o barril que está adiante e abra a porta dupla ao lado. Fora da mansão, mate os <span class="inimigo">cachorros</span> e combine as ervas. Siga o corredor à esquerda das Blue Herbs para pegar o <span class="item">Garden Map</span>. Entre no portão do outro lado do pátio e use a Square Crank para esvaziar o tanque de água. Vá para o outro lado e corra sem parar até o elevador, evitando as cobras. No pátio abaixo, siga para o portão do outro lado — ignore as ervas e os cachorros, indo direto para a porta que encontrará no final do corredor. Dentro da casa, empurre a estátua para o corredor ao lado e deixe-a sobre um buraco no chão. No corredor seguinte, entre na primeira porta do corredor — pegue <span class="item">Explosive Rounds</span> e um <span class="item">F. Aid Spray</span> na estante, então salve seu progresso. Leve uma Small Key, a Shotgun e munição.</p>
-
-<h3 id="chris-j">Explorando a casa do jardim</h3>
-<p>Ao sair deste quarto, entre na próxima porta para chegar então a outro quarto. Entre no banheiro ao lado e esvazie a banheira para pegar a <span class="item">C. Room Key</span>. No fundo do quarto, mate dois zumbis e pegue munição na gaveta da mesa. Pegue o <span class="item">Red Book</span> sobre a cama, saia do quarto e entre na porta vermelha ao fundo. Há duas aranhas gigantes — ignore-as e vá para a esquerda, onde encontrará uma mesa de bilhar com tacos cruzados que indicam um código (há Ink Ribbon e munição de Beretta do outro lado da sala). Guarde todos os itens, exceto a chave que pegou e sua Shotgun com munição. Entre na porta do corredor onde você deixou a estátua e, depois, entre na porta seguinte. Volte até a porta à esquerda, onde ao lado, você encontrará uma colmeia.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Painel da Porta (código 215)</div>
-  <p>Para abrir esta porta é preciso ligar todas as luzes do painel. Digite os números <strong>215</strong> para conseguir isso e a porta será destrancada, mas não entre. Vá para a porta do outro lado, então siga para a esquerda, onde encontrará uma colmeia. Pegue a <span class="item">002 Key</span> sobre a mesa e volte para o corredor anterior imediatamente.</p>
-</div>
-
-<h3 id="chris-k">O ataque do tubarão mutante</h3>
-<p>Destranque a porta ao lado, entre no banheiro, mate o zumbi e pegue a munição que está sobre a pia. Volte ao quarto e pegue o <span class="item">Dormitory Map</span> que está na parede. Arquive em seu inventário o <span class="item">Plant 42 Report</span> que está sobre a cama e empurre os armários até revelar uma escada. Desça por esta escada para ter acesso a um corredor com três caixas. Empurre as duas caixas que estão no final do corredor para dentro do buraco com água, depois empurre a terceira caixa até as outras duas para formar uma ponte. Ignore as duas Green Herbs do outro lado e vá para a porta dentro da água — do outro lado há um tanque gigante. Corra para a direita até encontrar duas portas — abra a da esquerda com a <span class="item">C. Room Key</span> (cuidado com os <span class="inimigo">tubarões</span>). Entre na sala próxima e pegue munições de Beretta e Shotgun, além da <span class="item">003 Key</span> que está no balcão. Volte até uma porta no canto da parede, para avistar uma grande raiz e então pegue a Small Key na caixa ao lado (use a Small Key para destrancar a gaveta do quarto onde encontrou o Dormitory Map). Acione a alavanca para escoar a água, depois acione o botão da luz vermelha para abrir a porta ao lado. Na sala próxima pegue munições de Beretta e Shotgun.</p>
-
-<hr>
-
-<h2 id="chris-cap2">A Aventura de Chris — Segundo Capítulo</h2>
-<p class="cap-intro">Após os incidentes na mansão, Chris perde o contato com Jill, Barry e Wesker. Por outro lado, encontrou Rebecca Chambers, uma sobrevivente do Bravo Team. Novos mistérios terão início e Wesker aparecerá sem dar muitas explicações. Ele mandará Chris abrir mais portas na mansão, fazendo-o descobrir um laboratório secreto da Umbrella e seus interesses.</p>
-
-<h3 id="chris2-a">Desenvolvendo a fórmula V-Jolt</h3>
-<p>Volte até a sala da colmeia e abra a porta do outro lado. Ignore o banheiro e pegue o arquivo <span class="item">V-Jolt Report</span> na estante ao fundo. Vá para a sala do baú e deixe lá seus itens, levando só a Shotgun e munição, o Red Book e uma erva combinada. Volte ao quarto ao lado da colmeia e entre no banheiro para pegar munição de Beretta. Use o <span class="item">Red Book</span> na estante ao fundo do quarto para revelar uma passagem secreta. Equipe a Shotgun e prepare-se para enfrentar uma planta gigante — <span class="npc">Chris</span> será agarrado. <span class="npc">Rebecca</span> escutará seus gritos e tentará ajudá-lo. Ela não poderá fazer nada, a não ser enfraquecer a planta criando a fórmula V-Jolt.</p>
-
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Fórmula V-Jolt (Chris / Rebecca)</div>
-  <p>Chris então jogará o <span class="item">V-Jolt Report</span> para ela. Saia da sala e entre por aquela porta que tem um painel ao lado. Colete as quatro <span class="item">Empty Bottles</span> (garrafas vazias). No armário ao lado da porta você encontrará o elemento <strong>Umb No. 2</strong>, na pia você encontrará <strong>Water</strong> (água) e no armário ao fundo encontrará o <strong>Umb No. 4</strong>. Siga as combinações:</p>
-  <ol>
-    <li>Combine Water com Umb No. 2 → <strong>NP-003</strong></li>
-    <li>Combine Umb No. 4 com NP-003 → <strong>Umb No. 7</strong></li>
-    <li>Combine Umb No. 2 com Umb No. 4 → <strong>Yellow-6</strong></li>
-    <li>Combine Yellow-6 com Umb No. 7 → <strong>Umb No. 13</strong></li>
-    <li>Combine Water com Umb No. 2 → outro <strong>NP-003</strong></li>
-    <li>Combine NP-003 com Umb No. 13 → <span class="item">V-Jolt</span></li>
-  </ol>
-  <p>Vá à sala do tanque gigante e use o V-Jolt naquela raiz. A planta então soltará Chris.</p>
-</div>
-
-<h3 id="chris2-b">Enfrentando o monstro planta</h3>
-<p>Fique próximo à parede e dê alguns tiros para destruir a planta. Pegue a <span class="item">Helmet Key</span> na lareira e saia — você encontrará <span class="npc">Rebecca</span>. Ela conversará com Chris e depois pedirá para ele seguir com ela até a sala onde foi criado o V-Jolt. Fale com Rebecca para curar seus ferimentos, depois volte para a mansão. No caminho você encontrará <span class="npc">Wesker</span> — ele pedirá para Chris destrancar mais portas na mansão. Após a conversa, deixe os itens desnecessários no baú e leve sua Shotgun com munição, a <span class="item">Helmet Key</span> e uma erva combinada. Volte para a mansão e Brad fará contato (atenda o Rádio abrindo o seu inventário). Ao entrar na mansão, criaturas chamadas de <span class="inimigo">Hunters</span> estarão presentes. Dê quatro tiros de Shotgun para matar o primeiro Hunter, depois destranque a porta que está antes da porta verde.</p>
-
-<h3 id="chris2-c">Novos perigos na mansão</h3>
-<p>Examine a mesa para ascender a luz, pegue munição de <span class="item">Colt Python</span> que está sobre a mesa e o <span class="item">Doom Book 1</span> na estante à esquerda (use a opção Check e abra este livro para descobrir a <span class="item">Eagle Medal</span>). Saia da sala e entre na porta verde ao lado — haverá um Hunter mais adiante. Mate-o e veja o bilhete de Wesker na parede. Ele deixou itens na sala ao lado da escada. Após guardar os itens, saia da sala e suba a escada. Mate os dois Hunters no corredor e vá até o segundo andar da sala de jantar. Mate um dos Hunters e entre na porta adiante — onde encontrará mais Hunters. Mate-os e entre na porta ao lado da escada para chegar na sala de troféus. Empurre a escada para baixo da cabeça de alce, arquive em seu inventário o <span class="item">Orders</span> que está sobre a mesa e pegue as munições ao lado. Acione o interruptor ao lado da porta para apagar a luz, suba na escada e pegue a <span class="item">Red Jewel</span>. Saia da sala e desça pela escada ao lado — mate mais alguns Hunters no caminho e vá até a sala da estátua de tigre (um Hunter tentará surpreendê-lo). Use a Red Jewel na estátua para obter a arma <span class="item">Colt Python</span>, muito eficiente contra os Hunters. Agora volte até a sala onde Wesker deixou os itens e salve seu progresso.</p>
-
-<h3 id="chris2-d">O elevador do jardim</h3>
-<p>Leve a Shotgun com munição, além de uma erva combinada. Suba a escada novamente e entre na porta no final do corredor à esquerda. Após entrar na porta seguinte, você chegará a uma sala com um piano. Mexa nele e aquela <span class="inimigo">cobra gigante</span> aparecerá novamente. Ela abrirá um buraco no chão e você terá de matá-la. Dê tiros certeiros em sua cabeça e fique atento com seu medidor de vida. Vencendo-a, examine o buraco para descer. Acione o botão no túmulo adiante, revelando uma escada. Você chegará aos corredores subterrâneos da mansão. Mate os dois zumbis, pegue munição de Shotgun no corredor ao lado e entre na porta mais adiante. No corredor seguinte, mate outros dois zumbis se quiser pegar Green Herbs — caso contrário, ignore-os. Entrando na porta seguinte, você chegará na cozinha. Pegue a <span class="item">Small Key</span> sobre o fogão e, do lado direito, mate o zumbi e suba no elevador. No segundo andar, mate outro zumbi que está à direita de Chris e entre na porta do mesmo lado. Você encontrará munição de Shotgun e a <span class="item">Battery</span> (muito importante). Saindo da sala, você poderá entrar na porta do corredor à sua esquerda que o levará até a porta ao lado da sala dos troféus (a porta só poderá ser aberta por fora).</p>
-
-<h3 id="chris2-e">A entrada da caverna subterrânea</h3>
-<p>Siga para o corredor do outro lado do elevador e entre na porta dupla adiante, chegando à biblioteca. Mate o zumbi e abra a gaveta à direita para pegar munição (certifique-se para que continue sobrando um espaço em seu inventário, pois você precisará dele). Atrás das estantes de livros, mate outro zumbi e arquive em seu inventário o <span class="item">Scrap Book</span> no chão. Empurre o armário do lado direito para revelar uma sala secreta, onde há Ink Ribbon e munição de Beretta (se olhar a janela, descobrirá um heliporto). Na biblioteca, entre na porta do outro lado e acione um botão no peito da estátua que está na parede, para ascender uma luz no canto desta sala. Então empurre a estátua até esta luz para revelar um compartimento secreto — onde encontrará o <span class="item">MO Disc</span> (item importante para fazer o melhor final do jogo). Pegando-o, volte até a sala do baú, onde Wesker deixou o bilhete, e esvazie seu inventário. Leve o <span class="item">Square Crank</span>, a Battery, a Shotgun com munição e uma Colt Python, além de uma erva combinada. Vá para fora da mansão indo para o segundo pátio, onde poderá usar a Battery no elevador que está do lado oposto à cachoeira. Suba no elevador e represe a água do tanque. Use o elevador para descer e volte para a cachoeira — onde encontrará uma outra escada.</p>
-
-<h3 id="chris2-f">A morte de Enrico</h3>
-<p>Entre na porta ao lado da escada e pegue a arma <span class="item">Flamethrower</span>, depois entre na outra porta do lado esquerdo — no final do corredor, onde encontrará um <span class="item">F. Aid Spray</span> e munição de Shotgun (você é obrigado a manter um espaço vazio em seu inventário). Saia através da porta do outro lado da caverna, atravesse o corredor e no final você encontrará <span class="npc">Enrico</span>. Ele mandará Chris ficar parado, pois sabe que há um traidor na S.T.A.R.S. Ele pretende atirar em Chris, mas alguém mata Enrico primeiro e então foge (no corpo de Enrico há munição de Beretta). No corredor aparecerão alguns Hunters — use o Flamethrower e depois pegue a <span class="item">Hex Crank</span>. Faça o caminho de volta até a escada e ponha o Flamethrower na parede novamente para abrir a porta. Chegando na escada, volte até a casa onde encontrou Wesker e deixe alguns itens no baú, além de salvar seu progresso.</p>
-
-<h3 id="chris2-g">Enfrentando a viúva negra</h3>
-<p>Há munição no local onde estava a pedra e um Hunter aparecerá — matando-o, equipe a Colt Python e entre na porta secreta que a pedra revelou. Do outro lado, há uma <span class="inimigo">aranha viúva negra</span> — mate-a também, pegue o <span class="item">Combat Knife</span> que está sobre os barris e corte as teias que bloqueiam a porta (há também um Ink Ribbon). Do outro lado da porta, siga para o lado esquerdo de Chris, chegando a uma sala com um baú. Salve seu progresso e recolha os itens da sala, deixando-os no baú. Leve sua Shotgun e munição, a Hex Crank e a <span class="item">Eagle Medal</span>. Saia da sala e no final do corredor haverá uma porta — ela só será aberta se você colocar o Flamethrower na área anterior. Depois de abrir a porta, vá para a direita. Use a Hex Crank duas vezes para girar o corredor e revelar uma outra porta. Vá até a pedra próxima e depois volte, entrando em seguida na porta revelada. Nesta nova sala, empurre a estátua para perto da porta e depois use a Hex Crank duas vezes para deslocar a estátua da parede para a direita. Empurre a estátua até a parte do chão destacada, que está diante do painel ao lado, para pegar o <span class="item">Doom Book 2</span> (dentro dele você pegará a <span class="item">Wolf Medal</span>). Saia da sala e vá até onde estava a pedra anterior, para pegar o <span class="item">Underground Map</span> e o segundo <span class="item">MO Disk</span>.</p>
-
-<h3 id="chris2-h">O laboratório secreto da Umbrella</h3>
-<p>Agora volte até a porta antes do corredor da sala do baú e siga para o lado esquerdo, onde encontrará um elevador. Ele o levará para uma nova área. Use a <span class="item">Eagle Medal</span> e a <span class="item">Wolf Medal</span> nas laterais da fonte para revelar um elevador, use-o para chegar ao laboratório secreto. Desça através da escada e na sala abaixo você encontrará um baú. Leve a Shotgun e munição, depois entre na porta adiante. Mate os zumbis no caminho e, antes de descer pela escada, siga para o lado oposto do corredor para encontrar o terceiro <span class="item">MO Disk</span> sobre a mesa. Desça pela escada e entre na porta ao lado, fazendo o mesmo na porta seguinte. Acione o interruptor da sala que está ao lado da porta — arquive em seu inventário o <span class="item">Researcher's Letter</span> que está sobre a mesa para ficar sabendo dos códigos JOHN e ADA, mas ainda falta um password (há munição de Beretta ao lado da pia). Ao fundo da sala tem um quadro com escritos estranhos — empurre o armário da sala, acione o interruptor e olhe o quadro novamente para ver que o escrito está compreensível, descobrindo que o password é <strong>MOLE</strong>. Saia da sala e entre na porta ao lado — siga à direita até encontrar alguns zumbis e um buraco na parede.</p>
-
-<h3 id="chris2-i">Os códigos de acesso</h3>
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — Computador do Laboratório (Chris)</div>
-  <p>Entre na porta que está com uma placa vermelha fixada no alto para chegar a um laboratório. Ligue o computador e ele pedirá as senhas de acesso. No login, digite <strong>JOHN</strong> e aperte a tecla que tem uma grande seta. Depois digite o password <strong>ADA</strong>. Você terá acesso ao sistema de portas eletrônicas — escolha o bloco <strong>B2</strong> e digite o password <strong>MOLE</strong> para destrancar uma porta. Selecione <strong>B3</strong> e depois escolha a última opção para desligar o computador.</p>
-</div>
-<p>Na sala do laboratório, pegue o <span class="item">Slides</span> ao fundo e entre por aquela porta ao lado da escada. Mais adiante no corredor, entre na porta para chegar a uma sala com muitos zumbis. Arquive em seu inventário o <span class="item">Fax</span> que está no buraco da parede e use o MO Disk na máquina de códigos que está sobre a mesa, para obter o <span class="item">Pass Code 01</span>. Suba a escada e entre na porta do corredor à esquerda para chegar na sala de conferência. Arquive em seu inventário o <span class="item">Security System</span> que está no armário ao lado da porta, use os Slides no projetor sobre a mesa para ver alguns monstros e o traidor da S.T.A.R.S. Examine o painel no fundo da sala para pegar a <span class="item">Lab Key</span>, então desça pela escada. Abra a porta que tem um desenho vermelho no chão, mate os zumbis. A porta adiante o levará a uma sala com baú — salve seu progresso, pegue <span class="item">Flame Rounds</span> e Ink Ribbon na estante. Pegue os dois MO Disks no baú, leve uma arma com munição e saia. Volte à porta de entrada desta área e entre na porta ao lado — chegando a uma sala com duas caixas e uma escada. Pegue a caixa de munição e posicione as duas caixas sobre os buracos do chão, mas não toque no interruptor. Empurre a escada entre as duas caixas para acessar o duto de ventilação — chegará então ao necrotério. Pegue munição na estante, vá para o outro lado do necrotério e use um MO Disk na máquina para obter o <span class="item">Pass Code 02</span>.</p>
-
-<h3 id="chris2-j">A revelação do traidor Wesker</h3>
-<p>Pegue os dois MO Disks no baú, leve uma arma com munição e saia da sala. Volte até a porta de entrada desta área e entre na porta ao lado, chegando a uma sala com duas caixas e uma escada. Pegue a munição e posicione as caixas sobre os buracos do chão, mas não toque no interruptor. Depois empurre a escada entre as duas caixas para ter acesso ao tubo de ventilação e chegar ao necrotério (há munição na estante). Use o MO Disk na máquina, do outro lado do necrotério, para obter o <span class="item">Pass Code 02</span>. Saia da sala e entre novamente por aquela porta que tem em sua frente um desenho vermelho no chão. O corredor à direita o levará à sala do gerador. Na primeira área, siga à direita de Chris e acione um painel de força. Depois vá para o lado esquerdo da sala e entre na porta em frente. Siga adiante e use o MO Disk para obter o <span class="item">Pass Code 03</span>. Vá para o lado direito da sala — a porta seguinte o levará à sala de força. Use o terminal do gerador e vá para o elevador ao lado da sala do baú. Acionando-o, <span class="npc">Rebecca</span> aparecerá para acompanhar Chris e, pouco depois, <span class="npc">Wesker</span> também aparecerá. Ele contará a Chris que matou alguns membros da S.T.A.R.S. para se beneficiar com os projetos da Umbrella, pois pretende desenvolver uma arma biológica perfeita.</p>
-
-<h3 id="chris2-k">Último confronto com Tyrant</h3>
-<p>Wesker irá atirar em Rebecca e forçará Chris a entrar no laboratório para ver o projeto Tyrant. Chris vê o monstro e chama Wesker de louco — Wesker solta o monstro que, por sua vez, o mata. Equipe sua Shotgun e fique correndo em círculos no laboratório. Pare em algum lugar onde a visão seja favorável e atire em <span class="inimigo">Tyrant</span>, mas não o deixe se aproximar.</p>
 
 <div class="chefe-box">
-  <div class="titulo-chefe">⚔️ Chefe — Tyrant (1ª fase)</div>
-  <p>Vencendo-o, acione o painel ao lado do corpo de Wesker e saia. Rebecca está viva e junto com Chris planeja explodir o lugar. Entre na porta ao lado da escada e acione as três luzes no final do corredor. Abra a porta da cela para libertar Jill, depois suba através da escada de metal.</p>
+  <div class="titulo-chefe">⚔️ Nemesis — 3ª Batalha</div>
+  <p>Vá para o elevador e Nemesis o enfrentará. Atraia-o para a área aberta e, quando ele carregar a Bazooka (levantando-a), esquive-se do tiro. Em seguida, use a arma que pegou há pouco. Quando derrotar Nemesis, pegue um <span class="item">First Aid Box</span> (este item permite levar três F. Aid Sprays ocupando um espaço no inventário e poderá ser recarregado).</p>
 </div>
 
-<p>No final do corredor, pegue a <span class="item">Battery</span> e coloque-a no encaixe ao lado do elevador. Em seguida, o sistema de auto destruição será acionado. Rebecca aparecerá e Jill pedirá para Chris tentar entrar em contato com Brad. No heliporto, pegue um <span class="item">Flare</span> na caixa que está na caixa ao lado do elevador. Use-o no centro do heliporto — <span class="inimigo">Tyrant</span> aparecerá e em alguns momentos ele correrá para atacar Chris (escape sempre pelo lado direito dele). Resista até os últimos trinta segundos e Brad jogará uma <span class="item">Rocket Launcher</span> para você destruir Tyrant. Equipe a arma e espere o melhor momento para dar um tiro certeiro em Tyrant e depois assistir ao melhor final.</p>
+<h3 id="cap2-f">A invasão no Sales Office</h3>
+<p>Dentro do estacionamento, esvazie seu inventário, levando duas armas, munição e a <span class="item">Wrench</span>. Atravesse o pátio e, do lado de fora, entre no portão. Siga em frente no corredor e, no final, use a Wrench para soltar a <span class="local">mangueira</span> (Fire Hose). Depois entre na porta ao lado do corredor. No caminho, mais duas criaturas aparecerão — use o barril para livrar-se delas. Depois da porta no final do corredor, seja rápido para entrar na porta seguinte, evitando alguns <span class="inimigo">cachorros</span> (ou zumbis). O lixão em chamas estará à sua frente. Use a mangueira no hidrante da parede, apagando o fogo e entre na porta no fundo do beco, que o levará até a rua do <span class="local">Sales Office</span> (ao lado da porta, não deixe de pegar a <span class="item">Crank</span>). Para entrar no Sales Office, dois <span class="inimigo">Brain Suckers</span> ou <span class="inimigo">Drain Demos</span> estarão em seu caminho. No final da parede há uma caixa de dinamite — livre-se dos bichos com ela. Dentro do Sales Office, a cena poderá mostrar <span class="npc">Murphy</span> pedindo que Carlos o mate antes de virar um zumbi (isto se Nicholai apareceu no posto de gasolina), ou Nicholai é o que o matará sem motivo (isto se Carlos quem apareceu no posto de gasolina). Arquive em seu inventário o <span class="item">Manager's Report</span> que está sobre a mesa e examine o lugar mais uma vez para pegar o <span class="item">controle remoto</span> e ligar a TV. Assista o comercial e decore o nome do remédio.</p>
+
+<h3 id="cap2-g">O diário de Dario</h3>
+<p>Digite o nome do remédio como senha no computador, para abrir a porta. Arquive em seu inventário o <span class="item">Business Fax</span> que está no móvel atrás do corpo de Murphy, ao lado há um <span class="item">F. Aid Spray</span> e, na mesa atrás do computador tem <span class="item">Ink Ribbon</span>. Entrando na porta destrancada, na sala ao fundo haverá <span class="item">pólvora A ou B</span> e o <span class="item">Oil Additive</span>. Quando tentar sair, alguns zumbis aparecerão. No corredor onde você está, atire nas válvulas dos canos quando os zumbis passarem. Antes de voltar para o Trolley, vá ao lixão que estava em chamas e faça o caminho de volta ao início do jogo. Você se avançará em direção à área atrás do bar, onde <span class="npc">Brad</span> foi atacado. Use a <span class="item">Crank</span> no buraco ao lado da porta sanfonada para pegar <span class="item">Grenade Rounds</span>. <span class="npc">Dario</span>, que se trancou dentro de um container no começo do jogo, estará morto. Vá para o compartimento onde ele se trancou e pegue o <span class="item">Dario's Memo</span>. A partir de agora, procure fazer munição para a Magnum e Acid Rounds para o Grenade Launcher. No caminho para o Trolley, alguns <span class="inimigo">corvos</span> aparecerão. No estacionamento haverá um tremor — Jill ficará pendurada e terá que fazer uma escolha quando duas caixas deslizarem em sua direção.</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Estacionamento</div>
+  <ul>
+    <li><strong>1. Subir:</strong> Jill apenas escapa das caixas.</li>
+    <li><strong>2. Descer:</strong> Você verá uma minhoca gigante ao lado e Jill sairá do lado de fora do estacionamento.</li>
+  </ul>
+</div>
+
+<h3 id="cap2-h">Acidente 3: o descarrilamento</h3>
+<p>Independente de sua escolha, cruce o estacionamento (no baú, pegue o Grenade Launcher e munição, além de sua arma convencional, ervas combinadas, F. Aid Spray, o Power Cable e o Fuse e combine a <span class="item">Machine Oil</span> com o <span class="item">Oil Additive</span>). Na bifurcação dos caminhos, entre o Trolley e a Gas Station, Nemesis poderá aparecer (atraia-o para a área do Newspaper Office e derrube-o para pegar a <span class="item">M37 Parts A</span> — não é obrigatório). Antes de chegar no Trolley, um segundo tremor abrirá o chão e Jill cairá. Uma minhoca gigante, uma <span class="inimigo">Grave Digger</span>, aparecerá nos cantos deste momento. Seja rápido, mexa nos painéis dos dois cantos por onde ela aparecer e acione o outro na parede ao fundo, então suba a escada. Jill sairá perto do Trolley. Dentro do vagão, use o <span class="item">Power Cable</span>, o <span class="item">Fuse</span> e o <span class="item">Oil</span> para fazê-lo funcionar. Carlos entrará e entregará munição para Jill, indo para a cabine de controle. Siga-o. Com o Trolley em movimento, acontecerá um estrondo — você poderá enfrentá-lo, se não pegou a M37 Parts A (não é obrigatório). <span class="npc">Mikhail</span> cuidará do gigante. Carlos tentará parar o vagão, mas os freios não funcionam e acontecerá uma Live Selection.</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Descarrilamento</div>
+  <ul>
+    <li><strong>1. Pular pela janela:</strong> Fará você começar por fora da Clock Tower.</li>
+    <li><strong>2. Descer:</strong> Fará você começar por dentro da Clock Tower.</li>
+  </ul>
+</div>
 
 <hr>
 
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="cap3">Terceiro Capítulo — A Queima de Arquivo</h2>
+<p class="capitulo-intro">As coisas parecem ficar mais estranhas a cada momento. Depois de se unir aos mercenários para fugir da cidade, uma série de acidentes estranhos tem início. Misteriosos tremores de terra revelaram a presença de uma minhoca gigante no subsolo da cidade. Jill passou a confiar em Carlos, acreditando que ele realmente veio ajudar as pessoas. Mas essa confiança revelará uma verdade que apenas Nicholai parece saber. Mikhail se mata para deter Nemesis e logo acontece um acidente com Jill e Carlos — e muitos outros acontecimentos surpreendentes acontecerão a partir de agora.</p>
+
+<h3 id="cap3-a">Procurando evidências</h3>
+<p>Após a batida do Trolley, você acordará dentro de um quarto (se escolheu a segunda opção, terá de vir aqui mais tarde). Mexa no quadro perto da porta para pegar a <span class="item">Clock T. Key</span> e, possivelmente, pólvora sobre a mesa. Alguns zumbis aparecerão. Abra a porta ao lado, salve seu progresso e leve a chave que acabou de pegar, o <span class="item">Grenade Launcher</span> carregado e a Hand Gun. Abrindo a porta ao lado do baú, <span class="npc">Carlos</span> aparecerá (se você escolheu a primeira opção). Após a conversa, ele entregará a munição e irá embora. Pegue mais munição sobre a mesinha ao lado, o <span class="item">Art Picture Postcard</span> e <span class="item">Ink Ribbon</span> na gaveta, e então saia. Na sala principal, pegue a <span class="item">Mine Thrower</span> no corpo que está caído no chão e arquive em seu inventário o <span class="item">Operation Instruction</span>. Na mesa ao lado da escada está o <span class="item">Clock Tower Map</span> e um <span class="item">F. Aid Spray</span>. Entre na porta perto do corpo, chegando à sala de jantar. Poderá haver zumbis ou Drain Demos (se houver zumbis, procure munição sobre a lareira). Mate-os e entre na porta ao lado. Agora você poderá sair da Clock Tower abrindo a porta à esquerda (se escolheu a segunda opção, você começará daqui — então basta fazer o trajeto inverso do que foi descrito até agora).</p>
+
+<h3 id="cap3-b">A torre do relógio</h3>
+<p>Entre na porta do outro lado da sala. Nesta sala ao fundo, você encontrará outra <span class="item">Clock T. Key</span> no armário. Leve o <span class="item">Grenade Launcher</span> carregado e a Hand Gun com munição, além das duas chaves (se seguiu a primeira opção). Volte até a sala principal, através da sala de jantar, e alguns zumbis aparecerão no caminho (se escolheu a segunda opção, Jill encontrará <span class="npc">Carlos</span> e o agredirá por falar com ela de forma grosseira, dizendo que todo o plano de "evacuação" da cidade é uma grande farsa). Quando chegar na sala principal, suba a escada (ou entre na porta do outro lado, se escolheu a segunda opção). Na sala há alguns zumbis. Entre na outra porta, atravesse a sala que tem um baú e pegue a <span class="item">Clock T. Key</span> no quadro e pólvora ao lado (suba por aquela escada na sala principal). No alto há três <span class="inimigo">aranhas gigantes</span> e também dinamite na parede: você pode matá-las ou apenas entrar na próxima porta. Do lado de fora, no alto da torre, use a <span class="item">Clock T. Key</span> para baixar a escada. Lá em cima você encontrará a <span class="item">Silver Gear</span> no armário e <span class="item">Ink Ribbon</span> na máquina de escrever. Do lado oposto, Jill chegará a uma máquina gigante de música. Mexa nesta máquina para ouvir uma melodia.</p>
+
+<h3 id="cap3-c">Obter a chave do tempo</h3>
+<p><div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Máquina de Música (Chronos Chain)</div>
+  <p>A música se divide em seis partes (letras A a F). Na primeira você terá: <strong>Up, Dn (Down), Next e End</strong>. Escolha Up ou Dn para posicionar a peça e acertar o tom, depois avance (Next). Defina os demais tons e, após o último, escolha <strong>Play</strong> para obter a <span class="item">Chronos Chain</span>. Combine-a com a <span class="item">Clock T. Key</span> para obter a <span class="item">Chronos Key</span>.</p>
+</div>
+<p>Ao fundo da sala pegue <span class="item">M.T. Rounds</span> para a M. Thrower e deixe os itens no baú — leve a Chronos Key, o G. Launcher carregado e a Hand Gun. Agora volte até a sala principal, onde Nemesis aparecerá. Desça até a sala principal (se escolheu a segunda opção, Nemesis irá atrás de você) e siga para a porta à direita de Jill. Use a <span class="item">Chronos Key</span> para abrir a porta verde do outro lado. Esquive-se das <span class="inimigo">aranhas gigantes</span> no corredor, pegue munição no corpo enrolado pelas teias e entre na porta adiante.</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Chronos Key</div>
+  <ul>
+    <li><strong>1. Usar a luz:</strong> Jill cegará Nemesis com luz forte, empurrando-o em seguida.</li>
+    <li><strong>2. Usar o fio:</strong> Jill eletrocutará Nemesis, que deixará a <span class="item">M37 Parts B</span> (ou A, se ainda não a pegou).</li>
+  </ul>
+</div>
+
+<h3 id="cap3-d">A sala dos três relógios</h3>
+<p>Examine os dois corpos à esquerda para arquivar em seu inventário o <span class="item">Mercenary's Pocketbook</span>. Adiante você encontrará três relógios representando, da esquerda para a direita, o passado, o presente e o futuro.</p>
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — A Sala dos Três Relógios</div>
+  <p>Na parede ao lado, três estátuas seguram: <span class="item">Amber Ball</span>, <span class="item">Obsidian Ball</span> e <span class="item">Crystal Ball</span>. Use as três pedras nos pratos dos três relógios fazendo o relógio do <strong>meio marcar 12 horas</strong>. Calcule de acordo com a marcação atual do relógio do meio e os valores da tabela abaixo. Fazendo tudo certo, o relógio revelará a <span class="item">Gold Gear</span>.</p>
+</div>
+
+<table>
+  <tr><th>Pedra</th><th>Passado</th><th>Presente</th><th>Futuro</th></tr>
+  <tr><td>A. Ball (Amber)</td><td>-1 hora</td><td>+1 hora</td><td>+2 horas</td></tr>
+  <tr><td>O. Ball (Obsidian)</td><td>-2 horas</td><td>+2 horas</td><td>+4 horas</td></tr>
+  <tr><td>C. Ball (Crystal)</td><td>-3 horas</td><td>+3 horas</td><td>+6 horas</td></tr>
+</table>
+
+<p>Volte para a torre do relógio, combine as engrenagens e use-as no conjunto ao lado do relógio. Isso fará o relógio badalar e atrair um helicóptero de resgate. Antes de sair, salve seu progresso e leve com você a <span class="item">M. Thrower</span> com munição, o <span class="item">G. Launcher</span> carregado com Acid Rounds ou Freeze Rounds, recarregadores de life e o Lockpick.</p>
+
+<h3 id="cap3-e">Jill é infectada</h3>
+<p>Vá para a sala principal e uma cena mostrará Nemesis derrubando o helicóptero, o único meio de fuga. Em seguida, ele partirá para uma difícil batalha contra Jill, que será infectada. Equipe o G. Launcher carregado com Acid Rounds e mantenha o padrão de sempre: esquivar dos ataques, não ficar muito longe de Nemesis e evitar ficar nos cantos. Se Nemesis perder sua Bazooka, ele usará, dependendo da sua escolha, seus tentáculos para ataques longos. Se não pegou as ervas lá fora, dê a volta para pegá-las e usá-las quando precisar. Caso use a Mine Thrower para atacar, mantenha <span class="alerta">distância</span> do gigante para não sofrer dano com as explosões. Ao vencer Nemesis, ele cairá em meio ao fogo — Jill desmaiará e Carlos despertará (se escolheu pular pela janela, Carlos aparecerá agora). Ao recobrar os sentidos, Jill saberá que está condenada e pedirá para Carlos matá-la se ela virar um zumbi. Ele não aceitará isso e irá em busca de cura até o hospital, onde a Umbrella fazia seus testes. Tendo o controle sobre Carlos, olhe em seu inventário para encontrar a <span class="item">M4A1 Assault Rifle</span> com munição 100%, a Hand Gun com 15 tiros e um <span class="item">Ink Ribbon</span>.</p>
+
+<h3 id="cap3-f">Em busca da cura</h3>
+<p>Salve seu progresso e vá para a sala principal. Equipe a metralhadora e use-a com moderação, sem gastar muita munição. Atraia os zumbis que estão na sala de jantar e fuzile todos os que estiverem em seu caminho. Vá para a sala do puzzle dos relógios — no corredor deve ter aranhas gigantes ou <span class="inimigo">Drain Demos</span>. Empurre o sino da saleta ao fundo para ter acesso à rua. Do lado de fora, mate alguns zumbis. Use a Hand Gun para explodir o barril, depois siga na rua acima para entrar no hospital. Equipe a metralhadora e, mais adiante, uma cena mostrará os <span class="inimigo">Hunters</span> matando um zumbi. Esquive-se de seus ataques e mate-os. Há duas <span class="item">Red Herbs</span> onde o zumbi foi decapitado. Entrando na única porta que der acesso, você chegará a uma sala com um baú. Procure por um <span class="item">F. Aid Spray</span> e <span class="item">Ink Ribbon</span> perto da máquina de escrever. Entre na porta do outro lado e pegue uma <span class="item">Blue Herb</span>. No corpo mais adiante, pegue o <span class="item">Director's Diary</span> e munição no armário, além do mapa do Hospital no quadro à direita. Sobre a mesa estará o <span class="item">Tape Record</span>. Aperte o botão na porta do elevador e use o Tape Record para identificar a voz. Dentro do elevador, equipe a metralhadora e explore os andares entre os 4F ou B3. Explorar um deles primeiro irá alterar os eventos e trocará os inimigos de lugar.</p>
+
+<h3 id="cap3-g">Seguindo para o quarto andar — 4F</h3>
+<p>Ao sair do elevador, siga para o final do corredor e entre na porta em frente. A cena mostrará que <span class="npc">Nicholai</span> não está realmente morto e que ele é um traidor, encarregado da "queima de arquivos". Ele acertará <span class="npc">Tyrell</span>, outro membro da U.B.C.S. Quando Carlos tenta saber o que está acontecendo, Nicholai se revela, mas Tyrell consegue puxar uma granada e junto com ela explode, jogando Nicholai pela janela (se você vier aqui depois do B3, haverá dois Hunters, uma caixa de dinamite e possíveis ervas). Após a cena, pegue munição sobre o balcão e vá para o fundo da sala, ao lado de onde aconteceu a cena, para pegar a <span class="item">Sickeroom Key</span> e a <span class="item">Photo D</span>. Saia da sala e entre na porta do corredor ao lado. <div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — O Móvel e o Cofre (4F)</div>
+  <p>Observe o móvel em um dos cantos da sala — decore a posição. Examine o corpo e anote o número que aparecer nele. Entre na porta seguinte: há um móvel igual. Posicione-o no <strong>canto oposto</strong> ao da outra sala (como um espelho). Caso erre, saia e entre novamente. Isso fará o quadro cair, revelando um cofre — use o número do corpo e pegue a <span class="item">Vaccine Base</span>.</p>
+</div> Saia da sala e volte para o elevador, descendo para o B3.</p>
+
+<h3 id="cap3-h">Seguindo para o terceiro andar — 3B</h3>
+<p>Entre na porta no final do corredor e mate dois <span class="inimigo">Hunters</span> usando a caixa de dinamite, que está perto da outra porta. Vá pegar <span class="item">Green Herbs</span> atrás da estante (se você vier aqui antes do 4F, Tyrell renderá Carlos dizendo que há um traidor na U.B.C.S. Na dúvida, Tyrell não confia em Carlos e abre o cofre, morrendo com uma explosão). Entre na porta ao lado, chegando na sala de experiência com dois <span class="inimigo">Hunters Gamma</span> entubados. Pegue o <span class="item">Medium Base</span> nas prateleiras e arquive em seu inventário o <span class="item">Medical Instruction Manual</span> que está sobre a mesa do outro lado. Vá para o sintetizador no canto e acione a alavanca, esvaziando os tubos das criaturas. Coloque o <span class="item"><div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Sintetizador da Vacina</div>
+  <p>Coloque o <span class="item">Medium Base</span> no sintetizador. Combine as cinco alavancas para deixar a vacina estável — o ponto amarelo de ambas deve ficar no mesmo nível. Opções: <strong>I, II, III, Below e Quit</strong>. Mexa nas alavancas <strong>I</strong> e <strong>III</strong>, depois escolha <strong>Below</strong> para mover as alavancas A e B. Das duas, mexa na <strong>A</strong> para obter a <span class="item">Vaccine Medium</span> (combine-a com a Vaccine Base para obter a <span class="item">Vaccine</span>).</p>
+</div> Tente sair e os dois Hunters se libertarão. Equipe a metralhadora e corra para a porta — tente sair ou mate os dois, mas eles são rápidos e não há espaço para se esquivar.</p>
+
+<h3 id="cap3-i">Uma vacina para Jill</h3>
+<p>Se você estiver indo para o elevador e lá tiver uma dinamite (se não aconteceu no 4F), dois <span class="inimigo">Hunters</span> poderão aparecer. No elevador, vá para o 1F; se você foi primeiro no 4F e depois no B3, ao sair deste elevador no 1F, dois Hunters aparecerão. Se fez a ordem dos andares ao contrário, uma legião de zumbis aparecerá. Ao sair do Hospital, Carlos notará uma bomba na parede, sairá correndo e escapará da explosão do prédio. Dependendo das escolhas feitas até aqui em seu caminho de volta até Jill, poderá haver <span class="inimigo">minhocas gigantes</span> ou zumbis na sala do puzzle do relógio. No corredor você encontrará <span class="inimigo">Drain Demos</span> ou aranhas gigantes. Chegando na sala principal, "Tentacle" Nemesis aparecerá — fuja dele e vá para onde está Jill. <span class="alerta">Aplique a vacina em Jill</span>, que irá se recuperar e ficará sabendo que Nemesis está vivo. Você deverá encontrar outra maneira de abandonar Raccoon City — então saia da Clock Tower como se fosse para o Hospital. Fuja de Nemesis — ele poderá pegar Jill com seus tentáculos. Leve o Lockpick, uma arma com bastante munição e recarregadores de life. Na sala do piano, Nemesis poderá arrebentar a porta ou entrar pela janela: fuja dele.</p>
+
+<h3 id="cap3-g2">O parque da cidade</h3>
+<p>Fora da Clock Tower, entre na porta do outro lado da rua (ignore os zumbis). Nesta sala procure por um <span class="item">Ink Ribbon</span>, a <span class="item">Photo E</span>, a <span class="item">Park Key</span> e munições. Esvazie seu inventário, levando apenas a Park Key e duas armas (sua Hand Gun ou Shotgun já devem estar com super munição). Do lado de fora, suba a escadaria e entre no parque de Raccoon. Haverá minhocas gigantes ou dois <span class="inimigo">Hunters</span> (mate os Hunters ou fuja das minhocas). Desça por uma escada mais adiante — do lado direito, você chegará a uma ponte de madeira onde poderá haver zumbis ou <span class="inimigo">Hunters Gamma</span> (que saem da água). Em seguida, na próxima trilha, haverá Hunters ou cachorros: tente atraí-los para perto do barril e em seguida faça-o explodir. No primeiro corpo que encontrar pegue outra <span class="item">Park Key</span> e arquive em seu inventário o <span class="item">Written Order</span>. Examine o outro corpo no final do caminho para pegar munição — depois volte para a entrada do parque e entre no portão do outro lado, chegando até uma fonte. Pegue o <span class="item">Park Map</span> ao lado e, ao fundo, algumas ervas (faça algumas misturas). Se for para o outro lado da fonte, por dentro da água, verá uma combinação que faz abrir a comporta para escoar a água.</p>
+
+<h3 id="cap3-h2">O cemitério: QG da U.B.C.S.</h3>
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Painel de Controle da Fonte</div>
+  <p>Você poderá mover as peças apenas seis vezes. Faça a seguinte combinação: selecione a peça mais clara e mova-a para o espaço ao lado. Repita com a outra peça da mesma cor. Depois mova a peça escura e a peça clara que ficou entre as duas escuras. Mova a outra peça escura e depois a clara ao lado dela. Acione o Start e desça.</p>
+</div>
+<p> Chegando ao esgoto, vá para a entrada do outro lado e suba a escada de metal, antes das minhocas atacarem. No cemitério da cidade, alguns mortos se levantarão (entre os túmulos, você poderá encontrar <span class="item">Red Herbs</span>). Entre no casebre do outro lado e pegue pólvora A e B que está sobre a mesa, e o <span class="item">Iron Pipe</span> no armário. Entre na porta ao fundo e esvazie seu inventário — leve apenas o Grenade Launcher, a M. Thrower, Hand Gun e munição, além do Iron Pipe e de recarregadores. Use o <span class="item">Lighter</span> na lareira, depois o <span class="item">Iron Pipe</span>, para encontrar o QG da U.B.C.S. No armário há <span class="item">G. Rounds</span> e no casaco há <span class="item">Ink Ribbon</span>. Pegue o <span class="item">Supervisor's Report</span> na mesa e, no mostruário, o <span class="item">Fax from the H.Q.</span></p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="cap4">Quarto Capítulo — A Fuga</h2>
+<p class="capitulo-intro">Após uma difícil batalha contra Nemesis, Jill foi infectada e o gigante está, aparentemente, morto. Com a destruição do único meio de fuga existente, Jill perde as esperanças — mas Carlos não aceita que ela morra e sai em busca de um antídoto para salvá-la. Nessa aventura, ele descobre que muitos dos mercenários foram mandados para a morte propositalmente, por ordem de Nicholai. Com a recuperação de Jill, eles descobrem que Nemesis também está vivo e é mais perigoso do que antes. E por que Nicholai matou seus próprios amigos e o motivo pelo qual Nemesis está sempre perseguindo Jill?</p>
+
+<h3 id="cap4-a">O confronto com a Grave Digger</h3>
+<p>Pegue a <span class="item">Park Key</span> do outro lado da mesa e saia (pegue também a mensagem que chegou). Saindo do casebre, <span class="npc">Nicholai</span> aparecerá, revelando parte de suas intenções. Após um forte tremor de terra, Nicholai vai embora. Vá para o cemitério e, ao chegar lá, outro forte tremor abrirá um fenda no chão e a <span class="inimigo">Grave Digger</span> aparecerá. Quando retomar o controle sobre Jill, fique atento ao chão onde estiver levantando poeira e mantenha-se sempre em movimento. Quando a Grave Digger sair, dê um tiro de M. Thrower nela (se errar, o projétil ficará em algum lugar no chão e ela irá abocanhá-la). Mas, sem dúvida, o Grenade Launcher é o mais eficiente, carregado com munição ácida. Tente se esquivar quando a Grave Digger sair do chão e fique sempre atento a seu life durante os ataques. Depois de alguns acertos e dependendo das escolhas feitas até aqui (em especial aquela do estacionamento), os tremores abalarão alguns postes. Empurre um dos que estão perto da poça de água e fique do outro lado (<span class="alerta">não encoste na água</span>). A Grave Digger tentará atacá-lo e morrerá eletrocutada. Caso isso não aconteça, continue mantendo o ritmo de ataques e esquivas até a Grave Digger ser destruída.</p>
+
+<h3 id="cap4-b">A escolha na ponte</h3>
+<p>Suba na grade que cairá e volte até o parque (haverá aranhas ou minhocas gigantes no esgoto). Chegando até a entrada do parque (com zumbis ou Hunters), vá para o outro lado e atravesse novamente aquela ponte de madeira. Chegando no final da trilha, abra o portão com a <span class="item">Park Key</span> e, em seguida, suba a escada para atravessar a ponte. Nemesis aparecerá, obrigando-o a fazer uma escolha que definirá o final do jogo. Se você escolher a primeira opção, siga a estratégia com a indicação do número "1". Escolhendo a segunda opção, siga a estratégia com a indicação do número "2".</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — A Escolha na Ponte (define o final)</div>
+  <ul>
+    <li><strong>1. Derrubá-lo:</strong> Você define o primeiro final do jogo, fazendo um caminho mais rápido.</li>
+    <li><strong>2. Pular:</strong> Resulta no segundo final do jogo (bem mais compensador), seguindo um percurso maior.</li>
+  </ul>
+</div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Nemesis — 4ª Batalha</div>
+  <p>Se deixar de fazer sua escolha, terá de encarar Nemesis e seus tentáculos (a estratégia a seguir será a da primeira opção). Apesar de pouco espaço, se conseguir derrotar o gigante, poderá ganhar o item <span class="item">Unlimited Pack Ammo</span> (munição infinita). Geralmente o item é deixado quando você terminar o jogo pela segunda vez.</p>
+</div>
+
+<h3 id="cap4-c1">A fábrica da morte — Caminho 1</h3>
+<p>Jill empurrará Nemesis da ponte, então entre na Dead Factory. No final do corredor, entre na porta adiante e <span class="npc">Carlos</span> estará lá, informando que uma bomba nuclear está prestes a ser lançada em direção à cidade. Quando ele sair em busca de um meio de fuga, arquive em seu inventário o <span class="item">Manager's Diary</span> que está sobre a escrivaninha, pólvora A e B (elas podem estar em outro lugar), a <span class="item">Facility Key</span> e um <span class="item">F. Aid Spray</span>. Esvazie seu inventário, levando apenas a Facility Key, recarregadores e o Grenade Launcher carregado com munição ácida, se tiver. Entre na porta ao lado para chegar a uma sala com jatos de vapor e algumas ervas. Vá para o lado direito e acione o switch antes do vapor, e os outros dois logo mais. Do outro lado, dê a volta e acione mais dois. Então vá para o outro lado novamente, acessando o painel de força que abrirá a primeira tranca de uma porta. Volte para o corredor anterior e dois <span class="inimigo">Brain Suckers</span> ou <span class="inimigo">Drain Demos</span> aparecerão. Mate-os e entre na primeira porta do corredor, então pegue o <span class="item">Dead Factory Map</span> e, no painel seguinte, o <span class="item">System Disk</span>. Mate os zumbis e pegue <span class="item">Green Herbs</span> neste lugar, depois desça no elevador.</p>
+
+<h3 id="cap4-d1">O puzzle das combinações — Caminho 1</h3>
+<p>Você chegará no tanque de ácido, onde haverá zumbis, <span class="inimigo">Brain Suckers</span>, <span class="inimigo">Drain Demos</span> ou <span class="inimigo">Hunters</span> nas proximidades. Mate todos e pegue munição ao lado da máquina do tanque. Desça a escada e entre na porta (toda vez que passar por aqui, novos inimigos aparecerão). Siga no esgoto, entrando na porta adiante, ou encare os dois <span class="inimigo">Hunters</span> (a Grenade Rounds é eficiente contra esses inimigos). Pegue <span class="item">Ink Ribbon</span> e o <span class="item">Water Sample</span>, arquive em seu inventário o <span class="item">Security Manual</span>. Entre na porta ao lado e você encontrará pólvora A e B (se não as pegou anteriormente). Pegue o <span class="item">F. Aid Spray</span> adiante e use a <span class="item"><div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Combinações com Water Sample (Caminho 1)</div>
+  <p>Use a <span class="item">Facility Key</span> no encaixe à direita e o <span class="item">Water Sample</span> no painel à esquerda. O painel mostrará uma sequência com três segmentos (A, B, C) — posicione as peças imitando o primeiro segmento. Opções: <strong>Left</strong> (esquerda), <strong>Right</strong> (direita), <strong>Check</strong> (verificar), <strong>Back</strong> (voltar). Solucionando, a segunda tranca da porta ao lado do elevador será aberta.</p>
+</div>
+
+<h3 id="cap4-e1">O confronto com Nemesis — Caminho 1</h3>
+<p>Saindo do elevador, vire à esquerda de Jill e entre na porta em frente. <span class="npc">Nicholai</span> irá atirar, mas alguma coisa o pegará desprevenido antes. Use o <span class="item">System Disk</span> no painel ao fundo e entre na porta ao lado, que se trancará, dando-lhe quatro minutos de vantagem. <span class="inimigo">Nemesis</span> estará aqui e sua maior fraqueza é o ácido. Aproveite a lerdeza de Nemesis e dê alguns tiros para fazê-lo se ajoelhar. Depois atire na chave do cano ácido para que o ácido caia sobre Nemesis. Derrotando-o, pegue a <span class="item">Card Key</span> no corpo que está do outro lado e em seguida saia (use a Card Key na tranca da porta). Volte até a sala dos jatos de vapor e use a Card Key ao lado da porta sanfonada no corredor. Na sala seguinte, pegue munição no gabinete de vidro e dois <span class="item">F. Aid Spray</span> do outro lado. No painel de controle, pegue o <span class="item">Radar</span> e procure um F. Aid Spray escondido à esquerda do painel. Desça no alçapão do meio da sala e a bomba nuclear será lançada. O radar mostrará o tempo de impacto na cidade (continua em Parte F).</p>
+
+<h3 id="cap4-c2">A fábrica da morte — Caminho 2</h3>
+<p>Ao pular da ponte, Jill entrará no esgoto e subirá através da escada na grade. Ao lado haverá um corredor que dá acesso a uma sala com um baú. Pegue o <span class="item">Ink Ribbon</span>, a <span class="item">Water Sample</span> nas luzes ao fundo e arquive em seu inventário o <span class="item">Security Manual</span>. Entre na porta ao lado e, sobre a mesa, poderá ter pólvora A e B (se não estiver aqui, estará em outro lugar). <div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Combinações com Water Sample (Caminho 2)</div>
+  <p>Coloque o <span class="item">Water Sample</span> na máquina ao lado. O painel mostrará uma sequência com três segmentos (letras A, B e C) — posicione as peças imitando o primeiro segmento. Opções: <strong>Left</strong>, <strong>Right</strong>, <strong>Check</strong> e <strong>Back</strong>. Solucionando, a primeira tranca de uma porta se abrirá. <span class="alerta">Lembre-se deste lugar — você terá que voltar aqui mais tarde.</span></p>
+</div> Volte até o esgoto e siga para a entrada do outro lado. Alguns zumbis aparecerão e <span class="npc">Carlos</span> ajudará Jill, depois informará que uma bomba nuclear está prestes a ser lançada em direção à cidade e ele sairá procurando um meio de transporte para fugir. Então siga-o.</p>
+
+<h3 id="cap4-d2">Conhecendo a localidade — Caminho 2</h3>
+<p>Do outro lado da porta, alguns zumbis, <span class="inimigo">Drain Demos</span>, <span class="inimigo">Brain Suckers</span> ou <span class="inimigo">Hunters</span> estarão próximos (toda vez que passar por aqui, novos inimigos aparecerão). Subindo a escada, pegue munição na máquina do tanque de ácido e siga para o elevador do outro lado. No andar de cima, pegue o <span class="item">System Disk</span> do outro lado do painel. Perto da porta, na saída, está o <span class="item">Dead Factory Map</span>. Ao sair, Jill encontrará <span class="npc">Carlos</span>, que fugirá. Entre na porta no final do corredor, à esquerda, e arquive em seu inventário o <span class="item">Manager's Diary</span>. Pegue pólvora A e B (se não as pegou anteriormente), a <span class="item">Facility Key</span> e um <span class="item">F. Aid Spray</span>. Leve somente a Facility Key, o System Disk, recarregadores e o Grenade Launcher com munição ácida, se tiver. Entre na porta ao lado para chegar à sala dos jatos de vapor e ervas. Do lado direito, acione o switch antes do vapor e os outros dois mais adiante. Vá para o outro lado, acione mais dois e volte para o outro lado novamente, acessando o painel de força e abrindo a segunda tranca daquela porta ao lado do elevador. Vá para lá. No caminho, dois <span class="inimigo">Brain Suckers</span> ou <span class="inimigo">Drain Demos</span> poderão estar no corredor. Mate-os. Entre na porta à direita do corredor e, antes de chegar naquela porta com duas trancas, desça no elevador e vá até a sala onde você usou a Water Sample.</p>
+
+<h3 id="cap4-e2">Nicholai: a negociação — Caminho 2</h3>
+<p>Use a <span class="item">Facility Key</span> no painel ao lado e vá para a porta destrancada ao lado do elevador. Use o <span class="item">System Disk</span> no painel ao fundo, entre na porta que ao lado, e esta se trancará automaticamente, dando-lhe quatro minutos de dianteira. <span class="inimigo">Nemesis</span> estará aqui — sua maior fraqueza é o ácido. Aproveite a lerdeza de Nemesis e dê alguns tiros para fazê-lo se ajoelhar. Depois atire na chave do cano de ácido para que o ácido caia sobre ele. Derrotando-o, pegue a <span class="item">Card Key</span> no corpo que está do outro lado e saia (use a Card Key na tranca). Volte até a sala dos jatos de vapor e use a Card Key no elevador ao lado da porta. Embaixo você pegará munição e, ao fundo, use a Facility Key para abrir o armário e pegar o <span class="item">Rocket Launcher</span>. Na sala seguinte, pegue munição no gabinete de vidro e um <span class="item">F. Aid Spray</span> do outro lado. No painel de controle, pegue o <span class="item">Radar</span> e procure um F. Aid Spray escondido à esquerda do painel. Tente sair da sala e Nicholai entrará em contato, gerando uma Live Selection. Independente de sua escolha, <span class="npc">Carlos</span> chegará e tentará contato através do rádio. Desça no alçapão e o radar mostrará o tempo de impacto da bomba (continua em Parte F).</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Nicholai</div>
+  <ul>
+    <li><strong>1. Negociar com Nicholai:</strong> Nicholai fugirá, deixando Jill e Carlos.</li>
+    <li><strong>2. Atirar de volta contra o helicóptero:</strong> Dê um tiro de Rocket Launcher no helicóptero.</li>
+  </ul>
+</div>
+
+<h3 id="cap4-f">Nemesis: o confronto final</h3>
+<p>Ao descer, pegue a artilharia que puder no baú e todas as ervas combinadas (ou F. Aid Spray). Arquive em seu inventário o <span class="item">Incinerator Manual</span> que está na parede ao lado da escada, e entre na porta do outro lado (não esqueça de pegar munição no armário). Do lado de fora, você poderá completar seus arquivos pegando o <span class="item">Classified Photo File</span> no chão, então entre na porta seguinte. Um tremor emperrará a porta — você encontrará um Tyrant morto e corpos de mercenários. Acione o computador ao lado da arma gigante para armar o sistema. Vá até a caixa número 1, onde acendeu a luz amarela, e empurre-a para o compartimento. Faça o mesmo com a caixa número 2 e 3. Mas antes de acionar estas duas, <span class="inimigo">Nemesis</span> aparecerá novamente, transformando-se em uma criatura gigantesca e horrenda. Mantenha-se longe dele e fique atento com seu life. Descarregue todas as suas armas (fogo e ácido são as melhores alternativas, além do Rocket Launcher). Nemesis subirá no meio da área e tentará atacar com seus tentáculos ou cuspirá ácido. Empurre as outras duas caixas, fazendo a arma funcionar, destruindo o que estiver na frente (<span class="alerta">cuidado para não ficar na frente do tiro</span>).</p>
+
+<h3 id="cap4-g">A destruição de Raccoon City</h3>
+<p>Depois que você acertar Nemesis muitas vezes, ele tentará fugir e então levará um tiro da arma gigante, que o destruirá. O sistema se sobrecarregará, desarmando e abrindo uma porta do outro lado. Entre por ela. <span class="inimigo">Nemesis</span>, ainda muito persistente, tentará ir atrás de Jill, ocasionando a última Live Selection.</p>
+
+<div class="live-box">
+  <div class="live-title">🔀 LIVE SELECTION — Confronto Final</div>
+  <ul>
+    <li><strong>1. Acabar com o monstro:</strong> Jill descarregará toda sua fúria e acabará com o monstro de uma vez por todas (mas só escolha esta opção se tiver tempo).</li>
+    <li><strong>2. Ignorá-lo e evacuar a área:</strong> Jill esquecerá Nemesis e entrará na porta ao lado para fugir.</li>
+  </ul>
+</div>
+
+<p>Após fazer sua escolha, mexa no painel do outro lado da porta para descer de elevador e chegar ao final do jogo. Se escolheu a primeira opção na Live Selection da ponte, <span class="npc">Carlos</span> levará Jill de helicóptero. Caso tenha escolhido a segunda opção, Carlos chegará e Jill dirá que tudo acabou — porém, ele a contraria, dizendo que um segundo helicóptero estava procurando por ela. O helicóptero chegará e, pouco tempo depois, a bomba atingirá a cidade. Em poucos segundos, a devastação da bomba fará Raccoon City desaparecer do mapa.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
 <h2 id="dicas">Dicas — Segredos e Extras</h2>
 
-<h3 id="rocket-launcher">Obter a Rocket Launcher</h3>
-<p>Termine o jogo em menos de três horas e <span class="alerta">não salve seu progresso nenhuma vez</span>. Assim você conseguirá alcançar o ranking máximo — agora salve seu progresso uma última vez. Comece uma nova partida e carregue o último save para começar o jogo com a <span class="item">Rocket Launcher</span> com munição infinita. Para conseguir terminar o jogo em menos tempo, ignore as salas desnecessárias, evite enfrentar os zumbis e procure sempre correr no jogo.</p>
+<h3 id="ranking">Sistema de Ranking</h3>
+<p>Jogando no modo Hard Mode, seu desempenho será avaliado por um sistema de ranking que varia de A a F. Ele é baseado no tempo que levou para terminar o jogo, quantas vezes você salvou seu progresso e quantos recarregadores de energia foram usados. O tempo de jogo não é contado quando o jogo estiver no pause, inventário ou entre as salas e áreas. Somando os valores de cada item de energia, saves e tempo final, você terá uma pontuação de 0–300, determinando seu ranking.</p>
 
-<h3 id="trocar-roupa">Trocar de Roupa</h3>
-<p>Terminando o jogo uma vez em menos de cinco horas e salvando seu progresso uma última vez. Ao começar uma nova partida, carregue o último save e você começará com uma <span class="item">Special Key</span> em seu inventário — ela será usada na porta do vestiário.</p>
-
-<h3 id="finais">Finais Diferentes</h3>
 <table>
-  <tr><th>Final</th><th>Jill</th><th>Chris</th></tr>
-  <tr><td>🏆 Melhor final</td><td>Termine o jogo com Chris e Barry</td><td>Termine com Jill e Rebecca</td></tr>
-  <tr><td>⭐ Final normal</td><td>Termine com Barry ou com Chris</td><td>Termine com Jill ou Rebecca</td></tr>
-  <tr><td>💀 Final ruim</td><td>Deixe Barry morrer e não salve Chris</td><td>Deixe Rebecca morrer e não salve Jill</td></tr>
+  <tr><th>Ranking</th><th>Pontuação</th></tr>
+  <tr><td>A</td><td>270–300</td></tr>
+  <tr><td>B</td><td>230–269</td></tr>
+  <tr><td>C</td><td>180–229</td></tr>
+  <tr><td>D</td><td>120–179</td></tr>
+  <tr><td>E</td><td>50–119</td></tr>
+  <tr><td>F</td><td>0–49</td></tr>
 </table>
 
-<h3 id="encontros">Encontros Inusitados</h3>
-<p>Jogando com Jill ou Chris, você terá o auxílio de um personagem. O enredo é o mesmo para ambos, mas você poderá criar encontros inusitados e descobrir outros detalhes do enredo ao realizar os eventos em diferentes ordens. Ao fazer isso, você ocasionará alguns encontros entre Jill e Barry ou Chris e Rebecca.</p>
+<div class="dica">📊 O HP se refere à quantidade de vida que você usou para terminar o jogo. Seu personagem começará com 200 HP. Cada item de energia usado aumenta o total de HP. F. Aid Spray = 200 HP | Green Herb = 50 HP | Green ×2 = 100 HP | Green ×3 = 200 HP | Green + Red = 200 HP.</div>
 
-<p><strong>Jill encontrando Barry:</strong></p>
+<h3 id="next-game">Next Game</h3>
+<p>A primeira vez que você terminar o jogo e gravar no Memory Card, aparecerá assim: <strong>Next Game / 00 – 01</strong> (os dois primeiros números indicarão quantas vezes você salvou e os outros dois números indicarão quantas vezes o jogo foi terminado). O Next Game guarda diferentes opções:</p>
 <ul>
-  <li>Você poderá encontrá-lo no terraço, perto do corpo de Forest (consiga a Shield Key e vá para o terraço).</li>
-  <li>Barry aparecerá no hall de entrada da mansão e entregará a Explosive Rounds (explore todo o primeiro ou segundo andar, então vá para o hall de entrada).</li>
-  <li>Ele poderá aparecer no estúdio do aquário (após receber o Lockpick, tente cumprir os eventos até chegar ao estúdio sem ter qualquer outro encontro com Barry).</li>
-  <li>Se você pegar a Broken Shotgun no lugar, tente abrir a porta da sala armadilha e Barry salvará Jill (você não poderá encontrar Barry mais de duas vezes).</li>
-  <li>Se você se enfrentar a cobra gigante a primeira vez e for envenenado, Jill desmaiará e Barry a ajudará (dependerá do percurso feito e dos encontros anteriores com Barry).</li>
-  <li>Enfrente o monstro planta sem fazer o V-Jolt para Barry salvar Jill.</li>
-  <li>Se você não teve muitos encontros com Barry, escutará ele conversando com Wesker perto da entrada do tanque do tubarão.</li>
-  <li>Entrando no subterrâneo, responda "No" nas duas perguntas e não ande perto de Barry — ele será morto por um Hunter e você obterá uma foto de sua família (um arquivo extra). <strong>Obs.:</strong> se Barry não aparecer no final do jogo, ele lhe entregará a foto de sua família (isso só acontecerá se você tiver muitos encontros com Barry).</li>
+  <li><strong>CONTINUE</strong> — continuar de onde parou</li>
+  <li><strong>RESTART</strong> — nova partida com a quantidade de vezes que finalizou</li>
+  <li><strong>THE MERCENARIES</strong> — disponível após terminar o jogo normal</li>
+  <li><strong>EPILOGUE</strong> — permite que você veja os epílogos que conseguiu</li>
 </ul>
 
-<p><strong>Chris encontrando Rebecca:</strong></p>
-<ul>
-  <li>Ao encontrá-la pela primeira vez, responda "No". Dependendo da ordem dos eventos que você cumprir, poderá encontrá-la na sala onde está o Botany Book.</li>
-  <li>Dependendo da resposta que der para o primeiro encontro com Rebecca, Chris poderá desmaiar após seu primeiro confronto com a cobra.</li>
-  <li>Encontrando Rebecca na sala do piano, responda "No". Dependendo da ordem dos eventos que você cumprir, também poderá encontrá-la embaixo da escada do quarto onde a conheceu, ao voltar à mansão.</li>
-  <li>Se você sempre responder "No" para Rebecca, ela poderá morrer na caverna ou no final do jogo.</li>
-</ul>
+<h3 id="epilogos">Os Oito Epílogos</h3>
+<p>Os epílogos servem para mostrar o que aconteceu com cada personagem dos últimos três games da série Resident Evil. Após a tela de Ranking e das roupas secretas, você receberá uma foto de um personagem com a respectiva especificação do destino que seguiu. Cada vez que terminar o jogo, você receberá o epílogo de outro personagem. São oito no total, mas eles não serão disponibilizados se você jogar no modo Easy Mode.</p>
+<p>Personagens com epílogo: <span class="npc">Jill Valentine</span>, <span class="npc">Chris Redfield</span>, <span class="npc">Barry Burton</span>, <span class="npc">Sherry Birkin</span>, <span class="npc">Claire Redfield</span>, <span class="npc">Leon Scott Kennedy</span>, <span class="npc">Ada Wong</span> e <span class="npc">Hunk</span>.</p>
 
+<h3 id="roupas">Roupas Secretas</h3>
+<p>Após os créditos, você verá uma tela mostrando uma chave especial que destrancará a Boutique Key no baú e use-a na porta preta ao lado do bar. Você encontrará novas roupas para Jill. Se conseguir um Rank E ou D, você receberá apenas uma peça de seu vestuário. Com ranking C ou B você receberá quatro peças de seu vestuário. Com ranking A você receberá todas as cinco peças do vestuário.</p>
 
-<hr>
+<h3 id="mercenaries">The Mercenaries — Operation Mad Jackal</h3>
+<p>Neste minigame, você controlará um mercenário da U.B.C.S. com uma bomba seu peito. Ela explodirá em dois minutos. Você começará no Trolley e seu objetivo é chegar no galpão, onde Dario se trancou, para conseguir se livrar da bomba e ganhar uma recompensa.</p>
 
-<h2 id="versoes">As Versões do Jogo</h2>
-<p>Resident Evil foi lançado originalmente em 1996 e, ao longo dos anos, recebeu ports, re-lançamentos e um remake completo. Cada versão tem diferenças significativas de conteúdo, jogabilidade e apresentação.</p>
-
-<h3 id="v-ps1-original">PlayStation — Versão Original (1996)</h3>
-<p>A versão de estreia do jogo. Base deste detonado. Apresenta câmeras fixas com fundos pré-renderizados, trilha sonora original e os dois cenários de Jill e Chris. O jogo foi lançado ligeiramente mais difícil no mercado americano a pedido da equipe local — a função de mira automática foi desativada e a quantidade de Ink Ribbons disponíveis foi reduzida em comparação à versão japonesa.</p>
-
-<h3 id="v-saturn">Sega Saturn (1997)</h3>
-<p>Port para o console da Sega com diferenças relevantes em relação ao PS1:</p>
-<ul>
-  <li><strong>Battle Game (Arena Mode):</strong> o primeiro modo Mercenários da série — você percorre salas eliminando todos os inimigos, terminando com um chefe exclusivo</li>
-  <li><strong>Tyrant Zumbi:</strong> ao jogar com Chris, após derrotar o Tyrant que mata Wesker, um segundo Tyrant zumbi surge na mesma sala (exclusivo desta versão)</li>
-  <li><strong>Ticks:</strong> novo tipo de inimigo — versões estéticas dos Hunters que aparecem na área subterrânea do pátio</li>
-  <li><strong>Roupas alternativas diferentes:</strong> Jill recebe um uniforme mais próximo do padrão (em vez do top preto) e Chris ganha uniforme policial com colete</li>
-  <li><strong>Fundos mais detalhados</strong>, porém modelos 3D mais blocados e com pior desempenho técnico que o PS1</li>
-  <li><strong>Tempos de carregamento mais longos</strong> que o PS1</li>
-  <li>Versão japonesa tem conteúdo de violência mais explícito, não presente na versão americana</li>
-</ul>
-<div class="dica">⚠️ O Saturn é a única versão clássica que não foi relançada digitalmente — você precisaria do hardware original para jogar.</div>
-
-<h3 id="v-pc">PC — Windows (1997)</h3>
-<p>Port para computadores com algumas diferenças visuais e de conteúdo:</p>
-<ul>
-  <li><strong>Gráficos ligeiramente melhorados</strong> — texturas mais detalhadas em algumas áreas</li>
-  <li><strong>Nova roupa para Jill:</strong> top diferente do padrão do PS1</li>
-  <li><strong>Ingram MAC-10</strong> disponível como arma adicional</li>
-  <li>Controles adaptados para teclado e mouse, o que torna a experiência mais desajeitada que os controles originais de console</li>
-  <li>Considerada tecnicamente inferior às versões de console em termos de experiência geral</li>
-</ul>
-
-<h3 id="v-directors-cut">Director's Cut — PlayStation (1997)</h3>
-<p>Re-lançamento para PS1 com conteúdo adicional relevante:</p>
-<ul>
-  <li><strong>Modo Beginner:</strong> o dobro de munição e Ink Ribbons, inimigos mais fracos e armas mais poderosas — ideal para iniciantes</li>
-  <li><strong>Modo Arranged (Avançado):</strong> itens-chave e inimigos completamente reposicionados, novos ângulos de câmera exclusivos em quase todos os cômodos, inimigos mais resistentes — um dos modos mais difíceis da série. Inclui também <strong>dois novos tipos de inimigos</strong>: um ex-companheiro de equipe e os Hyper Zombies (duas vezes mais rápidos e resistentes a headshots)</li>
-  <li><strong>Novas roupas</strong> para Chris, Jill e Rebecca desbloqueáveis</li>
-  <li><strong>Beretta M92FS customizada</strong> com chance de matar inimigos instantaneamente (no Arranged Mode)</li>
-  <li>Demo jogável de Resident Evil 2 inclusa no disco</li>
-  <li>Trilha sonora original preservada (importante: veja abaixo)</li>
-</ul>
-
-<h3 id="v-dual-shock">Director's Cut — Dual Shock Ver. — PlayStation (1998)</h3>
-<p>Re-lançamento do Director's Cut com adição do suporte ao controle DualShock:</p>
-<ul>
-  <li><strong>Vibração via DualShock</strong> totalmente implementada</li>
-  <li><strong>Nova trilha sonora sinfônica</strong> composta por Mamoru Samuragouchi — considerada inferior à trilha original por muitos fãs</li>
-  <li>É esta versão que foi disponibilizada na PSN americana (PS3/PSP/Vita) — <span class="alerta">atenção: se quiser a trilha original, procure o Director's Cut sem "Dual Shock" ou use a versão europeia/japonesa da PSN</span></li>
-  <li>Não foi lançada na Europa</li>
-</ul>
-<div class="dica">💡 A versão Director's Cut padrão (sem Dual Shock) com a trilha original estava disponível na PSN japonesa e europeia. No PS5, a Capcom disponibilizou o Director's Cut base com suporte a analógico — a melhor versão clássica digital disponível atualmente.</div>
-
-<h3 id="v-gamecube">GameCube — REmake (2002)</h3>
-<p>Um remake completo, e não apenas um port. É considerado por muitos como o melhor jogo da série:</p>
-<ul>
-  <li><strong>Gráficos completamente reconstruídos</strong> — fundos pré-renderizados em alta definição para a época, modelos 3D muito superiores</li>
-  <li><strong>Nova personagem:</strong> <span class="npc">Lisa Trevor</span> — criatura trágica com história própria, nova área exclusiva</li>
-  <li><strong>Crimson Heads:</strong> zumbis que não forem decapitados ou queimados ressuscitam muito mais rápidos e agressivos após um tempo</li>
-  <li><strong>Defesa com faca</strong> disponível a qualquer momento</li>
-  <li><strong>Novo sistema de baú:</strong> os itens <em>não</em> se teletransportam entre os baús no modo difícil (Arrange Mode), forçando o jogador a gerenciar o inventário com muito mais cuidado</li>
-  <li><strong>Enredo expandido</strong> — script reescrito, novas cinemáticas, dublagem completamente nova e melhorada</li>
-  <li><strong>Novas áreas</strong> e puzzles adicionais</li>
-  <li>Algumas mecânicas e itens reposicionados em relação ao PS1</li>
-  <li>Port para <strong>Wii (2008)</strong> com controle de movimento opcional</li>
-</ul>
-<div class="dica">🎮 O REmake é tecnicamente um jogo diferente — aproveite o detonado do PS1 para conhecer a história original antes de jogar o remake.</div>
-
-<h3 id="v-hd">REmake HD Remaster (2015 — PS3/PS4/Xbox/PC/Switch)</h3>
-<p>Versão remasterizada do remake de GameCube para plataformas modernas:</p>
-<ul>
-  <li><strong>Resolução aumentada</strong> para HD — fundos pré-renderizados redimensionados (com qualidade variável; mods de PC melhoram significativamente)</li>
-  <li><strong>Novo esquema de controle moderno</strong> com movimento relativo à câmera — o clássico tank control continua disponível para puristas</li>
-  <li>Disponível para download em PS3, PS4, Xbox 360, Xbox One, PC e Nintendo Switch</li>
-  <li><strong>Melhor versão para jogar hoje</strong> se quiser o remake — especialmente no PC com mods de upscale de cenários</li>
-</ul>
-
-<h3 id="v-ds">Nintendo DS — Deadly Silence (2006)</h3>
-<p>Port para o DS com conteúdo exclusivo aproveitando as funções do hardware (já coberto em detonado próprio nesta coleção):</p>
-<ul>
-  <li><strong>Modo Clássico:</strong> fiel ao original do PS1</li>
-  <li><strong>Modo Rebirth:</strong> novos puzzles via tela touch, microfone, mais inimigos, itens reposicionados</li>
-  <li>Suporte a multiplayer (modo cooperativo e versus) via multi-card</li>
-  <li>Porta de carregamento de cenas eliminada — mais ágil que o PS1</li>
-</ul>
-
-<h3 id="v-resumo">Tabela Comparativa</h3>
+<p><strong>Ganhando tempo com os monstros:</strong></p>
 <table>
-  <tr>
-    <th>Versão</th><th>Ano</th><th>Destaques</th><th>Recomendado para</th>
-  </tr>
-  <tr>
-    <td>PS1 Original</td><td>1996</td><td>A versão base, trilha clássica</td><td>Quem quer a experiência original</td>
-  </tr>
-  <tr>
-    <td>Sega Saturn</td><td>1997</td><td>Battle Game, Ticks, 2º Tyrant (Chris)</td><td>Colecionadores / curiosos</td>
-  </tr>
-  <tr>
-    <td>PC (Windows)</td><td>1997</td><td>Gráficos ligeiramente melhores, MAC-10</td><td>Não recomendado — controles ruins</td>
-  </tr>
-  <tr>
-    <td>Director's Cut</td><td>1997</td><td>Modos Beginner e Arranged, novos inimigos, trilha original</td><td>Melhor versão clássica PS1</td>
-  </tr>
-  <tr>
-    <td>Director's Cut Dual Shock</td><td>1998</td><td>Vibração DualShock, trilha nova (inferior)</td><td>Evitar se possível (trilha pior)</td>
-  </tr>
-  <tr>
-    <td>GameCube REmake</td><td>2002</td><td>Remake completo, Lisa Trevor, Crimson Heads, enredo expandido</td><td>Melhor experiência do RE1 clássico</td>
-  </tr>
-  <tr>
-    <td>REmake HD (PC/PS4/Switch)</td><td>2015</td><td>Remake em HD, controles modernos opcionais</td><td>Melhor versão disponível hoje</td>
-  </tr>
-  <tr>
-    <td>DS — Deadly Silence</td><td>2006</td><td>Modo Rebirth com puzzles touch, multiplayer</td><td>Fãs do DS / experiência portátil única</td>
-  </tr>
+  <tr><th>Inimigo</th><th>Tempo Extra</th><th>Dinheiro</th></tr>
+  <tr><td>Zumbi</td><td>+3 seg.</td><td>$5</td></tr>
+  <tr><td>Cachorro</td><td>+4 seg.</td><td>$6</td></tr>
+  <tr><td>Corvo</td><td>+1 seg.</td><td>$2</td></tr>
+  <tr><td>Hunter</td><td>+6 seg.</td><td>$10</td></tr>
+  <tr><td>Drain Demos</td><td>+5 seg.</td><td>$8</td></tr>
+  <tr><td>Brain Sucker</td><td>+6 seg.</td><td>$10</td></tr>
+  <tr><td>Aranha Gigante</td><td>+4 seg.</td><td>$7</td></tr>
+  <tr><td>Aranha Pequena</td><td>+0 seg.</td><td>$0</td></tr>
+  <tr><td>Minhocas</td><td>+0 seg.</td><td>$0</td></tr>
+  <tr><td>Nemesis</td><td>+20 seg.</td><td>$40</td></tr>
+  <tr><td>Tentacle Nemesis</td><td>+120 seg.</td><td>$250</td></tr>
 </table>
+
+<p><strong>Resgatando civis:</strong> Existem sobreviventes encurralados em determinados pontos da cidade. Salvá-los garantirá 20 segundos e $50 extras, além de um item (F. Aid Spray ou munição). Vá aos civis que estiverem próximos de onde você está, mate todos os inimigos e fale com o civil. Quando chegar até eles, seu tempo deverá estar acima de 1:30:00 ou eles estarão mortos. São seis pessoas espalhadas — salvar todos garantirá $300 extras se finalizar a missão. Locais dos civis: <span class="local">Gas Station</span>, <span class="local">Newspaper Office</span>, <span class="local">Restaurant</span> (no alçapão), <span class="local">Sub Station</span>, <span class="local">Sales Office</span> e no <span class="local">Bar</span>.</p>
+
+<p><strong>Personagens e dificuldade:</strong> Cada personagem representa um nível de dificuldade, além de terem diferentes tipos de armas e recarregadores. Quanto mais difícil for o jogo (o personagem que você escolher), maior será a recompensa: <strong>Mikhail (Easy)</strong>, <strong>Carlos (Normal)</strong>, <strong>Nicholai (Hard)</strong>.</p>
+
+<p><strong>Usando a recompensa:</strong></p>
+<table>
+  <tr><th>Arma</th><th>Preço</th></tr>
+  <tr><td>Assault Rifle</td><td>$2.000</td></tr>
+  <tr><td>Gatling Gun</td><td>$3.000</td></tr>
+  <tr><td>R. Launcher</td><td>$4.000</td></tr>
+  <tr><td>Infinite Ammo</td><td>$9.999</td></tr>
+</table>
+
+<h3 id="arquivo-secreto">O Arquivo Secreto</h3>
+<p>Pegando todos os arquivos (Files) do jogo, olhe o seu File Menu. O Game Manual A se transformará em <strong>Jill's Diary</strong>, no qual estará escrito o diário de Jill nos dias que antecederam os eventos do jogo — revelando sua conexão com os acontecimentos de Raccoon City e detalhes sobre Chris Redfield e a investigação da Umbrella.</p>
 
 <div class="bottom-bar" id="bottomBar">
   <button class="menu-toggle-btn" onclick="toggleSidebar()" title="Índice">☰</button>
@@ -664,7 +624,7 @@ function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;mat
 function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
 function clearHighlights(){document.querySelectorAll('mark.search-hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
 function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
-function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&');}
 </script>
 </body>
 </html>
