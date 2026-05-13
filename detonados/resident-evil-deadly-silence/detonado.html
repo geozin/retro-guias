@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resident Evil: Deadly Silence — Detonado</title>
+<style>
+  :root {
+    --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#0d1a0d;--h2-color:#2d6a2d;--h2-border:#2d6a2d;--h3-border:#888;
+    --dica-bg:#f0fff0;--dica-border:#2d6a2d;
+    --chefe-bg:#fdf5e6;--chefe-border:#8b4513;--chefe-title:#6b2f0a;
+    --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
+    --bar-shadow:rgba(0,0,0,0.10);--btn-bg:#2d6a2d;--btn-text:#fff;
+    --search-bg:#f5f5f5;--search-text:#222;--search-border:#ccc;
+    --highlight-bg:#ffe066;--highlight-text:#111;
+    --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
+    --modo:#b5800a;
+  }
+  [data-theme="dark"] {
+    --bg:#080f08;--bg2:#101a10;--text:#e0e8e0;--text2:#9ab89a;--border:#2a3a2a;
+    --header-bg:#050d05;--h2-color:#6ec96e;--h2-border:#6ec96e;--h3-border:#3a4a3a;
+    --dica-bg:#0a1a0a;--dica-border:#4a8a4a;
+    --chefe-bg:#1a100a;--chefe-border:#8b5a1a;--chefe-title:#d4a76a;
+    --table-head:#101a10;--bar-bg:#080f08;--bar-border:#1a2a1a;
+    --bar-shadow:rgba(0,0,0,0.40);--btn-bg:#3a8a3a;--btn-text:#fff;
+    --search-bg:#080f08;--search-text:#e0e8e0;--search-border:#2a3a2a;
+    --highlight-bg:#7a6000;--highlight-text:#fff;
+    --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    --modo:#f0c040;
+  }
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:20px 16px 90px;background:var(--bg);transition:background .25s,color .25s;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:22px 26px 18px;margin-bottom:28px;transition:background .25s;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#6ec96e;}
+  .game-header .sub{font-size:15px;color:#adc;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#8ba;font-family:monospace;}
+  .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
+  .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
+  .modo-tag{display:inline-block;font-size:11px;font-weight:bold;padding:2px 9px;border-radius:3px;letter-spacing:1px;margin:0 4px 2px 0;font-family:monospace;vertical-align:middle;}
+  .modo-rebirth{background:#1a4a8a;color:#adf;}
+  .modo-classic{background:#4a1a0a;color:#fca;}
+  .modo-jill{background:#4a1a4a;color:#eac;}
+  .modo-chris{background:#1a3a1a;color:#ade;}
+  .modo-ambos{background:#2a2a0a;color:#ffe;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;transition:color .25s,border-color .25s;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;}
+  h3{font-size:17px;color:var(--text);margin-top:28px;margin-bottom:10px;border-left:4px solid var(--h3-border);padding-left:10px;}
+  p{margin:0 0 13px;}
+  .npc{color:var(--npc);font-weight:bold;}
+  .item{color:var(--item);font-weight:bold;}
+  .alerta{color:var(--alerta);font-weight:bold;}
+  .local{color:var(--local);font-weight:bold;}
+  .inimigo{color:var(--inimigo);font-weight:bold;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;transition:background .25s;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;transition:background .25s;}
+  .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
+  table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
+  td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
+  th{background:var(--table-head);font-weight:bold;}
+  ul,ol{margin:8px 0 14px 20px;padding:0;}
+  li{margin-bottom:5px;}
+  hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
+  mark.search-hl{background:var(--highlight-bg);color:var(--highlight-text);border-radius:2px;padding:0 1px;}
+  mark.search-hl.current{outline:2px solid var(--alerta);background:var(--alerta);color:#fff;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
+  .sidebar-overlay.open{display:block;}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
+  .sidebar-close:hover{opacity:1;}
+  .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
+  .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
+  .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
+  .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:58px;background:var(--bar-bg);border-top:1px solid var(--bar-border);box-shadow:0 -2px 12px var(--bar-shadow);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;transition:background .25s,border-color .25s;}
+  .bar-btn,.menu-toggle-btn{background:var(--btn-bg);color:var(--btn-text);border:none;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .15s;}
+  .bar-btn:active,.menu-toggle-btn:active{transform:scale(0.92);}
+  .search-pill{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;}
+  .search-input-wrap{display:none;align-items:center;background:var(--search-bg);border:1.5px solid var(--search-border);border-radius:24px;padding:4px 10px 4px 14px;gap:6px;flex:1;max-width:420px;}
+  .search-input-wrap.open{display:flex;}
+  .search-input-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:var(--search-text);flex:1;min-width:0;}
+  .search-count{font-size:12px;color:var(--text2);white-space:nowrap;min-width:32px;text-align:center;}
+  .search-nav-btn,.search-close{background:none;border:none;cursor:pointer;font-size:15px;color:var(--text2);padding:2px 4px;border-radius:4px;}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;max-height:320px;box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+  .capa-revista img{width:100%;height:100%;object-fit:cover;display:block;}
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span>📋 ÍNDICE DO DETONADO</span>
+    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+</div>
+
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/resident-evil-deadly-silence/capa.png"
+       alt="Capa Resident Evil: Deadly Silence"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>Resident Evil: Deadly Silence</h1>
+  <div class="meta">Nintendo DS</div>
+</div>
+
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="intro">Introdução</h2>
+
+<p><em>Resident Evil: Deadly Silence</em> é um port do clássico original de PlayStation para o Nintendo DS, lançado em 2006. Ele oferece dois modos distintos: o <strong>Modo Clássico</strong>, fiel ao jogo original do PS1, e o <strong>Modo Renascimento (Rebirth)</strong>, que adiciona novos inimigos, puzzles usando a tela sensível ao toque e o microfone do DS, além de mais munição e itens. Você escolhe entre dois personagens com aventuras diferentes em dificuldade e equipamentos.</p>
+
+<div class="dica">💡 <strong>Tags de modo neste detonado:</strong>
+<span class="modo-tag modo-rebirth">REBIRTH</span> exclusivo do Modo Renascimento &nbsp;
+<span class="modo-tag modo-classic">CLÁSSICO</span> exclusivo do Modo Clássico &nbsp;
+<span class="modo-tag modo-jill">JILL</span> exclusivo da Jill &nbsp;
+<span class="modo-tag modo-chris">CHRIS</span> exclusivo do Chris &nbsp;
+<span class="modo-tag modo-ambos">AMBOS</span> comum a todos
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="personagens">Os Personagens</h2>
+
+<h3 id="jill">Jill Valentine</h3>
+<p>Recomendada para quem está jogando pela primeira vez — a aventura de <span class="npc">Jill</span> é consideravelmente mais fácil que a de Chris. Ela possui mais munição, mais Ink Ribbons para salvar, o <span class="item">Lockpick</span> (abre travas simples sem precisar de chaves pequenas), recebe ajuda do <span class="npc">Barry Burton</span> e obtém a poderosa <span class="item">Bazooka</span>. A desvantagem é que ela recebe mais dano que Chris.</p>
+
+<h3 id="chris">Chris Redfield</h3>
+<p>Para jogadores experientes. <span class="npc">Chris</span> é mais forte que Jill, mas seu inventário tem apenas seis slots, ele precisa de <span class="item">Small Keys</span> para abrir travas simples, não consegue a Bazooka e tem menos munição disponível. Em compensação, <span class="npc">Rebecca Chambers</span> pode curá-lo em momentos críticos.</p>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="controles">Controles</h2>
+
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>↑ / ↓ / ← / →</td><td>Mover / mirar / navegar menus</td></tr>
+  <tr><td>B</td><td>Atirar / Ação / Abrir portas / Selecionar item</td></tr>
+  <tr><td>A</td><td>Girar 180° / Cancelar</td></tr>
+  <tr><td>X / Y</td><td>Cancelar / Recarregar</td></tr>
+  <tr><td>L</td><td>Empunhar faca</td></tr>
+  <tr><td>R</td><td>Empunhar arma</td></tr>
+  <tr><td>Tela touch</td><td>Puzzles e Lutas de Faca (Rebirth)</td></tr>
+  <tr><td>Microfone</td><td>Soprar velas e vômito de zumbi (Rebirth)</td></tr>
+</table>
+
+<h3 id="lutas-faca">Lutas de Faca — Rebirth</h3>
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Em determinados momentos o jogo entra em visão em primeira pessoa para uma luta com a faca. Arraste a caneta na tela touch: cima para cortar para cima, baixo para baixo, esquerda e direita para os lados. Um toque rápido no centro realiza um golpe direto. <strong>Golpes críticos</strong> causam muito mais dano — execute-os no último instante antes do inimigo atacar.</p>
+<ul>
+  <li><span class="inimigo">Zumbis</span> — arraste para acertar múltiplos. Quando forem vomitar, assopre o microfone.</li>
+  <li><span class="inimigo">Corvos</span> — um toque direto já mata.</li>
+  <li><span class="inimigo">Cães</span> — <span class="alerta">obrigatório acertar um crítico</span>. Corte em qualquer direção logo após eles uivarem e saltarem.</li>
+  <li><span class="inimigo">Hunters</span> — acerte o crítico logo depois que eles erguem o braço. Se saltarem para trás e gritarem, corte assim que entrarem na tela.</li>
+</ul>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="ervas">Combinação de Ervas</h2>
+
+<table>
+  <tr><th>Combinação</th><th>Efeito</th></tr>
+  <tr><td>Green Herb</td><td>Recupera 25% da vida</td></tr>
+  <tr><td>Green + Green</td><td>Recupera ~50% da vida</td></tr>
+  <tr><td>Green + Green + Green</td><td>Recupera 100% da vida</td></tr>
+  <tr><td>Red Herb (sozinha)</td><td>Sem efeito</td></tr>
+  <tr><td>Red + Green</td><td>Recupera 100% da vida</td></tr>
+  <tr><td>Blue Herb</td><td>Cura envenenamento</td></tr>
+  <tr><td>Green + Blue</td><td>25% de vida + cura veneno</td></tr>
+  <tr><td>Green + Green + Blue</td><td>50% de vida + cura veneno</td></tr>
+  <tr><td>Red + Green + Blue</td><td>100% de vida + cura veneno</td></tr>
+</table>
+
+<div class="dica">⚠️ Para combinar Red + Green + Blue, primeiro combine Green com Blue, depois adicione a Red.</div>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="mansao">A — A Mansão</h2>
+
+<h3 id="mansao-inicio">Entrada e Hall Principal</h3>
+
+<p>Entre na Sala de Jantar e passe pela porta próxima. Explore o corredor para encontrar seu primeiro <span class="inimigo">zumbi</span>.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Elimine o zumbi ou fuja de volta até <span class="npc">Barry</span>. Volte ao hall principal para encontrar <span class="npc">Wesker</span> — Barry lhe entregará o <span class="item">Lockpick</span>.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Volte ao hall principal e pegue a <span class="item">Handgun de Jill</span> no chão.</p>
+
+<p>Pegue os <span class="item">Ink Ribbons ×3</span> perto da máquina de escrever e volte ao corredor do zumbi. Examine o corpo de <span class="npc">Kenneth</span> duas vezes para obter <span class="item">Handgun Bullets ×30</span>. Do hall principal, entre pelas portas duplas a leste.</p>
+
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Luta de Faca ao entrar. Depois, empurre a prateleira do canto para pegar o <span class="item">Mapa do 1º Andar</span> — use também a escadinha ao lado da estátua.</p>
+<p><span class="modo-tag modo-classic">CLÁSSICO</span> Pegue o <span class="item">Mapa do 1º Andar</span> do mesmo jeito, sem a luta.</p>
+
+<p>No corredor das cortinas à esquerda, passe rapidamente pelos zumbis e pegue os <span class="item">Ink Ribbons ×3</span> na prateleira. Volte ao hall principal e suba as escadas. Entre pela porta a sudeste.</p>
+
+<p><span class="modo-tag modo-chris">CHRIS</span> Pegue a <span class="item">Small Key</span> nessa sala. Entre pela porta e encontre o cadáver de <span class="npc">Forest</span> (Bravo Team).</p>
+<p><span class="modo-tag modo-jill">JILL</span> <span class="npc">Barry</span> lhe entregará a <span class="item">Bazooka</span> ao entrar.</p>
+
+<p>Volte ao hall e passe pela porta oeste do segundo andar. Na parte superior da Sala de Jantar, elimine os <span class="inimigo">zumbis</span> e/ou <span class="inimigo">corvos</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Estátua do Balcão</div>
+  <p>Empurre a estátua pelo corrimão aberto para que ela caia no primeiro andar. Você coletará o item resultante em breve.</p>
+</div>
+
+<p>Abra a porta do outro lado e elimine os zumbis. Desça as escadas e entre na sala de salvamento próxima.</p>
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Fique atento aos cães que arrombam as janelas.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Aqui você encontrará <span class="npc">Rebecca Chambers</span>. Diga <strong>NÃO</strong> quando ela pedir para acompanhá-lo. Pegue a <span class="item">Mansion Sword Key</span> da cama.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Pegue os <span class="item">Ink Ribbons ×3</span> da cama.</p>
+
+<p>Guarde alguns itens e certifique-se de levar a Sword Key se for Chris.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle de Caixas — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p>Ilumine os dois círculos coloridos na ordem correta para combiná-los.</p>
+  <p><strong>Jill:</strong> 1. E e D &nbsp; 2. B e D &nbsp; 3. D e C &nbsp; 4. E e A → <span class="item">Red Herb ×1</span></p>
+  <p><strong>Chris:</strong> 1. B e D &nbsp; 2. D e A &nbsp; 3. E e C → <span class="item">Shotgun Shells ×7</span></p>
+</div>
+
+<h3 id="mansao-corredor">Corredores e Quartos do Oeste</h3>
+
+<p>Saia e desça pelo corredor com cuidado dos zumbis e/ou cães. Abra a porta no final e siga para o sul passando pelos zumbis. Use a <span class="item">Sword Key</span> ou o <span class="item">Lockpick</span> na porta lateral. Dentro, pegue <span class="item">Handgun Bullets ×15</span> na cama. Examine a escrivaninha — um zumbi sairá do armário. Após eliminá-lo, pegue os <span class="item">Shotgun Shells ×7</span> e o arquivo <span class="item">Keeper's Diary</span> na escrivaninha. Saia e desbloqueie a próxima porta.</p>
+
+<p>Siga para o oeste e desbloqueie a porta vermelha ao lado das portas duplas. Empurre a prateleira nos fundos da sala para pegar as <span class="item">Music Notes</span>. Use-as no piano para abrir uma passagem na parede.</p>
+
+<p><span class="modo-tag modo-chris">CHRIS</span> Rebecca entrará para tocar piano — volte após completar os próximos três puzzles.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Gold Emblem</div>
+  <p>Encontre o <span class="item">Emblem</span> pendurado acima da lareira na Sala de Jantar do 1º andar. Retire-o e substitua pelo <span class="item">Gold Emblem</span> que você pegar na sala do piano. Isso abrirá a passagem na parede.</p>
+</div>
+
+<p>Volte à Sala de Jantar e coloque o <span class="item">Gold Emblem</span> no lugar do original para o próximo puzzle.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Relógio da Sala de Jantar</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Ao colocar o Gold Emblem, o relógio se moverá revelando a <span class="item">Shield Key</span> atrás dele.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Use a tela touch para girar e posicionar o relógio exatamente no 3 para obter a <span class="item">Shield Key</span>.</p>
+</div>
+
+<p>Pegue a <span class="item">Blue Jewel</span> da estátua quebrada que você derrubou do balcão anteriormente. Volte ao corredor com o zumbi no armário. Nessa mesma área há uma sala com uma estátua de tigre — coloque a <span class="item">Blue Jewel</span> em um dos olhos para obter o <span class="item">Wind Crest</span>.</p>
+
+<h3 id="mansao-leste">Ala Leste e Shotgun</h3>
+
+<p>Volte à sala onde pegou o mapa e desbloqueie a porta da direita. No corredor, cuidado com os <span class="inimigo">cães</span> que saltam pelas janelas. Empurre a segunda prateleira para encontrar <span class="item">Handgun Bullets ×15</span> e abra a porta no final. Passe pela porta enferrujada (você voltará depois) e entre na primeira porta que ver — é o banheiro. Pegue <span class="item">Handgun Bullets ×15</span> na pia.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Pegue a <span class="item">Small Key</span> na banheira.</p>
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Cuidado com o zumbi no banheiro.</p>
+
+<p>Continue pelo corredor e entre pelas portas duplas no final (a porta próxima contém a <span class="item">Shotgun</span>, mas você precisará da <span class="item">Broken Shotgun</span> para obtê-la).</p>
+
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Luta de Faca e depois zumbis. Siga para a porta à esquerda.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Retratos das Fases da Vida</div>
+  <p>Pressione os botões dos quadros na ordem correta. Se errar, saia e volte para resetar.</p>
+  <ol>
+    <li>Bebê Recém-Nascido</li>
+    <li>Criança</li>
+    <li>Menino Animado</li>
+    <li>Jovem</li>
+    <li>Homem de Meia-Idade Cansado</li>
+    <li>Velho de Aparência Sombria</li>
+  </ol>
+  <p>Depois pressione o botão do quadro "Fim da Vida" para obter o <span class="item">Star Crest</span>.</p>
+</div>
+
+<p><span class="modo-tag modo-chris">CHRIS</span> Não esqueça de voltar até Rebecca para resolver os dois puzzles anteriores antes de continuar.</p>
+
+<p>Saia e entre pela porta cinza próxima. Elimine os zumbis, pegue a <span class="item">Green Herb ×1</span> perto das escadas e entre na sala de salvamento. Pegue o <span class="item">Chemical</span> no chão e guarde alguns itens.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle de Caixas 2 — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p><strong>Jill:</strong> 1. A e B &nbsp; 2. A e E &nbsp; 3. D e C → <span class="item">Red Herb ×1</span></p>
+  <p><strong>Chris:</strong> 1. A e E &nbsp; 2. D e E &nbsp; 3. D e C → <span class="item">First Aid Spray ×1</span></p>
+</div>
+
+<p>Volte ao corredor da estátua de tigre com o <span class="item">Chemical</span> e vá para a sala a sudeste. Use o Chemical na bomba d'água para matar a planta-fonte. Pegue a <span class="item">Mansion Armor Key</span>, além de <span class="item">Green Herb ×4</span> e <span class="item">Red Herb ×2</span>. Em seguida vá à sala de salvamento próxima e desbloqueie a porta com a Armor Key. Pegue a <span class="item">Broken Shotgun</span>, <span class="item">Handgun Bullets ×15</span> e <span class="item">Shotgun Shells ×7</span> na escrivaninha.</p>
+
+<p>No hall principal da mansão, desbloqueie a porta a nordeste no 1º andar. Pegue <span class="item">Handgun Bullets ×15</span> na cômoda e abra a gaveta com o lockpick ou small key para obter <span class="item">Shotgun Shells ×7</span>. Cuidado com o zumbi — passe pela porta leste. Nessa sala, passe correndo pelo zumbi e pegue <span class="item">Ink Ribbons ×3</span> e <span class="item">Green Herb ×2</span>. Agora vá para a área leste do 1º andar.</p>
+
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Fique atento a várias Lutas de Faca pelo caminho.</p>
+
+<p>Lembra da porta enferrujada? Desbloqueie-a agora e elimine os <span class="inimigo">cães</span> pela área. No final você encontrará <span class="item">Green Herb ×6</span>! De volta ao corredor, desbloqueie a porta ao lado das portas duplas. Dentro, pegue a <span class="item">Shotgun</span> da parede e substitua pela <span class="item">Broken Shotgun</span>. Com as duas Mansion Keys em mãos, suba as escadas eliminando os zumbis. Desbloqueie a porta sul para o corredor seguinte e encontre o arquivo <span class="item">Botany Book</span> na sala oeste. Desbloqueie a porta e você volta ao corredor anterior.</p>
+
+<p>Use a <span class="item">Armor Key</span> na porta lateral (às vezes há um zumbi) e vá para a sala oeste. Pegue o <span class="item">Lighter</span> na prateleira, <span class="item">Handgun Bullets ×15</span> e <span class="item">Red Herb ×1</span> nos lados da cama. Na sala leste, <span class="npc">Jill</span> encontrará <span class="npc">Barry</span> — pegue o arquivo <span class="item">Researcher's Will</span> na escrivaninha e <span class="item">Ink Ribbons ×3</span> na parede. Examine o painel de insetos e pressione o interruptor para drenar o tanque de água. Empurre o tanque para a direita e a prateleira para a direita para encontrar <span class="item">Explosive Rounds ×6</span> ou <span class="item">Shotgun Shells ×7</span>.</p>
+
+<p>Saia e entre pela porta leste no final. Pegue a <span class="item">Green Herb ×1</span> e use o <span class="item">Lighter</span> no fogão para revelar o <span class="item">Mapa do 2º Andar</span>. Contorne o próximo corredor (cuidado com zumbis) e use a chave nas portas duplas verdes.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Sala das Pedras</div>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Use a tela touch para equilibrar as pedras na balança:</p>
+  <p><strong>Chris:</strong> Lado esquerdo: Vermelho, Vermelho, Verde | Lado direito: Azul e Amarelo</p>
+  <p><strong>Jill:</strong> Lado esquerdo: Azul, Vermelho, Verde | Lado direito: Verde e Amarelo</p>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Empurre as duas estátuas sobre os ralos circulares no chão para cobri-los completamente, depois pressione o interruptor no bloco central para abrir o armário.</p>
+  <p>Prêmio: <span class="item">Sun Crest</span></p>
+</div>
+
+<p>Saia e desbloqueie a porta sul. Pegue <span class="item">Green Herb ×2</span> e encontre <span class="npc">Richard</span>.</p>
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Jill precisará fazer CPR pelo microfone do DS — sopre de forma constante e regular. Ele dirá para ajustar o relógio para <strong>8:12</strong> (recompensa: <span class="item">Shotgun Shells ×7</span>).</p>
+<p><span class="modo-tag modo-classic">CLÁSSICO</span> Jill precisará ir até a sala de salvamento a oeste e pegar o <span class="item">Chemical</span> para salvá-lo. De qualquer forma, ele morre. Examine o corpo para obter <span class="item">Handgun Bullets ×15</span>.</p>
+
+<p>Abra a porta seguinte (cuidado com zumbis) e passe pela porta ensanguentada primeiro. No quarto escuro, <span class="npc">Jill</span> pode pegar <span class="item">Ink Ribbons ×3</span> na mesa. Há também <span class="item">Handgun Bullets ×15</span> no armário do canto. Use o <span class="item">Lighter</span> na vela e encontre <span class="item">Acid Rounds ×6</span> ou <span class="item">Shotgun Shells ×7</span>. Use a <span class="item">Shield Key</span> na porta ensanguentada — <span class="alerta">salve primeiro e equipe a Shotgun</span>.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">🐍 Chefe — Cobra Gigante (1ª vez)</div>
+  <p>Acertos necessários: 4–5 com Shotgun. Atire na cobra, corra para o outro lado da sala e atire novamente. Não se envergonhe de ser acertado — é difícil desviar. <span class="alerta">Se for mordido, você ficará envenenado instantaneamente.</span></p>
+  <p><span class="modo-tag modo-jill">JILL</span> Após ser envenenada, corra até a sala de salvamento a oeste para usar o Soro.</p>
+  <p><span class="modo-tag modo-chris">CHRIS</span> Chris desmaioerá e Rebecca o ajudará automaticamente.</p>
+</div>
+
+<p>Após o combate, pegue o <span class="item">Moon Crest</span> onde a cobra estava, e os <span class="item">Shotgun Shells ×7</span> no barril. Leve todos os quatro Crests até o painel na área noroeste do 1º andar e encaixe-os para desbloquear a porta.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="patio">B — Pátio (Courtyard)</h2>
+
+<p>No galpão, empurre a escadinha até a prateleira e pegue a <span class="item">Crank</span> lá em cima.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Pegue a <span class="item">Small Key</span> no barril.</p>
+
+<p>Entre pelas portas duplas — <span class="modo-tag modo-rebirth">REBIRTH</span> haverá uma Luta de Faca. Elimine os <span class="inimigo">cães</span> e talvez <span class="inimigo">aranhas</span>. Pegue <span class="item">Red Herb ×2</span>, <span class="item">Green Herb ×2</span> ou <span class="item">Blue Herb ×2</span>. Vá para o oeste e encontre o <span class="item">Mapa do Jardim</span> na parede. No portão norte, use a <span class="item">Crank</span> para drenar a água, permitindo a travessia. <span class="alerta">Corra rapidamente — serpentes pequenas caem do teto e envenenam.</span></p>
+
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Há um zumbi no chão nessa área. Desça pelo elevador e elimine os cães. Abra o portão oeste e pegue <span class="item">Red Herb ×2</span> e <span class="item">Green Herb ×2</span> ou <span class="item">Blue Herb ×2</span>. Elimine os cães e talvez um corvo, depois entre pela porta no final em direção à Guarida.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="guarida">C — Guarida (Guardhouse)</h2>
+
+<p>Pegue <span class="item">Green Herb ×1</span> e <span class="item">Blue Herb ×2</span>. Na sala de salvamento à direita, encontre <span class="item">Handgun Bullets ×15</span> ou <span class="item">Explosive Rounds ×6</span>, e um <span class="item">First Aid Spray ×1</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle de Caixas 3 — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p><strong>Jill:</strong> 1. A e C &nbsp; 2. E e C &nbsp; 3. B e D &nbsp; 4. D e F → <span class="item">Shotgun Shells ×7</span></p>
+  <p><strong>Chris:</strong> 1. E e C &nbsp; 2. B e D &nbsp; 3. A e D &nbsp; 4. E e B → <span class="item">Shotgun Shells ×7</span></p>
+</div>
+
+<p>Equipe a <span class="item">Shotgun</span> ou a <span class="item">Bazooka</span> e entre pelas portas duplas vermelhas no corredor. Elimine as duas <span class="inimigo">aranhas</span> e pegue <span class="item">Handgun Bullets ×15</span> no barril e <span class="item">Ink Ribbons ×3</span>.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Examine o jogo de sinuca para encontrar um código: <strong>345</strong> ou <strong>1245</strong> — anote!</p>
+
+<p>De volta ao corredor, entre pela porta norte (quarto 001). No banheiro, cuidado com aranhas ou zumbis e remova o tampão da banheira para obter a <span class="item">Control Room Key</span>. Continue no quarto (pode haver zumbis), pegue o <span class="item">Red Book</span> na cama e use o lockpick ou small key na gaveta para obter <span class="item">Shotgun Shells ×7</span>.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Encontre uma <span class="item">Small Key</span> na xícara no canto.</p>
+
+<p>Ao sair — <span class="modo-tag modo-rebirth">REBIRTH</span> haverá uma Luta de Faca — empurre a estátua para cobrir o buraco no chão e entre pela porta sul. No Modo Rebirth, há dois zumbis super-rápidos — elimine-os depressa. Passe pela primeira porta que ver — <span class="modo-tag modo-rebirth">REBIRTH</span> mais uma Luta de Faca — e corra imediatamente para a parte norte da sala para pegar a <span class="item">002 Key</span> perto da colmeia de vespas. Saia rapidamente.</p>
+
+<p>Use a <span class="item">002 Key</span> na porta nordeste (você pode empurrar a estátua para <span class="item">Green Herb ×2/3</span>).</p>
+<p><span class="modo-tag modo-jill">JILL</span> Você ouvirá <span class="npc">Barry</span> falando no quarto.</p>
+
+<p>Dentro, vá ao banheiro para <span class="item">Handgun Bullets ×15</span> na pia. Explore o quarto com cuidado no Rebirth (zumbi e aranha). Pegue o arquivo <span class="item">Plant 42 Report</span> na cama e o <span class="item">Mapa do Dormitório</span> na parede. Abra a gaveta para <span class="item">Shotgun Shells ×7</span>. Empurre a prateleira esquerda para frente e a direita para a direita para revelar uma escada — desça.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixas sobre a Água</div>
+  <p>Empurre as três caixas para criar uma ponte sobre o vão com água:</p>
+  <ol>
+    <li>Empurre as duas primeiras caixas diretamente na água.</li>
+    <li>Empurre a caixa mais distante em direção à entrada para criar espaço, arraste-a para o outro lado da parede e depois empurre-a sobre a água.</li>
+  </ol>
+</div>
+
+<p>Pegue <span class="item">Green Herb ×2</span> e entre pelas portas duplas alagadas. Corra rapidamente para a sala a sudoeste para não ser atacado pelos <span class="inimigo">tubarões</span>.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Há uma cinemática especial com os tubarões.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Drenar a Água</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Empurre a alavanca para drenar a água.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Após puxar a alavanca, examine a válvula à direita e use a tela touch para girá-la no sentido anti-horário até que as quatro luzes vermelhas acendam.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Painel Eletrônico</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Pressione o interruptor para desbloquear a sala ao lado.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> No painel de trava eletro, faça todos os números somarem 15, 8 e 3: <strong>[843] [591] [267]</strong></p>
+</div>
+
+<p>No outro quarto, pegue <span class="item">Handgun Bullets ×30</span>, <span class="item">Shotgun Shells ×14</span> e a importantíssima <span class="item">003 Dormitory Key</span>. Antes de voltar, entre pela porta leste.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Encontre uma <span class="item">Small Key</span> na caixa perto das raízes da planta.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Aqui é onde você usará o V-Jolt em breve.</p>
+
+<p>Pegue o <span class="item">Red Book</span> e a <span class="item">003 Key</span>, volte ao quarto com a colmeia. Desbloqueie o quarto 003 — <span class="modo-tag modo-rebirth">REBIRTH</span> mais uma Luta de Faca — e pegue o arquivo <span class="item">V-Jolt Report</span> na prateleira, <span class="item">Ink Ribbons ×3</span> na gaveta e <span class="item">Flame Rounds ×6</span> ou <span class="item">Handgun Bullets ×15</span> no banheiro. Coloque o <span class="item">Red Book</span> na estante para revelar uma porta na parede. <span class="alerta">Salve primeiro, leve a Shotgun ou Bazooka com Flame Rounds.</span></p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle Opcional — V-Jolt (Jill)</div>
+  <p><span class="modo-tag modo-jill">JILL</span> Examine o painel ao lado da porta e insira o código do sinuca (<strong>345</strong> ou <strong>1245</strong>). Recolha os 4 <span class="item">Empty Bottles</span> na sala e siga estas etapas de mistura:</p>
+  <ol>
+    <li>Encha uma garrafa com água da pia.</li>
+    <li>Coloque UMB No.02 numa garrafa (vermelha) e combine com a água → <strong>NP-003</strong>.</li>
+    <li>Coloque UMB No.04 numa garrafa (verde) e combine com NP-003 (roxo) → <strong>UMB No.07</strong> (branco).</li>
+    <li>Coloque UMB No.02 numa garrafa (vermelha) e UMB No.04 em outra (verde). Misture as duas → <strong>Yellow-6</strong> (amarelo).</li>
+    <li>Combine Yellow-6 (amarelo) com UMB No.07 (branco) → <strong>UMB No.13</strong> (azul).</li>
+    <li>Encha uma garrafa com água.</li>
+    <li>Coloque UMB No.02 em outra garrafa e misture com a água → outro <strong>NP-003</strong>.</li>
+    <li>Misture NP-003 (roxo) com UMB No.13 (azul) → <strong>V-Jolt</strong>.</li>
+  </ol>
+  <p>Leve o V-Jolt até o subsolo da Guarida (B1) e use-o nas raízes da Plant 42.</p>
+</div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">🌿 Chefe — Planta 42</div>
+  <p><span class="modo-tag modo-jill">JILL</span> Com Bazooka e V-Jolt: 3–4 tiros de Flame Rounds. <span class="modo-tag modo-chris">CHRIS</span> 19–23 tiros de Shotgun. Fique a boa distância e circule ao redor da planta — o teto pinga ácido, então mova-se constantemente. Atire 2–3 vezes e mude de posição.</p>
+</div>
+
+<p>Após o combate, pegue a <span class="item">Mansion Helmet Key</span> na lareira. Com Shotgun ou Bazooka em mãos e um item de cura, volte para a mansão — <span class="modo-tag modo-rebirth">REBIRTH</span> haverá Lutas de Faca pelo caminho.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="retorno-mansao">D — Retorno à Mansão</h2>
+
+<p>Ao chegar, você encontrará o inimigo mais frustrante do jogo: o <span class="inimigo">Hunter</span>. Atire — normalmente leva dois tiros de Shotgun ou Bazooka — e atire novamente quando ele se levantar. Desbloqueie a porta próxima e pressione o interruptor na mesa para acender a luz. Pegue <span class="item">Magnum Rounds ×6</span> na escrivaninha e o <span class="item">MO Disk</span> ou <span class="item">Red Book 1</span> na prateleira (dependendo do modo). Vá até a sala de salvamento próxima e pegue <span class="item">Shotgun Shells ×7</span>, <span class="item">First Aid Spray ×1</span> e/ou <span class="item">Acid Rounds ×6</span> que Barry ou Wesker deixaram. Salve o jogo e leve um item de cura. Depois vá até a escada oeste do 2º andar — cuidado com os Hunters no caminho. Desbloqueie a porta perto das escadas e pegue o arquivo <span class="item">Orders</span>, <span class="item">Shotgun Shells ×7</span> e <span class="item">Magnum Rounds ×6</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Red Jewel no Olho do Veado</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Apague a luz e use a escadinha para alcançar a <span class="item">Red Jewel</span> no olho do veado.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Use o microfone do DS para soprar a vela e repita o processo acima.</p>
+</div>
+
+<p>Desça as escadas — <span class="modo-tag modo-chris">CHRIS</span> tem a opção de salvar Rebecca aqui. Vá até a estátua de tigre e use a <span class="item">Red Jewel</span> para obter a <span class="item">Magnum</span>. Salve o jogo e equipe a Shotgun com um item de cura. Volte para onde pegou o Mapa do 2º Andar e desbloqueie a porta vermelha.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Piano / Toca-Discos</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Apenas examine o piano.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Use a tela touch para girar o disco no sentido horário de forma constante mas não muito devagar — enquanto o medidor estiver no verde no final, está certo.</p>
+</div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">🐍 Chefe — Cobra Gigante (2ª vez)</div>
+  <p>Acertos: 6–7 com Shotgun. Mesma estratégia: mova-se e atire. Desta vez você não será envenenado, mas é bom trazer uma erva ou duas.</p>
+</div>
+
+<p>Pule pelo buraco — <span class="npc">Barry</span> ajuda Jill de certa forma.</p>
+
+<div class="dica">⭐ <strong>Opcional (melhor final de Jill):</strong> Após Barry jogar a corda, espere ele voltar com outra — ele lhe dará o <span class="item">Pass Number</span> (desbloqueia a porta com código na área oeste do 2º andar). Pegue também a <span class="item">Battery</span> no armário perto do elevador do 2º andar.</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Túmulo</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Pressione o interruptor no túmulo.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Há seis pontos que você precisa "espetar" entre os dedos do personagem. Aperte os que estiverem destacados em azul rapidamente — eventualmente precisará apertar todos os seis.</p>
+</div>
+
+<p>Desça a escada e pegue <span class="item">Shotgun Shells ×7</span> e/ou o <span class="item">Flamethrower</span> (Rebirth) na parede nordeste. Passe pelos zumbis até a porta oeste. Elimine mais mortos-vivos e pegue <span class="item">Green Herb ×2</span>.</p>
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Use o Flamethrower no painel para desbloquear a porta ocidental.</p>
+
+<p>Você chegará à cozinha.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Encontre uma <span class="item">Small Key</span> no balcão.</p>
+
+<p>Pegue o elevador no canto — <span class="alerta">se o inventário estiver cheio, use a outra porta para uma cinemática legal e voltar ao 1º andar da mansão</span>. Ao sair do elevador, fique preparado para zumbis ou Hunters. Encontre <span class="item">Green Herb ×1</span> no chão e entre pelas portas duplas azuis. Abra a gaveta para <span class="item">Magnum Rounds ×6</span> e elimine os zumbis dentro. Encontre o arquivo <span class="item">Scrapbook</span> entre as estantes de livros. Examine a parede norte para o próximo puzzle.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Estante de Livros</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Empurre a estante para acessar a porta.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Arranque a espada da porta com a tela touch movendo a caneta para cima e para baixo.</p>
+</div>
+
+<p>Nessa sala, pegue <span class="item">Handgun Bullets ×15</span> na prateleira e <span class="item">Ink Ribbons ×3</span> na mesa. Não examine a janela — corvos podem aparecer. Entre pela porta oeste na sala das estantes.</p>
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Você verá algo assustador.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Estátua Branca</div>
+  <p>Pressione o botão na estátua branca na parede — ela projetará luz sobre um tablet no canto. Empurre a estátua sobre o tablet para remover uma estante, revelando um <span class="item">MO Disk</span> ou <span class="item">Eric's Letter</span>.</p>
+</div>
+
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> No caminho de volta, fique atento a Head Hunters — melhor fugir. No corredor do elevador, entre no armário e pegue <span class="item">Shotgun Shells ×14</span> ou <span class="item">Explosive Rounds ×6</span> e a <span class="item">Battery</span> — <span class="modo-tag modo-rebirth">REBIRTH</span> elimine a aranha primeiro. Você pode encontrar <span class="item">Green Herb ×1</span> e <span class="item">Blue Herb ×1</span> no próximo corredor (cuidado com zumbis e talvez uma vespa). Volte ao Pátio com a <span class="item">Battery</span> e a <span class="item">Crank</span>. Salve o jogo.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="patio-retorno">E — De Volta ao Pátio</h2>
+
+<p><span class="modo-tag modo-rebirth">REBIRTH</span> Você precisará voltar até a Guarida e enfrentar a Cobra Gigante onde lutou contra a Plant 42 — traga uma erva ou duas. Pelo caminho haverá Hunters.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">🐍 Chefe — Cobra Gigante — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p>Você é forçado a lutar em modo de faca. A estratégia real é ter bom timing e tentar obter golpes críticos antes que a cobra ataque. Lembre-se: você pode se curar a qualquer momento e golpes críticos concedem ataques adicionais. Após vencer, pegue o <span class="item">Doom Book 1</span> e examine-o para obter a <span class="item">Eagle Medal</span>.</p>
+</div>
+
+<p>Use a <span class="item">Battery</span> na parede do pátio perto da cachoeira para acessar o elevador. Suba e use a <span class="item">Crank</span> no buraco quadrado novamente para levantar a água. Desça pelo elevador e encontre uma passagem secreta atrás da cachoeira.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="subterraneo">F — Área Subterrânea</h2>
+
+<p>Abra a porta e pegue o <span class="item">Flamethrower</span> na parede se for Chris.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Se você esperou por Barry mais cedo, ele se encontrará com você aqui. Lidere o caminho quando ele perguntar.</p>
+
+<p>Passe pela porta esquerda ou direita (ambas levam ao mesmo lugar) e encontre <span class="item">First Aid Spray ×1</span> e <span class="item">Shotgun Shells ×7</span> ou <span class="item">Explosive Rounds ×6</span> no gerador leste. Entre pela porta sul para encontrar <span class="npc">Enrico</span> e assistir a uma cinemática. Examine o corpo para obter <span class="item">Handgun Bullets ×30</span> e saia para encontrar a <span class="item">Hex. Crank</span> no chão. Fique atento a Lutas de Faca e Hunters.</p>
+<p><span class="modo-tag modo-chris">CHRIS</span> Precisará devolver o Flamethrower nesse ponto.</p>
+
+<p>Volte à entrada e contorne o corredor para encontrar um grande vão no chão com um buraco hexagonal.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Hex. Crank</div>
+  <p>Use a <span class="item">Hex. Crank</span> três vezes para criar uma passagem para a próxima área.</p>
+</div>
+
+<p><span class="modo-tag modo-chris">CHRIS</span> Pegue o <span class="item">Flamethrower</span> na parede. Aproxime-se do grande rochedo e corra rapidamente para o lado — ele se choca com a parede e revela uma nova passagem. Pegue o item atrás de onde o rochedo estava (<span class="item">Flame Rounds ×6</span> ou <span class="item">Magnum ×6</span>) e encontre um Hunter aqui. Atire de longe para evitar que ele corte sua cabeça. Entre pelas novas portas duplas.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">🕷️ Chefe — Aranha Gigante</div>
+  <p><span class="modo-tag modo-jill">JILL</span> Use a Bazooka com Flame Rounds: 1–2 acertos e acabou!</p>
+  <p><span class="modo-tag modo-chris">CHRIS</span> Circule pela sala, atire com a Shotgun (9 acertos) e mova-se novamente. A gosma ácida é fácil de desviar se você ficar em movimento.</p>
+</div>
+
+<p>Após o combate, corte a teia com a faca ou use o Flamethrower nas portas duplas. Na próxima área, há um super-zumbi rápido no Rebirth ou Serpentes Pequenas no Clássico — desvie delas.</p>
+<p><span class="modo-tag modo-jill">JILL</span> Apenas você pode pegar <span class="item">Ink Ribbons ×3</span> no barril do canto. Entre na sala de salvamento leste e guarde alguns itens. Pegue <span class="item">Ink Ribbons ×3</span>, <span class="item">First Aid Spray ×1</span> e <span class="item">Blue Herb ×1</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle de Caixas 4 — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p><strong>Jill:</strong> 1. D e E &nbsp; 2. B e C &nbsp; 3. C e D &nbsp; 4. F e E → <span class="item">Explosive Rounds ×6</span></p>
+  <p><strong>Chris:</strong> 1. A e C &nbsp; 2. F e D &nbsp; 3. C e E &nbsp; 4. G e E → <span class="item">Magnum Rounds ×6</span></p>
+</div>
+
+<p>Salve o jogo e leve a <span class="item">Hex. Crank</span>. Passe pela porta leste — <span class="modo-tag modo-chris">CHRIS</span> precisará colocar o Flamethrower de volta na parede. Vá para o norte e encontre um buraco hexagonal na parede esquerda.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Rotação da Parede</div>
+  <p><span class="modo-tag modo-jill">JILL</span> Use a Hex. Crank três vezes.</p>
+  <p><span class="modo-tag modo-chris">CHRIS</span> Gire a parede duas vezes.</p>
+</div>
+
+<p>Se girou corretamente, haverá uma abertura à esquerda na parede. Entre pela porta — talvez uma Luta de Faca — e depois um ótimo puzzle.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Estátua e Hex. Crank</div>
+  <p>Empurre a estátua encostando-a na parede logo à direita do buraco hexagonal. Use a Hex. Crank duas vezes para empurrar a estátua para fora. Isso lhe dá espaço para arrastar a estátua sobre o bloco colorido no chão, revelando o <span class="item">Doom Book 2</span> — examine-o para obter a <span class="item">Wolf Medal</span>.</p>
+</div>
+
+<p>Corra em direção ao rochedo como antes e posicione-se no corredor esquerdo para se proteger. Atrás do rochedo há o <span class="item">Mapa do Subterrâneo</span> e um <span class="item">MO Disk</span>. Vá para o sul e suba pelo pequeno elevador para sair ao exterior. Pegue <span class="item">Green Herb ×2</span> e <span class="item">Red Herb ×2</span>, depois aproxime-se da fonte.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Fonte com Medalhas</div>
+  <p>Coloque a <span class="item">Wolf Medal</span> e a <span class="item">Eagle Medal</span> nos respectivos encaixes nos lados da fonte para drenar a água. Isso revelará escadas e um elevador que leva ao laboratório secreto subterrâneo.</p>
+</div>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="laboratorio">G — Laboratório Secreto</h2>
+
+<p>Passe pela porta de emergência — você voltará aqui em breve — e desça a escada à esquerda. Guarde alguns itens.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle de Caixas 5 — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p><strong>Jill:</strong> 1. F e E &nbsp; 2. A e B &nbsp; 3. A e F &nbsp; 4. D e C → <span class="item">Magnum Rounds ×6</span></p>
+  <p><strong>Chris:</strong> 1. H e C &nbsp; 2. A e D &nbsp; 3. D e G &nbsp; 4. H e E &nbsp; 5. A e F → <span class="item">Magnum Rounds ×6</span></p>
+</div>
+
+<p>Passe pela porta — Luta de Faca fácil no Rebirth — elimine os zumbis e pegue <span class="item">Green Herb ×2</span>. Encontre o último <span class="item">MO Disk</span> na sala além da Visual Data Room e desça as escadas. Entre pelas portas duplas imediatamente ao lado — cuidado com o zumbi no Rebirth — e entre pela primeira porta que ver. Ligue o interruptor e, no Rebirth, elimine o zumbi turbo. Pegue o arquivo <span class="item">Researcher's Letter</span> na escrivaninha, <span class="item">Handgun Bullets ×15</span> na caixa perto da pia e <span class="item">Green Herb ×1</span> na frente do quadro.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Luz Azul e Símbolos</div>
+  <p>Empurre a prateleira perto da escrivaninha para revelar um interruptor que acende uma luz azul na sala. Leia a carta para encontrar uma dica na pintura. O segredo é combinar os símbolos com as letras das palavras do quadro. A resposta é: <strong>M O L E</strong></p>
+</div>
+
+<p>Volte ao corredor com as escadas — <span class="modo-tag modo-jill">JILL</span> pode encontrar <span class="item">Ink Ribbons ×3</span> em frente à parede sul — e entre pelas portas duplas a nordeste após eliminar alguns zumbis. Dentro, cuidado com o zumbi rápido no Rebirth, e pegue os <span class="item">Slides</span> no chão. Faça login no computador.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Computador</div>
+  <ol>
+    <li>Login: <strong>John</strong></li>
+    <li>Senha: <strong>Ada</strong></li>
+    <li>2ª Senha: <strong>MOLE</strong></li>
+    <li>Desbloqueie ambas as salas em B2 e B3.</li>
+  </ol>
+</div>
+
+<p>Volte para cima e entre na Visual Data Room — talvez haja uma vespa grande dependendo da versão. Use os <span class="item">Slides</span> no projetor para imagens e dados interessantes. Examine o painel na parede e pressione o interruptor.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Painel do Pilar</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Ao pressionar o interruptor, o pilar se move automaticamente.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Pressione os interruptores na ordem abaixo (o padrão é diferente para cada personagem):</p>
+  <p style="font-family:monospace;">[ ] [ ] [ ] [ ] [ ]<br>1 &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; 5</p>
+  <p><strong>Jill:</strong> 4, 3, 1, 5, 2 &nbsp;&nbsp;&nbsp; <strong>Chris:</strong> 2, 5, 4, 1, 3</p>
+</div>
+
+<p>Quando terminar, pegue a <span class="item">Power Room Key</span> e o arquivo <span class="item">Security System File</span> na prateleira do canto. Saia e desça — se quiser o melhor final, leve dois MO Disks. Leve também a Shotgun. Desbloqueie as portas duplas a sudeste com a <span class="item">Power Room Key</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle Opcional — Sala das Caixas e Escadinha</div>
+  <p>Duas caixas e uma escadinha. Objetivo: cobrir os dois ralos circulares e posicionar a escadinha sobre o interruptor central.</p>
+  <ol>
+    <li>Empurre a Caixa A para frente para cobrir o ralo direito.</li>
+    <li>Empurre a escadinha para a direita, dando espaço para empurrá-la de lado.</li>
+    <li>Com a escadinha fora do caminho, empurre a Caixa B para o lado da escadinha e depois cubra o ralo esquerdo.</li>
+    <li>Empurre a escadinha sobre o interruptor central.</li>
+  </ol>
+  <p>Não esqueça de pegar <span class="item">Red Herb ×1</span> e <span class="item">Shotgun Shells ×7</span>. Suba pelo duto de ventilação da escadinha para encontrar <span class="item">Magnum Rounds ×6</span>. Use um MO Disk no terminal para obter o <span class="item">Passcode 02</span>.</p>
+</div>
+
+<p>Desbloqueie a porta e volte ao corredor. Continue até o corredor leste e entre na sala de salvamento leste — cuidado com zumbis. Pegue <span class="item">Green Herb ×1</span>, <span class="item">Blue Herb ×2</span> e <span class="item">Flame Rounds ×6</span> ou <span class="item">Magnum Rounds ×6</span>. Salve o jogo e leve um item de cura.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle de Caixas Final — <span class="modo-tag modo-rebirth">REBIRTH</span></div>
+  <p>Este puzzle tem quatro alavancas em vez das habituais duas. Uma ilumina um círculo de cor, as outras iluminam três círculos.</p>
+  <p><strong>Jill:</strong> 1. B, GFE &nbsp; 2. F, ABC &nbsp; 3. A, FED &nbsp; 4. E, HAB → <span class="item">Magnum Rounds ×6</span></p>
+  <p><strong>Chris:</strong> 1. A, DEF &nbsp; 2. D, EFA &nbsp; 3. E, BCD → <span class="item">First Aid Spray ×1</span></p>
+</div>
+
+<p>Saia da sala de salvamento — Luta de Faca no Rebirth — e entre na sala sul. <span class="modo-tag modo-rebirth">REBIRTH</span> Esta será a Luta de Faca mais longa e difícil do jogo — cronometreataques bem e busque críticos. Cuidado com os <span class="inimigo">Head Hunters</span> aqui dentro — a Shotgun é a única opção. Examine o terminal regulador de energia na parte sudoeste da sala.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Restaurar Energia (1º Terminal)</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Apenas pressione o interruptor.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Com a tela touch, desenhe dois fios para conectar a energia nas posições marcadas no diagrama.</p>
+</div>
+
+<p>Entre pela porta sudoeste. No canto sudeste, use um MO Disk no terminal para obter o <span class="item">Passcode 03</span> (opcional). Cuidado com Head Hunters e entre pela porta sul. Elimine mais rastejadores e examine o terminal.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Restaurar Energia (2º Terminal)</div>
+  <p><span class="modo-tag modo-classic">CLÁSSICO</span> Apenas pressione o interruptor.</p>
+  <p><span class="modo-tag modo-rebirth">REBIRTH</span> Conecte os fios novamente com a tela touch — desta vez o padrão é diferente.</p>
+</div>
+
+<p>Com a energia totalmente restaurada para o elevador, volte à sala de salvamento e <span class="alerta">SALVE O JOGO</span>. Equipe a Magnum e um item de cura e aproxime-se do elevador. Pressione o interruptor à direita para ativá-lo. Dependendo das suas decisões, Barry ou Rebecca irão ao seu encontro. Assista à cinemática e prepare-se para o Tyrant.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Tyrant (1ª fase)</div>
+  <p>Acertos: 6 com Magnum (Chris) ou 3 (Jill). Mantenha distância e atire continuamente. Com 3–6 tiros ele cairá!</p>
+</div>
+
+<p>Após o combate, dependendo das suas decisões:</p>
+<ul>
+  <li>Se não salvou Rebecca nem esperou Barry, pegue a <span class="item">Master Key</span> do corpo de Wesker e desbloqueie a porta perto do terminal.</li>
+  <li>Se fez as ações corretas, pode sair sem se preocupar com itens extras.</li>
+  <li><span class="modo-tag modo-jill">JILL</span> Verifique o estado de Barry se quiser o bom final.</li>
+  <li><span class="modo-tag modo-chris">CHRIS</span> Encontre Rebecca.</li>
+</ul>
+
+<div class="dica">⭐ <strong>Opcional — Salvar os personagens secundários:</strong> Use o último MO Disk no terminal na sala noroeste de B3 para obter o <span class="item">Passcode 01</span>. Com os três códigos, aproxime-se das portas duplas ocidentais, insira os códigos no painel direito, elimine os zumbis e resgate Chris ou Jill da cela!</div>
+
+<p>Salve pela última vez e suba até as portas de saída de emergência em B1. Pegue a <span class="item">Battery</span> no chão e encaixe-a no slot ao lado do elevador. Pode haver uma cinemática — suba pelo elevador para um possível limite de tempo. Pegue o <span class="item">Flare</span> na caixa e use-o no centro do helipad para Brad chegar no helicóptero. Se resgatou seus personagens secundários e o companheiro preso, você enfrentará o Tyrant uma última vez.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe Final — Tyrant (2ª fase)</div>
+  <p>Acertos: 8–12 com Magnum + Rocket Launcher. Não se envergonhe de ser acertado logo de início — com bastante itens de cura, mantenha distância moderada e atire com a Magnum. <span class="alerta">Se você correr longe demais, ele usará o devastador ataque de garra.</span> Após 8–12 tiros, Brad joga o Rocket Launcher — equipe e atire imediatamente!</p>
+</div>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="finais">Finais do Jogo</h2>
+
+<h3 id="finais-chris">Finais — Chris</h3>
+<table>
+  <tr><th>Final</th><th>Condições</th><th>O que acontece</th></tr>
+  <tr><td>🏆 Melhor</td><td>Salve Rebecca do Hunter <em>e</em> resgate Jill com os 3 MO Disks</td><td>Chris, Jill e Rebecca escapam. Chris sorri para Rebecca adormecida.</td></tr>
+  <tr><td>⭐ Moderado</td><td>Deixe o Hunter matar Rebecca, resgate Jill com MO Disks</td><td>Chris e Jill escapam no helicóptero, exaustos.</td></tr>
+  <tr><td>🔶 2º Pior</td><td>Salve Rebecca, ignore a cela de Jill</td><td>Chris e Rebecca escapam. Chris pergunta se ela está cansada.</td></tr>
+  <tr><td>💀 Pior</td><td>Não salve Rebecca nem Jill</td><td>Chris escapa sozinho sem enfrentar o Tyrant.</td></tr>
+</table>
+
+<h3 id="finais-jill">Finais — Jill</h3>
+<table>
+  <tr><th>Final</th><th>Condições</th><th>O que acontece</th></tr>
+  <tr><td>🏆 Melhor</td><td>Espere Barry pela corda <em>e</em> verifique ele após o Tyrant <em>e</em> resgate Chris</td><td>Jill, Chris e Barry escapam. Barry examina sua Colt Magnum.</td></tr>
+  <tr><td>⭐ Moderado</td><td>Abandone Barry na corda, resgate Chris com MO Disks</td><td>Chris e Jill escapam no helicóptero.</td></tr>
+  <tr><td>🔶 2º Pior</td><td>Espere Barry (sem resgatar Chris)</td><td>Jill e Barry escapam.</td></tr>
+  <tr><td>💀 Pior</td><td>Abandone Barry e ignore os MO Disks</td><td>Jill escapa sozinha (você ganha a foto de Barry).</td></tr>
+</table>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="segredos">Segredos e Desbloqueáveis</h2>
+
+<h3 id="seg-trajes">Novos Trajes</h3>
+<p>Obtenha o melhor final com qualquer personagem em qualquer modo para conseguir a <span class="item">Special Key</span>. Use-a na sala nordeste do 1º andar da mansão (você também precisará da Armor Key) para acessar novos trajes:</p>
+<ul>
+  <li><strong>Chris — Traje Ninja:</strong> Similar ao Scorpion de Mortal Kombat.</li>
+  <li><strong>Chris — Jaqueta de Couro:</strong> Jaqueta com anjo nas costas, visual casual biker.</li>
+  <li><strong>Jill — Camiseta Preta e Calça Jeans:</strong> Visual de lutadora.</li>
+  <li><strong>Jill — Camisa de Policial (quase):</strong> Visual bem diferente do original.</li>
+</ul>
+
+<h3 id="seg-rocket">Rocket Launcher Infinita</h3>
+<p>Termine o jogo em menos de <strong>3 horas</strong> com o melhor final no Modo Rebirth.</p>
+<ul>
+  <li>Não pegue tudo que encontrar — deixe ervas e itens desnecessários para trás.</li>
+  <li>Pule cinemáticas (Select pula a maioria; B pula os tempos de carregamento das portas).</li>
+  <li>Economize tempo nos salvamentos ao máximo.</li>
+</ul>
+
+<h3 id="seg-multi">Personagens no Multi-Card</h3>
+<ul>
+  <li><strong>Rebecca:</strong> Termine o Modo Rebirth com Chris com o melhor final.</li>
+  <li><strong>Barry:</strong> Termine o Modo Rebirth com Jill com o melhor final.</li>
+  <li><strong>Wesker:</strong> Obtenha rank B ou superior no Master of Knifing.</li>
+</ul>
+
+<h3 id="seg-hunk">Master of Knifing</h3>
+<p>Modo de minijogo onde você enfrenta ondas de inimigos apenas com a faca. Seu desempenho é avaliado por tempo, combo máximo de acertos, pontuação e dano recebido. Golpes críticos são essenciais — execute-os no último instante antes do inimigo atacar para máxima eficiência.</p>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="inimigos">Análise de Inimigos</h2>
+
+<table>
+  <tr><th>Inimigo</th><th>Localização</th><th>HP</th><th>Estratégia</th></tr>
+  <tr><td><span class="inimigo">Zumbi</span></td><td>Em todo lugar</td><td>4–7</td><td>Um por um: atire ou fuja. Vários: use a Shotgun.</td></tr>
+  <tr><td><span class="inimigo">Cão</span></td><td>Mansão, Guarida</td><td>3–4</td><td>Atire com Handgun, depois use a faca no chão.</td></tr>
+  <tr><td><span class="inimigo">Aranha Grande</span></td><td>Mansão, Guarida</td><td>2–3</td><td>Mantenha distância. Acid/Flame Rounds ou Shotgun.</td></tr>
+  <tr><td><span class="inimigo">Aranha Pequena</span></td><td>Pátio, Subterrâneo</td><td>1</td><td>Pisoteie ou fuja — não desperdice munição.</td></tr>
+  <tr><td><span class="inimigo">Corvo</span></td><td>Mansão, Pátio, Lab</td><td>1–2</td><td>Em grupos são perigosos — desvie ou acerte com Handgun.</td></tr>
+  <tr><td><span class="inimigo">Serpente Pequena</span></td><td>Pátio, Subterrâneo</td><td>1–2</td><td>Sempre fuja — causam veneno no contato.</td></tr>
+  <tr><td><span class="inimigo">Vespa Pequena</span></td><td>Guarida</td><td>1</td><td>Fuja.</td></tr>
+  <tr><td><span class="inimigo">Vespa Grande</span></td><td>Mansão, Guarida, Lab</td><td>1</td><td>Atire à distância assim que vê-la; se estiver circundando, fuja.</td></tr>
+  <tr><td><span class="inimigo">Hunter</span></td><td>Mansão, Pátio, Guarida, Lab</td><td>2–3</td><td>O mais perigoso. Use Shotgun ou Bazooka imediatamente. Nunca fuja.</td></tr>
+  <tr><td><span class="inimigo">Head Hunter</span></td><td>Mansão, Lab</td><td>3</td><td>Derrube quando rastejam no teto e ataque quando voltam ao chão.</td></tr>
+  <tr><td><span class="inimigo">Tubarão</span></td><td>Guarida B1</td><td>2–3</td><td>Evite completamente.</td></tr>
+</table>
+
+<hr>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h2 id="armas">Arsenal de Armas</h2>
+
+<table>
+  <tr><th>Arma</th><th>Localização</th><th>Capacidade</th><th>Uso ideal</th></tr>
+  <tr><td><span class="item">Faca</span></td><td>Padrão</td><td>—</td><td>Lutas de Faca, cães no chão, economizar munição</td></tr>
+  <tr><td><span class="item">Beretta (Handgun)</span></td><td>Padrão (Jill) / Mansão (Chris)</td><td>15</td><td>Zumbis e cães</td></tr>
+  <tr><td><span class="item">Shotgun</span></td><td>Mansão 1F (leste)</td><td>7</td><td>Múltiplos inimigos, zumbis, cães, aranhas, cobra gigante</td></tr>
+  <tr><td><span class="item">Magnum</span></td><td>Mansão 1F (oeste) — estátua do tigre</td><td>6</td><td>Tyrant</td></tr>
+  <tr><td><span class="item">Bazooka</span> <span class="modo-tag modo-jill">JILL</span></td><td>Mansão 2F (nordeste) — corpo de Forest</td><td>6</td><td>Acid/Explosive nos Hunters; Flame na Plant 42 e aranhas</td></tr>
+  <tr><td><span class="item">Rocket Launcher</span></td><td>Helipad (final)</td><td>4 / ∞</td><td>Tyrant, qualquer coisa</td></tr>
+  <tr><td><span class="item">Flamethrower</span> <span class="modo-tag modo-rebirth">REBIRTH</span></td><td>Pátio B1, Mansão 2F</td><td>100%</td><td>Plantas, destravar portas específicas</td></tr>
+</table>
+
+<div class="bottom-bar" id="bottomBar">
+  <button class="menu-toggle-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+  <button class="bar-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema"><span id="themeIcon">🌙</span></button>
+  <div class="search-pill">
+    <button class="bar-btn search-trigger" onclick="toggleSearch()" title="Pesquisar"><span>🔍</span></button>
+    <div class="search-input-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar no detonado…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="search-nav-btn" onclick="navigateMatch(-1)">↑</button>
+      <button class="search-nav-btn" onclick="navigateMatch(1)">↓</button>
+      <button class="search-close" onclick="closeSearch()">✕</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const s=localStorage.getItem('theme')||'light';
+  document.documentElement.setAttribute('data-theme',s);
+  document.getElementById('themeIcon').textContent=s==='dark'?'☀️':'🌙';
+  const items=[];
+  document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
+    const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
+    const pad=h.tagName==='H3'?'  ':'';
+    items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
+  });
+  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+})();
+function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeIcon').textContent=n==='dark'?'☀️':'🌙';localStorage.setItem('theme',n);}
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){i.focus();i.select();}else{closeSearch();}}
+function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
+let matches=[],currentMatch=-1,lastQuery='';
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.bottom-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='search-hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('current');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('current'));const el=matches[currentMatch];el.classList.add('current');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
+function clearHighlights(){document.querySelectorAll('mark.search-hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+</script>
+</body>
+</html>
