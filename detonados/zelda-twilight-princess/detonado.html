@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zelda: Twilight Princess — Detonado</title>
+<style>
+  /* ===== THEME VARIABLES ===== */
+  :root {
+    --bg: #fafaf8;
+    --bg2: #f0ede6;
+    --text: #222;
+    --text2: #555;
+    --border: #ddd;
+    --header-bg: #1a1a2e;
+    --h2-color: #1a1a2e;
+    --h2-border: #1a1a2e;
+    --h3-border: #888;
+    --dica-bg: #fffbe6;
+    --dica-border: #f0c040;
+    --chefe-bg: #fdecea;
+    --chefe-border: #c0392b;
+    --chefe-title: #922b21;
+    --table-head: #eee;
+    --bar-bg: #fff;
+    --bar-border: #ddd;
+    --bar-shadow: rgba(0,0,0,0.10);
+    --btn-bg: #1a1a2e;
+    --btn-text: #f0c040;
+    --search-bg: #f5f5f5;
+    --search-text: #222;
+    --search-border: #ccc;
+    --highlight-bg: #ffe066;
+    --highlight-text: #111;
+    --npc: #1a5fb4;
+    --item: #2d7a2d;
+    --alerta: #c0392b;
+    --local: #6c3483;
+    --inimigo: #784212;
+  }
+  [data-theme="dark"] {
+    --bg: #111118;
+    --bg2: #1a1a26;
+    --text: #e8e8e0;
+    --text2: #aaa;
+    --border: #333;
+    --header-bg: #0d0d1a;
+    --h2-color: #f0c040;
+    --h2-border: #f0c040;
+    --h3-border: #555;
+    --dica-bg: #2a2500;
+    --dica-border: #c9a000;
+    --chefe-bg: #2a0a0a;
+    --chefe-border: #922b21;
+    --chefe-title: #f1948a;
+    --table-head: #1e1e2e;
+    --bar-bg: #1a1a26;
+    --bar-border: #333;
+    --bar-shadow: rgba(0,0,0,0.40);
+    --btn-bg: #f0c040;
+    --btn-text: #1a1a2e;
+    --search-bg: #111118;
+    --search-text: #e8e8e0;
+    --search-border: #444;
+    --highlight-bg: #b8860b;
+    --highlight-text: #fff;
+    --npc: #6ab0f5;
+    --item: #6ec96e;
+    --alerta: #f1948a;
+    --local: #c39bd3;
+    --inimigo: #d4a76a;
+  }
+
+  body {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 16px 90px;
+    background: var(--bg);
+    transition: background 0.25s, color 0.25s;
+  }
+
+  /* Cabeçalho do jogo */
+  .game-header {
+    background: var(--header-bg);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px 24px 16px;
+    margin-bottom: 28px;
+    transition: background 0.25s;
+  }
+  .game-header h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    color: #f0c040;
+  }
+  .game-header .meta {
+    font-size: 13px;
+    color: #aab;
+    font-family: monospace;
+  }
+
+  /* Legenda de cores */
+  .legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  .legenda span {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  /* Seções principais (dungeons, capítulos) */
+  h2 {
+    font-size: 20px;
+    color: var(--h2-color);
+    border-bottom: 3px solid var(--h2-border);
+    transition: color 0.25s, border-color 0.25s;
+    padding-bottom: 4px;
+    margin-top: 40px;
+    margin-bottom: 14px;
+  }
+
+  /* Sub-seções (partes internas da dungeon) */
+  h3 {
+    font-size: 16px;
+    color: var(--text2);
+    margin-top: 24px;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--h3-border);
+    transition: color 0.25s;
+    padding-left: 10px;
+  }
+
+  p {
+    margin: 0 0 12px;
+  }
+
+  /* NPC — azul */
+  .npc   { color: var(--npc);    font-weight: bold; }
+
+  /* Item — verde */
+  .item  { color: var(--item);   font-weight: bold; }
+
+  /* Alerta / atenção — laranja/vermelho */
+  .alerta{ color: var(--alerta); font-weight: bold; }
+
+  /* Local / área — roxo */
+  .local { color: var(--local);  font-weight: bold; }
+
+  /* Inimigo / chefe — marrom escuro */
+  .inimigo{color: var(--inimigo);font-weight: bold; }
+
+  /* Caixa de dica */
+  .dica {
+    background: var(--dica-bg);
+    border-left: 4px solid var(--dica-border);
+    transition: background 0.25s;
+    padding: 10px 14px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 15px;
+  }
+
+  /* Caixa de chefe */
+  .chefe-box {
+    background: var(--chefe-bg);
+    border: 2px solid var(--chefe-border);
+    transition: background 0.25s;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 18px 0;
+  }
+  .chefe-box .titulo-chefe {
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--chefe-title);
+    margin-bottom: 6px;
+  }
+
+  /* Tabela de Rupees */
+  table {
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  td, th {
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    text-align: left;
+    color: var(--text);
+  }
+  th {
+    background: var(--table-head);
+    font-weight: bold;
+  }
+
+  /* Lista de itens extras */
+  ul {
+    margin: 8px 0 14px 20px;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+  }
+
+  /* Separador entre capítulos */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* Capa da revista */
+  .capa-revista {
+    margin-bottom: 24px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .capa-revista img {
+    width: 100%;
+    display: block;
+  }
+  .capa-info {
+    background: #1a1a2e;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .capa-badge {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: #f0c040;
+    letter-spacing: 0.5px;
+  }
+
+
+  /* ===== HIGHLIGHT DE PESQUISA ===== */
+  mark.search-hl {
+    background: var(--highlight-bg);
+    color: var(--highlight-text);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;max-height:320px;box-shadow:0 4px 20px rgba(0,0,0,0.3);}
+  .capa-revista img{width:100%;height:100%;object-fit:cover;display:block;}
+</style>
+</head>
+<body>
+
+
+<!-- ===== SIDEBAR MENU ===== -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span>📋 ÍNDICE DO DETONADO</span>
+    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <div class="sidebar-body">
+<a href="#sec-0-dicas-gerais" class="menu-item menu-h2" onclick="closeSidebar()">Dicas Gerais</a>
+<a href="#sec-0-diferen-as-entre-as-vers-es" class="menu-item menu-h3" onclick="closeSidebar()">  Diferenças entre as versões</a>
+<a href="#sec-0-instrumentos-naturais" class="menu-item menu-h3" onclick="closeSidebar()">  Instrumentos naturais</a>
+<a href="#sec-0-forma-de-lobo-lobisomem" class="menu-item menu-h3" onclick="closeSidebar()">  Forma de Lobo (Lobisomem)</a>
+<a href="#sec-0-dinheiro-energia-e-muni-o" class="menu-item menu-h3" onclick="closeSidebar()">  Dinheiro, energia e munição</a>
+<a href="#sec-0-sobrevivendo-nas-dungeons" class="menu-item menu-h3" onclick="closeSidebar()">  Sobrevivendo nas dungeons</a>
+<a href="#sec-0-garrafas-e-suas-subst-ncias" class="menu-item menu-h3" onclick="closeSidebar()">  Garrafas e suas substâncias</a>
+<a href="#sec-0-pesca" class="menu-item menu-h3" onclick="closeSidebar()">  Pesca</a>
+<a href="#sec-0-in-cio-ordon-e-faron-woods" class="menu-item menu-h2" onclick="closeSidebar()">Início — Ordon e Faron Woods</a>
+<a href="#sec-0-primeira-forma-de-lobo-twilight-zone" class="menu-item menu-h3" onclick="closeSidebar()">  Primeira forma de Lobo — Twilight Zone</a>
+<a href="#sec-0-vessel-of-light-16-l-grimas-de-faron" class="menu-item menu-h3" onclick="closeSidebar()">  Vessel of Light — 16 Lágrimas de Faron</a>
+<a href="#sec-0-forest-temple" class="menu-item menu-h2" onclick="closeSidebar()">Forest Temple</a>
+<a href="#sec-0-a-caminho-do-segundo-templo" class="menu-item menu-h2" onclick="closeSidebar()">A caminho do segundo templo</a>
+<a href="#sec-0-vessel-of-light-16-l-grimas-de-eldin" class="menu-item menu-h3" onclick="closeSidebar()">  Vessel of Light — 16 Lágrimas de Eldin</a>
+<a href="#sec-0-goron-mines" class="menu-item menu-h2" onclick="closeSidebar()">Goron Mines</a>
+<a href="#sec-0-a-caminho-do-terceiro-templo" class="menu-item menu-h2" onclick="closeSidebar()">A caminho do terceiro templo</a>
+<a href="#sec-0-vessel-of-light-16-l-grimas-de-lanayru" class="menu-item menu-h3" onclick="closeSidebar()">  Vessel of Light — 16 Lágrimas de Lanayru</a>
+<a href="#sec-0-lakebed-temple" class="menu-item menu-h2" onclick="closeSidebar()">Lakebed Temple</a>
+<a href="#sec-0-a-caminho-do-quarto-templo" class="menu-item menu-h2" onclick="closeSidebar()">A caminho do quarto templo</a>
+<a href="#sec-0-arbiter-s-grounds" class="menu-item menu-h2" onclick="closeSidebar()">Arbiter's Grounds</a>
+<a href="#sec-0-a-caminho-do-quinto-templo" class="menu-item menu-h2" onclick="closeSidebar()">A caminho do quinto templo</a>
+<a href="#sec-0-snowpeak-ruins" class="menu-item menu-h2" onclick="closeSidebar()">Snowpeak Ruins</a>
+<a href="#sec-0-a-caminho-do-sexto-templo" class="menu-item menu-h2" onclick="closeSidebar()">A caminho do sexto templo</a>
+<a href="#sec-0-temple-of-time" class="menu-item menu-h2" onclick="closeSidebar()">Temple of Time</a>
+<a href="#sec-0-a-caminho-do-s-timo-templo" class="menu-item menu-h2" onclick="closeSidebar()">A caminho do sétimo templo</a>
+<a href="#sec-0-city-in-the-sky" class="menu-item menu-h2" onclick="closeSidebar()">City in the Sky</a>
+<a href="#sec-0-palace-of-twilight" class="menu-item menu-h2" onclick="closeSidebar()">Palace of Twilight</a>
+<a href="#sec-0-hyrule-castle" class="menu-item menu-h2" onclick="closeSidebar()">Hyrule Castle</a>
+<a href="#sec-0-extras-upgrade-de-equipamentos" class="menu-item menu-h2" onclick="closeSidebar()">Extras — Upgrade de Equipamentos</a>
+<a href="#sec-0-bomb-bag" class="menu-item menu-h3" onclick="closeSidebar()">  Bomb Bag</a>
+<a href="#sec-0-bottle-garrafa" class="menu-item menu-h3" onclick="closeSidebar()">  Bottle (Garrafa)</a>
+<a href="#sec-0-magic-armor" class="menu-item menu-h3" onclick="closeSidebar()">  Magic Armor</a>
+<a href="#sec-0-quiver-aljava" class="menu-item menu-h3" onclick="closeSidebar()">  Quiver (Aljava)</a>
+<a href="#sec-0-wallet-carteira" class="menu-item menu-h3" onclick="closeSidebar()">  Wallet (Carteira)</a>
+<a href="#sec-0-minigames" class="menu-item menu-h2" onclick="closeSidebar()">Minigames</a>
+<a href="#sec-0-falbi-s-flight-by-fowl" class="menu-item menu-h3" onclick="closeSidebar()">  Falbi's Flight by Fowl</a>
+<a href="#sec-0-fruit-pop-flight-challenge" class="menu-item menu-h3" onclick="closeSidebar()">  Fruit Pop Flight Challenge</a>
+<a href="#sec-0-iza-s-rapid-ride" class="menu-item menu-h3" onclick="closeSidebar()">  Iza's Rapid Ride</a>
+<a href="#sec-0-rollgoal" class="menu-item menu-h3" onclick="closeSidebar()">  Rollgoal</a>
+<a href="#sec-0-snowboard" class="menu-item menu-h3" onclick="closeSidebar()">  Snowboard</a>
+<a href="#sec-0-jogo-das-estrelas" class="menu-item menu-h3" onclick="closeSidebar()">  Jogo das Estrelas</a>
+<a href="#sec-0-ataques-secretos" class="menu-item menu-h2" onclick="closeSidebar()">Ataques Secretos</a>
+  </div>
+</div>
+
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/zelda-twilight-princess/capa.png"
+       alt="Capa Zelda: Twilight Princess"
+       onerror="this.parentElement.style.display='none'">
+</div>
+</div>
+
+<div class="game-header">
+  <h1>The Legend of Zelda: Twilight Princess</h1>
+  <div class="meta">Nintendo Wii / GameCube</div>
+</div>
+
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- =================== DICAS GERAIS =================== -->
+<h2 id="sec-0-dicas-gerais">Dicas Gerais</h2>
+
+<h3 id="sec-0-diferen-as-entre-as-vers-es">Diferenças entre as versões</h3>
+<p>
+  Na história da série, <span class="npc">Link</span> sempre foi canhoto e segurou a espada na mão esquerda — a versão do <span class="local">GameCube</span> funciona assim. Na versão do <span class="local">Wii</span>, porém, o esquema é inverso: espada na mão direita e escudo na esquerda. Segundo <span class="npc">Shigeru Miyamoto</span>, o motivo foi atender à maioria dos jogadores destros. O resultado foi "espelhar" a versão do Cubo. <span class="alerta">Atenção:</span> a estratégia deste guia foi baseada na versão do Wii, portanto, localizações de itens e indicações de direção são inversas se você estiver jogando no GameCube.
+</p>
+
+<h3 id="sec-0-instrumentos-naturais">Instrumentos naturais</h3>
+<p>
+  Esqueça os instrumentos musicais dos games anteriores. Aqui, para chamar <span class="npc">Epona</span>, <span class="npc">Link</span> usa uma planta marrom como apito. A planta verde serve para chamar um falcão, que pode ser usado para coletar itens em locais distantes.
+</p>
+
+<h3 id="sec-0-forma-de-lobo-lobisomem">Forma de Lobo (Lobisomem)</h3>
+<p>
+  Quando transformado em lobo, <span class="npc">Link</span> pode usar o senso canino para encontrar objetos enterrados, avistar inimigos invisíveis a olho nu, <span class="inimigo">Poes</span> e descobrir a localização de humanos no mundo real.
+</p>
+<p>
+  Durante os combates na forma animal, é possível pular em cima dos inimigos (travando a mira com <strong>Z</strong> e pressionando <strong>A</strong>), agarrá-los e desferir várias mordidas. Outro ataque exclusivo da forma lobo é acionado com o botão <strong>B</strong>: mantenha-o pressionado até um círculo negro se formar ao redor do herói — faça com que o maior número de inimigos fique dentro do círculo para eliminá-los de uma vez.
+</p>
+<p>
+  Graças a <span class="npc">Midna</span>, a criatura que cavalga nas costas do lobo, é possível chegar a locais inacessíveis na forma humana. Quando ela avisar, pressione o direcional para cima, trave a mira com <strong>Z</strong> e pressione <strong>A</strong>.
+</p>
+
+<h3 id="sec-0-dinheiro-energia-e-muni-o">Dinheiro, energia e munição</h3>
+<p>
+  Os <span class="item">Rupees</span> (moeda do reino de Hyrule) servem para comprar equipamentos opcionais e itens obrigatórios. A energia (representada por corações) e a munição para armas como o arco-e-flecha são obtidas eliminando inimigos ou cortando grama.
+</p>
+<table>
+  <tr><th>Rupee</th><th>Valor</th></tr>
+  <tr><td>Verde</td><td>1</td></tr>
+  <tr><td>Azul</td><td>5</td></tr>
+  <tr><td>Amarelo</td><td>10</td></tr>
+  <tr><td>Vermelho</td><td>20</td></tr>
+  <tr><td>Roxo</td><td>50</td></tr>
+  <tr><td>Laranja</td><td>100</td></tr>
+  <tr><td>Prateado</td><td>200</td></tr>
+</table>
+
+<h3 id="sec-0-sobrevivendo-nas-dungeons">Sobrevivendo nas dungeons</h3>
+<p>
+  O <span class="item">Map</span> mostra o mapa do local. O <span class="item">Compass</span> revela a localização de segredos, baús, <span class="item">Small Keys</span> e a <span class="item">Big Key</span>. As <span class="item">Small Keys</span> abrem portas com cadeado; a <span class="item">Big Key</span> abre a sala do chefe da área.
+</p>
+<p>
+  O <span class="item">Oocoo</span> é uma criatura bizarra parecida com uma galinha que permite ao personagem ser teletransportado para fora da dungeon e, com a ajuda de <span class="item">Oocoo Jr.</span>, retornar ao mesmo ponto onde estava.
+</p>
+
+<h3 id="sec-0-garrafas-e-suas-subst-ncias">Garrafas e suas substâncias</h3>
+<ul>
+  <li><span class="item">Milk</span> — encontrado em <span class="local">Ordon</span> e na <span class="local">Death Mountain</span>. Recarrega seis corações (consumido em duas goladas).</li>
+  <li><span class="item">Bee Larva</span> — nas colméias ou na loja de <span class="local">Ordon</span>. Servem como isca para pesca ou para recuperar 1/3 de coração (até dez larvas por garrafa).</li>
+  <li><span class="item">Water</span> — coletada em lagos e riachos. Pouca utilidade prática.</li>
+  <li><span class="item">Lantern Oil</span> — óleo para o lampião (ilumina áreas escuras, destrói teias, acende tochas). Encontrado em <span class="local">Ordon</span>, <span class="local">Faron Woods</span>, <span class="local">Kakariko Village</span> e <span class="local">Death Mountain</span>.</li>
+  <li><span class="item">Nasty Soup</span> — encontrada na casa de <span class="npc">Coro</span>, em <span class="local">Faron Woods</span>. <span class="alerta">Diminui um coração de energia — não use!</span></li>
+  <li><span class="item">Red Potion</span> — recupera oito corações. Encontrada na loja de <span class="npc">Trill</span>, em <span class="local">Faron Woods</span>, <span class="local">Kakariko Village</span> e na <span class="local">City in the Sky</span>.</li>
+  <li><span class="item">Fairy</span> — escondidas em arbustos ou potes. Recuperam oito corações ou revivem o personagem se houver uma garrafa equipada.</li>
+  <li><span class="item">Blue Potion</span> — recupera toda a energia. Disponível em <span class="local">Kakariko Village</span> ou na <span class="local">City in the Sky</span>.</li>
+  <li><span class="item">Red Chu</span> — efeito da Red Potion (de gosmas vermelhas derrotadas).</li>
+  <li><span class="item">Blue Chu</span> — efeito da Blue Potion (de gosmas azuis).</li>
+  <li><span class="item">Yellow Chu</span> — combustível para o lampião (de gosmas amarelas).</li>
+  <li><span class="item">Golden Chu</span> — recupera toda a energia e dobra a força de Link temporariamente (gosma dourada rara).</li>
+  <li><span class="item">Great Fairy Tears</span> — obtidas após entregar os 20 espíritos dos <span class="inimigo">Poes</span> a <span class="npc">Jovani</span> e após completar a <span class="local">Cave of Ordeals</span>.</li>
+  <li><span class="item">Yeti's Soup</span> — efeito melhora conforme você entrega itens para os <span class="npc">Yetis</span> em <span class="local">Snowpeak Ruins</span> (2 → 4 → 8 corações).</li>
+  <li><span class="item">Worm</span> — isca para pesca. Encontrada após eliminar inimigos ou cavando perto de zonas de pesca.</li>
+</ul>
+
+<h3 id="sec-0-pesca">Pesca</h3>
+<p>
+  Existem dois tipos de pesca: com vara comum (em qualquer local) e com vara com carretilha (exclusiva da área <span class="local">Fishing Hole</span>). Peixes disponíveis com vara normal: <span class="item">Greengill</span> (rios e lagos), <span class="item">Reekfish</span> (<span class="local">Zora's Domain</span>), <span class="item">Ordon Catfish</span> (<span class="local">Ordon</span>), <span class="item">Hylian Pike</span> (beiradas do Fishing Hole), <span class="item">Hyrule Bass</span> (parte leste do Fishing Hole), <span class="item">Hylian Loach</span> (caverna sudeste do <span class="local">Lake Hylia</span>), <span class="item">Skullfish</span> (no <span class="local">Lakebed Temple</span>).
+</p>
+
+<hr>
+
+<!-- =================== INÍCIO DO JOGO =================== -->
+<h2 id="sec-0-in-cio-ordon-e-faron-woods">Início — Ordon e Faron Woods</h2>
+
+<p>Siga até o lago pelo caminho da floresta para encontrar <span class="npc">Epona</span>. Após a conversa, monte na égua, retorne à área inicial e siga o caminho oposto para chegar a <span class="local">Ordon</span>. Atravesse a cidade e entre no rancho no final. Lá, fale com <span class="npc">Fado</span> para receber uma tarefa: em cima do cavalo, pressione <strong>A</strong> para guiar as cabras até a cabana. Ao terminar, pratique saltos com <span class="npc">Epona</span> e saia pulando sobre o bloqueio.</p>
+
+<p>Após a animação, saia de casa e volte para <span class="local">Ordon</span>. Converse com a mulher na beira do riacho, suba na pedra escalando pelas plantas e fale com o homem no topo. Pegue a planta no chão, pressione <strong>A</strong> para assobiar e atrair o falcão. Aponte na direção desejada e pressione <strong>B</strong> para soltá-lo. Pule para o telhado e depois para a outra pedra. Chame o falcão e aponte para o macaco sobre a rocha no fim do riacho — ele trará um berço até você. Devolva-o para a mulher na beira do riacho e a siga até sua casa para ganhar a <span class="item">vara de pescar</span>.</p>
+
+<p>No menu (botão <strong>–</strong>), selecione a vara e aperte <strong>B</strong>. Vá até a beira do rio onde há um gato. Pesque um peixe para chamar a atenção do bichano. Pesque outro para o gato roubá-lo. Siga-o até a casa e converse com a mulher para receber uma <span class="item">garrafa com leite</span>. Saia, suba na pedra, chame o falcão e mire no ninho de vespas sobre a casa ao lado. Suba na árvore para coletar <span class="item">Rupees</span>. Destrua as abóboras para encontrar mais Rupees e, ao juntar 30, compre o <span class="item">Slingshot</span>. Em seguida, vá para sua casa e abra o baú para pegar a <span class="item">Wooden Sword</span>.</p>
+
+<p>Do lado de fora, converse com as crianças e destrua os alvos e espantalhos com o <span class="item">Slingshot</span>. Siga as instruções para usar a <span class="item">Wooden Sword</span>. Depois, monte no cavalo e vá atrás do macaco que aparecerá. Do outro lado da ponte, já em <span class="local">Faron Woods</span>, procure a entrada lateral e converse com o homem para conseguir a <span class="item">Lantern</span>. Volte e entre na caverna, queimando as teias com a Lantern — guarde-a com <strong>A</strong> para economizar óleo. Acesse a caverna superior esquerda no mapa para pegar uma chave. Com ela, abra a porta à direita e avance até a criança enjaulada. Derrote os inimigos e golpeie a gaiola para libertá-la.</p>
+
+<p>Após as animações, impeça que as cabras do rancho entrem no vilarejo — posicione-se na frente dos animais e pressione o botão indicado no momento certo. Depois, siga ao lago onde encontrou <span class="npc">Epona</span> pela primeira vez. Como o portão estará fechado, procure uma abertura um pouco antes da entrada. Avance pelo túnel até o lago e assista à animação.</p>
+
+<h3 id="sec-0-primeira-forma-de-lobo-twilight-zone">Primeira forma de Lobo — Twilight Zone</h3>
+<p>Em forma de lobo e na dimensão paralela (<span class="local">Twilight Zone</span>), solte-se da corrente para que <span class="npc">Midna</span> apareça e o liberte. Destrua o entulho perto da porta da cela e cave para escapar. Entre na cela ao lado e puxe a corrente para abrir um túnel. No esgoto, use o senso canino (direcional esquerda ou direita) para ouvir os espíritos. Siga pela esquerda, pule o buraco, avance até a corrente na esquerda e agarre-a para subir o nível da água. Nade por cima dos espinhos e vire à esquerda. Depois que <span class="npc">Midna</span> passar pelo portão, use a corrente para baixar a água e encontrá-la.</p>
+
+<p>Passe pelo túnel e tente pular o primeiro buraco da escadaria. Após a queda inevitável, trave a mira em <span class="npc">Midna</span> com <strong>Z</strong> e aperte <strong>A</strong> para pular. Continue subindo e ande sobre a corda até a porta trancada. Vá para a direita, use a ajuda de <span class="npc">Midna</span> para chegar ao andar mais alto e saia pela abertura. Do lado de fora, caminhe até o espírito, vire à esquerda, suba na caixa e passe pela barreira. Use a ajuda de <span class="npc">Midna</span> para chegar ao telhado e, em seguida, entre pela janela, suba a escadaria e fale com a <span class="npc">princesa Zelda</span>.</p>
+
+<p>De volta à dimensão real, vá até <span class="local">Ordon</span>. Com cuidado, vá até a casa com o moinho e escute a conversa dos moradores. Escape dos ataques do falcão. Para se livrar do homem na pedra, dê a volta na casa e suba com a ajuda de <span class="npc">Midna</span>. Desça, aproxime-se da beirada do riacho em direção ao moinho, suba com <span class="npc">Midna</span> e entre pela pequena abertura. Dentro, suba na mesa e chame <span class="npc">Midna</span> para chegar ao cômodo mais alto. Realize um ataque contra a parede para derrubar o escudo e coletá-lo. Saia pela janela ao lado.</p>
+
+<p>Com cautela, vá até a casa no canto direito da vila e use o senso canino para avistar um buraco ao lado. Cave para entrar, colete a espada no sofá e saia. Vá para o lago do início do jogo e vença a criatura que aparecer. Retorne, continue pela ponte e siga em frente para voltar à <span class="local">Twilight Zone</span>. Avance até encontrar três criaturas e elimine todas ao mesmo tempo com o ataque especial (segure <strong>B</strong> até o círculo negro se formar).</p>
+
+<h3 id="sec-0-vessel-of-light-16-l-grimas-de-faron">Vessel of Light — 16 Lágrimas de Faron</h3>
+<p>Após a batalha, vá até o lago para encontrar um espírito e ganhar o <span class="item">Vessel of Light</span>, que exibirá os pontos de coleta das lágrimas de luz no mapa. Os dois primeiros insetos ficam ao norte. Depois, vá onde você conseguiu a <span class="item">Lantern</span>, suba a rampa, pule pela janela com <span class="npc">Midna</span> e elimine os dois bichos. Saia e ache o quinto atrás da casa. Volte e cave no ponto próximo ao portão para encontrar mais dois. Do outro lado da caverna, acabe com as aranhas no muro à esquerda. Procure pelo pequeno galho e, com a ajuda de <span class="npc">Midna</span>, avance até a parte de madeira para eliminar mais três bichos. Chame <span class="npc">Midna</span> para terminar a travessia e tome cuidado com as armadilhas. Cave para achar mais dois inimigos. No lado oposto do túnel, mais três monstros negros surgirão — acabe com eles usando o ataque especial. Siga até os dois últimos insetos na última seção da floresta. Com as 16 lágrimas coletadas, você retornará ao lago.</p>
+
+<p>De volta à forma humana, passe pela caverna ao norte até o portão. Para conseguir a chave, fale com o vendedor de óleo para a <span class="item">Lantern</span>. Vá até o pântano e use a <span class="item">Lantern</span>. Ande sobre a ponte de madeira — um macaco roubará seu item. Siga-o próximo a ele para não sofrer com o gás venenoso. Elimine os inimigos no caminho e, no final, recupere o item quando o símio jogá-lo no chão. No caminho para o <span class="local">Forest Temple</span>, um <span class="inimigo">lobo dourado</span> aparece e ensina um novo ataque. Continue e queime a teia com a <span class="item">Lantern</span> para entrar.</p>
+
+<hr>
+
+<!-- =================== FOREST TEMPLE =================== -->
+<h2 id="sec-0-forest-temple">Forest Temple</h2>
+
+<p>Vá até a sala principal e bata na gaiola algumas vezes para soltar o macaco preso. Atire nas aranhas nas paredes com plantas para liberar o caminho. Suba para encontrar o símio e entre pela porta. Suba a escadaria e acenda as quatro tochas da plataforma central com a <span class="item">Lantern</span>. Siga o macaco até a porta e, no caminho, abra o baú para conseguir o <span class="item">Map</span>. Na parte externa, avance para uma animação. O macaco subirá em uma corda — use-o como cipó para atravessar até o lado esquerdo do recinto.</p>
+
+<p>Repita para chegar a outra sala. Atinja a aranha para que ela se transforme em bomba e use-a para destruir a pedra mais próxima. Do outro lado, destrua os potes para encontrar o <span class="item">Oocoo</span>. Queime a teia. Siga o macaco pelas plataformas e pela porta ao norte. Espere o vento virar a ponte antes de atravessar. Na parte seguinte, abra o baú e volte pelas duas últimas salas. Com a ajuda do macaco, pule pela abertura do lado direito e abra a porta fechada. Role e trombe no totem para libertar outro macaco da gaiola. Derrote os inimigos que aparecem e volte à porta com os macacos.</p>
+
+<p>Siga pelo muro da direita até a parte sudeste e entre na porta. Use o primeiro macaco para voltar à plataforma central e o outro para atravessar o segundo vão até a porta do outro lado. Suba a escada e acerte outra aranha-bomba. Pegue-a e jogue na boca da planta no vão logo abaixo. Pule onde ela estava e observe a pedra. Volte com mais uma aranha-bomba para abrir caminho até outra porta. Na nova sala, desça as escadas e role nos pilares — um deles deixará cair um baú com a <span class="item">Small Key</span>. Atravesse pela água e acenda as tochas com a <span class="item">Lantern</span>. Suba pelas plataformas e liberte mais um macaco. Saia, passe pelas plantas no muro e vá para a próxima sala. Quando a planta comer a chave, trave a mira, esquive do ataque e contra-ataque. Destrua o que sobrou com uma aranha-bomba. Com a chave, solte o outro macaco e saia. Avance com os macacos até o subchefe.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Subchefe — Babuíno</div>
+  <p>O babuíno pula de um totem para o outro enquanto ataca. Quando ele parar em um deles, role para trombar com o totem e fazê-lo cair. Acerte-o com uma espadada. Repita até vencê-lo para conseguir o <span class="item">Gale Boomerang</span>. Para abrir a porta, use o novo item para girar o dispositivo sobre ela algumas vezes.</p>
+</div>
+
+<p>Saindo, atravesse a primeira ponte e, com o <span class="item">Gale Boomerang</span>, gire a segunda para chegar ao outro lado. Use o <span class="item">Gale Boomerang</span> para libertar mais um macaco. Mais à frente, use o item para girar outras duas pontes. Entre pela porta e volte à sala principal do templo pela saída no andar inferior. Na plataforma do meio, use o <span class="item">Gale Boomerang</span> para derrubar o baú com a bússola. Prossiga pela porta à esquerda e vá até o portão na parte oeste.</p>
+
+<p>Afaste-se e preste atenção no desenho no chão. Equipe o <span class="item">Gale Boomerang</span> e selecione os pontos onde o item deve passar pressionando <strong>Z</strong>, fazendo-o realizar o mesmo percurso do desenho para que o portão se abra. Colete a <span class="item">Big Key</span>, atravesse a ponte e vá para a próxima área. Suba na ponte e gire-a para chegar à porta da direita, onde há mais um macaco. Queime a teia do buraco à esquerda, liberte o bicho, suba de volta e retorne para a ponte. Siga ao norte.</p>
+
+<p>Passe pelas duas pontes e suba pelas plantas à direita — elimine as aranhas antes. Suba até o topo para a porta. Do lado esquerdo, use o <span class="item">Gale Boomerang</span> para pegar a aranha-bomba e jogá-la na boca da planta do outro lado. Entre e abra o baú com a chave. Volte e exploda a pedra à direita com o <span class="item">Gale Boomerang</span>: trave a mira na aranha-bomba e depois no alvo. Repita para explodir o pedregulho que bloqueia a outra porta. Liberte mais um macaco e saia. Desça e prossiga pela porta ao sul. Gire a ponte e destrave a porta leste. Lance o <span class="item">Gale Boomerang</span> na passarela para revelar os inimigos escondidos. Siga para a caverna no nordeste. Elimine as aranhas e suba pelas plantas até encontrar o macaco. Trave a mira do <span class="item">Gale Boomerang</span> nos dois objetos ao lado do portão para girá-los simultaneamente. Com o último macaco, siga para a área ao norte. Todos os macacos se unirão — atravesse o abismo até a porta e abra-a com a <span class="item">Big Key</span> para encontrar o chefão.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Diababa</div>
+  <p>No início, desvie dos ataques dos tentáculos e use o <span class="item">Gale Boomerang</span> para levar as aranhas-bomba até eles. Quando acabar com os dois, use a arma no chefe. Depois de um tempo, o babuíno que você enfrentou anteriormente aparecerá. Seu objetivo é usar o <span class="item">Gale Boomerang</span> para pegar a bomba que o macaco está transportando e levá-la até a parte principal do corpo de <span class="inimigo">Diababa</span>. Quando a cabeça cair no chão, ataque sem parar com a espada. Desvie do líquido que ele lança e repita o processo para vencer.</p>
+</div>
+
+<hr>
+
+<!-- =================== CAMINHO SEGUNDO TEMPLO =================== -->
+<h2 id="sec-0-a-caminho-do-segundo-templo">A caminho do segundo templo</h2>
+
+<p>De volta à floresta, siga pela caverna à esquerda até a casa do vendedor de lampiões. Vá ao norte para sair em <span class="local">Hyrule Field</span>. Avance ao oeste para encontrar a entrada da <span class="local">Twilight Zone</span> — no caminho, você conhece o carteiro. Transformado em lobo, cheire a espada no chão para aprender o aroma das crianças. Use o senso canino e siga a trilha. Vença as três criaturas com o ataque especial e continue até uma ponte inacabada. Após conversar com <span class="npc">Midna</span>, selecione <span class="local">N. Faron Woods</span> no mapa para ser teletransportado. No local, vire à direita e verifique a ponte. Agora, selecione Warp e escolha <span class="local">Kakariko Gorge</span>.</p>
+
+<p>Com a ponte reformada, atravesse para o outro lado e continue até o portão trancado. Cave no lado esquerdo para chegar a <span class="local">Kakariko Village</span>. Enfrente mais criaturas e vá ao lago para falar com um espírito.</p>
+
+<h3 id="sec-0-vessel-of-light-16-l-grimas-de-eldin">Vessel of Light — 16 Lágrimas de Eldin</h3>
+<p>Vá para a parte de trás da casa mais próxima e use <span class="npc">Midna</span> para chegar ao telhado. Pule no buraco para entrar na construção e ative o senso canino. Pegue o pedaço de madeira no chão, aproxime-se da fogueira para deixá-lo em chamas e acenda todas as velas ao seu redor. Assim que a passagem secreta se abrir, entre e vá ao norte, destruindo três insetos. Use <span class="npc">Midna</span> para voltar à superfície e saia no cemitério. Cave onde o mapa indicar e elimine o inseto. Saia pela direita e volte à vila. Na casa perto da grande rampa, entre pelo buraco e suba para encontrar mais um inseto. Após a quinta lágrima, suba a rampa, pule para a outra casa e entre pela porta. Desça, acenda o pedaço de madeira, coloque fogo no fogão a lenha. Elimine o bicho ao sair do esconderijo e suba até o sétimo inseto.</p>
+
+<p>De volta ao ar livre, suba até o topo da loja usando a cabana ao lado. Entre no buraco, empurre a caixa para achar o inseto. Use <span class="npc">Midna</span> para ir embora. Suba na casa noroeste e pule em direção à janela. Acerte uma cabeçada na estante para expor o inseto. Passe pelo telhado e continue subindo até a próxima casa. Entre pelo buraco, acenda o forno. Saia e pegue as três lágrimas. Continue subindo para outra casa e destrua os potes para achar mais um inseto. Cave para ir embora, volte à vila e saia pelo norte. Use <span class="npc">Midna</span> para superar os obstáculos e achar outro inseto. Continue ao norte até quatro criaturas — derrote-as com o golpe especial. Siga o inseto no portão mais próximo. Suba com <span class="npc">Midna</span> até o último inseto.</p>
+
+<p>Vá novamente para a <span class="local">Death Mountain</span> e siga até encontrar o <span class="npc">Goron</span>, que derrubará você. Volte até a vila em <span class="local">Ordon</span> — antes, acalme <span class="npc">Epona</span> apertando os botões indicados. Na vila, fale com o prefeito para aprender a lutar sumô. Aperte <strong>A</strong> para agarrar o oponente e pressione o botão repetidamente para empurrá-lo. Vença para ganhar as <span class="item">Iron Boots</span>. Monte em <span class="npc">Epona</span> e volte até <span class="local">Kakariko Village</span>. Salte pelo portão para entrar na vila. Continue ao norte até <span class="local">Hyrule Field</span>. Corra atrás do inimigo e acerte-o com espadadas. Quando os comparsas dele surgirem, derrube-os antes de continuar. Na ponte, fique num dos cantos, corra em direção ao inimigo e comece a se esquivar conforme se aproxima. Golpeie-o com a espada. Faça isso até derrubá-lo da ponte e salvar a criança.</p>
+
+<p>Retorne a <span class="local">Kakariko Village</span>, compre o <span class="item">Hylian Shield</span> na loja local e siga para a <span class="local">Death Mountain</span>. Para passar pelo <span class="npc">Goron</span> que derruba você, equipe as <span class="item">Iron Boots</span> e espere ele rolar na sua direção. Use a tática de sumô para passar por ele e pelos demais Gorons. Após a área com gêiseres, more moradores bloquearão a passagem — equipe as <span class="item">Iron Boots</span> e defenda-se do <span class="npc">Goron</span> atacante. Quando ele ficar em bola, desequipe as botas e suba nas costas dele para ser lançado ao alto. Na nova área, equipe as <span class="item">Iron Boots</span> para passar pelos jatos de água. Entre na caverna e converse com o <span class="npc">Goron ancião</span> para disputar uma luta de sumô. Equipe as <span class="item">Iron Boots</span> antes de iniciar o confronto. Se quiser, pegue o elevador antes de entrar nas minas para chegar a um local com uma <span class="local">Hot Spring</span> e uma loja.</p>
+
+<hr>
+
+<!-- =================== GORON MINES =================== -->
+<h2 id="sec-0-goron-mines">Goron Mines</h2>
+
+<p>Dentro das minas, passe pela lava com cuidado durante os saltos. No fim, quebre a madeira e use as <span class="item">Iron Boots</span> para acionar o botão. Desequipe e corra para atravessar o corredor antes que o fogo seja ativado novamente. Repita na próxima área e suba a escada. Pule para a plataforma à esquerda e siga pelo caminho do outro lado. Pressione o botão ao sul e corra para passar pela armadilha. Desça para a área com grades e vá até a plataforma vermelha. Use as <span class="item">Iron Boots</span> para abaixá-la e abrir uma porta. Na próxima área, desça pela esquerda. Abra o baú para conseguir uma <span class="item">Small Key</span>. Suba e passe pela rampa. No topo, livre-se do lagarto (<span class="alerta">ele só pode ser atingido no rabo</span>) e use as plataformas giratórias para chegar ao outro lado. Atravesse a sala até a corrente, puxe-a para abrir uma porta e entre antes que ela se feche. Na próxima sala, pule na água com as <span class="item">Iron Boots</span> equipadas.</p>
+
+<p>Passe pelo buraco na grade e pise no botão para ativar um ímã. Ande pelo caminho azul até a próxima porta. Lá, você encontra um <span class="npc">Goron</span> e consegue o primeiro pedaço da chave. Pegue o mapa no baú atrás dele, suba a escada e quebre o pote que se mexe para encontrar o <span class="item">Oocoo</span>. Saia pela porta para outro ambiente aquático. Use as <span class="item">Iron Boots</span> e caminhe pelo muro de ímã para chegar à outra porta. Pise no botão para grudar no teto e dê a volta até o lado esquerdo da sala. Desça na parte com as tochas e prossiga. Vá até a plataforma e acione o botão para ativar os ímãs que ficam mudando de posição. Use as <span class="item">Iron Boots</span> para grudar no ímã. Na parte norte da sala, desequipe para descer. Acione outro botão para ativar mais um ímã e use-o para atravessar até o outro lado.</p>
+
+<p>Na sala com água, desça até o fundo usando as <span class="item">Iron Boots</span> e pegue a <span class="item">Small Key</span> no baú. Na parte sul, tire o bloco do caminho para entrar na área com grades. Suba e pise no botão para ativar outro ímã. Avance e desça na plataforma. Acione outro botão e passe pela grade de metal usando as <span class="item">Iron Boots</span> para ser sugado em direção ao muro. Continue até o diamante azul e acerte-o com a espada. Desça rapidamente e entre pela passagem aberta. Continue pelo muro do lado direito, desça na parte norte e corte a corda para achar uma porta. Entre e avance até a parte leste, onde há uma estátua giratória e um baú. Abra-o e, com o novo item em mãos, saia pela porta no lado oposto. Suba pela rampa até a plataforma maior. <span class="dica">💡 Dica: pule do lado com três ímãs e use as Iron Boots para grudar em um deles sempre que o pedaço de madeira estiver prestes a virar para baixo.</span> Converse com o <span class="npc">Goron</span> para adquirir o segundo pedaço da chave e suba a escada. Saia pela porta na parte de cima e equipe as <span class="item">Iron Boots</span> novamente para chegar à próxima plataforma.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Subchefe — Goron</div>
+  <p>Quando o <span class="npc">Goron</span> aparecer, atinja-o na barriga quando ele se preparar para atacar. Assim que ficar em forma de bola, equipe as <span class="item">Iron Boots</span> e fique em uma das beiradas da arena. Espere ele vir na sua direção e agarre-o para jogá-lo fora da arena. Repita para vencê-lo e conseguir o <span class="item">Bow</span> (arco-e-flecha).</p>
+</div>
+
+<p>Dispare uma flecha, fazendo-a pegar fogo, na corda que fica em cima da ponte. Vá pela passagem que se abriu. Na próxima parte, atire flechas nos olhos das estátuas giratórias e, assim que acabar com todos, empurre os monumentos para encontrar a bússola e a sala do ancião com o último pedaço da <span class="item">Big Key</span>. Pegue-o, volte e saia pelo sul. Trombe algumas vezes no portão para derrubá-lo e atravesse as plataformas — tome cuidado com os inimigos que caem do teto. Na sala seguinte, use as <span class="item">Iron Boots</span> para ativar um ímã e andar no teto. Ao chegar ao buraco na parede, dispare uma flecha no diamante para abrir a porta. Desequipe as <span class="item">Iron Boots</span> para descer e entre pela porta. Na nova área, acerte uma flecha na corda à sua esquerda para abaixar a ponte. Atravesse e ative outro ímã para ir até a parte norte. Entre na área seguinte, atravesse as plataformas e abra o portão acertando uma flecha no diamante. Siga até a grande área aberta. Destrua a estátua com uma flechada no olho, arraste-a para uma rampa, suba e acabe com os dois arqueiros. Acione o botão, equipe as <span class="item">Iron Boots</span> para andar no ímã, acerte a corda da ponte com uma flechada e atravesse para a arena do chefe.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Fyrus</div>
+  <p>Permaneça longe e atinja <span class="inimigo">Fyrus</span> com uma flecha no ponto rosa. Quando ficar atordoado, corra e segure uma das correntes atrás dele. Equipe as <span class="item">Iron Boots</span> e puxe a corrente até derrubá-lo. Corra para cima dele e golpeie-o com a espada no seu ponto vital. Se estiver próximo, role para ficar a uma distância segura. <span class="alerta">Para se proteger do ataque de fogo, esconda-se atrás de um dos pilares.</span> Após a batalha, colete os itens e use o portal para sair.</p>
+</div>
+
+<hr>
+
+<!-- =================== CAMINHO TERCEIRO TEMPLO =================== -->
+<h2 id="sec-0-a-caminho-do-terceiro-templo">A caminho do terceiro templo</h2>
+
+<p>De volta à vila, passe na loja de bombas e compre o kit inteiro (120 Rupees). Chame <span class="npc">Epona</span> e pule o portão nordeste para chegar ao <span class="local">Hyrule Field</span>. Siga para a região noroeste e destrua as pedras com algumas bombas. Avance e <span class="npc">Link</span> se transformará em lobo. Cheire o objeto caído no chão e siga o rastro para chegar ao <span class="local">Telma's Bar</span>, em <span class="local">Castle Town</span>. Lá, verifique o mapa sobre a mesa para descobrir seu próximo destino. Saia da cidade e vá para o <span class="local">Hyrule Field</span>. Comece a atravessar a ponte — quando ela for incendiada, suba na caixa e pule para escapar. Ao cair na água, nade até a casa mais próxima e converse com o espírito. Esquive das flechas até os inimigos descerem. Um minigame de vôo terá início: desvie dos obstáculos e passe pelas aberturas até chegar ao final.</p>
+
+<p>Ao chegar ao topo, desça e prossiga até o <span class="local">Zora's Domain</span>. Chame <span class="npc">Midna</span> para escalar a parte congelada e siga para a saída ao norte. Após enfrentar criaturas, use o senso canino para encontrar os moradores congelados. Depois, use o Warp para voltar até a <span class="local">Death Mountain</span> e aproxime-se da rocha gigante. Selecione Warp novamente para levar a rocha flamejante ao <span class="local">Zora's Domain</span>. Com o reino descongelado, siga ao sul para conhecer <span class="npc">Rutela</span>. Após ouvi-la, siga pelo fluxo da água até chegar ao <span class="local">Lake Hylia</span>. Lá, encontre uma caverna com o último espírito da luz.</p>
+
+<h3 id="sec-0-vessel-of-light-16-l-grimas-de-lanayru">Vessel of Light — 16 Lágrimas de Lanayru</h3>
+<p>O primeiro inseto fica na rampa à sua direita. Atravesse a ponte para vencer algumas criaturas e, mais à frente, veja outro inseto atrás da construção. Volte pela ponte e suba até um vale — cave para tirar o inseto da terra. Pule na água e vá pela esquerda para o quarto inseto. Uive no local próximo às flores para participar de outro minigame de vôo e eliminar quatro insetos ao longo do caminho. Ao chegar ao topo, entre na água e siga o fluxo até sair. Fale com o espírito para fazer o nono inseto aparecer. Atravesse pela plataforma flutuante até o <span class="local">Zora's Domain</span> e vá ao centro da área com água para achar mais dois insetos. Suba pelo lado esquerdo para achar mais um. Do lado direito da água, suba com <span class="npc">Midna</span> até o inseto na caverna mais alta. Usando o Warp, volte para o topo do <span class="local">Zora's Domain</span> e choque-se contra a parede do lado esquerdo da sala para derrubar o antepenúltimo inseto. Retorne para <span class="local">Castle Town</span> e procure o inseto em uma caixa do lado esquerdo do jardim, um pouco antes do <span class="local">Telma's Bar</span>. Por fim, <span class="npc">Midna</span> indica o último inseto: no centro do <span class="local">Lake Hylia</span>. <span class="alerta">Este é bem grande</span> — fique na plataforma e esquive-se bastante. Quando ele estiver próximo do chão e vulnerável, trave a mira e ataque. Faça isso até derrubá-lo na água e use o ataque especial. Colete a última lágrima para reaparecer na frente do espírito da luz.</p>
+
+<p>Após a animação, vá ao <span class="local">Fyer and Falbi's Watertop</span> e fale com o dono. Pague 10 Rupees para ser lançado pelo canhão e, na nova área, entre na casa. Desça, saia pela porta para voltar ao <span class="local">Hyrule Field</span> e, de lá, vá para a <span class="local">Castle Town</span>. Visite o <span class="local">Telma's Bar</span> mais uma vez para encontrar o pequeno <span class="npc">Zora</span> que precisa ser escoltado até <span class="local">Kakariko Village</span>. No começo do percurso, mire entre os dois escudos dos inimigos para acertá-los com flechadas. Após derrotá-lo, continue a viagem e atire flechas para evitar que os inimigos acertem seu companheiro — se incendiado, use o <span class="item">Gale Boomerang</span> para apagar o fogo. No portão, desça de <span class="npc">Epona</span> e use a chave. Continue em frente até chegar ao portão que dá acesso ao vilarejo. Com o <span class="npc">Zora</span> são e salvo, siga o espírito até o cemitério para achar um túnel que leva até o salão onde está a <span class="item">Zora's Armor</span>.</p>
+
+<p>Após adquiri-la, vá à loja de bombas do vilarejo para comprar <span class="item">bombas aquáticas</span>. Retorne ao salão da armadura e use os novos explosivos para destruir as pedras submersas. Afunde equipando as <span class="item">Iron Boots</span> e avance pela passagem aberta. Ao chegar ao <span class="local">Lake Hylia</span>, nade até o fundo da parte central para encontrar o <span class="local">Lakebed Temple</span>. Para entrar, use uma bomba para destruir a pedra e liberar um jato d'água. Depois, coloque uma bomba sobre o jato — ela será levada até a rocha que bloqueia a entrada e a destruirá.</p>
+
+<hr>
+
+<!-- =================== LAKEBED TEMPLE =================== -->
+<h2 id="sec-0-lakebed-temple">Lakebed Temple</h2>
+
+<p>Nade pelo túnel até o templo, suba a escadaria e pule para se pendurar na alavanca que abre a porta. Na próxima sala, avance um pouco para que a primeira estalactite caia e, então, derrube as outras usando flechas explosivas (combine as duas armas no menu de equipamentos pressionando <strong>Z</strong> com o cursor sobre as bombas). Siga pelas pedras até a ponte. Atravesse-a e, no salão principal, desça a escadaria e vá para a direita na parte inferior. Ande até encontrar uma alavanca e agarre-se nela para girar a escadaria. Largue-a e suba. No topo, encontre o <span class="item">Oocoo</span> no vaso à esquerda e vá para a direita até outra alavanca. Use-a para girar a escadaria novamente e desça. Siga para a direita, abra o baú para coletar o mapa e prossiga.</p>
+
+<p>Avance até a sala com as estalactites e derrube-as como antes. Entre no túnel à direita e escale o muro com plantas. No fim, use as duas plataformas para chegar ao baú com a <span class="item">Small Key</span>. Com o item, desça, suba pelas plantas e vá embora. Abra a porta entre os dois pilares vermelhos (lado esquerdo da sala) e, depois do corredor, derrube as duas estalactites à direita. Pela esquerda, vá ao muro com plantas. Suba pelo lado direito para chegar à área com a alavanca e pule para agarrá-la. Use uma bomba para explodir a rocha no final do caminho e entre pela porta. Ignore a criatura dentro da bolha e siga pelo caminho da direita. Desça, pegue a <span class="item">Small Key</span> no baú, volte e abra a porta à sua direita. Ignore a planta gigante e saia pelo outro lado. Vire à esquerda e abra a porta no final do caminho.</p>
+
+<p>Suba pelo muro com plantas do lado direito da sala e continue até o topo pela rampa. Suba uma das escadas e pule na alavanca para abrir o portão e deixar a água entrar. Pule no poço cheio de água e use a alavanca na plataforma central. Vá ao sul e siga pela porta à esquerda. No fim do corredor, saia pela porta ao leste. Siga o fluxo e, mais à frente, uma animação mostrará o nível da água subindo. Corra para a esquerda e ative a alavanca do lado oposto da sala. Desça pela escadaria e entre pela porta. Avançando, você chega a três plataformas giratórias. Use uma para ir até a porta ao norte. Ao entrar, pegue uma <span class="item">Small Key</span> à esquerda e volte à área anterior. Use outra plataforma para ir à porta na parte esquerda do salão e prossiga por ela. Entre na água com as <span class="item">Iron Boots</span> para afundar e avance até o fim. Use uma bomba para abrir a passagem. Na próxima parte, <span class="alerta">olhe para o teto usando visão em primeira pessoa — uma criatura gigante cairá do teto.</span></p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Subchefe — Criatura do teto</div>
+  <p>Use o ataque giratório e role para fugir dos ataques — use a sombra como guia. Quando ele cair, ficará vulnerável: ataque sua língua sem parar. Ao vencê-lo, você ganha o <span class="item">Clawshot</span>.</p>
+</div>
+
+<p>Use o novo item no encaixe na parte sul da sala e entre pela porta. Na nova área, use o <span class="item">Clawshot</span> para chegar às plantas à esquerda, desça na porta do lado direito e volte à sala central. Lá, vá para a parte superior e, do lado esquerdo, use o <span class="item">Clawshot</span> no encaixe no teto para girar a escada e fazer a água fluir para a sala abaixo. Desça a escadaria e prossiga pela porta. Atravesse o corredor para chegar a uma nova sala. Pule para a primeira plataforma e use o <span class="item">Clawshot</span> para ser levado ao apoio no lado esquerdo. Dali, use o <span class="item">Clawshot</span> novamente para chegar às plantas na parte norte. Desça no pedaço de pedra e use o <span class="item">Clawshot</span> mais uma vez para chegar às próximas plantas e, então, à porta. Derrube a estalactite em cima do gêiser e suba para chegar ao lado oposto. Use o <span class="item">Clawshot</span> na parte de cima da porta à direita e entre por ela. Utilize o <span class="item">Clawshot</span> nas plantas do teto para ter acesso à próxima área.</p>
+
+<p>Avance até a rampa e, com o <span class="item">Clawshot</span>, suba até o topo. Pegue a bússola à direita e suba as escadas para ativar o fluxo de água novamente. Desça, use a alavanca central e saia pelo mesmo caminho que você entrou. Saia pela porta da esquerda, passe pela roda que gira por causa da água e siga para a direita. Na parte com engrenagens, use o <span class="item">Clawshot</span> em um dos encaixes nelas para chegar até a porta à direita. Desça na água, use as <span class="item">Iron Boots</span> para afundar e entre pelo túnel. Use uma bomba para avançar e continue até o canto inferior direito. Abra caminho até chegar a terra firme. Entre pela porta e use o <span class="item">Clawshot</span> no ponto no teto. Desça com cuidado sem se soltar do equipamento e, no chão, pegue a <span class="item">Big Key</span>. Entre na água e volte à área anterior. Siga para o salão principal do templo, pule na água e vá para a ilha central. Abra a porta, entre e termine a descida com as <span class="item">Iron Boots</span> para enfrentar o chefão.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Morpheel</div>
+  <p>Assim que a batalha começar, mire o <span class="item">Clawshot</span> no olho dele e atire. Quando estiver próximo do monstro, ataque-o com a espada. Depois de algum tempo, a segunda forma aparece. Nade sem parar e evite a boca dele. Tente cortar caminho pelo meio do corpo do inimigo e use o <span class="item">Clawshot</span> no olho novamente. A tática é a mesma: assim que estiver perto o suficiente, ataque o máximo que puder. Continue usando essa estratégia até a luta terminar.</p>
+</div>
+
+<hr>
+
+<!-- =================== CAMINHO QUARTO TEMPLO =================== -->
+<h2 id="sec-0-a-caminho-do-quarto-templo">A caminho do quarto templo</h2>
+
+<p>Ao voltar para Hyrule, vá até a <span class="local">Castle Town</span> e tente entrar no <span class="local">Telma's Bar</span>. Ao ser expulso, fale com o gato dela para descobrir outra entrada. Empurre a caixa abandonada para perto das outras e use-as para alcançar a janela. Entre e, com cuidado, passe pelas cordas evitando atingir os potes. No final, siga pela porta e, no novo ambiente, use o senso canino para encontrar um <span class="inimigo">Poe</span>. Vença-o e fale com <span class="npc">Jovani</span>, o homem sentado, para descobrir um novo caminho. Nos esgotos, pendure-se na corrente e siga pelo caminho que se abriu. Após as escadas, acenda o pedaço de madeira para queimar a teia de aranha. Acenda as outras tochas pelo caminho e, mais à frente, acabe com outra teia. Na próxima área, cave no centro para sair em outro lugar. Atravesse o túnel e vá para cima. Cruze pelas cordas e saia pela porta no topo. Do lado de fora, corra até a ponte quebrada e espere o vento virar a ponte para permitir um pulo seguro. Do telhado azul, entre pela janela e siga até o quarto da <span class="npc">princesa Zelda</span>.</p>
+
+<p>Do <span class="local">Hyrule Field</span>, vá até <span class="local">Faron Woods</span> e pegue o caminho para o <span class="local">Forest Temple</span>. De repente, um macaco é atacado. Proteja-o e ele mostrará um novo pedaço da floresta. Vá pelo caminho da direita e use <span class="npc">Midna</span> para passar pelas plataformas. Com paciência, atravesse as pontes e as cordas. Ao entrar no <span class="local">Sacred Grove</span>, ande até a pedra com o Triforce e uive de acordo com as notas mostradas na tela. Uma criatura cairá da árvore. Passe pelo túnel e procure pela luz de um lampião. Preste atenção na música, que muda sempre que você se aproximar do garoto. Ao encontrá-lo, ataque-o e ele mudará de lugar. Encontre-o mais algumas vezes até chegar a uma arena. Nela, o jovem começará a se teletransportar de um lado para o outro. <span class="alerta">A única maneira de derrotá-lo é se aproximando com cuidado e usando o ataque especial.</span> Ao vencê-lo, o guardião da floresta abre caminho.</p>
+
+<p>No símbolo da Triforce, uive novamente para resolver um quebra-cabeça. Pule nas seguintes direções para devolver as estátuas a seus lugares originais: <strong>esquerda, baixo, direita, direita, cima, esquerda, cima, cima, esquerda, baixo, baixo, direita e cima</strong>. Feito isso, siga reto até a espada para assistir a uma animação em que <span class="npc">Link</span> volta à forma humana. Depois disso, você ganha a habilidade de alternar entre as formas humana e animal a qualquer momento — basta chamar <span class="npc">Midna</span> e selecionar a opção certa. <span class="alerta">A transformação só pode ser feita em locais sem pessoas nas proximidades.</span></p>
+
+<p>Volte à <span class="local">Castle Town</span> e visite o <span class="local">Telma's Bar</span>. Dê uma olhada no mapa e volte ao <span class="local">Lake Hylia</span>. Lá, suba pelas plataformas ao sul e vá ao topo da torre para encontrar <span class="npc">Auru</span>. Leve a carta dele até o dono do canhão. Para mostrá-la, equipe-a como um item, trave a mira nele e ative-a. Você ganhará uma viagem gratuita até o <span class="local">Gerudo Desert</span>. Logo no começo, vá em direção à parte sudeste para achar um pedaço de ponte. Suba até ele e, quando se aproximar, fale com <span class="npc">Midna</span> para teletransportá-lo para a província de Eldin. Abra o ponto de Warp na parte norte da ponte antes de fazer isso. Para progredir com a história, siga para o nordeste do deserto.</p>
+
+<p>Ao avançar um pouco, você será atacado por dois inimigos montados. Derrube-os com flechadas e roube uma montaria. Pressione <strong>A</strong> para quebrar as barreiras e seguir pelo norte até um portão defendido por arqueiros. Livre-se do primeiro atacando-o com algumas flechas e vá para a direita. No acampamento, procure o javali que está em uma fogueira. Eliminando um dos soldados próximos a ele, você encontra a <span class="item">Small Key</span>. Com ela, volte e entre pelo portão anteriormente fechado. Dentro da sala, esquive dos golpes de machado do <span class="inimigo">Goblin</span> e ataque-o pelas costas. Irritado, o inimigo foge e coloca fogo no lugar. Suba no javali e quebre o portão da parte sul. Continue pelas escadas até o <span class="local">Arbiter's Grounds</span>.</p>
+
+<hr>
+
+<!-- =================== ARBITER'S GROUNDS =================== -->
+<h2 id="sec-0-arbiter-s-grounds">Arbiter's Grounds</h2>
+
+<p>Use o <span class="item">Clawshot</span> no muro da direita e passe até a plataforma no noroeste da sala. Com o mesmo item, puxe a corrente para abrir a porta. Mais adiante, siga para o leste até o baú que guarda uma <span class="item">Small Key</span>. Com ela, abra a porta ao norte e, na próxima sala, acenda as tochas espalhadas pelo local. Entre pela passagem aberta para encontrar os quatro <span class="inimigo">Poes</span>. Um deles permanece no local — transforme-se em lobo e acabe com ele quando estiver brilhando. Ao derrotá-lo, cheire o corpo para descobrir um novo rastro a ser seguido. No lado direito da escada, você encontra um baú com o mapa. Depois, use o senso canino para achar o lugar certo para cavar (perto do muro esquerdo). Puxe a corrente e, em seguida, entre pela porta próxima à escada. Na nova sala, empurre a alavanca para descobrir uma entrada onde existe um baú. Abra-o, pegue a <span class="item">Small Key</span> e use o <span class="item">Clawshot</span> no buraco do teto para se agarrar na grade do andar superior. Desça, prossiga pela porta e, retornando à forma de lobo, use o senso canino para encontrar mais um <span class="inimigo">Poe</span>. Derrote-o, volte até a coluna e use a alavanca outra vez para voltar à sala principal. Saia pela esquerda e destrave a porta seguinte. Atravesse pelas plataformas na areia até a parte norte e tome cuidado com os espinhos. No final, leve o bloco até a pequena entrada do lado esquerdo, suba as escadas, passe entre as grades, desça e use a corrente para levantar o candelabro. Corra rapidamente pela passagem aberta para chegar à próxima área.</p>
+
+<p>Pegue a bússola atrás da estátua e use a alavanca central para abrir passagem nos dois lados da sala. Siga pela esquerda e, ao passar pelo bloqueio de madeira, pegue a <span class="item">Small Key</span> no baú. Volte até a alavanca, continue para a direita e abra a porta. Agora, vire lobo e ative o senso canino para derrotar os inimigos invisíveis. Espere mais um pouco para vencer os esqueletos menores e, mais à frente, os maiores. Procure pelo rastro para achar o ponto onde deve cavar. Puxe a corrente para achar o terceiro <span class="inimigo">Poe</span> e entre pela porta no final do corredor. Do lado direito da nova sala, pegue a <span class="item">Small Key</span>, prossiga pela porta mais próxima e use o candelabro para chegar ao outro lado do recinto. Desça, empurre o bloco de volta ao lugar, vá até a corrente e puxe-a para levantar o candelabro. Solte a corrente, corra para a parte marcada no chão e espere o candelabro. Escale por dentro dele para sair pelo leste. Após a barreira de madeira, vença o esqueleto e use uma bomba quando ele virar uma pilha de ossos. Com o caminho aberto, siga até as tochas e acenda a única que está apagada. Em seguida, faça o mesmo com a tocha no extremo oeste e siga pela porta.</p>
+
+<p>Transformado em lobo, procure pelo <span class="inimigo">Poe</span> e, quando a assombração se multiplicar, ataque a versão mais brilhante. Com a quarta alma capturada, prossiga pela sala ao norte e entre na porta oeste. No chão, empurre a alavanca duas vezes no sentido anti-horário para subir e entre no túnel para encontrar outra <span class="item">Small Key</span>. Volte, use a alavanca no sentido horário para que ela desça e destrave a porta. Ande com cuidado pela nova sala e evite os espinhos — transforme-se em lobo e use o senso canino para avistar as ameaças invisíveis. No fim do caminho, puxe a corrente para abrir uma passagem e corra para entrar por ela antes que ela feche. Continue para a direita e evite as armadilhas até chegar à porta ao norte. Lembre-se de pegar o <span class="item">Oocoo</span> (no pote que fica se mexendo), passe pelas armadilhas e vença mais três esqueletos. No fim do caminho, você chega a algumas cordas. Corte uma delas e, como lobo, use o senso canino para enxergar o subchefe.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Subchefe</div>
+  <p>Espere ele atacar e desfira um poderoso contra-ataque. Assim que mudar de forma, transforme-se em humano e acerte-o com uma flechada seguida de uma espadada. Quando estiver no chão, golpeie-o até derrotá-lo. Pegue o <span class="item">Spinner</span> no baú e use-o em um dos trilhos na parede para chegar até a porta.</p>
+</div>
+
+<p>Siga pelos trilhos da esquerda. Depois, use os da direita para chegar até a porta. Na próxima sala, use os trilhos até o caminho ao norte e siga por ele para subir. No topo, salte para trocar de trilho e siga até passar a armadilha. Continue até cair em um pequeno círculo e, em seguida, mude de direção para subir até a parte norte. Depois da rampa, passe por mais trilhos e evite as armadilhas para chegar à porta. Entre para pegar a <span class="item">Big Key</span>. Volte, suba usando os trilhos e vá para a plataforma central da sala. Encaixe seu equipamento no buraco e gire-o várias vezes para abrir caminho. Em frente, atravesse a areia pelo caminho usando o <span class="item">Spinner</span>. Quando estiver pronto, use o item nos trilhos e, no terceiro lance de escadas, pule para o centro da sala. Mais uma vez, gire o <span class="item">Spinner</span> no buraco para abrir um caminho. Desta vez, suba com ele e entre pela grande porta.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Stallord</div>
+  <p>Para vencer <span class="inimigo">Stallord</span>, use o <span class="item">Spinner</span> na parede, tenha cautela com as armadilhas e, quando estiver próximo das costas dele, salte para a parte central da arena e mire na coluna do monstrão — fique esperto para não ser rebatido pelos outros esqueletos que surgem. Trombe algumas vezes em sua coluna para ele cair. Quando ele mudar de forma, use o <span class="item">Spinner</span> no centro para subir uma plataforma e, quando estiver no chão, use um dos trilhos para ir em direção ao chefe. Quando precisar, salte para a parede externa e volte ao centro rapidamente. No momento em que ficar emparelhado com o crânio do inimigo, salte para atingi-lo. Ao derrubá-lo, golpeie-o sem parar e repita até vencer.</p>
+</div>
+
+<hr>
+
+<!-- =================== CAMINHO QUINTO TEMPLO =================== -->
+<h2 id="sec-0-a-caminho-do-quinto-templo">A caminho do quinto templo</h2>
+
+<p>Atravesse a ponte e suba pela escadaria até perto da estátua. Depois de derrotar as cinco criaturas que caem do céu, use o <span class="item">Spinner</span> no trilho e depois encaixe-o no buraco para girar algumas vezes e achar o espelho. Após a animação, volte para <span class="local">Castle Town</span> e siga para o <span class="local">Telma's Bar</span>. Olhe o mapa na mesa para descobrir um novo lugar. Vá para o <span class="local">Zora's Domain</span>, saia pela parte sul e desça para a primeira seção. Dali, use o túnel para chegar a <span class="local">Snowpeak</span>. Quando conseguir o papel, retorne ao cemitério de <span class="local">Kakariko Village</span> e passe pelo buraco até a caverna onde você encontrou a <span class="item">Zora's Armor</span>. Equipe o papel como um item e mostre-o para o <span class="npc">príncipe Zora</span> para receber o <span class="item">Coral Earring</span>. Agora, vá até a base da cachoeira no <span class="local">Zora's Domain</span> e use a vara de pescar equipada com o <span class="item">Coral Earring</span> para fisgar um <span class="item">Reekfish</span>. Transforme-se em lobo e cheire o peixe. Volte a <span class="local">Snowpeak</span> e, com o senso canino ativado, siga o rastro. Escale a montanha até chegar a um muro. Desvie pela direita até uma parte impossível de escalar. Dê uma cabeçada no muro para derrubar a neve e continue em frente.</p>
+
+<p>Ao chegar ao próximo muro, procure pelo ponto para cavar. Já dentro de uma caverna, volte à forma humana, suba a escada e passe pelas plantas para entrar por uma porta. Mais adiante, derrote as três criaturas e siga até encontrar um <span class="npc">Yeti</span>. Fale com ele e, depois, role para bater na árvore e criar uma prancha de snowboard improvisada. Com ela, desça pelo caminho e entre no casarão para chegar a <span class="local">Snowpeak Ruins</span>.</p>
+
+<hr>
+
+<!-- =================== SNOWPEAK RUINS =================== -->
+<h2 id="sec-0-snowpeak-ruins">Snowpeak Ruins</h2>
+
+<p>Atravesse o salão até a sala ao norte e fale com <span class="npc">Yeta</span> para conseguir o mapa. Passe pela outra porta para encontrar <span class="npc">Yeto</span>, o marido, e continue para o norte — se quiser, guarde um pouco da sopa em uma garrafa para recuperar energia posteriormente. No quebra-cabeça dos blocos de gelo, comece empurrando o mais próximo até a entrada ao oeste. Depois, empurre o outro nas seguintes direções: <strong>sul, este, sul, oeste e sul</strong> (coloque-o sobre o botão). Siga pela porta da direita e, como lobo, use o senso canino para encontrar o ponto onde é possível cavar. Faça isso para sair do outro lado do jardim. Perto do muro de gelo ao norte, existe um baú enterrado — cave para encontrá-lo e abra-o para conseguir uma <span class="item">Small Key</span>. Saia pela porta ao oeste. Destrave a próxima porta e elimine os três inimigos para seguir em frente. Perto do baú que <span class="npc">Yeta</span> indicou no mapa, dois guardas aparecerão. Vença-os para pegar a <span class="item">Ordon Pumpkin</span>. Volte até a sala onde recebeu o mapa, fale com <span class="npc">Yeta</span> e passe na cozinha. Use a <span class="item">Ordon Pumpkin</span> para melhorar a sopa do Yeti e para a esposa do grandalhão indicar um novo lugar. Entre pela porta que se abriu e, no jardim, siga pela janela na parte nordeste. Pegue a bala de canhão e atravesse o labirinto até chegar ao canhão. Carregue-o com a bala, vire-o para o sul e ative-o usando uma bomba. O disparo acabará com o gelo e abrirá caminho para a porta ao norte.</p>
+
+<p>Vá com cuidado até o baú na parte sudoeste para achar a bússola. No caminho, derrube adversários com o <span class="item">Clawshot</span>. Saia pela esquerda para voltar ao jardim e, transformado em lobo, use o senso canino para encontrar outro baú enterrado um pouco ao sul — dentro há uma <span class="item">Small Key</span>. Na entrada, abaixe a alavanca, coloque uma bala de canhão na abertura, saia e use a alavanca do outro lado. Leve a bala até o canhão e gire-o para ficar de frente para o monstro. Use uma bomba para ativar a arma e abrir caminho. Entre pela porta atrás do ex-guardião congelado. Ao tentar sair do corredor, um dos cavaleiros começará a atacar. Espere ele ficar a uma distância mediana e use o <span class="item">Clawshot</span> nos pontos indicados do teto para ir até o outro lado da sala. Seu inimigo jogará uma bola na sua direção. Esquive-se e corra para golpeá-lo por trás. Faça isso até vencê-lo e pegue a arma <span class="item">Ball and Chain</span>. Na próxima sala, use o novo equipamento para quebrar o muro de gelo e encontrar o <span class="item">Ordon Goat Cheese</span>. Volte para falar com <span class="npc">Yeta</span> e, depois, com o marido dela.</p>
+
+<p>Siga para o novo ponto indicado por <span class="npc">Yeta</span> e saia pela direita da sala. Na porta ao norte, empurre o bloco para baixo, volte à sala anterior e suba a rampa, atacando os gigantes de gelo com a <span class="item">Ball and Chain</span> através dos buracos na parede. No topo, quebre as barreiras de gelo e continue ao norte. Quebre o gelo à esquerda e acerte o candelabro usando a nova arma. Enquanto ele estiver balançando, passe para o outro lado e pegue a <span class="item">Small Key</span> no baú. Vá para o sul e destrave a porta. Quebre o gelo à sua direita e use o <span class="item">Clawshot</span> no candelabro para chegar ao lado esquerdo da sala. No próximo ambiente, siga pela porta ao norte, empurre o bloco pelo buraco e desça. Use a <span class="item">Ball and Chain</span> no gelo central (liberando outro botão) e no bloco congelado. Empurre para cima o bloco que está na parte sul da sala. Depois, empurre o que estava congelado nas seguintes direções: <strong>sul, oeste e norte</strong>. Agora, empurre o bloco anterior nas direções <strong>leste, sul, oeste e norte</strong>. Fazendo isso, o botão será acionado e uma porta se abrirá no segundo andar. Suba pelos blocos para chegar até ela.</p>
+
+<p>Desça e vença os inimigos. Depois, use o <span class="item">Clawshot</span> no muro quebrado e entre pela porta. Do lado direito, destrua o gelo para achar um ponto de Clawshot e passe pelos dois candelabros para o sul até encontrar o baú com uma <span class="item">Small Key</span>. Prossiga pela porta ao lado e continue, entrando na que fica no noroeste da sala. Derrote os inimigos usando a <span class="item">Ball and Chain</span>, empurre os blocos de volta aos lugares originais, desça e saia pelo sul. Pegue uma bala de canhão e passe pelo encaixe no muro. Leve-a até o topo da escadaria e coloque-a no canhão. Aponte a arma para a esquerda e dispare usando uma bomba. Siga na direção do projétil e leve-o para outra área pela abertura na parede. Entre pela porta e leve a bola até outro canhão. Dispare-a contra a criatura na parte nordeste, desça e prossiga pelo portão ao norte. Suba e vá pela direita. Vença os inimigos e continue ao norte para pegar a <span class="item">Bedroom Key</span>. Na saída, <span class="npc">Yeta</span> leva você para o quarto. Suba a rampa para chegar lá.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Blizzeta (Yeta transformada)</div>
+  <p>Comece atacando com a <span class="item">Ball and Chain</span>. Depois de um tempo, a inimiga vai para o teto. Fique de olho em sua sombra no chão e fique esquivando até ela descer dentro do círculo de estalactites formado pelos ataques anteriores. Frente a frente com o monstro, use a <span class="item">Ball and Chain</span> para acertá-lo. Repita até derrotá-la.</p>
+</div>
+
+<hr>
+
+<!-- =================== CAMINHO SEXTO TEMPLO =================== -->
+<h2 id="sec-0-a-caminho-do-sexto-templo">A caminho do sexto templo</h2>
+
+<p>Passe no <span class="local">Telma's Bar</span> para descobrir onde <span class="npc">Rusi</span> está. Depois, vá para <span class="local">N. Faron Woods</span> e procure pelo rapaz que fica na floresta. Na forma humana, fale com ele para descobrir onde está o templo. Depois, pegue a galinha dourada e pule para a plataforma na sua frente. Atravesse a passagem da direita e gire a ponte para chegar até ela. Ainda com a galinha, gire a ponte novamente e desça até o chão. Salte com cuidado para não ser atingido pelas armadilhas e entre no <span class="local">Sacred Grotto</span>. Novamente, você terá que perseguir uma criança pela caverna. Fique de olho na luz do lampião dela e preste atenção na música. Quando chegar ao local onde o menino está, acerte-o com uma flecha. Siga-o até a última área, onde ele abrirá um caminho secreto. Empurre o bloco, desça e prossiga por esse caminho. Vá até o lugar onde você achou a <span class="item">Master Sword</span> e use a espada para fazer uma estátua desaparecer. Passe por onde ela estava e lute contra as cinco criaturas que aparecerão. Vença-as e continue até a entrada do <span class="local">Temple of Time</span>. Lá, use a espada novamente para fazer com que a escadaria apareça e entre no templo.</p>
+
+<hr>
+
+<!-- =================== TEMPLE OF TIME =================== -->
+<h2 id="sec-0-temple-of-time">Temple of Time</h2>
+
+<p>Perto da entrada, <span class="npc">Midna</span> conversará com você. Transforme-se em lobo e use o senso canino para descobrir que está faltando uma estátua. Leve a pequena escultura que está no canto noroeste e posicione-a sobre o botão localizado na plataforma do lado direito da sala. Passe pela plataforma e continue até avistar duas tochas apagadas. Acenda-as com a <span class="item">Lantern</span> para conseguir uma <span class="item">Small Key</span> e abra a porta no topo da escadaria — no caminho você encontra o <span class="item">Oocoo</span>. Na nova sala, pegue um dos potes e coloque-o sobre o botão no centro para abrir caminho. Vá pela passagem da esquerda até o portão fechado. Lá, vire para trás e destrua o pote com uma flechada para abrir o resto do caminho. Use mais dois potes ou estatuetas nos botões ao norte para continuar em frente. Ignore a cerca elétrica e suba pela escadaria no sul. Com o <span class="item">Spinner</span>, cruze a parte quebrada e gire a alavanca no meio do candelabro no sentido horário. No andar inferior, pegue a estátua e suba novamente usando a alavanca do candelabro. Coloque a estatueta em um dos botões ao sul do lustre. Pegue a outra escultura na plataforma à esquerda e ative o outro botão (faça isso com o <span class="npc">Link</span> em cima da plataforma branca para ser carregado para cima). Entre pela porta, dê cabo dos dois inimigos para que um baú apareça. Abra-o para pegar a <span class="item">Small Key</span> e, com ela, volte à sala do candelabro. Abra a porta do lado oposto.</p>
+
+<p>Acerte o diamante para abrir caminho e, na próxima parte, atire uma flecha pela abertura circular para acertar a joia novamente. Pegue a bússola e ative o diamante outra vez para abrir o caminho até a porta ao leste. Na próxima sala, atire uma flecha no diamante que fica a sudeste. Mais adiante, atire flechas para abrir caminho e, finalmente, entre pela porta. Na sala com a balança, pegue a estatueta ao seu lado e jogue-a no outro prato para equilibrar o peso. Passe para o outro lado e entre pela porta. Tome cuidado com as armadilhas, pegue a <span class="item">Small Key</span> na parte sudoeste da sala e não se esqueça de pegar a estátua ao norte para levá-la até o botão que abre a porta. Na próxima parte, acabe com as aranhas e com as estátuas para desbloquear a porta e entre. Contra o cavaleiro, movimente-se e esquive-se assim que o grandalhão atacar. Contra-ataque em seguida. Ele ficará mais rápido quando perder toda a armadura. Preste atenção nos seus movimentos e mantenha a mesma estratégia. Ao vencê-lo, você recebe o <span class="item">Dominion Rod</span>, um cajado que permite que você assuma o controle de uma estátua que imita todos os seus passos.</p>
+
+<p>Com o <span class="item">Dominion Rod</span> equipado, controle a estátua logo acima e leve-a até o ponto brilhante no chão. Saia do local e, na próxima área, controle a estátua novamente. Ande até o portão e pressione <strong>B</strong> para mexer o cetro da estátua e quebrar o portão. Coloque o pote sobre o botão para abaixar uma plataforma, suba nela ainda controlando a estátua e quebre o pote em seguida para que ela suba. Continue até a cerca elétrica e leve a estátua até o botão que fica atrás dela. Com a cerca desativada, passe pela armadilha e use o <span class="item">Dominion Rod</span> novamente para levar a estátua com você. Continue em frente, passando pelas outras armadilhas até voltar à sala circular. Use a estátua para quebrar o pilar inimigo e atravesse até a plataforma branca do outro lado. Use o <span class="item">Dominion Rod</span> para controlar uma das estatuetas e leve-a até o botão. Agora, assuma o controle da escultura maior e leve-a até o transportador. Entre pela porta ao norte e a estátua grande estará à sua esquerda. Leve-a até a balança e, depois, vá para o outro lado. Coloque algumas estátuas para desequilibrar o peso a favor do seu lado. Quando o lado oeste da balança levantar, suba na beirada perto do prato e use o <span class="item">Clawshot</span> no ponto do teto. Dali, utilize o <span class="item">Spinner</span> para ir até outro ponto e prossiga pela porta. Na próxima sala, acabe com todos os inimigos e use o <span class="item">Clawshot</span> para subir. Use as estátuas para ativar os dois botões. Depois, use o <span class="item">Clawshot</span> para puxar os cascos de ferro dos dois inimigos derrotados e use-os para acionar mais dois botões. Pegue a <span class="item">Big Key</span>.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Armogohma</div>
+  <p>Mantenha seu arco-e-flecha preparado e atire quando o olho abrir. Se acertar, ela vai cair do teto no chão, perto de uma das estátuas. Rapidamente use o <span class="item">Dominion Rod</span> para assumir o controle delas e aperte <strong>B</strong> para acertar um golpe. Mate as aranhas pequenas, continue evitando os ataques e acerte outra flechada. No final, sua inimiga vai tentar escapar de maneira distinta — use mais alguns projéteis para acabar definitivamente com ela.</p>
+</div>
+
+<hr>
+
+<!-- =================== CAMINHO SÉTIMO TEMPLO =================== -->
+<h2 id="sec-0-a-caminho-do-s-timo-templo">A caminho do sétimo templo</h2>
+
+<p>Na saída do templo, vá até o <span class="local">Telma's Bar</span> e olhe o mapa para descobrir um novo local. Vá até <span class="local">Kakariko Village</span> e fale com <span class="npc">Renado</span> para conseguir uma carta. Volte ao bar e mostre o papel para a dona dele. Receba o item e leve até o doutor, na parte esquerda da <span class="local">Castle Town</span>. Mostre o item para ele e, depois, empurre o bloco de madeira no canto noroeste. Como lobo, use sua habilidade para aprender o <strong>Medicine Scent</strong> e siga a trilha do cheiro até encontrar o gato. Com a indicação do bichano, vá até o campo ao sul da cidade e vença o grupo de criaturas que aparece. Elimine-as, pegue a <span class="item">Wooden Statue</span> e volte para <span class="local">Kakariko Village</span>. Mostre o objeto para <span class="npc">Llia</span> e os <span class="npc">Gorons</span> falarão sobre o vilarejo secreto. Siga até a parte noroeste de Hyrule para encontrar uma pequena caverna com <span class="npc">Darbus</span> dentro. O grandalhão quebrará uma pedra e revelará a <span class="local">Hidden Village</span>. Ao entrar nela, acabe com os 20 inimigos usando, de preferência, seu arco e flecha. <span class="alerta">O Hawkeye, comprado em Kakariko Village, facilita bastante as coisas.</span> Se não conseguir, ataque com as espadas. Livre de inimigos, você encontra uma sobrevivente que passa para você o <span class="item">Llia's Charm</span>. De volta a <span class="local">Kakariko Village</span>, mostre o item para <span class="npc">Llia</span>, que retribui com um <span class="item">Horse Call</span> — usado para chamar <span class="npc">Epona</span> em quase todos os lugares do mapa. Volte ao vilarejo secreto e mostre o <span class="item">Dominion Rod</span> para a moradora. Com o <span class="item">Ancient Sky Book</span>, volte até a casa de <span class="npc">Renado</span>, em <span class="local">Kakariko Village</span>, e siga para o porão. Mostre o livro para <span class="npc">Shad</span> e o rapaz marcará seis pontos no mapa. Além disso, seu cajado voltará a funcionar.</p>
+
+<p>Use o ponto de Warp até <span class="local">Kakariko Gorge</span> e siga ao norte até encontrar a estátua da coruja. Use o <span class="item">Dominion Rod</span> para mexê-la e aproxime-se do ponto brilhante. O segundo ponto está na parte norte da ponte de Eldin, em baixo da estátua. Ao sul da entrada da <span class="local">Castle Town</span>, você encontra uma estátua elevada — traga-a para o chão e posicione-a perto do muro elevado. Salte para a parte de cima dela e, dela, para o símbolo. A próxima estátua está perto do <span class="local">Lake Hylia</span>. Tire-a da plataforma e posicione-se logo abaixo das plantas grudadas na parede. Use seu <span class="item">Clawshot</span> para ir até elas, desça na parte de cima da estátua e pule para o local indicado com o símbolo. O quinto símbolo está no deserto. Vá até a seção indicada no mapa e, novamente, posicione a estátua como plataforma. O último fica em <span class="local">Faron Woods</span> — na parte sul da floresta, destrua a pedra perto do vendedor de lampiões e mexa na estátua mais à frente para encontrá-lo. Com os seis símbolos recuperados, volte para <span class="local">Kakariko Village</span> e fale com <span class="npc">Shad</span> no porão. Quando ele for embora, use o seu cajado para mover a estátua e ande até o canhão. Fale com <span class="npc">Midna</span>, perto dele, e depois bata um papo com <span class="npc">Shad</span>. Quando o rapaz for embora, fale de novo com <span class="npc">Midna</span> e leve a arma, por meio da opção Warp, para o <span class="local">Lake Hylia</span>. No lago, fale com <span class="npc">Fyer</span> e pague os 300 Rupees para consertar o objeto. No final do reparo, use seu <span class="item">Clawshot</span> no fundo do canhão para que ele dispare e leve <span class="npc">Link</span> até o templo celestial.</p>
+
+<hr>
+
+<!-- =================== CITY IN THE SKY =================== -->
+<h2 id="sec-0-city-in-the-sky">City in the Sky</h2>
+
+<p>Saia da água e vá para a esquerda. Entre na loja e fale com <span class="npc">Oocoo</span> para conseguir a ajuda dele na dungeon. Do lago, siga ao norte e acerte o cristal em cima da porta para abri-la. Dentro, pegue um <span class="item">Oocoo</span> e use-o para voar até o outro lado, evitando o chão azulado. Use o <span class="item">Clawshot</span> nas plantas, puxe outro <span class="item">Oocoo</span> com seu gancho e termine de atravessar a sala. Passando pela porta, use sua garra na grade da parte sudeste e passe pelo buraco. Do lado de fora, use o <span class="item">Spinner</span> no buraco para abrir uma ponte. Depois, use o <span class="item">Clawshot</span> nas plantas à frente e à esquerda. Suba e atravesse até a porta. Use a garra para ir até o ponto vermelho e desça para abrir o baú e pegar uma <span class="item">Small Key</span>. Agora, use a grade para voltar até a porta e retorne pela ponte. Quando terminar de cruzá-la, aparecerá um dragão para destruir tudo. Passe pela porta à sua frente. Use as colunas com plantas para chegar até o outro lado e saia pela esquerda. Continue andando pelo canto até chegar a um encaixe de <span class="item">Spinner</span> e use-o para habilitar outra ponte. Atravesse-a e destrave a porta. Aqui, use as <span class="item">Iron Boots</span> para não ser empurrado pelo primeiro ventilador. Supere o segundo, atirando com o <span class="item">Clawshot</span> e se agarrando nas plantas de uma das colunas. Saindo pelo oeste, você chega a uma sala com o mapa.</p>
+
+<p>Você pode arriscar equipar as <span class="item">Iron Boots</span> e atravessar os blocos azuis rapidamente com saltos laterais. Se quiser fazer do jeito seguro, use o <span class="item">Clawshot</span> na coluna e atravesse o primeiro ventilador. Desça e passe pelo vento usando as botas. Vá até a beirada da parte sudeste e use a garra na alavanca para desativar um dos ventiladores. Livre dele, volte e cruze os blocos azuis até chegar à porta ao sul. Com cuidado, continue até a porta sudoeste. Se precisar, use o <span class="item">Gale Boomerang</span> para se livrar dos monstros no chão. Mate os dois inimigos para abrir uma passagem e, com o <span class="item">Clawshot</span>, vá até as plantas e suba. Use o equipamento no objeto do teto e se equipe com as <span class="item">Iron Boots</span> para ligar um ventilador. Em seguida, pegue o <span class="item">Oocoo</span> e salte com o auxílio do vento para alcançar a porta. Continue usando as rajadas para passar pelo muro ao norte e use seu <span class="item">Clawshot</span> no objeto à direita, utilizando as botas para ativar mais um ventilador. Use o vento, combinado com o <span class="item">Oocoo</span>, para passar por outro buraco e sair pela porta para o norte.</p>
+
+<p>Antes de descer, use o <span class="item">Clawshot</span> no objeto dourado, lembrando de usar as botas. Depois, pegue o <span class="item">Oocoo</span> e salte para a plataforma à esquerda. Em seguida, para outra logo abaixo e continue até chegar ao local com pontos de Clawshot. Use-os para descer até a porta. Ative mais um objeto dourado para desligar o ventilador e conseguir descer até a próxima sala.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Subchefe — Inimigo voador</div>
+  <p>Espere ele preparar o ataque e jogue o <span class="item">Clawshot</span> contra seu escudo. Quando o monstro estiver próximo, golpeie-o algumas vezes e prepare-se para esquivar das investidas. Depois de um tempo, ele começa a voar rápido entre os buracos do salão. Espere ele aparecer e parar para usar o <span class="item">Clawshot</span>, que o puxará e dará mais uns golpes. Quando terminar o combate, abra o baú para pegar o segundo <span class="item">Clawshot</span>.</p>
+</div>
+
+<p>Agora você pode usar uma garra enquanto está pendurado com a outra. Use as garras nos pontos indicados até chegar à planta ao centro e suba para sair da sala. Comece a subir com os Clawshots até chegar a um objeto dourado. Agarre-o, puxe-o para baixo usando as <span class="item">Iron Boots</span> e passe pela porta que se abriu. Rapidamente passe de um pilar para o outro usando a mira automática. Do outro lado, pegue a bússola. Use os pontos de Clawshot até chegar ao outro lado da área. Derrube os inimigos com flechadas antes de seguir em frente. Do outro lado, suba nas plantas à direita para chegar à parte superior do salão. Pegue um <span class="item">Oocoo</span> e, com ele, passe pela porta leste. Ao sair, use as plantas voadoras para atravessar. Desça e passe pelos pilares usando as garras até o último ponto. Mire na parte quebrada do muro para encontrar o próximo local. Use o <span class="item">Clawshot</span> no ponto e desça para achar um cristal. Acerte-o com o outro gancho para abrir o portão. Mire para cima, na grade, vá até ela, passe para o outro ponto e à outra grade. Do próximo local, desça e siga pela porta ao norte. Contra a planta gigante, use o <span class="item">Clawshot</span> para puxá-la e bata sem parar. Para terminar, jogue uma bomba no seu corpo aberto. Livre dela, suba pelo ponto à direita, pelo pilar com plantas e, depois, no local acima da ponte. Rapidamente, passe para o segundo ponto e para outra coluna com plantas. Use o <span class="item">Clawshot</span> no centro da sala para descer em cima da ponte e seguir em frente. Com o mesmo item, passe pelas plantas até a parte sul da sala e desvie dos muros até chegar a algumas barras. Siga em direção a elas e desça em segurança no chão. Passe pela porta e, ainda com o <span class="item">Clawshot</span>, atravesse o abismo prendendo-se nas plantas.</p>
+
+<p>No jardim, use o <span class="item">Clawshot</span> nas plantas à direita e transforme-se em lobo para atravessar as cordas até chegar a uma porta. Lá dentro, use as <span class="item">Iron Boots</span> para evitar que o vento o jogue para longe e tenha cuidado com a armadilha para conseguir a <span class="item">Big Key</span>. Com ela em mãos, use o <span class="item">Clawshot</span> no objeto dourado para desligar o ventilador e descer pelo buraco. No chão, use as garras no teto com grades e desça entre as hélices do segundo ventilador. Mire no objeto dourado e, agarrado nele, equipe as botas. Com o ventilador ligado, desça e saia pela porta ao norte. Com o <span class="item">Clawshot</span> nas plataformas giratórias com grades, atravesse até o outro lado. Na próxima parte, dois dragões aparecerão. Vença-os utilizando a mesma estratégia do subchefe. Assim que eliminá-los, use o <span class="item">Clawshot</span> no ponto ao sul e depois na parte central. Acerte o diamante com uma garra para ativar o painel onde você está agarrado. Suba até o topo da torre e ative outro diamante para conseguir se virar até o ponto próximo à porta. Agarre-se nele e abra caminho com a <span class="item">Big Key</span>. Finalmente, suba pelas barras à direita e siga pelas plantas até a arena.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Argorok (Dragão)</div>
+  <p>Suba até o topo das torres. Lá, atire com o <span class="item">Clawshot</span> nas costas do dragão e, quando agarrar nele, equipe as botas de ferro para fazê-lo cair no chão. Repita a operação para quebrar sua armadura. Depois disso, suba novamente nas torres e desta vez use o gancho para alcançar as plantas voadoras. Espere o dragão levantar a cabeça para atacá-lo e comece a andar de planta em planta até chegar às costas dele. Ali, use o <span class="item">Clawshot</span> para agarrar no ponto fraco do inimigo e acerte-o com espadas. Repita o processo até vencer. Depois, use o <span class="item">Clawshot</span> no canhão para voltar a Hyrule.</p>
+</div>
+
+<hr>
+
+<!-- =================== PALACE OF TWILIGHT =================== -->
+<h2 id="sec-0-palace-of-twilight">Palace of Twilight</h2>
+
+<p>Volte a <span class="local">Mirror Chamber</span> por meio da opção Warp de <span class="npc">Midna</span> para consertar o espelho. Suba pelo caminho aberto para chegar ao Palácio. Vá para a direita e passe pela porta. Na sala, vença as estátuas para revelar um baú com a <span class="item">Small Key</span>. Use o <span class="item">Clawshot</span> nos pontos em destaque ao norte para cair em frente à porta e entre por ela. Aqui, atravesse pela fumaça que transforma você em lobo e vença mais estátuas para descobrir outro baú com a bússola. Não esqueça de pegar a <span class="item">Small Key</span> e novamente utilize a garra para ficar de frente para a saída. Um holograma o atacará ao tentar atravessar a próxima sala. Concentre seus ataques nele para acabar logo com a luta. Depois, bata na mão que segura a bola, chamada de <span class="item">Sol</span>. Pegue-a e tente ir embora. A mão começará a persegui-lo. Use a bola no centro da sala e coloque-a no encaixe para ativar uma escada. Suba e depois use seu <span class="item">Clawshot</span> para pegar o objeto. Caso precise, use a garra ou as flechas para manter seu adversário distante.</p>
+
+<p>Na próxima sala, repita o processo e continue andando até a parte externa. Ali, ande até a parte central e coloque o <span class="item">Sol</span> em um dos encaixes. Use a plataforma que aparecerá para ir até a parte esquerda do templo. Use o <span class="item">Clawshot</span> em um dos pontos do muro, depois ande pelo teto e desça na plataforma azul. Então, atravesse a sala com cuidado, usando o escudo para evitar os ataques dos inimigos e derrote a estátua do outro lado da sala para conseguir uma <span class="item">Small Key</span>. Continue e vença as criaturas que aparecerem. Em seguida, acabe com mais estátuas e use os pontos no teto para chegar aos baús com o mapa e outra chave. Na sala ao norte você deverá enfrentar outro holograma e encontrará o próximo <span class="item">Sol</span>. Novamente, a mão inicia uma perseguição. Com a bola em mãos, coloque-a no meio da sala, suba a escada, pegue-a com a garra e siga adiante. <span class="dica">💡 No próximo recinto, corra rapidamente para o centro e coloque o Sol ali. Se fizer isso antes de o adversário se aproximar, um bug do jogo impede a mão de prosseguir, permitindo que você faça tudo com mais calma.</span></p>
+
+<p>Com a escadaria levantada, use o <span class="item">Clawshot</span> no teto e vá até o ponto acima dela. Desça até o chão para puxar o objeto. Com ele, continue em frente e atravesse as plataformas flutuantes. Ao chegar perto das bolas escuras, espere elas energizarem para uma nova plataforma aparecer. Use-a para chegar à porta.</p>
+
+<p>Do lado de fora, encaixe a segunda bola na plataforma central para iluminar sua <span class="item">Master Sword</span>. Siga ao norte e ataque a névoa escura para abrir caminho até a porta. Faça isso até chegar às duas bolas e use-as nos encaixes da sala para abrir uma escada. Suba por ela e bata no objeto escurecido para que ele se ilumine e abra uma nova plataforma. Use-a para chegar do outro lado da sala, vença as estátuas e acerte as três bolas simultaneamente usando o ataque giratório. Não esqueça de pegar a <span class="item">Small Key</span> antes de ir embora pela plataforma que apareceu. Use seu ataque na cachoeira escura para abrir caminho e suba com o <span class="item">Clawshot</span> até encontrar o baú com a <span class="item">Big Key</span>. Vá para o lado oposto da cachoeira e use o ataque giratório nas duas bolas à direita para energizá-la, subindo, em seguida, na plataforma que aparece. Destrua a estátua, acenda mais dois objetos com sua espada e volte para a área principal. Aqui, mate o resto das cabeças para achar a <span class="item">Small Key</span>. Com ela, entre na porta ao lado.</p>
+
+<p>Vença as criaturas e use a espada para abrir caminho até as quatro bolas no final do caminho. Use o ataque giratório e suba na plataforma que aparecerá. Então, salte para a da direita, depois para a da esquerda e, na sequência, em outra à esquerda. Use o <span class="item">Clawshot</span> no ponto vermelho para chegar perto da estátua e vença-a. Em seguida, use a garra no ponto do teto e desça na plataforma móvel. Nela, use o ponto à direita e acabe com outra estátua para achar o baú com a <span class="item">Small Key</span>. Vá até a porta e, na sequência, destrua as criaturas. Por fim, abra o portão para conhecer o vilão dessa dungeon.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Zant (múltiplas fases)</div>
+  <p><strong>1ª arena:</strong> use o escudo para se proteger das bolas de energia e o <span class="item">Gale Boomerang</span> para trazer <span class="inimigo">Zant</span> para mais perto. Depois, acerte-o com espadadas.</p>
+  <p><strong>2ª arena:</strong> use as <span class="item">Iron Boots</span> para não cair e corra na direção do chefe após ele mandar sua sequência de projéteis. Ataque com espadadas.</p>
+  <p><strong>3ª fase:</strong> equipe-se com a <span class="item">Zora's Armor</span>, as <span class="item">Iron Boots</span> e use o <span class="item">Clawshot</span> quando ele aparecer. Acerte-o mais algumas vezes.</p>
+  <p><strong>4ª arena:</strong> role e bata nos pilares na qual <span class="inimigo">Zant</span> ficar de pé.</p>
+  <p><strong>5ª arena:</strong> guie-se pela sombra para se esquivar do inimigo e, quando ele ficar no chão, ataque com a <span class="item">Ball and Chain</span> e, em seguida, com espadadas.</p>
+  <p><strong>Final:</strong> use os contra-ataques e tente não ir para as beiradas do local, caso contrário ele empurrará <span class="npc">Link</span> na barreira de energia. Quando vencer, pegue o <span class="item">Heart Container</span>.</p>
+</div>
+
+<hr>
+
+<!-- =================== HYRULE CASTLE =================== -->
+<h2 id="sec-0-hyrule-castle">Hyrule Castle</h2>
+
+<p>Passe por dentro da <span class="local">Castle Town</span> caminhando e avance até a frente do <span class="local">Hyrule Castle</span>. Ao final das animações, passe pelas portas para chegar ao jardim. Comece pelo caminho da direita e elimine os inimigos que aparecem na armadilha. Siga pelo caminho até a corrente na parte nordeste. Use-a para abrir a porta e vença o <span class="inimigo">Goblin gigante</span> para conseguir a <span class="item">Small Key</span>. Com ela, volte até a parte central do jardim e desta vez vá para a esquerda. Derrube os arqueiros e procure pelo javali. Use-o para quebrar as barreiras e chegar à parte nordeste. Ali, fique próximo da porta com o baú e use seu <span class="item">Gale Boomerang</span> para afastar as folhas e enxergar um guia. Assim como no <span class="local">Forest Temple</span>, use-o para se guiar e colocar o vento nos pilares na ordem correta. Em seguida, pegue o mapa. Como lobo, ache um lugar que pode ser escavado — procure perto dos pilares. Ele levará até um cemitério. Ali, procure por uma árvore e use o senso canino para enxergar alguns espíritos em volta dela. Neste ponto, utilize uma bomba para encontrar o botão que abrirá um portão à esquerda.</p>
+
+<p>Lá dentro, acenda a tocha para fazer a chuva parar. Rapidamente, corra para o outro lado do jardim e acenda mais duas tochas. Passe pelo portão e use seu <span class="item">Dominion Rod</span> nas estátuas. Leve-as até os encaixes no chão em frente ao muro da parte sul e use ambas como plataformas para atravessar até o outro lado pela parte superior e encontrar uma corrente. Puxe-a para pegar a <span class="item">Small Key</span> e retorne para a parte principal. Finalmente, abra a porta central para entrar no castelo. Vença os inimigos para achar um baú. Suba pela escada à esquerda e use o <span class="item">Clawshot</span> no candelabro para chegar até o baú. Siga para o próximo e, sem se soltar, desça um pouco para enxergar e conseguir agarrar o candelabro seguinte. Desça e entre pela porta ao norte. Acabe com o <span class="inimigo">Dark Knight</span>, usando seus contra-ataques, e acenda as duas tochas do lado esquerdo da sala. Suba nas plataformas e atire o <span class="item">Gale Boomerang</span> na tocha acesa do lado direito. Rapidamente, pule para trás e fique em cima do último degrau enquanto ele ainda está subindo. Vá pela direita e use sua flecha para derrubar o quadro do muro a oeste e atire no diamante para abrir passagem. Na sala seguinte, vença dois <span class="inimigo">Dark Knights</span> e siga pela parte sudeste.</p>
+
+<p>Atravesse a ponte para pegar a <span class="item">Big Key</span>, volte para perto da entrada, suba a rampa e desça do outro lado. Vença o dragão e vá até o fim do caminho para pegar uma <span class="item">Small Key</span>. Volte até a rampa e, agora, abra a porta no topo dela. Como lobo, ative o senso canino e mantenha as assombrações longe. Siga na direção em que os fantasmas apontam. Na escadaria, use seus <span class="item">Clawshots</span> e, em seguida, o <span class="item">Spinner</span>, tomando cuidado com as armadilhas. Ali, acabe com mais um <span class="inimigo">Dark Knight</span> e, antes de entrar na porta do chefe, abra a outra com uma <span class="item">Small Key</span>. Ali você encontra um monte de itens úteis para o combate. Quando estiver pronto, passe pela grande porta e encontre o grande vilão.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Batalha Final — Ganondorf (múltiplas fases)</div>
+  <p><strong>1ª forma — Ganon no corpo de Zelda:</strong> esquive dos ataques com a espada e fuja do triângulo iluminado que aparece no chão. Quando o inimigo atacar com bolas de luz, rebata usando a espada até ele não conseguir devolver a magia e ser atingido por ela.</p>
+  <p><strong>2ª forma — Forma animal:</strong> desvie das primeiras investidas e espere o monstrengo desaparecer. Quando isso acontecer, fique de olho nos portais que se abrem e espere um deles ficar azul. Neste momento, mire o arco-e-flecha e, quando ele se aproximar, atire no ponto fraco — a cabeça do animal. Com ele derrubado, golpeie sua barriga algumas vezes.</p>
+  <p><strong>3ª fase — Forma bestial (evasiva):</strong> vire o lobo e espere aparecer o portal azul. Fique parado na direção em que o monstro está correndo e prepare-se para apertar <strong>A</strong> na hora certa. Fazendo isso, você agarra a cabeça dele e pode tombar o corpo pressionando para os lados quando um ícone indicar na tela. Golpeie-o na barriga quando ela estiver vulnerável.</p>
+  <p><strong>4ª fase — Montado em Epona:</strong> evite confrontos frontais e corra, esquivando até conseguir ficar atrás do seu rival. Mire com <strong>Z</strong> e mantenha-o na sua frente. Isso fará com que a <span class="npc">princesa Zelda</span> atire uma flecha. Se ela acertar <span class="inimigo">Ganondorf</span>, ele ficará tonto — é nesse exato momento que você precisa usar força total com a sua égua para se aproximar e atingi-lo com uma espadada. <span class="alerta">Tome cuidado com a bola de energia que se transforma em cavaleiros fantasmas.</span></p>
+  <p><strong>5ª fase — Duelo final:</strong> mantenha a mira sempre travada no inimigo, seja paciente, esquive-se bastante e use todas as técnicas que você aprendeu ao longo da jornada. <span class="inimigo">Ganondorf</span> fica vulnerável logo depois de atacar, então não desperdice a oportunidade. Boa sorte na batalha e, depois de vencer, curta o final — o Reino de Hyrule está salvo!</p>
+</div>
+
+<hr>
+
+<!-- =================== EXTRAS =================== -->
+<h2 id="sec-0-extras-upgrade-de-equipamentos">Extras — Upgrade de Equipamentos</h2>
+
+<h3 id="sec-0-bomb-bag">Bomb Bag</h3>
+<ul>
+  <li>Compre por 120 Rupees o <span class="item">Premium Kit</span> no <span class="local">Barnes Bomb Shop</span>, em <span class="local">Kakariko Village</span>.</li>
+  <li>Adquirida com <span class="npc">Iza</span>, depois que você desbloqueia o rio na parte superior do <span class="local">Zora's Domain</span>.</li>
+  <li>Atrás da pedra gigante, na parte submersa da sala do trono dos Zoras. Use uma bomba para destruir a pedra.</li>
+</ul>
+<p class="dica">💡 Cada saco tem capacidade para 30 bombas, mas esse número pode dobrar se você conseguir fazer 25 pontos no <strong>Iza's Rapid Ride</strong>.</p>
+
+<h3 id="sec-0-bottle-garrafa">Bottle (Garrafa)</h3>
+<ul>
+  <li>Faça o gato de <span class="npc">Sera</span> voltar para casa, em <span class="local">Ordon</span>.</li>
+  <li>Compre-a do vendedor de óleo, em <span class="local">Faron Woods</span>.</li>
+  <li>No <span class="local">Fishing Hole</span>, pesque na área oeste do local, perto da ponte.</li>
+  <li>Converse com <span class="npc">Jovani</span> após coletar os espíritos dos 20 <span class="inimigo">Poes</span>.</li>
+</ul>
+
+<h3 id="sec-0-magic-armor">Magic Armor</h3>
+<p>Doe 1.000 Rupees para os <span class="npc">Gorons</span> no <span class="local">Malo Mart</span>, em <span class="local">Kakariko Village</span>. Arrecade mais 2.000, volte ao estabelecimento e doe a nova quantia. Feito isso, visite a loja dos <span class="npc">Gorons</span> em <span class="local">Castle Town</span> e compre o item por 598 Rupees. <span class="alerta">Atenção: seus Rupees são consumidos quando a armadura mágica está equipada.</span></p>
+<p class="dica">💡 Para doar apenas 200 Rupees na segunda vez, converse com o Goron próximo ao vilarejo. Aceite seu pedido e leve a Spring Water para o outro Goron, que fica próximo da ponte destruída no lado oeste de Castle Town.</p>
+
+<h3 id="sec-0-quiver-aljava">Quiver (Aljava)</h3>
+<ul>
+  <li>Usando o <span class="item">Clawshot</span>, complete o minigame das estrelas em <span class="local">Castle Town</span> para ganhar o item e poder carregar 60 flechas.</li>
+  <li>Usando o <span class="item">Double Clawshot</span>, complete o minigame das estrelas novamente. A segunda versão permite carregar 100 flechas.</li>
+</ul>
+
+<h3 id="sec-0-wallet-carteira">Wallet (Carteira)</h3>
+<ul>
+  <li>Leve um inseto para <span class="npc">Agitha</span> (em <span class="local">Castle Town</span>). Com esta bolsa, você pode coletar até 600 Rupees.</li>
+  <li>Leve os 24 insetos para <span class="npc">Agitha</span>. Com a segunda bolsa, a quantidade de Rupees aumenta para 1.000.</li>
+</ul>
+
+<hr>
+
+<h2 id="sec-0-minigames">Minigames</h2>
+
+<h3 id="sec-0-falbi-s-flight-by-fowl">Falbi's Flight by Fowl</h3>
+<p>No <span class="local">Lake Hylia</span>, depois de usar o canhão de <span class="npc">Fyer</span>, entre na casa e fale com <span class="npc">Falbi</span>. Pague 20 Rupees, pegue uma galinha e pule em direção à pequena ilha com vários andares. Lá você encontra baús com Rupees e um <span class="item">Heart Piece</span>.</p>
+
+<h3 id="sec-0-fruit-pop-flight-challenge">Fruit Pop Flight Challenge</h3>
+<p>Na forma de lobo, uive no local com grama, do lado esquerdo do lago, para fazer <span class="npc">Plumm</span> aparecer. Voe pelos balões em forma de fruta para ganhar pontos e fazer combos. Consiga 10 mil pontos para ganhar um <span class="item">Heart Piece</span>.</p>
+
+<h3 id="sec-0-iza-s-rapid-ride">Iza's Rapid Ride</h3>
+<p>Fica na parte superior do rio dos <span class="npc">Zoras</span>, perto do <span class="local">Fishing Hole</span>. Acerte os alvos enquanto desce o rio desviando dos obstáculos. Fazendo 25 pontos você ganha uma nova <span class="item">Bomb Bag</span>.</p>
+
+<h3 id="sec-0-rollgoal">Rollgoal</h3>
+<p>Na loja de <span class="npc">Hena</span>, use o modo de visão em primeira pessoa e olhe para o jogo de madeira no canto do local. Para jogá-lo, gaste 5 Rupees. Movimente o tabuleiro para levar a bola até a linha de chegada.</p>
+
+<h3 id="sec-0-snowboard">Snowboard</h3>
+<p>Após completar o templo de <span class="local">Snowpeak Ruins</span>, volte ao local onde encontrou os <span class="npc">Yetis</span> pela primeira vez e converse com eles para participar do desafio. O objetivo é vencer <span class="npc">Yeto</span> e <span class="npc">Yeta</span> para faturar um <span class="item">Heart Piece</span>. A única maneira de vencê-los ladeira abaixo é atingindo os adversários com espadas e usando atalhos para ganhar tempo.</p>
+
+<h3 id="sec-0-jogo-das-estrelas">Jogo das Estrelas</h3>
+<p>Com o <span class="item">Clawshot</span> e o <span class="item">Double Clawshot</span> equipados, colete as estrelas que ficam flutuando. Completando ambos os desafios, você aumenta a quantidade de flechas que pode carregar. Este minigame fica em <span class="local">Castle Town</span>.</p>
+
+<hr>
+
+<h2 id="sec-0-ataques-secretos">Ataques Secretos</h2>
+<p>Com <span class="npc">Link</span> transformado em lobo, siga até as pedras listadas abaixo e uive da maneira certa. Depois, na forma humana, converse com o lobo dourado que surgirá nos locais indicados. A cada encontro você ganha um ataque novo. Existem sete no total (o primeiro, <strong>Ending Blow</strong>, você ganha automaticamente).</p>
+<ul>
+  <li><strong>Shield Attack</strong> — Pedra: área com muitos gêiseres na <span class="local">Death Mountain</span>. Lobo: em <span class="local">Ordona Province</span>, perto de onde você encontra <span class="npc">Epona</span> pela primeira vez.</li>
+  <li><strong>Back Slice</strong> — Pedra: norte do rio, no <span class="local">Zora's Domain</span>. Lobo: em um pilar à direita da entrada da <span class="local">Castle Town</span>.</li>
+  <li><strong>Helm Splitter</strong> — Pedra: pouco antes da entrada da <span class="local">Sacred Grotto</span>, em <span class="local">Faron Woods</span>. Lobo: no campo ao sul da <span class="local">Castle Town</span>.</li>
+  <li><strong>Mortal Draw</strong> — Pedra: na parte sul do <span class="local">Lake Hylia</span>. Lobo: no nordeste do <span class="local">Gerudo Desert</span>.</li>
+  <li><strong>Jump Strike</strong> — Pedra: perto da caverna secreta, na subida para o <span class="local">Snowpeak Temple</span>. Lobo: próximo ao cemitério de <span class="local">Kakariko Village</span>.</li>
+  <li><strong>Great Spin</strong> — Pedra: no vilarejo secreto ao norte da <span class="local">Castle Town</span> (arrombe as janelas da construção na parte oeste do local). Lobo: perto da entrada do <span class="local">Hyrule Castle</span>.</li>
+</ul>
+
+
+<!-- ===== BARRA INFERIOR ===== -->
+<div class="bottom-bar" id="bottomBar">
+  <button class="bar-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema">
+    <span id="themeIcon">🌙</span>
+  </button>
+  <button class="menu-toggle-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+  <div class="search-pill" id="searchPill">
+    <button class="bar-btn search-trigger" id="searchBtn" onclick="toggleSearch()" title="Pesquisar no detonado">
+      <span>🔍</span>
+    </button>
+    <div class="search-input-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar no detonado…"
+             oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off" />
+      <span class="search-count" id="searchCount"></span>
+      <button class="search-nav-btn" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="search-nav-btn" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="search-close" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ===== BOTTOM BAR ===== */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 58px;
+    background: var(--bar-bg);
+    border-top: 1px solid var(--bar-border);
+    box-shadow: 0 -2px 12px var(--bar-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .bar-btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 50%;
+    width: 42px; height: 42px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .bar-btn:active { transform: scale(0.92); }
+
+  .search-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: flex-end;
+  }
+  .search-input-wrap {
+    display: none;
+    align-items: center;
+    background: var(--search-bg);
+    border: 1.5px solid var(--search-border);
+    border-radius: 24px;
+    padding: 4px 10px 4px 14px;
+    gap: 6px;
+    flex: 1;
+    max-width: 420px;
+    transition: background 0.25s;
+  }
+  .search-input-wrap.open { display: flex; }
+  .search-input-wrap input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: var(--search-text);
+    flex: 1;
+    min-width: 0;
+  }
+  .search-input-wrap input::placeholder { color: var(--text2); }
+  .search-count {
+    font-size: 12px;
+    color: var(--text2);
+    white-space: nowrap;
+    min-width: 32px;
+    text-align: center;
+  }
+  .search-nav-btn, .search-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--text2);
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: color 0.15s;
+  }
+  .search-nav-btn:hover, .search-close:hover { color: var(--text); }
+  .search-trigger { margin-left: 8px; }
+
+  /* Resultado atual destacado */
+
+  /* ===== SIDEBAR / MENU LATERAL ===== */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1100;
+    transition: opacity .25s;
+  }
+  .sidebar-overlay.open { display: block; }
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--bar-bg);
+    border-right: 1px solid var(--bar-border);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.2);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .sidebar-header {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 16px 16px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .sidebar-header span { opacity: .8; font-size: 12px; }
+  .sidebar-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: .7;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .sidebar-close:hover { opacity: 1; }
+
+  .sidebar-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px 0 80px;
+  }
+  .sidebar-body::-webkit-scrollbar { width: 4px; }
+  .sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .menu-item {
+    display: block;
+    padding: 9px 18px;
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background .15s, border-color .15s, color .15s;
+    line-height: 1.4;
+  }
+  .menu-item:hover {
+    background: var(--bg2);
+    border-left-color: var(--h2-border);
+    color: var(--h2-color);
+  }
+  .menu-h2 {
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 4px;
+    color: var(--h2-color);
+  }
+  .menu-h3 {
+    font-size: 12px;
+    padding-left: 30px;
+    color: var(--text2);
+    border-left-color: transparent;
+  }
+  .menu-h3:hover { border-left-color: var(--h3-border); color: var(--text); }
+
+  /* Toggle button na barra inferior */
+  .menu-toggle-btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 50%;
+    width: 42px; height: 42px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s, transform .15s;
+    margin-right: 8px;
+  }
+  .menu-toggle-btn:active { transform: scale(0.92); }
+
+  mark.search-hl.current {
+    outline: 2px solid var(--alerta);
+    background: var(--alerta);
+    color: #fff;
+  }
+</style>
+
+<script>
+// ===== THEME =====
+(function() {
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('themeIcon').textContent = saved === 'dark' ? '☀️' : '🌙';
+})();
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('themeIcon').textContent = next === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('theme', next);
+}
+
+// ===== SEARCH =====
+let matches = [];
+let currentMatch = -1;
+let lastQuery = '';
+
+function toggleSearch() {
+  const wrap = document.getElementById('searchWrap');
+  const input = document.getElementById('searchInput');
+  const isOpen = wrap.classList.toggle('open');
+  if (isOpen) {
+    input.focus();
+    input.select();
+  } else {
+    closeSearch();
+  }
+}
+
+function closeSearch() {
+  document.getElementById('searchWrap').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchCount').textContent = '';
+  clearHighlights();
+  matches = [];
+  currentMatch = -1;
+  lastQuery = '';
+}
+
+function doSearch(query) {
+  clearHighlights();
+  matches = [];
+  currentMatch = -1;
+
+  const q = query.trim();
+  if (!q || q.length < 2) {
+    document.getElementById('searchCount').textContent = '';
+    return;
+  }
+  if (q === lastQuery) return;
+  lastQuery = q;
+
+  // Walk text nodes and highlight
+  const content = document.body;
+  const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const tag = node.parentElement.tagName.toLowerCase();
+      const cls = node.parentElement.className;
+      if (['script','style','input','mark'].includes(tag)) return NodeFilter.FILTER_REJECT;
+      if (node.parentElement.closest('.bottom-bar')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+
+  const regex = new RegExp(escapeRe(q), 'gi');
+  const nodesToReplace = [];
+
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (regex.test(node.textContent)) {
+      nodesToReplace.push(node);
+    }
+    regex.lastIndex = 0;
+  }
+
+  nodesToReplace.forEach(node => {
+    const frag = document.createDocumentFragment();
+    let last = 0;
+    const text = node.textContent;
+    let m;
+    regex.lastIndex = 0;
+    while ((m = regex.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const mark = document.createElement('mark');
+      mark.className = 'search-hl';
+      mark.textContent = m[0];
+      frag.appendChild(mark);
+      matches.push(mark);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+
+  if (matches.length > 0) {
+    currentMatch = 0;
+    highlightCurrent();
+  }
+  updateCount();
+}
+
+function navigateMatch(dir) {
+  if (!matches.length) return;
+  matches[currentMatch].classList.remove('current');
+  currentMatch = (currentMatch + dir + matches.length) % matches.length;
+  highlightCurrent();
+  updateCount();
+}
+
+function highlightCurrent() {
+  if (currentMatch < 0 || !matches[currentMatch]) return;
+  matches.forEach(m => m.classList.remove('current'));
+  const el = matches[currentMatch];
+  el.classList.add('current');
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function updateCount() {
+  const el = document.getElementById('searchCount');
+  if (!matches.length) {
+    el.textContent = lastQuery.length >= 2 ? '0' : '';
+  } else {
+    el.textContent = (currentMatch + 1) + '/' + matches.length;
+  }
+}
+
+function clearHighlights() {
+  document.querySelectorAll('mark.search-hl').forEach(m => {
+    m.outerHTML = m.textContent;
+  });
+  matches = [];
+  currentMatch = -1;
+}
+
+function searchKeyNav(e) {
+  if (e.key === 'Enter') { e.shiftKey ? navigateMatch(-1) : navigateMatch(1); }
+  if (e.key === 'Escape') { closeSearch(); }
+}
+
+
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  const open = s.classList.toggle('open');
+  o.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+</script>
+</body>
+</html>
