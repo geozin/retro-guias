@@ -14,6 +14,17 @@
     --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
     --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
   }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#0d0000;--h2-color:#ff6666;--h2-border:#ff6666;--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#2a0000;--dica-border:#c0392b;
+      --chefe-bg:#2a0a0a;--chefe-border:#922b21;--chefe-title:#f1948a;
+      --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
+  }
 
   body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
 
@@ -508,8 +519,4 @@ function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):naviga
 function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 </script>
 </body>
-</html> 
-
-
-
-
+</html>
