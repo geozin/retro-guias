@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,51 +24,37 @@
     --table-head: #eee;
     --bar-bg: #fff;
     --bar-border: #ddd;
-    --bar-shadow: rgba(0,0,0,0.10);
-    --btn-bg: #1a1a2e;
-    --btn-text: #f0c040;
-    --search-bg: #f5f5f5;
-    --search-text: #222;
-    --search-border: #ccc;
-    --highlight-bg: #ffe066;
-    --highlight-text: #111;
     --npc: #1a5fb4;
     --item: #2d7a2d;
     --alerta: #c0392b;
     --local: #6c3483;
     --inimigo: #784212;
   }
-  [data-theme="dark"] {
-    --bg: #111118;
-    --bg2: #1a1a26;
-    --text: #e8e8e0;
-    --text2: #aaa;
-    --border: #333;
-    --header-bg: #0d0d1a;
-    --h2-color: #f0c040;
-    --h2-border: #f0c040;
-    --h3-border: #555;
-    --dica-bg: #2a2500;
-    --dica-border: #c9a000;
-    --chefe-bg: #2a0a0a;
-    --chefe-border: #922b21;
-    --chefe-title: #f1948a;
-    --table-head: #1e1e2e;
-    --bar-bg: #1a1a26;
-    --bar-border: #333;
-    --bar-shadow: rgba(0,0,0,0.40);
-    --btn-bg: #f0c040;
-    --btn-text: #1a1a2e;
-    --search-bg: #111118;
-    --search-text: #e8e8e0;
-    --search-border: #444;
-    --highlight-bg: #b8860b;
-    --highlight-text: #fff;
-    --npc: #6ab0f5;
-    --item: #6ec96e;
-    --alerta: #f1948a;
-    --local: #c39bd3;
-    --inimigo: #d4a76a;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111118;
+      --bg2: #1a1a26;
+      --text: #e8e8e0;
+      --text2: #aaa;
+      --border: #333;
+      --header-bg: #0d0d1a;
+      --h2-color: #f0c040;
+      --h2-border: #f0c040;
+      --h3-border: #555;
+      --dica-bg: #2a2500;
+      --dica-border: #c9a000;
+      --chefe-bg: #2a0a0a;
+      --chefe-border: #922b21;
+      --chefe-title: #f1948a;
+      --table-head: #1e1e2e;
+      --bar-bg: #1a1a26;
+      --bar-border: #333;
+      --npc: #6ab0f5;
+      --item: #6ec96e;
+      --alerta: #f1948a;
+      --local: #c39bd3;
+      --inimigo: #d4a76a;
+    }
   }
 
   body {
@@ -78,10 +64,9 @@
     color: var(--text);
     max-width: 860px;
     margin: 0 auto;
-    padding: 20px 16px 90px;
+    padding: 72px 16px 40px;
     background: var(--bg);
-    transition: background 0.25s, color 0.25s;
-  }
+      }
 
   /* Cabeçalho do jogo */
   .game-header {
@@ -243,12 +228,129 @@
   }
   .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
   .capa-revista img{width:100%;height:auto;display:block;}
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid #2a2a45;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#f0c040;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+
+  /* ===== SIDEBAR / MENU LATERAL ===== */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1100;
+  }
+  .sidebar-overlay.open { display: block; }
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--bar-bg);
+    border-right: 1px solid var(--bar-border);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.2);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-header {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 16px 16px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .sidebar-header span { opacity: .8; font-size: 12px; }
+  .sidebar-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: .7;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .sidebar-close:hover { opacity: 1; }
+  .sidebar-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px 0 40px;
+  }
+  .sidebar-body::-webkit-scrollbar { width: 4px; }
+  .sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .menu-item {
+    display: block;
+    padding: 9px 18px;
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background .15s, border-color .15s, color .15s;
+    line-height: 1.4;
+  }
+  .menu-item:hover {
+    background: var(--bg2);
+    border-left-color: var(--h2-border);
+    color: var(--h2-color);
+  }
+  .menu-h2 {
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 4px;
+    color: var(--h2-color);
+  }
+  .menu-h3 {
+    font-size: 12px;
+    padding-left: 30px;
+    color: var(--text2);
+  }
+  .menu-h3:hover { border-left-color: var(--h3-border); color: var(--text); }
 </style>
 </head>
 <body>
 
 
 <!-- ===== SIDEBAR MENU ===== -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">Zelda: TP — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
@@ -770,238 +872,23 @@
   <li><strong>Great Spin</strong> — Pedra: no vilarejo secreto ao norte da <span class="local">Castle Town</span> (arrombe as janelas da construção na parte oeste do local). Lobo: perto da entrada do <span class="local">Hyrule Castle</span>.</li>
 </ul>
 
-
-<!-- ===== BARRA INFERIOR ===== -->
-<div class="bottom-bar" id="bottomBar">
-  <button class="bar-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema">
-    <span id="themeIcon">🌙</span>
-  </button>
-  <button class="menu-toggle-btn" onclick="toggleSidebar()" title="Índice">☰</button>
-  <div class="search-pill" id="searchPill">
-    <button class="bar-btn search-trigger" id="searchBtn" onclick="toggleSearch()" title="Pesquisar no detonado">
-      <span>🔍</span>
-    </button>
-    <div class="search-input-wrap" id="searchWrap">
-      <input type="text" id="searchInput" placeholder="Pesquisar no detonado…"
-             oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off" />
-      <span class="search-count" id="searchCount"></span>
-      <button class="search-nav-btn" onclick="navigateMatch(-1)" title="Anterior">↑</button>
-      <button class="search-nav-btn" onclick="navigateMatch(1)" title="Próximo">↓</button>
-      <button class="search-close" onclick="closeSearch()" title="Fechar">✕</button>
-    </div>
   </div>
 </div>
 
-<style>
-  /* ===== BOTTOM BAR ===== */
-  .bottom-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 58px;
-    background: var(--bar-bg);
-    border-top: 1px solid var(--bar-border);
-    box-shadow: 0 -2px 12px var(--bar-shadow);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 1000;
-    transition: background 0.25s, border-color 0.25s;
-  }
-  .bar-btn {
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    border: none;
-    border-radius: 50%;
-    width: 42px; height: 42px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s, transform 0.15s;
-  }
-  .bar-btn:active { transform: scale(0.92); }
-
-  .search-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    justify-content: flex-end;
-  }
-  .search-input-wrap {
-    display: none;
-    align-items: center;
-    background: var(--search-bg);
-    border: 1.5px solid var(--search-border);
-    border-radius: 24px;
-    padding: 4px 10px 4px 14px;
-    gap: 6px;
-    flex: 1;
-    max-width: 420px;
-    transition: background 0.25s;
-  }
-  .search-input-wrap.open { display: flex; }
-  .search-input-wrap input {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 14px;
-    color: var(--search-text);
-    flex: 1;
-    min-width: 0;
-  }
-  .search-input-wrap input::placeholder { color: var(--text2); }
-  .search-count {
-    font-size: 12px;
-    color: var(--text2);
-    white-space: nowrap;
-    min-width: 32px;
-    text-align: center;
-  }
-  .search-nav-btn, .search-close {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    color: var(--text2);
-    padding: 2px 4px;
-    border-radius: 4px;
-    transition: color 0.15s;
-  }
-  .search-nav-btn:hover, .search-close:hover { color: var(--text); }
-  .search-trigger { margin-left: 8px; }
-
-  /* Resultado atual destacado */
-
-  /* ===== SIDEBAR / MENU LATERAL ===== */
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 1100;
-    transition: opacity .25s;
-  }
-  .sidebar-overlay.open { display: block; }
-
-  .sidebar {
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    width: 280px;
-    max-width: 85vw;
-    background: var(--bar-bg);
-    border-right: 1px solid var(--bar-border);
-    box-shadow: 4px 0 24px rgba(0,0,0,0.2);
-    z-index: 1200;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(-100%);
-    transition: transform .28s cubic-bezier(.4,0,.2,1);
-    overflow: hidden;
-  }
-  .sidebar.open { transform: translateX(0); }
-
-  .sidebar-header {
-    background: var(--header-bg);
-    color: #fff;
-    padding: 16px 16px 14px;
-    font-size: 13px;
-    font-weight: bold;
-    letter-spacing: .5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-  .sidebar-header span { opacity: .8; font-size: 12px; }
-  .sidebar-close {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: .7;
-    padding: 0 4px;
-    line-height: 1;
-  }
-  .sidebar-close:hover { opacity: 1; }
-
-  .sidebar-body {
-    overflow-y: auto;
-    flex: 1;
-    padding: 8px 0 80px;
-  }
-  .sidebar-body::-webkit-scrollbar { width: 4px; }
-  .sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-  .menu-item {
-    display: block;
-    padding: 9px 18px;
-    font-size: 13px;
-    color: var(--text);
-    text-decoration: none;
-    border-left: 3px solid transparent;
-    transition: background .15s, border-color .15s, color .15s;
-    line-height: 1.4;
-  }
-  .menu-item:hover {
-    background: var(--bg2);
-    border-left-color: var(--h2-border);
-    color: var(--h2-color);
-  }
-  .menu-h2 {
-    font-weight: bold;
-    font-size: 13px;
-    margin-top: 4px;
-    color: var(--h2-color);
-  }
-  .menu-h3 {
-    font-size: 12px;
-    padding-left: 30px;
-    color: var(--text2);
-    border-left-color: transparent;
-  }
-  .menu-h3:hover { border-left-color: var(--h3-border); color: var(--text); }
-
-  /* Toggle button na barra inferior */
-  .menu-toggle-btn {
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    border: none;
-    border-radius: 50%;
-    width: 42px; height: 42px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: background .2s, transform .15s;
-    margin-right: 8px;
-  }
-  .menu-toggle-btn:active { transform: scale(0.92); }
-
-  mark.search-hl.current {
-    outline: 2px solid var(--alerta);
-    background: var(--alerta);
-    color: #fff;
-  }
-</style>
 
 <script>
-// ===== THEME =====
-(function() {
-  const saved = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', saved);
-  document.getElementById('themeIcon').textContent = saved === 'dark' ? '☀️' : '🌙';
-})();
-
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  document.getElementById('themeIcon').textContent = next === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('theme', next);
+// ===== SIDEBAR =====
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  const open = s.classList.toggle('open');
+  o.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ===== SEARCH =====
@@ -1010,15 +897,10 @@ let currentMatch = -1;
 let lastQuery = '';
 
 function toggleSearch() {
-  const wrap = document.getElementById('searchWrap');
-  const input = document.getElementById('searchInput');
-  const isOpen = wrap.classList.toggle('open');
-  if (isOpen) {
-    input.focus();
-    input.select();
-  } else {
-    closeSearch();
-  }
+  const w = document.getElementById('searchWrap');
+  const i = document.getElementById('searchInput');
+  const open = w.classList.toggle('open');
+  if (open) { setTimeout(() => i.focus(), 310); } else { closeSearch(); }
 }
 
 function closeSearch() {
@@ -1026,48 +908,30 @@ function closeSearch() {
   document.getElementById('searchInput').value = '';
   document.getElementById('searchCount').textContent = '';
   clearHighlights();
-  matches = [];
-  currentMatch = -1;
-  lastQuery = '';
+  matches = []; currentMatch = -1; lastQuery = '';
 }
 
 function doSearch(query) {
-  clearHighlights();
-  matches = [];
-  currentMatch = -1;
-
+  clearHighlights(); matches = []; currentMatch = -1;
   const q = query.trim();
-  if (!q || q.length < 2) {
-    document.getElementById('searchCount').textContent = '';
-    return;
-  }
+  if (!q || q.length < 2) { document.getElementById('searchCount').textContent = ''; return; }
   if (q === lastQuery) return;
   lastQuery = q;
-
-  // Walk text nodes and highlight
-  const content = document.body;
-  const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
+  const regex = new RegExp(escapeRe(q), 'gi');
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
     acceptNode(node) {
       const tag = node.parentElement.tagName.toLowerCase();
-      const cls = node.parentElement.className;
       if (['script','style','input','mark'].includes(tag)) return NodeFilter.FILTER_REJECT;
-      if (node.parentElement.closest('.bottom-bar')) return NodeFilter.FILTER_REJECT;
+      if (node.parentElement.closest('.top-bar,.sidebar')) return NodeFilter.FILTER_REJECT;
       return NodeFilter.FILTER_ACCEPT;
     }
   });
-
-  const regex = new RegExp(escapeRe(q), 'gi');
-  const nodesToReplace = [];
-
+  const nodes = [];
   while (walker.nextNode()) {
-    const node = walker.currentNode;
-    if (regex.test(node.textContent)) {
-      nodesToReplace.push(node);
-    }
+    if (regex.test(walker.currentNode.textContent)) nodes.push(walker.currentNode);
     regex.lastIndex = 0;
   }
-
-  nodesToReplace.forEach(node => {
+  nodes.forEach(node => {
     const frag = document.createDocumentFragment();
     let last = 0;
     const text = node.textContent;
@@ -1076,7 +940,7 @@ function doSearch(query) {
     while ((m = regex.exec(text)) !== null) {
       if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
       const mark = document.createElement('mark');
-      mark.className = 'search-hl';
+      mark.className = 'hl';
       mark.textContent = m[0];
       frag.appendChild(mark);
       matches.push(mark);
@@ -1085,17 +949,13 @@ function doSearch(query) {
     if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
     node.parentNode.replaceChild(frag, node);
   });
-
-  if (matches.length > 0) {
-    currentMatch = 0;
-    highlightCurrent();
-  }
+  if (matches.length > 0) { currentMatch = 0; highlightCurrent(); }
   updateCount();
 }
 
 function navigateMatch(dir) {
   if (!matches.length) return;
-  matches[currentMatch].classList.remove('current');
+  matches[currentMatch].classList.remove('cur');
   currentMatch = (currentMatch + dir + matches.length) % matches.length;
   highlightCurrent();
   updateCount();
@@ -1103,9 +963,9 @@ function navigateMatch(dir) {
 
 function highlightCurrent() {
   if (currentMatch < 0 || !matches[currentMatch]) return;
-  matches.forEach(m => m.classList.remove('current'));
+  matches.forEach(m => m.classList.remove('cur'));
   const el = matches[currentMatch];
-  el.classList.add('current');
+  el.classList.add('cur');
   el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
@@ -1119,9 +979,7 @@ function updateCount() {
 }
 
 function clearHighlights() {
-  document.querySelectorAll('mark.search-hl').forEach(m => {
-    m.outerHTML = m.textContent;
-  });
+  document.querySelectorAll('mark.hl').forEach(m => { m.outerHTML = m.textContent; });
   matches = [];
   currentMatch = -1;
 }
@@ -1129,20 +987,6 @@ function clearHighlights() {
 function searchKeyNav(e) {
   if (e.key === 'Enter') { e.shiftKey ? navigateMatch(-1) : navigateMatch(1); }
   if (e.key === 'Escape') { closeSearch(); }
-}
-
-
-function toggleSidebar() {
-  const s = document.getElementById('sidebar');
-  const o = document.getElementById('sidebarOverlay');
-  const open = s.classList.toggle('open');
-  o.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-  document.body.style.overflow = '';
 }
 
 function escapeRe(s) {
