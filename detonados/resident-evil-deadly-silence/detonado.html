@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,24 +12,20 @@
     --dica-bg:#f0fff0;--dica-border:#2d6a2d;
     --chefe-bg:#f0fff0;--chefe-border:#2d6a2d;--chefe-title:#1a4a1a;
     --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
-    --bar-shadow:rgba(0,0,0,0.10);--btn-bg:#2d6a2d;--btn-text:#fff;
-    --search-bg:#f5f5f5;--search-text:#222;--search-border:#ccc;
-    --highlight-bg:#ffe066;--highlight-text:#111;
     --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
   }
-  [data-theme="dark"] {
-    --bg:#0a0f0a;--bg2:#101a10;--text:#e8e8e0;--text2:#baa;--border:#333;
-    --header-bg:#051005;--h2-color:#66cc66;--h2-border:#66cc66;--h3-border:#555;
-    --parte-bg:#0a2a0a;--parte-color:#aaffaa;
-    --dica-bg:#002a00;--dica-border:#2d6a2d;
-    --chefe-bg:#0a2a0a;--chefe-border:#2d6a2d;--chefe-title:#90ee90;
-    --table-head:#101e10;--bar-bg:#101a10;--bar-border:#1a3a1a;
-    --bar-shadow:rgba(0,0,0,0.40);--btn-bg:#228b22;--btn-text:#fff;
-    --search-bg:#0a0f0a;--search-text:#e8e8e0;--search-border:#444;
-    --highlight-bg:#006400;--highlight-text:#fff;
-    --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0a0f0a;--bg2:#101a10;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#051005;--h2-color:#66cc66;--h2-border:#66cc66;--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#002a00;--dica-border:#2d6a2d;
+      --chefe-bg:#0a2a0a;--chefe-border:#2d6a2d;--chefe-title:#90ee90;
+      --table-head:#101e10;--bar-bg:#101a10;--bar-border:#1a3a1a;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
   }
-  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:20px 16px 90px;background:var(--bg);transition:background .25s,color .25s;}
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
   .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
   .capa-revista img{width:100%;height:auto;display:block;}
   .capa-info{background:#1a0000;padding:8px 16px;display:flex;align-items:center;justify-content:center;}
@@ -62,8 +58,6 @@
   ul,ol{margin:8px 0 14px 20px;padding:0;}
   li{margin-bottom:6px;}
   hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
-  mark.search-hl{background:var(--highlight-bg);color:var(--highlight-text);border-radius:2px;padding:0 1px;}
-  mark.search-hl.current{outline:2px solid var(--alerta);background:var(--alerta);color:#fff;}
   .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
   .sidebar-overlay.open{display:block;}
   .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
@@ -79,21 +73,42 @@
   .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
   .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
   .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
-  .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:58px;background:var(--bar-bg);border-top:1px solid var(--bar-border);box-shadow:0 -2px 12px var(--bar-shadow);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;transition:background .25s,border-color .25s;}
-  .bar-btn,.menu-toggle-btn{background:var(--btn-bg);color:var(--btn-text);border:none;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .15s;}
-  .bar-btn:active,.menu-toggle-btn:active{transform:scale(0.92);}
-  .menu-toggle-btn{margin-right:8px;}
-  .search-pill{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;}
-  .search-input-wrap{display:none;align-items:center;background:var(--search-bg);border:1.5px solid var(--search-border);border-radius:24px;padding:4px 10px 4px 14px;gap:6px;flex:1;max-width:420px;}
-  .search-input-wrap.open{display:flex;}
-  .search-input-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:var(--search-text);flex:1;min-width:0;}
-  .search-input-wrap input::placeholder{color:var(--text2);}
-  .search-count{font-size:12px;color:var(--text2);white-space:nowrap;min-width:32px;text-align:center;}
-  .search-nav-btn,.search-close{background:none;border:none;cursor:pointer;font-size:15px;color:var(--text2);padding:2px 4px;border-radius:4px;}
-  .search-trigger{margin-left:8px;}
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid #0d2e0d;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#66cc66;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
 </style>
 </head>
 <body>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">RE: Deadly Silence — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 <div class="sidebar" id="sidebar">
@@ -740,26 +755,9 @@
   <tr><td><span class="item">Flamethrower</span> <span class="modo-tag modo-rebirth">REBIRTH</span></td><td>Pátio B1, Mansão 2F</td><td>100%</td><td>Plantas, destravar portas específicas</td></tr>
 </table>
 
-<div class="bottom-bar" id="bottomBar">
-  <button class="menu-toggle-btn" onclick="toggleSidebar()" title="Índice">☰</button>
-  <button class="bar-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema"><span id="themeIcon">🌙</span></button>
-  <div class="search-pill">
-    <button class="bar-btn search-trigger" onclick="toggleSearch()" title="Pesquisar"><span>🔍</span></button>
-    <div class="search-input-wrap" id="searchWrap">
-      <input type="text" id="searchInput" placeholder="Pesquisar no detonado…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
-      <span class="search-count" id="searchCount"></span>
-      <button class="search-nav-btn" onclick="navigateMatch(-1)">↑</button>
-      <button class="search-nav-btn" onclick="navigateMatch(1)">↓</button>
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
-  </div>
-</div>
 
 <script>
 (function(){
-  const s=localStorage.getItem('theme')||'light';
-  document.documentElement.setAttribute('data-theme',s);
-  document.getElementById('themeIcon').textContent=s==='dark'?'☀️':'🌙';
   const items=[];
   document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
     const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
@@ -768,17 +766,16 @@
   });
   document.getElementById('sidebarBody').innerHTML=items.join('\n');
 })();
-function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeIcon').textContent=n==='dark'?'☀️':'🌙';localStorage.setItem('theme',n);}
 function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
-function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){i.focus();i.select();}else{closeSearch();}}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
 function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
 let matches=[],currentMatch=-1,lastQuery='';
-function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.bottom-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='search-hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
-function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('current');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
-function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('current'));const el=matches[currentMatch];el.classList.add('current');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
 function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
-function clearHighlights(){document.querySelectorAll('mark.search-hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
 function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
 function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 </script>
