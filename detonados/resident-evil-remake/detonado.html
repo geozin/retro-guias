@@ -1,1 +1,1508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resident Evil — Rebirth (GameCube) — Detonado</title>
+<style>
+  :root {
+    --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#1a0000;--h2-color:#1a3a8a;--h2-border:#1a3a8a;--h3-border:#888;
+    --parte-bg:#1a4a1a;--parte-color:#fff;
+    --dica-bg:#fff8f8;--dica-border:#c0392b;
+    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#1a3a8a;
+    --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
+    --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#0d0000;--h2-color:#5a8aff;--h2-border:#5a8aff;--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#2a0000;--dica-border:#c0392b;
+      --chefe-bg:#2a0a0a;--chefe-border:#1a3a8a;--chefe-title:#f1948a;
+      --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
+  }
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:20px 24px 16px;margin-bottom:28px;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#ff6666;}
+  .game-header .sub{font-size:15px;color:#f99;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#caa;font-family:monospace;}
+  .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
+  .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;}
+  .parte{display:flex;align-items:baseline;gap:12px;margin:32px 0 12px;}
+  .parte-tag{background:var(--parte-bg);color:var(--parte-color);font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;letter-spacing:1px;white-space:nowrap;font-family:monospace;}
+  .parte h3{margin:0;font-size:17px;color:var(--text);border:none;padding:0;}
+  p{margin:0 0 13px;}
+  .npc{color:var(--npc);font-weight:bold;}
+  .item{color:var(--item);font-weight:bold;}
+  .alerta{color:var(--alerta);font-weight:bold;}
+  .local{color:var(--local);font-weight:bold;}
+  .inimigo{color:var(--inimigo);font-weight:bold;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;}
+  .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
+  td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
+  th{background:var(--table-head);font-weight:bold;}
+  ul,ol{margin:8px 0 14px 20px;padding:0;}
+  li{margin-bottom:6px;}
+  hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
+  .sidebar-overlay.open{display:block;}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
+  .sidebar-close:hover{opacity:1;}
+  .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
+  .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
+  .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#ff9999;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+  .itens-lista{background:var(--bg2);border-left:4px solid var(--item);padding:10px 14px;margin:10px 0;border-radius:0 6px 6px 0;font-size:14px;}
+  .itens-lista strong{color:var(--item);}
+  .sala-header{font-weight:bold;font-size:15px;color:var(--local);margin:22px 0 4px;border-bottom:1px solid var(--h3-border);padding-bottom:3px;}
+  .versao-tag{display:inline-block;background:#4a0080;color:#fff;font-size:11px;font-weight:bold;padding:2px 8px;border-radius:3px;margin-right:6px;font-family:monospace;letter-spacing:.5px;}
+</style>
+</head>
+<body>
 
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/resident-evil-gamecube/capa.png"
+       alt="Capa Resident Evil Rebirth"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>Resident Evil — Rebirth (BioHazard)</h1>
+  <div class="sub">Guia e Detonado Completo — por CVXFREAK</div>
+  <div class="meta"><span class="versao-tag">GAMECUBE</span> Versão 3.0 — Tradução: PT-BR</div>
+</div>
+
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- ===================== INTRODUCAO ===================== -->
+<h2 id="intro">Introdução</h2>
+<p>Resident Evil foi criado em 1996 para o PlayStation da Sony. Esse jogo praticamente criou o gênero survival horror e o colocou no mainstream. Em 1996, todo mundo conhecia BioHazard, ou Resident Evil no ocidente. Agora, em 2002, <span class="npc">Shinji Mikami</span> planeja refazer o primeiro Resident Evil com novas adições à história, um motor gráfico muito melhor e para alimentar os fãs nostálgicos da série.</p>
+<p>Este guia foi projetado para ser o melhor guia de Resident Evil. Ele apresenta walkthroughs sala por sala para garantir a maneira mais fácil e melhor de jogar. Cada sala terá seu próprio walkthrough, com listas de itens e informações importantes. Também estão incluídos walkthroughs para os vários modos do jogo, incluindo Hard Mode e Modo Invisível.</p>
+<div class="dica">⚠️ <strong>AVISO:</strong> Este guia cobre APENAS a versão GameCube de Resident Evil. As versões de PlayStation, PC e Saturn são jogos bem diferentes. Este guia é para uso exclusivo com a versão GameCube/Nintendo.</div>
+
+<!-- ===================== CONCEITOS BASICOS ===================== -->
+<hr>
+<h2 id="conceitos">Conceitos Básicos</h2>
+
+<h3 id="controles">Controles</h3>
+
+<p><strong>TIPO A (padrão):</strong></p>
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>A</td><td>Ação / Escalar</td></tr>
+  <tr><td>B</td><td>Correr (ao mover o direcional/analógico)</td></tr>
+  <tr><td>Y</td><td>Acessar Tela de Itens</td></tr>
+  <tr><td>X</td><td>Acessar Tela de Itens</td></tr>
+  <tr><td>R</td><td>Preparar Arma</td></tr>
+  <tr><td>L</td><td>Trocar alvo</td></tr>
+  <tr><td>C-Stick</td><td>Mova-o uma vez para fazer uma virada de 180°</td></tr>
+  <tr><td>Start</td><td>Acessar Opções</td></tr>
+  <tr><td>Z</td><td>Acessar Mapa</td></tr>
+</table>
+
+<p><strong>TIPO B:</strong></p>
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>A</td><td>Andar para frente</td></tr>
+  <tr><td>B</td><td>Andar para trás / Cancelar</td></tr>
+  <tr><td>Y</td><td>Ação / Escalar</td></tr>
+  <tr><td>R</td><td>Preparar Arma</td></tr>
+  <tr><td>L</td><td>Trocar alvo</td></tr>
+  <tr><td>C-Stick</td><td>Virada de 180°</td></tr>
+  <tr><td>Start</td><td>Acessar Tela de Itens</td></tr>
+  <tr><td>Z</td><td>Acessar Tela de Opções</td></tr>
+</table>
+
+<p><strong>TIPO C:</strong></p>
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>A</td><td>Ação / Escalar</td></tr>
+  <tr><td>B</td><td>Cancelar</td></tr>
+  <tr><td>Y</td><td>Acessar Mapa</td></tr>
+  <tr><td>X</td><td>Acessar Tela de Itens</td></tr>
+  <tr><td>R</td><td>Correr</td></tr>
+  <tr><td>L</td><td>Preparar Arma</td></tr>
+  <tr><td>C-Stick</td><td>Virada de 180°</td></tr>
+  <tr><td>Z</td><td>Trocar alvo</td></tr>
+</table>
+
+<h3 id="taticas">Táticas de Combate</h3>
+
+<p><strong>EVITE ZUMBIS!</strong><br>
+Sim, os <span class="inimigo">zumbis</span> são incrivelmente difíceis. A <span class="item">Pistola</span> leva 6 a 8 tiros para matá-los. Você pode desviar usando a virada automática de 180° com o C-Stick. Os zumbis têm um ótimo senso de direção — onde quer que você vá, eles vão atrás. Tente ser o mais silencioso possível perto de zumbis que estejam "dormindo". Ao contrário de Resident Evil Zero, os itens só podem ser trocados e acessados pela caixa de itens.</p>
+
+<p><strong>CONSERVE MUNIÇÃO!</strong><br>
+Resident Evil é difícil. Strictly use sua <span class="item">Pistola</span> e a <span class="item">Faca</span> para conservar munição. Use o <span class="item">Cantil de Combustível</span> com frequência, especialmente com <span class="npc">Chris</span>. Isso vai poupar munição para os chefes.</p>
+
+<p><strong>ATIRE DE LONGE!</strong><br>
+<span class="inimigo">Caçadores</span> e <span class="inimigo">Quimeras</span> são muito perigosos de perto. Mantenha distância e use a <span class="item">Escopeta</span>, <span class="item">Lançador de Granadas</span> ou <span class="item">Pistola</span>. Para zumbis, atire de perto pois é mais eficiente.</p>
+
+<p><strong>TENTE DECAPITAR ZUMBIS!</strong><br>
+A <span class="item">ESCOPETA</span> e às vezes a <span class="item">PISTOLA</span> podem arrancar a cabeça de um zumbi. Com a Escopeta: chegue perto, mire para cima e atire. Se tiver enfiado uma <span class="item">Adaga</span> no zumbi antes de usar a Escopeta, você pode recuperá-la.</p>
+
+<p><strong>CARREGUE 1 ERVA VERDE E 1 SPRAY DE PRIMEIROS SOCORROS!</strong><br>
+A <span class="item">Erva Verde</span> cobre dano pequeno, enquanto o <span class="item">Spray de Primeiros Socorros</span> cobre quedas repentinas de saúde causadas por <span class="inimigo">Caçadores</span> ou <span class="inimigo">Quimeras</span>.</p>
+
+<p><strong>FAÇA MÚLTIPLOS SAVES!</strong><br>
+Se esta for sua primeira vez, faça pelo menos 3 saves. Faça um na Mansão e progrida, mas salve em outro slot depois. Múltiplos saves evitam que você perca muito progresso.</p>
+
+<p><strong>USE ITENS DE DEFESA COM SABEDORIA!</strong><br>
+<span class="item">Pacotes de Bateria</span>, <span class="item">Granadas Flash</span> e <span class="item">Adagas</span> são itens de defesa que não ocupam espaço no inventário. Quando um zumbi te pega, o personagem os usa automaticamente. Prefira usar as Adagas primeiro, pois são as menos poderosas.</p>
+
+<p><strong>LISA NÃO PODE MORRER!</strong><br>
+<span class="inimigo">Lisa Trevor</span> não pode ser morta. A única vez que você pode enfrentá-la diretamente é na seção do altar. A melhor solução é sempre evitá-la.</p>
+
+<p><strong>USE O CANTIL DE COMBUSTÍVEL!</strong><br>
+Para matar um zumbi completamente e impedir que ele se torne um <span class="inimigo">Cabeça Carmesim</span>, você deve queimá-lo ou explodir sua cabeça. Use o <span class="item">Cantil de Combustível</span> e o <span class="item">Isqueiro</span>. <span class="npc">Jill</span> também pode usar as <span class="item">Granadas Incendiárias</span> do Lançador.</p>
+
+<h3 id="dificuldade">Nível de Dificuldade</h3>
+<table>
+  <tr><th>Modo</th><th>Descrição</th></tr>
+  <tr><td><strong>Modo Normal (Montanhismo)</strong></td><td>Os zumbis são difíceis de matar, mas não tão extremamente quanto no Hard Mode. Ótimo para veteranos da série RE.</td></tr>
+  <tr><td><strong>Modo Fácil (Caminhada)</strong></td><td>Zumbis são fáceis de matar, munição é mais poderosa. Bom para quem nunca jogou RE antes. Sem bônus ao terminar.</td></tr>
+  <tr><td><strong>Hard Mode</strong></td><td>Modo desbloqueado. Zumbis extremamente difíceis, Caçadores decapitam mais, armas mais fracas. Use o Cantil em quase todo zumbi.</td></tr>
+  <tr><td><strong>Modo Inimigo Invisível</strong></td><td>Inimigos ficam transparentes. Use audição para se guiar. Desbloqueado após completar o Hard Mode.</td></tr>
+  <tr><td><strong>Modo Real Survival</strong></td><td>As caixas de itens não comunicam entre si. Veteranos avançados apenas.</td></tr>
+  <tr><td><strong>Um Zumbi Difícil</strong></td><td><span class="npc">Forest Speyer</span> vai te seguir pelo jogo. NÃO atire nele — ele é cheio de explosivos.</td></tr>
+</table>
+
+<h3 id="saude">Saúde</h3>
+<table>
+  <tr><th>Status</th><th>Saúde</th><th>Cor</th></tr>
+  <tr><td>ÓTIMO (FINE)</td><td>100%</td><td>Verde</td></tr>
+  <tr><td>CUIDADO (CAUTION)</td><td>75%</td><td>Amarelo</td></tr>
+  <tr><td>CUIDADO (CAUTION)</td><td>50%</td><td>Laranja</td></tr>
+  <tr><td>PERIGO (DANGER)</td><td>25%</td><td>Vermelho</td></tr>
+  <tr><td>ENVENENADO (POISON)</td><td>Perde gradualmente</td><td>Alterna</td></tr>
+</table>
+
+<p>Combinações de Ervas:</p>
+<table>
+  <tr><th>Combinação</th><th>Efeito</th></tr>
+  <tr><td><span class="item">Erva Verde</span></td><td>+25% de saúde</td></tr>
+  <tr><td><span class="item">Erva Azul</span></td><td>Cura veneno</td></tr>
+  <tr><td><span class="item">Verde + Verde</span></td><td>+50% de saúde</td></tr>
+  <tr><td><span class="item">Verde + Azul</span></td><td>+25% + cura veneno</td></tr>
+  <tr><td><span class="item">Verde + Verde + Verde</span></td><td>100% de saúde</td></tr>
+  <tr><td><span class="item">Verde + Vermelho</span></td><td>100% de saúde</td></tr>
+  <tr><td><span class="item">Verde + Verde + Azul</span></td><td>+50% + cura veneno</td></tr>
+  <tr><td><span class="item">Verde + Vermelho + Azul</span></td><td>100% + cura veneno</td></tr>
+  <tr><td><span class="item">Spray de Primeiros Socorros</span></td><td>100% de saúde</td></tr>
+</table>
+
+<h3 id="movimento">Movimento</h3>
+<p><strong><span class="npc">Jill Valentine</span>:</strong> Corre um pouco mais devagar que Chris. Suas habilidades de desvio do RE3 sumiram. Desviar de inimigos não é muito difícil — aprenda a usar a virada automática quando um zumbi te perseguir.</p>
+<p><strong><span class="npc">Chris Redfield</span>:</strong> Corre mais rápido que Jill. O mesmo se aplica quanto a desviar de inimigos.</p>
+
+<h3 id="diferencas">Diferenças entre Chris e Jill</h3>
+<table>
+  <tr><th>Característica</th><th>Jill Valentine</th><th>Chris Redfield</th></tr>
+  <tr><td>Espaços no inventário</td><td>8</td><td>6</td></tr>
+  <tr><td>Parceiro</td><td>Barry Burton</td><td>Rebecca Chambers</td></tr>
+  <tr><td>Arma exclusiva</td><td>Lançador de Granadas</td><td>Lança-Chamas</td></tr>
+  <tr><td>Ferramenta exclusiva</td><td>Grampo (Lockpick)</td><td>Isqueiro (já vem) / Chaves Velhas</td></tr>
+  <tr><td>Dificuldade geral</td><td>Mais fácil (recomendada para iniciantes)</td><td>Mais difícil (para veteranos)</td></tr>
+</table>
+
+<!-- ===================== PERSONAGENS ===================== -->
+<hr>
+<h2 id="personagens">Personagens</h2>
+
+<h3 id="chris">Chris Redfield</h3>
+<p><strong>Idade:</strong> 25 anos. <span class="npc">Chris Redfield</span> é durão. Tem uma irmã chamada <span class="npc">Claire</span> e era da Força Aérea. Recomendado para veteranos de Resident Evil.<br>
+<strong>Itens iniciais:</strong> <span class="item">Faca de Sobrevivência</span>, <span class="item">Isqueiro</span>.<br>
+<strong>Itens exclusivos:</strong> <span class="item">Chave Velha</span>, <span class="item">Granada Flash</span>, <span class="item">Lança-Chamas</span>.<br>
+<strong>Parceiro:</strong> <span class="npc">Rebecca Chambers</span>, <span class="npc">Albert Wesker</span>.</p>
+
+<h3 id="jill">Jill Valentine</h3>
+<p><strong>Idade:</strong> 23 anos. <span class="npc">Jill Valentine</span> é inteligente e boa com piano e química. Recomendada para iniciantes.<br>
+<strong>Itens iniciais:</strong> <span class="item">Pistola</span>, <span class="item">Faca de Sobrevivência</span>.<br>
+<strong>Itens exclusivos:</strong> <span class="item">Lançador de Granadas</span>, <span class="item">Granadas Ácidas</span>, <span class="item">Granadas Incendiárias</span>, <span class="item">Granadas Comuns</span>, <span class="item">Grampo (Lockpick)</span>.<br>
+<strong>Parceiro:</strong> <span class="npc">Barry Burton</span>.</p>
+
+<h3 id="barry">Barry Burton</h3>
+<p><strong>Idade:</strong> 38 anos. <span class="npc">Barry</span> adora a família e faria qualquer coisa para mantê-la segura. Durante o jogo ele se torna muito útil para <span class="npc">Jill</span>, mas parece esconder um segredo.</p>
+
+<h3 id="rebecca">Rebecca Chambers</h3>
+<p><strong>Idade:</strong> 18 anos. <span class="npc">Rebecca</span> é a médica jovem do Time Bravo dos STARS. Rookie no trabalho, mas competente. Sofreu muito antes deste jogo em Resident Evil Zero. Além de <span class="npc">Chris</span> e <span class="npc">Jill</span>, é a única personagem que você controla.</p>
+
+<h3 id="wesker">Albert Wesker</h3>
+<p><strong>Idade:</strong> 38 anos. <span class="npc">Wesker</span> é misterioso — usa óculos escuros, desaparece sem explicação e se recusa a dar detalhes.</p>
+
+<h3 id="richard">Richard Aiken</h3>
+<p><strong>Idade:</strong> 23 anos. <span class="npc">Richard Aiken</span> é encontrado após ser picado por uma cobra gigante. Se você o curar com o soro, ele pode ser útil.</p>
+
+<h3 id="brad">Brad Vickers</h3>
+<p><strong>Idade:</strong> 35 anos. <span class="npc">Brad Vickers</span> é o piloto do Time Alpha dos STARS. Covarde — foge no início do jogo. Morre 3 meses depois pelas mãos de Nemesis, e depois é morto novamente por <span class="npc">Leon Kennedy</span> como zumbi em RE2.</p>
+
+<h3 id="enrico">Enrico Marini</h3>
+<p><strong>Idade:</strong> 41 anos. <span class="npc">Enrico Marini</span> é o líder do Time Bravo. Grande líder, infelizmente assassinado após descobrir um segredo sobre toda a trama.</p>
+
+<!-- ===================== WALKTHROUGH JILL ===================== -->
+<hr>
+<h2 id="jill-wt">Walkthrough — Jill Valentine</h2>
+<p class="capitulo-intro">Jill tem 8 espaços no inventário e possui o Grampo, que evita o uso de várias chaves. Recomendada para quem está jogando pela primeira vez.</p>
+
+<!-- ── MANSAO ── -->
+<h3 id="jill-mansao">A. Área da Mansão</h3>
+
+<div class="itens-lista"><strong>Itens desta seção:</strong> Fita de Tinta · Adaga · Mapa da Mansão · Pedra Azul · Livro da Maldição · Cantil de Óleo · Chave da Espada · Escopeta · Granadas Ácidas · Carregador de Pistola · Coleira de Cão · Apito de Cão · Chave Falsa · Chave da Armadura · Isqueiro · Máscara Sem Tudo · Pacotes de Bateria · Máscara da Morte I/II/III · Brasão do Vento · Herbicida · Isca de Abelha · Espécime de Abelha · Caixa de Joias · Emblema de Madeira · Partitura Musical (1 e 2) · Sonata ao Luar · Emblema Dourado · Objeto de Pedra e Metal</div>
+
+<div class="parte"><span class="parte-tag">SEÇÃO 1</span><h3>Entrando na Mansão</h3></div>
+
+<p class="sala-header">🚪 SALA DO JANTAR</p>
+<p>Aprenda os controles e pegue a <span class="item">Fita de Tinta</span> na mesa. Em seguida, vá até onde <span class="npc">Barry</span> está. Após a cutscene, passe pela porta próxima.</p>
+
+<p class="sala-header">🚪 CORREDOR DE KENNETH</p>
+<p>Vire para a esquerda de Jill e você verá o primeiro <span class="inimigo">zumbi</span>. Volte correndo para a Sala do Jantar.</p>
+
+<p class="sala-header">🚪 SALA DO JANTAR → SAGUÃO PRINCIPAL</p>
+<p>Após a cutscene, volte ao Saguão Principal. Procure atrás da escadaria e andar de cima. Converse com <span class="npc">Barry</span>. Quando ele for embora, vá para a porta à direita, oposta à porta da Sala do Jantar.</p>
+
+<p class="sala-header">🚪 SALA DA ESTÁTUA</p>
+<p>Há uma abertura à esquerda coberta por uma cômoda — empurre-a para a direita. Entre na abertura e pegue o item brilhante: é a <span class="item">Adaga</span>. Na volta, um <span class="inimigo">zumbi</span> vai te atacar, mas Jill usará a Adaga automaticamente para escapar. DESVIE ou MATE o zumbi.<br>
+Para pegar o <span class="item">Mapa da Mansão</span>: empurre a cômoda de volta na frente da abertura, suba nela usando A, desça no outro lado, empurre a cômoda em direção à estátua até parar. Suba nela e pegue o item brilhante na estátua. Retorne ao Saguão Principal.</p>
+
+<p class="sala-header">🚪 SAGUÃO PRINCIPAL → CEMITÉRIO</p>
+<p>Suba a escadaria e vá para a porta diretamente acima dela. Explore o cemitério até encontrar um caixão — inspecione-o e há um encaixe de seta. Inspecione um portão trancado com um item atrás. Retorne ao Saguão Principal.</p>
+
+<p class="sala-header">🚪 SALA DE JANTAR SUPERIOR</p>
+<p>Suba as escadas para a esquerda de Jill e passe pelas portas duplas. Você pode querer matar o <span class="inimigo">zumbi</span> à esquerda. Veja a estátua? Empurre-a para frente e depois para o vão no corrimão — ela cairá. Circule a Sala de Jantar Superior e pegue a <span class="item">Adaga</span>. Não a desperdice. Volte ao Saguão Principal.</p>
+
+<p class="sala-header">🚪 SALA DO JANTAR → CORREDOR DE KENNETH → CORREDOR DA ESQUERDA</p>
+<p>De volta à Sala do Jantar, vá para onde a estátua caiu e pegue a <span class="item">Pedra Azul</span>. Retorne ao Corredor de Kenneth. Vire à esquerda e cuidado com o <span class="inimigo">zumbi</span> do outro lado. Vá até a porta à esquerda de onde Kenneth foi morto. Pesquise o corpo de Kenneth para obter a <span class="item">Fita de Kenneth</span>.</p>
+
+<p class="sala-header">🚪 ESCADARIA ESQUERDA SUPERIOR → CORREDOR Z</p>
+<p>Siga o corredor até as escadas. Perto da gaiola de pássaros há um <span class="item">Carregador de Pistola</span>. Pegue as 2 <span class="item">Ervas Verdes</span>. Suba a escadaria e passe pela porta. No Corredor Z (o mapa tem formato de Z), siga o corredor matando ou desviando dos zumbis. Pegue a <span class="item">Flecha Dourada</span> e examine-a para obter a <span class="item">Ponta de Flecha</span>. Sob o grande espelho, há <span class="item">Carregadores de Pistola</span>. Vá para a porta no mapa que leva à Sala de Jantar Superior.</p>
+
+<p class="sala-header">🚪 SALA DE JANTAR SUPERIOR → SAGUÃO PRINCIPAL → CEMITÉRIO</p>
+<p>Volte ao cemitério. Use a <span class="item">Ponta de Flecha</span> no caixão — uma escadaria é revelada. Desça.</p>
+
+<p class="sala-header">🚪 SALA DE MÁQUINAS</p>
+<p>Explore a sala até ver o <span class="item">Livro da Maldição</span>. Pegue-o. Examine o Livro no seu inventário. Observe as 4 faces acima de 4 tumbas perto da entrada — <span class="alerta">lembre-se disso para mais tarde</span>. Volte ao Saguão Principal.</p>
+
+<p class="sala-header">🚪 SALA DA ESTÁTUA</p>
+<p>Examine o Livro da Maldição e vire-o — você verá a <span class="item">Chave da Espada</span>. Pegue-a, leia o livro, e use a Chave da Espada na porta.</p>
+
+<p class="sala-header">🚪 CORREDOR L → CORREDOR M</p>
+<p>Passe pelo corredor — você ouvirá uma janela quebrando. Corra e empurre o armário distante para pegar o <span class="item">Carregador de Pistola</span>. Siga para o Corredor M.</p>
+
+<p class="sala-header">🚪 ÁREA DOS CÃES → CORREDOR M → BANHEIRO</p>
+<p>No Corredor M, use a <span class="item">Chave da Espada</span> na porta mais próxima. Pegue as <span class="item">Ervas Verdes</span> e o <span class="item">Herbicida</span> do carrinho. Volte ao Corredor M. Use a Chave da Espada na próxima porta — o Banheiro. Esvazie a banheira e pegue a <span class="item">Adaga</span>. Volte ao Corredor M.</p>
+
+<p class="sala-header">🚪 SALA DO TETO → SALA DA ESCOPETA → DE VOLTA</p>
+<p>Vá para a próxima porta — a Sala do Teto. Atravesse até a porta que leva à Sala da Escopeta. Pegue a <span class="item">Fita de Tinta</span> e depois a <span class="item">ESCOPETA</span>. Ao pegar a Escopeta, o teto começa a cair — saia rápido! Você voltará ao Corredor M. Passe pelas portas duplas mais próximas.</p>
+
+<p class="sala-header">🚪 CORREDOR DAS PORTAS → ESCADARIA DIREITA → SALA DE SAVE DA DIREITA</p>
+<p>Vá para a porta à direita de Jill na Escadaria Direita. Mate o <span class="inimigo">zumbi</span> e entre na Sala de Save da Direita. Pegue o <span class="item">Cantil de Óleo</span> e alguns itens. Deposite na caixa de itens. Perto da máquina de escrever há um recipiente de óleo — encha o Cantil de Óleo para queimar zumbis. Salve o jogo e saia.</p>
+
+<div class="parte"><span class="parte-tag">SEÇÃO 2</span><h3>Explorando</h3></div>
+
+<p class="sala-header">🚪 ESCADARIA DIREITA → CORREDOR U</p>
+<p>Suba a escadaria. Mate ou desvie dos <span class="inimigo">zumbis</span> e vire à direita no canto. Entre no Corredor U.</p>
+
+<p class="sala-header">🚪 ESCRITÓRIO</p>
+<p>Desvie dos zumbis no Corredor U e vire à direita na porta — é o Escritório. Pegue o <span class="item">Apito de Cão</span> e o <span class="item">Isqueiro</span>. Saia pelo mesmo caminho.</p>
+
+<p class="sala-header">🚪 CORREDOR U → SAGUÃO PRINCIPAL</p>
+<p>Corra até o final do Corredor U, passando por todas as portas, desviando dos zumbis. Entre no Saguão Principal.</p>
+
+<p class="sala-header">🚪 SAGUÃO PRINCIPAL → SALA DE JANTAR SUPERIOR</p>
+<p><span class="npc">Barry</span> dará a você as <span class="item">Granadas Ácidas</span>. Atravesse para a Sala de Jantar Superior.</p>
+
+<p class="sala-header">🚪 CORREDOR DA ESCADARIA ESQUERDA → VARANDA DO VITRAL</p>
+<p>Vá para a segunda porta no final à direita de Jill — Corredor da Escadaria Esquerda. Vá para a porta mais próxima sem entrar na área das escadas. Na Varanda do Vitral, equipe a <span class="item">Escopeta</span> e use o <span class="item">Apito de Cão</span>. <span class="inimigo">Cães</span> vão atacar — mate-os rapidamente. Pegue o item brilhante no chão: é a <span class="item">Coleira de Cão</span>. Examine-a para obter uma <span class="item">Joia</span>, depois examine a Joia em todas as áreas para obter a <span class="item">Chave de Imitação</span>. Retorne.</p>
+
+<p class="sala-header">🚪 CORREDOR Z → SALA DA LÂMINA</p>
+<p>Volte ao Corredor Z, vá para a porta que entrou pela primeira vez e vire à direita. Entre na Sala da Lâmina.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Lâmina Giratória</div>
+  <p>Pegue a <span class="item">Chave da Armadura</span> que você vê. Uma lâmina vai começar a perseguir você. Pegue a <span class="item">Chave de Imitação</span> e USE-A no encaixe de onde você pegou a Chave da Armadura. A lâmina vai parar.</p>
+</div>
+
+<p>Pegue a <span class="item">Chave da Armadura</span> e saia.</p>
+
+<p class="sala-header">🚪 CORREDOR Z → SALA DE JANTAR SUPERIOR → ESCADARIA ESQUERDA → SALA DE SAVE DA ESQUERDA</p>
+<p>Siga pelo Corredor Z até a Sala de Jantar Superior, depois para a Escadaria Esquerda. Cuidado com um super-zumbi. Na base, entre na Sala de Save da Esquerda. Prepare seus itens e saia. Atravesse o corredor e suba a escada. Volte à Sala de Jantar Superior.</p>
+
+<p>A partir do Saguão Principal, desbloqueie as portas necessárias com a Chave da Armadura ao longo do percurso (Corredor de Kenneth, Escadaria Esquerda, Corredor das Portas), mas <span class="alerta">não entre por nenhuma ainda</span>.</p>
+
+<p class="sala-header">🚪 DEPÓSITO → CORREDOR DA ESCADARIA ESQUERDA → CORREDOR F</p>
+<p>Na Escadaria Esquerda, use a <span class="item">Chave da Espada</span> em uma porta próxima (selecione SIM para descartar a chave). <span class="alerta">NÃO pegue a Escopeta Quebrada</span>. Pegue apenas o <span class="item">Pacote de Bateria</span>. Use a Chave da Armadura para entrar no Corredor F. Pegue outro <span class="item">Pacote de Bateria</span>. Vire a esquina e entre na Sala das Vinhas.</p>
+
+<p class="sala-header">🚪 SALA DAS VINHAS</p>
+<p>Use o <span class="item">Herbicida</span> na máquina que bombeia água. Após submergir, examine a máquina novamente e selecione SIM, depois a primeira opção. As vinhas morrerão. Pegue a <span class="item">Máscara Sem Tudo</span> na parede.</p>
+
+<div class="parte"><span class="parte-tag">SEÇÃO 3</span><h3>Caçando as Máscaras da Morte</h3></div>
+<div class="dica">⚠️ Há muitas <span class="item">Ervas Verdes</span> nesta área. Pela dificuldade do jogo, pegue-as apenas quando estiver sem cura. Elas ainda estarão aqui quando você voltar da Casa de Guarda.</div>
+
+<p class="sala-header">🚪 CORREDOR F → SALA DA ESTÁTUA DO TIGRE</p>
+<p>Volte ao Corredor F. Siga de volta para a primeira porta e vire à esquerda. Corra — <span class="inimigo">zumbis</span> vão entrar pelas janelas! IGNORE-OS e corra. Vire à esquerda no próximo ângulo e entre pela porta mais próxima. Pegue a <span class="item">Adaga</span> e vá para a Sala da Estátua do Tigre. Use a <span class="item">Pedra Azul</span> na estátua do tigre para obter <span class="item">Cartuchos de Escopeta</span>.</p>
+
+<p class="sala-header">🚪 QUARTO → SALA DE KENNETH</p>
+<p>No Corredor F, deixe um zumbi te morder e use uma Adaga ou Pacote de Bateria para economizar munição. Entre pela próxima porta — o Quarto. Leia o diário na mesa. Um <span class="inimigo">zumbi</span> atacará — mate-o (provavelmente precisará de uma Adaga). Siga pelo Corredor F, Sala de Kenneth e Sala do Jantar até o Saguão Principal.</p>
+
+<p class="sala-header">🚪 SAGUÃO PRINCIPAL — Desbloqueando portas com Chave da Armadura</p>
+<p>Suba. Use a Chave da Armadura na porta à direita da que leva ao Corredor U (mas não entre). Depois vá ao Corredor U e desbloqueie a porta simples e as portas duplas com a Chave da Armadura. Vá à Escadaria Direita e desbloqueie a porta mais além da descida (sem entrar). Vá ao Corredor das Portas e desbloqueie a porta no corredor com a Chave da Armadura (selecione SIM para descartá-la). Não entre ainda.</p>
+
+<p class="sala-header">🚪 SALA DE RICHARD</p>
+<p>No Corredor U, entre pela porta simples que você desbloqueou. Você verá <span class="npc">Richard Aiken</span> — ele precisa de <span class="item">Soro</span>. Saia para o Corredor U.</p>
+
+<p class="sala-header">🚪 SAGUÃO PRINCIPAL → VARANDA DA FLORESTA</p>
+<p>Vá para a porta que você acabou de desbloquear no Saguão Principal — leva à Varanda da Floresta. Corra. Pegue o <span class="item">Carregador de Pistola</span>. Você verá <span class="npc">Forest Speyer</span> (<span class="alerta">se você usou a Escopeta Quebrada antes, Barry estará aqui em vez de Forest e dará o Lançador</span>). Pegue o <span class="item">Lançador de Granadas</span> do corpo de Forest e desça. Pegue as <span class="item">Ervas Verdes</span>. Forest vai te atacar — use a Escopeta ou o Lançador para matá-lo. Saia pelo Saguão Principal.</p>
+
+<p class="sala-header">🚪 SALA DE SAVE DA ESQUERDA → SALA DE RICHARD</p>
+<p>Siga: Saguão Principal → Sala do Jantar → Corredor de Kenneth → Corredor F → Corredor da Escadaria Esquerda → Sala de Save da Esquerda. Pegue o <span class="item">Soro</span> da prateleira. Organize seus itens: Pistola, Escopeta, Lançador, Isqueiro, Erva Verde, Soro, Máscara e Chave da Armadura. Retorne ao Corredor U e entre na Sala de Richard.</p>
+
+<p class="sala-header">🚪 SALA DE RICHARD → PEQUENO CORREDOR L → PEQUENA SALA DE JANTAR</p>
+<p>Cure <span class="npc">Richard</span>. Após curá-lo, vá para a porta à esquerda de Richard. Pegue as 2 <span class="item">Ervas Verdes</span>. Mate o <span class="inimigo">zumbi</span> no Pequeno Corredor L e entre pela porta mais distante. Na Pequena Sala de Jantar, use o <span class="item">Isqueiro</span> nas velas da mesa. Empurre a estante para a direita — uma sala secreta! Mate o zumbi dentro. Examine a estante na sala secreta para obter a <span class="item">Partitura Musical</span>. Retorne à Sala de Richard → Corredor U.</p>
+
+<p class="sala-header">🚪 SALA DOS CAVALEIROS</p>
+<p>Entre pelas portas duplas do Corredor U. As estátuas de cavaleiros se movem, mas nada nesta sala pode matar você.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Cavaleiros</div>
+  <p>Objetivo: empurre todas as estátuas de volta à posição normal na seguinte ordem:</p>
+  <ol>
+    <li>Empurre a estátua da ESQUERDA DISTANTE primeiro.</li>
+    <li>Empurre a estátua da DIREITA MAIS PRÓXIMA.</li>
+    <li>Empurre a estátua da DIREITA DISTANTE.</li>
+    <li>Empurre a estátua da ESQUERDA DISTANTE novamente.</li>
+    <li>Empurre a estátua da ESQUERDA MAIS PRÓXIMA.</li>
+    <li>Empurre a estátua da DIREITA DISTANTE novamente.</li>
+    <li>Empurre a estátua da DIREITA MAIS PRÓXIMA.</li>
+    <li>Empurre a estátua da ESQUERDA MAIS PRÓXIMA novamente.</li>
+    <li>Empurre a estátua da DIREITA MAIS PRÓXIMA novamente.</li>
+  </ol>
+  <p>Examine o pedestal central e pressione o botão. Um quadro desliza — pegue-o: é a <span class="item">Caixa de Joias</span>.</p>
+</div>
+
+<p>Deposite a Caixa de Joias e o Lançador na Sala de Save da Direita. <span class="npc">Barry</span> também terá deixado <span class="item">Spray de Primeiros Socorros</span>, <span class="item">Carregador de Pistola</span> e <span class="item">Granadas Incendiárias</span> — deposite-os.</p>
+
+<p class="sala-header">🚪 SALA DAS CABEÇAS DE CERVO → QUARTO 2 → SALA DAS VESPAS</p>
+<p>Suba a Escadaria Direita para a sala que você desbloqueou. Vá para a porta à direita: Quarto 2. Pegue a <span class="item">Caixa de Primeiros Socorros</span> e examine-a para obter o <span class="item">Spray de Primeiros Socorros</span>. Volte. Tome a outra porta à direita.</p>
+
+<p>Na Sala das Vespas (<span class="inimigo">Vespas</span>!), leia o arquivo na mesa. Próximo à mesa há uma vitrine de insetos — pegue o <span class="item">Anzol</span>. Na vitrine à direita da porta, pegue a <span class="item">Isca de Abelha</span> e combine-a com o Anzol. Na vitrine à esquerda da porta, pegue o <span class="item">Espécime de Abelha</span>. Use o Espécime de Abelha Dourado (combinado) na vitrine de insetos. De volta à vitrine à direita, use o Espécime de Abelha e pressione o botão.</p>
+
+<p>De repente, o <span class="inimigo">Espécime de Abelha</span> ganha vida! Mate-o! Pegue o <span class="item">Brasão do Vento</span>. Retorne à Escadaria Direita.</p>
+
+<p class="sala-header">🚪 SAGUÃO PRINCIPAL → CEMITÉRIO → SALA DE MÁQUINAS</p>
+<p>Desça, passe pelo Corredor U e Saguão Principal até o Cemitério. Desça as escadas para a Sala de Máquinas. Use a <span class="item">Máscara Sem Tudo</span> na primeira tumba. Uma cutscene perturbadora acontece. Volte ao Cemitério.</p>
+
+<p class="sala-header">🚪 SALA DO JANTAR → SALA DE KENNETH → CORREDOR F → QUARTO</p>
+<p>Siga: Saguão Principal → Sala do Jantar. Vá até a lareira e pegue o <span class="item">Emblema de Madeira</span> (você precisa ter pelo menos 2 espaços livres e um deles deve ter a Partitura Musical). Siga para o Corredor de Kenneth.</p>
+
+<div class="parte"><span class="parte-tag">SEÇÃO 4</span><h3>Saindo da Mansão</h3></div>
+
+<p class="sala-header">🚪 SALA DO PIANO</p>
+<p>No Corredor de Kenneth, entre pela porta simples desbloqueada (NÃO a que fica na base das escadas). Na Sala do Piano, vá além do piano até uma estante. Empurre-a para a esquerda para revelar a <span class="item">Partitura Musical 2</span>. Combine-a com a Partitura Musical para fazer a <span class="item">Sonata ao Luar</span>. Use a Sonata ao Luar no piano. Uma parede sobe — entre no anexo e pegue o <span class="item">Emblema Dourado</span>. Substitua-o pelo <span class="item">Emblema de Madeira</span>. Volte ao Corredor de Kenneth → Sala do Jantar.</p>
+
+<p class="sala-header">🚪 SALA DO JANTAR — Puzzle do Relógio</p>
+<p>Coloque o <span class="item">Emblema Dourado</span> acima da lareira onde estava o Emblema de Madeira.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Relógio</div>
+  <p>O interior do relógio será revelado. Examine-o e mova o PONTEIRO DAS HORAS duas vezes. Quando o relógio marcar 6:00, pressione B — você receberá a <span class="item">Chave do Escudo</span>.</p>
+</div>
+
+<p>Retorne ao Saguão Principal → Sala da Estátua → Corredor dos Cães → Corredor M → Corredor das Portas → Corredor dos Corvos.</p>
+
+<p class="sala-header">🚪 CORREDOR DOS CORVOS</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Quadros</div>
+  <p>O quadro com a espada deve ser colorido de laranja/vermelho em AMBOS os lados. O quadro do meio deve ser roxo. O último quadro deve ser VERDE. Ajuste os quadros pelos dois lados para as cores correspondentes. Depois pressione o quadro da mulher. A parede sobe.</p>
+</div>
+
+<p>Pegue a <span class="item">Máscara da Morte I</span>. Desbloqueie a porta que leva ao Cemitério.</p>
+
+<p class="sala-header">🚪 CEMITÉRIO → SALA DE MÁQUINAS</p>
+<p>Desce até a Sala de Máquinas. Coloque a <span class="item">Máscara da Morte I</span> na 4ª tumba. Outra cutscene perturbadora. Volte ao Corredor dos Corvos → Corredor das Portas → Escadaria Direita. Mate o <span class="inimigo">Cabeça Carmesim</span>.</p>
+
+<p class="sala-header">🚪 SALA DE SAVE DA DIREITA → SALA DE RICHARD → SÓTÃO</p>
+<p>Retire a <span class="item">Caixa de Joias</span> da caixa de itens. Na tela de itens, selecione EXAMINAR.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixa de Joias</div>
+  <p>Pressione os dois botões que lembram metades de um coração. A caixa abrirá. Dentro está a <span class="item">Máscara da Morte III</span>.</p>
+</div>
+
+<p>Suba pela Escadaria Direita → Corredor U → Sala de Richard → Pequeno Corredor L. Suba as pequenas escadas e use a <span class="item">Chave do Escudo</span> para desbloquear a porta. Descarte a Chave do Escudo. Um chefe espera no Sótão…</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #1 — BOCEJO (Yawn) · Dificuldade: DIFÍCIL</div>
+  <p>Use as <span class="item">Granadas Ácidas</span> que <span class="npc">Barry</span> deu, atirando com o <span class="item">Lançador de Granadas</span>. No meio da batalha, <span class="npc">Richard</span> vai interferir. Continue atirando. Quando ficar sem munição, pegue a <span class="item">Escopeta</span> no chão e continue atirando. O Bocejo vai fugir.<br>
+  <span class="alerta">Se você for atingido pelo Bocejo, ficará ENVENENADO.</span><br>
+  <strong>Estratégia alternativa:</strong> Para evitar a batalha, corra até o fundo da sala onde está a <span class="item">Máscara da Morte II</span>, pegue-a e saia o mais rápido possível.</p>
+</div>
+
+<div class="dica">⚠️ Com o Bocejo derrotado, uma onda de <span class="inimigo">Cabeças Carmesim</span> surgirá pela Mansão. São zumbis ressuscitados dos que você matou. Tão rápidos quanto Caçadores, evite-os!</div>
+
+<p>Não esqueça de pegar a <span class="item">Máscara da Morte II</span> no buraco no canto do Sótão.</p>
+
+<p class="sala-header">🚪 SALA DE MÁQUINAS (Última visita)</p>
+<p>De volta na Sala de Save da Direita, retire a Máscara da Morte III da Caixa de Joias. Volte ao cemitério. Na Sala de Máquinas: insira a <span class="item">Máscara da Morte II</span> na tumba 3 e a <span class="item">Máscara da Morte III</span> na tumba 2. O caixão grande cai e um <span class="inimigo">Super Cabeça Carmesim</span> ataca. Use o Lançador de Granadas para matá-lo rapidamente — pelo menos 6 Granadas Incendiárias. Verifique o caixão para obter o <span class="item">Objeto de Pedra e Metal</span> e <span class="item">Cartuchos de Escopeta</span>.</p>
+
+<p class="sala-header">🚪 CORREDOR DE SAÍDA → FIM DA MANSÃO</p>
+<p>Siga: Cemitério → Corredor dos Corvos → Corredor das Portas → Corredor de Saída. Corra pelo corredor externo até ver uma porta. Um <span class="inimigo">cão zumbi</span> vai aparecer — mate-o. Perto da porta há um entalhe. Coloque o <span class="item">Objeto de Pedra e Metal</span> — a porta se abre. Passe por ela.</p>
+
+<p>Parabéns — você completou a Parte 1 da missão de Jill na Mansão! A Casa de Guarda está chegando — esteja preparado para imortais, tubarões, plantas e criaturas verdes.</p>
+
+<!-- ── CASA DE GUARDA ── -->
+<h3 id="jill-casaguarda">B. Área da Casa de Guarda</h3>
+
+<div class="itens-lista"><strong>Itens — Lisa Trevor:</strong> Pacote de Bateria · Spray de Primeiros Socorros · Brasão do Sol · Brasão da Estrela · Brasão da Lua · Magnum</div>
+<div class="itens-lista"><strong>Itens — Casa de Guarda:</strong> Chave do Quarto 001 · Livro Vermelho · Chave da Sala de Controle · Chave do Quarto 003 · Spray Inseticida · Pistola de Defesa · Balas de Magnum · Cartuchos de Escopeta · Chave da Galeria</div>
+
+<div class="parte"><span class="parte-tag">LISA TREVOR</span><h3>Perseguição de Lisa Trevor</h3></div>
+
+<p class="sala-header">🚪 GALPÃO → CAMINHO EXTERNO</p>
+<p>Desça até os itens brilhantes e pegue o <span class="item">Pacote de Bateria</span> e o <span class="item">Spray de Primeiros Socorros</span>. Você precisará de ambos. Desça pela porta pequena — o Caminho Externo. Corra pelo caminho até ver setas giratórias. <span class="npc">Brad</span> ou <span class="npc">Barry</span> vão te contatar pelo rádio. Na seta vermelha, mova-a para a posição OESTE. Na seta azul, vire-a para o NORTE. O portão destrancará.</p>
+
+<p class="sala-header">🚪 CEMITÉRIO DOS CORVOS</p>
+<p>Mais um cemitério — cheio de <span class="inimigo">corvos</span>! Equipe a Pistola ou Escopeta e atire em todos. Corra e vire à direita entre as lápides. Você encontrará 2 lápides grandes. Insira o <span class="item">Brasão do Vento</span> na lápide da direita. 3 novos Brasões são revelados — pegue-os. Se não couberem todos, pegue o máximo e leve à lápide da esquerda. Verifique o verso de cada brasão antes de inseri-los na lápide esquerda. Sua recompensa é o <span class="item">Magnum</span>! Você precisará dele na Parte 3.</p>
+
+<p class="sala-header">🚪 SEGUNDO CAMINHO EXTERNO → CHALÉ</p>
+<p>Corra após uma cutscene estranha. Você verá um Chalé — entre. <span class="alerta">AVISO: Um monstro invencível está prestes a aparecer.</span> Entre e suba as escadas. Pegue o <span class="item">Mapa do Pátio</span> e passe pela cama. Há uma CAIXA DE ITENS próxima. <span class="alerta">SALVE NA MÁQUINA DE ESCREVER!</span> Pegue a <span class="item">Manivela Quadrada</span>. Tente sair para ver uma cutscene.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #2 — LISA TREVOR · Dificuldade: IMPOSSÍVEL</div>
+  <p>Objetivo: <span class="alerta">FUJA DAQUI. AGORA.</span> 3 golpes desta chefe imortal te matarão. Não perca tempo atirando — <span class="inimigo">Lisa Trevor</span> simplesmente não morre! CORRA! CORRA! CORRA!<br>
+  <em>(OBS: A garota descrita no Relatório de Wesker II é Lisa Trevor. Não é bom.)</em></p>
+</div>
+
+<p class="sala-header">🚪 VOLTA AO GALPÃO → JARDIM → SALA DO LAGO</p>
+<p>Siga: Segundo Caminho Externo → Cemitério dos Corvos → Caminho Externo → Galpão → Portas Duplas → Jardim. <span class="npc">Brad</span> tentará contato. Mate todos os <span class="inimigo">cães zumbis</span>. Pegue todas as <span class="item">Ervas Verdes</span> e passe pelo portão.</p>
+
+<p>Na Sala do Lago, vire à esquerda até ver o ENCAIXE QUADRADO. Use a <span class="item">Manivela Quadrada</span> — o lago drena. Desça a escada, atravesse o lago e suba até o elevador.</p>
+
+<p class="sala-header">🚪 JARDIM DA CASA DE GUARDA → CASA DE GUARDA</p>
+<p>No Jardim da Casa de Guarda há <span class="inimigo">corvos</span> — atire neles. Você notará que drenando o lago, a água flui na frente de uma passagem secreta. Há um elevador sem bateria que leva de volta ao Jardim — nosso objetivo agora é encontrar a bateria. Entre no portão.</p>
+
+<div class="parte"><span class="parte-tag">CASA DE GUARDA</span><h3>Explorando a Casa de Guarda</h3></div>
+
+<p class="sala-header">🚪 ENTRADA DA CASA DE GUARDA → CORREDOR DA CASA DE GUARDA → SALA DE SAVE</p>
+<p>Cuidado com <span class="inimigo">cobras</span> na entrada. Pegue as ervas. Passe pela porta no fundo. Vire à direita e entre pela primeira porta. Na Sala de Save, pegue a <span class="item">Fita de Tinta</span>, <span class="item">Pacote de Bateria</span> e <span class="item">Spray de Primeiros Socorros</span>. Organize: Escopeta/Cartuchos, Lançador de Granadas/Munição e algumas ervas. Deposite a Manivela Quadrada. Reabasteça o Cantil de Óleo. Saia.</p>
+
+<p class="sala-header">🚪 SALA DA PISCINA DE ARANHAS</p>
+<p>Vá para as portas duplas à direita. <span class="inimigo">Aranhas</span>! Mate com as Granadas Incendiárias antes que envenenem você. Se envenenar, use <span class="item">Ervas Azuis</span> do Jardim da Casa de Guarda. Suba pelas escadas até a mesa de bilhar e abata a próxima aranha. EXAMINE A PISCINA! Memorize as cores das bolas:</p>
+<table>
+  <tr><th>Bola</th><th>Cor</th></tr>
+  <tr><td>2</td><td>Azul</td></tr>
+  <tr><td>3</td><td>Vermelha</td></tr>
+  <tr><td>4</td><td>Roxa</td></tr>
+  <tr><td>5</td><td>Laranja</td></tr>
+  <tr><td>6</td><td>Verde</td></tr>
+</table>
+<p>Desça e pegue o <span class="item">Livro Vermelho</span> e uma <span class="item">Caixa de Primeiros Socorros</span> (dentro há <span class="item">Ervas</span> azul-verde). Há também Cartuchos de Escopeta. Deposite tudo exceto o Livro Vermelho na Sala de Save.</p>
+
+<p class="sala-header">🚪 CORREDOR DA CASA DE GUARDA → CORREDOR 2 → QUARTO 002</p>
+<p>Empurre o caixote perto do caixote mais alto para criar uma escada. Passe e entre pela próxima porta. Corra até o QUARTO 002. Você ouvirá uma cutscene misteriosa envolvendo <span class="npc">Barry</span>. Pegue o arquivo na escrivaninha. Vá às estantes e empurre a esquerda para frente, a direita para a direita — uma escada é revelada. Desça.</p>
+
+<p class="sala-header">🚪 TÚNEL DE ÁGUA SECRETO → TANQUE DO TUBARÃO</p>
+<p>Empurre as caixas para dentro do pequeno reservatório. Quando uma ponte se formar, atravesse. Passe pelas portas duplas — o Tanque do Tubarão. <span class="inimigo">NETUNO</span> está aqui! Volte correndo.</p>
+
+<p class="sala-header">🚪 QUARTO 002 → BANHEIRO 002 → QUARTO 001</p>
+<p>De volta ao Quarto 002, vá para o Banheiro 002. Na prateleira está a <span class="item">Chave do Quarto 001</span>. Siga: Corredor 2 → Corredor 1 → use a Chave do Quarto 001. No Quarto 001 há uma <span class="item">Pistola de Defesa</span> e Carregadores de Pistola. No Banheiro 001, esvazie a banheira e pegue a <span class="item">Chave da Sala de Controle</span>. Deposite na Sala de Save quaisquer itens desnecessários.</p>
+
+<p class="sala-header">🚪 TANQUE DO TUBARÃO → SALA DE CONTROLE</p>
+<p>Siga: Quarto 002 → Túnel de Água → Tanque do Tubarão. Corra até a porta vermelha no mapa. Use a <span class="item">Chave da Sala de Controle</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Sala de Controle</div>
+  <p>Desça a escada. Vá ao quadro branco na mesa e anote o número (1, 2 ou 3). Vá até a janela gigante. Quando o tubarão a quebrar e a contagem regressiva começar:</p>
+  <ol>
+    <li>Pressione o switch do computador perto da janela.</li>
+    <li>Vire com o C-Stick e corra diagonalmente (\ nesta direção) e pressione o segundo switch.</li>
+    <li>Deste segundo switch, vá diretamente à esquerda até a alavanca e mude-a.</li>
+    <li>No corredor adjacente, vire à esquerda até um tanque com luzes vermelhas e verdes. Pressione o número que estava no quadro branco.</li>
+    <li>Volte ao segundo switch e pressione-o novamente.</li>
+    <li>Volte à alavanca e mude-a novamente.</li>
+    <li>Volte ao switch da janela e pressione-o. O Tanque do Tubarão é drenado.</li>
+  </ol>
+</div>
+
+<p class="sala-header">🚪 TANQUE DO TUBARÃO (drenado)</p>
+<p>Siga pelo corredor adjacente, tome a porta à direita, corra até a porta antes bloqueada pela água. Atravesse a Sala D'Água até o Tanque do Tubarão. Com a água drenada, corra até a plataforma e tente pegar a <span class="item">Chave da Galeria</span> — o tubarão ganha vida!</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #3 — NETUNO (Tubarão) · Dificuldade: FÁCIL</div>
+  <p>Objetivo: Atire nele até morrer. Você deve ter munição suficiente.<br>
+  <strong>Estratégia alternativa:</strong> Veja a caixa verde na frente de Jill? Empurre-a para dentro do Aqua Ring. A alavanca à esquerda? Mude-a — o tubarão é eletrocutado. Obrigado às inúmeras pessoas que enviaram essa dica!</p>
+</div>
+
+<p>Pegue a <span class="item">Chave da Galeria</span> onde ela caiu. Vá pelo segundo corredor de água, pegue as <span class="item">Balas de Magnum</span> e suba de volta ao Quarto 002.</p>
+
+<p class="sala-header">🚪 CORREDOR 2 → GALERIA</p>
+<p>No Corredor 2, vá para a Galeria usando a Chave da Galeria. Na Galeria (também chamada Sala das Vespas), vire à próxima esquina à esquerda até o cadáver e pegue o <span class="item">Spray Inseticida</span>. Volte ao Corredor 2.</p>
+
+<p>No Corredor 2, vire à direita e pegue o <span class="item">Mapa da Casa de Guarda</span>. Você verá um buraco — use o Spray Inseticida nele para matar as pragas. Volte à Galeria.</p>
+
+<p>Pegue a <span class="item">Chave do Quarto 003</span> da escrivaninha. Abra o Quarto 003.</p>
+
+<p class="sala-header">🚪 QUARTO 003</p>
+<p>Vá à estante com os livros vermelhos. Pegue o LIVRO UMB e coloque o <span class="item">Livro Vermelho</span> no lugar.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Livro Vermelho</div>
+  <p>O objetivo é alinhar todos os livros para formar a silhueta de uma mulher nua. Selecione um livro e troque-o de posição com outro. Continue até a imagem ficar completa.</p>
+</div>
+
+<p>Com o puzzle resolvido, passe pela porta para o próximo chefe.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #4 — PLANTA 42 · Dificuldade: FÁCIL</div>
+  <p>Suba as escadas e atire na planta com <span class="item">Granadas Incendiárias</span>. Continue atirando até murchar. Ela pode envenenar e constranger com vinhas — cuidado. 10 a 12 Granadas Incendiárias a derrotam.<br><br>
+  <strong>Estratégia alternativa (sem lutar):</strong>
+  <ol>
+    <li>Pegue o Isqueiro e libere 3 espaços no inventário.</li>
+    <li>No Salão dos Funcionários (onde as aranhas estavam): acenda as lâmpadas coloridas. Anote o número da bola da piscina: Vermelho = 3, Laranja = 5, Verde = 6.</li>
+    <li>Na Galeria, examine o teclado numérico na primeira porta à esquerda e entre.</li>
+    <li>Pegue 3 garrafas vazias. Encha uma com água. Encha a segunda com UMB nº 3 (pote amarelo) e misture os dois → NP-004. Adicione Yellow-6 → UMB nº 10. Misture mais água com Yellow-6 → UMB nº 7. Una UMB nº 7 com UMB nº 10 → VP-017. Adicione mais UMB nº 3 → V-Jolt.</li>
+    <li>Leve o V-Jolt até as raízes da planta perto do Tanque do Tubarão. Aplique-o nas raízes.</li>
+    <li>Quando entrar no domínio da Planta 42, <span class="npc">Barry</span> aparecerá e terminará a planta sem você precisar atirar.</li>
+  </ol>
+  </p>
+</div>
+
+<p>Com a planta derrotada, desça e pegue a <span class="item">Chave do Capacete</span> da lareira. Retorne à Galeria → Corredor 2. Você verá <span class="npc">Wesker</span>. Volte à Sala de Save. Reabasteça as Granadas e salve. Saia pela Entrada → Jardim da Casa de Guarda → Elevador → Sala do Lago → Jardim → Galpão. <span class="npc">Barry</span> deixou itens no Galpão — pegue todos, especialmente as <span class="item">Granadas Ácidas</span>. Siga ao Corredor de Saída.</p>
+
+<!-- ── RETORNO A MANSAO ── -->
+<h3 id="jill-retorno">C. Retorno à Mansão</h3>
+
+<div class="itens-lista"><strong>Itens:</strong> Pedra Vermelha · Pedra Amarela · Caixa de Joias 2 · Disco MO · Spray de Primeiros Socorros · Último Livro Vol. 1 e 2 · Medalha do Lobo · Medalha da Águia · Ervas diversas · Bateria · Chave do Emblema · Broche</div>
+
+<p class="sala-header">🚪 SALA DAS PORTAS → ESCADARIA DIREITA → SALA DE SAVE</p>
+<p>Corra pelo Corredor de Saída. Na Sala das Portas há um <span class="inimigo">Caçador</span> — mate-o. Na Escadaria Direita, mais um Caçador — mate-o. Salve na Sala de Save se precisar.</p>
+
+<p class="sala-header">🚪 SALA DE DESCANSO → CORREDOR DAS PAREDES</p>
+<p>Suba pelas escadas até o final. Pegue todas as ervas e desbloqueie a porta com a <span class="item">Chave do Capacete</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Corredor das Paredes</div>
+  <p>Veja a estátua? Empurre-a para dentro da abertura até o final da sala principal. Quando as paredes pararem, volte pela porta e vá atrás da parede da direita. Corra até o interruptor e ative-o. Volte correndo até a estátua e empurre-a para a esquerda antes que as paredes o esmacem. Uma passagem secreta se abrirá.</p>
+</div>
+
+<p>Pule no buraco. À esquerda há um <span class="item">Pacote de Bateria</span>. À direita está o <span class="item">Último Livro Vol. 1</span> — examine as páginas para obter a <span class="item">Medalha da Águia</span>.</p>
+
+<p class="sala-header">🚪 TUMBA → CORREDOR SUBTERRÂNEO → COZINHA</p>
+<p>Pressione o botão na tumba. Pegue os diários. Desça. Cuidado com as <span class="inimigo">aranhas</span> no corredor. No Corredor Subterrâneo 2, passe pelo portão, ative a alavanca e tome a outra porta. Na Cozinha, você tem 2 opções:</p>
+<ul>
+  <li>Porta à frente de Jill → Corredor de Kenneth (rota para Pedra Amarela e Disco MO)</li>
+  <li>Elevador → Parte obrigatória</li>
+</ul>
+
+<div class="dica">💡 <strong>Seção Opcional</strong> — necessária para salvar <span class="npc">Chris Redfield</span> e obter o melhor final.</div>
+
+<p class="sala-header">🚪 [OPCIONAL] SALA AMARELA DAS GEMAS</p>
+<p>Siga: Corredor de Kenneth (com Varredores) → Corredor F → Escadaria Esquerda → Sala de Save da Esquerda (salve). Suba. Desbloqueie a porta à esquerda da escada.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Gemas Coloridas</div>
+  <p>Empurre as caixinhas de gaveta em direção às cabeças de cervo. Desligue as luzes com o interruptor perto da porta. Tente puxar a <span class="item">Pedra Amarela</span> da cabeça de cervo (não conseguirá). Agora CORRA RAPIDAMENTE até a outra cabeça de cervo e pegue a <span class="item">Pedra Vermelha</span>. Depois CORRA até a Pedra Amarela e pegue-a! Puzzle resolvido!</p>
+</div>
+
+<p>Com as pedras, retorne à Sala de Save da Esquerda. Caminhe — <span class="inimigo">2 Caçadores</span> aparecerão. Use Granadas ou Magnum. Siga ao Corredor de Kenneth e use a <span class="item">Pedra Amarela</span> na Estátua do Tigre para obter o <span class="item">Disco MO</span>. Deposite-o. Volte à Cozinha.</p>
+
+<p class="sala-header">🚪 TÚNEL ILUMINADO → DEPÓSITO → CORREDOR Z → BIBLIOTECA</p>
+<p>Desça de elevador. Mate zumbis no túnel. Pegue as Ervas Verdes. Na próxima porta encontre o Depósito com <span class="item">Granadas Ácidas</span>, <span class="item">Pacote de Bateria</span> e a <span class="item">Bateria</span>! A bateria ativará o elevador no Jardim da Casa de Guarda. Saia do Depósito. No Corredor Z, encontre a Sala da Lâmina. Use a <span class="item">Chave do Capacete</span> na porta além de onde você deixou a Chave Falsa.</p>
+
+<p>Corra pela Biblioteca até um novo encontro com o chefe.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #5 — BOCEJO II · Dificuldade: MÉDIA</div>
+  <p>Esta batalha é mais difícil agora que <span class="npc">Richard</span> morreu. Atire com <span class="item">Granadas Comuns</span>. Cuidado com a mordida e os ataques venenosos. Quando acabar as Granadas, use Pistola ou Escopeta. Um golpe pode te levar a CUIDADO. O Bocejo finalmente morrerá.</p>
+</div>
+
+<p>Atrás da estante que o Bocejo destruiu, pegue o <span class="item">Último Livro Vol. 2</span>. Suba a escada e volte à Sala da Lâmina.</p>
+
+<p class="sala-header">🚪 SALA DO ESPELHO → CHAVE DO EMBLEMA</p>
+<p>Siga: Corredor Z → Sala de Jantar Superior → Saguão Principal. Desbloqueie a porta à esquerda das portas duplas com a <span class="item">Chave do Capacete</span> (descarte-a). Na Sala de Descanso, pegue o diário e vá pela outra porta. Na Sala do Espelho: pegue a <span class="item">Adaga</span>, a <span class="item">Erva Verde</span> e a <span class="item">Caixa de Joias 2</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixa de Joias 2</div>
+  <p>Combine a <span class="item">Pedra Vermelha</span> com a Caixa de Joias 2. Para resolver o puzzle, consulte o FAQ de Caixa de Joias de Daniel Engel. Ao resolver, você obterá um <span class="item">Broche</span>, que se transforma na <span class="item">Chave do Emblema</span>.</p>
+</div>
+
+<p class="sala-header">🚪 QUARTO DESBLOQUEADO → BATERIA</p>
+<p>Siga: Saguão Principal → Cemitério → Corredor dos Corvos → Corredor das Portas. Use a <span class="item">Chave do Emblema</span> na única porta que você não tentou. No Quarto, ligue a lâmpada e pegue o <span class="item">Objeto de Metal</span> e o <span class="item">Pacote de Bateria</span>. Siga: Corredor de Saída → Galpão → Jardim → Sala do Lago → Jardim da Casa de Guarda. Use a <span class="item">Bateria</span> no elevador quebrado. Suba.</p>
+
+<p class="sala-header">🚪 JARDIM → SALA DO LAGO → ENCHENDO O LAGO</p>
+<p>Siga de volta ao Galpão → Corredor de Saída → Corredor das Portas → Escadaria Direita → Sala de Save da Direita. Deposite o Objeto de Metal. Retire a <span class="item">Manivela Quadrada</span>. Salve. Siga: Corredor das Portas → Corredor de Saída → Galpão → Jardim → Sala do Lago. Use a Manivela Quadrada no encaixe para <em>encher</em> o lago — isso abrirá a passagem atrás da cachoeira. Volte ao Jardim → Elevador → baixo → Jardim da Casa de Guarda → Passagem da cachoeira → Escada → Túneis.</p>
+
+<!-- ── TUNEIS ── -->
+<h3 id="jill-tuneis">D. Área dos Túneis</h3>
+
+<div class="itens-lista"><strong>Itens — Entrada:</strong> Manivela Hex · Granadas Ácidas · Cartuchos de Escopeta · Faca de Sobrevivência</div>
+<div class="itens-lista"><strong>Itens — Evitando Lisa:</strong> Cilindro · Eixo · Eixo Cilíndrico · Lança-Chamas Quebrado · Caixa de Joias</div>
+<div class="itens-lista"><strong>Itens — Altar da Mansão:</strong> Adaga · Anel de Pedra · Objeto de Pedra e Metal · Objeto de Pedra e Metal 2</div>
+
+<div class="parte"><span class="parte-tag">ENTRADA</span><h3>Entrando nos Túneis</h3></div>
+
+<p class="sala-header">🚪 TÚNEL 1 → TÚNEL 2 → SALA DO POÇO → SALA DE ENRICO</p>
+<p>No Túnel 1, vá pela primeira porta à direita. No Túnel 2, encontre as <span class="item">Granadas Ácidas</span> no chão. Vá pela única porta. Na Sala do Poço, vá pela porta com um <span class="item">Carregador de Pistola</span> próximo. Na Sala de Enrico: corra para frente — cutscene com <span class="npc">Enrico</span>. Pesquise o corpo para obter a <span class="item">Manivela Hex</span>. Siga o corredor à esquerda de Enrico — um Caçador pode aparecer — e volte ao Túnel 2. Mate o Caçador. Volte ao Túnel 1.</p>
+
+<p class="sala-header">🚪 TÚNEL 1 → SALA DA PEDRA → SALA DA ARANHA GIGANTE</p>
+<p>Na Caixa de Itens do Túnel 1, salve se quiser. Vá ao buraco no chão e use a <span class="item">Manivela Hex</span> para tampá-lo. Passe para a Sala da Pedra. Corra à direita — a pedra começa a rolar. CORRA DE VOLTA PARA A PORTA! Após a cutscene, vire à direita. Pegue os <span class="item">Cartuchos de Escopeta</span>. Passe pelas portas do outro lado.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #6 — VIÚVA NEGRA (Aranha Gigante) · Dificuldade: FÁCIL</div>
+  <p>Atire com 5 ou 6 <span class="item">Granadas de Fogo</span> para matá-la permanentemente. Há bebês dela também — elimine-os. Você pode ser envenenado pelos ataques — cuidado. Há uma <span class="item">Faca de Sobrevivência</span> nos barris se quiser conservar Granadas. Há também uma porta coberta de teia — use Granadas de Fogo ou a Faca para abrir.</p>
+</div>
+
+<p class="sala-header">🚪 TÚNEL 3 → SALA DA PEDRA 2 → SALA DA ESTÁTUA</p>
+<p>Vire à direita no Túnel 3. Na Sala da Pedra 2, use a <span class="item">Manivela Hex</span> TRÊS VEZES. Vire à esquerda quando a pedra cair. Entre na Sala da Estátua pela porta mais próxima.</p>
+
+<p>Na Sala da Estátua: empurre a estátua na parede para a direita até a parte BRONZE. Use a Manivela Hex na parede oposta. A estátua se afastará. Empurre-a até o disco no centro — ela girará. Afaste-a e empurre de volta para girar uma segunda vez. Agora empurre-a para o espaço à direita das velas (virada para o jogador). Você obterá o <span class="item">Cilindro</span>. Volte ao Túnel 1 e retire a <span class="item">Medalha da Águia</span> e a <span class="item">Medalha do Lobo</span> da Caixa de Itens.</p>
+
+<div class="parte"><span class="parte-tag">EVITANDO LISA</span><h3>Evitando Lisa Trevor</h3></div>
+
+<p class="sala-header">🚪 SALA DO POÇO → POÇO INFERIOR</p>
+<p>Na Sala do Poço, examine o painel de controle no fundo para obter o <span class="item">Eixo</span>. Combine com o <span class="item">Cilindro</span> para fazer o <span class="item">Eixo Cilíndrico</span>. Insira-o e pressione o código <strong>4231</strong>. O poço no centro ativa um elevador — desça!</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #7 — LISA TREVOR II · Dificuldade: IMPOSSÍVEL</div>
+  <p>Objetivo: FUJA DAQUI. Mesma regra de antes — 3 golpes te matam. NÃO tente atirar nela. CORRA, CORRA, CORRA!</p>
+</div>
+
+<p class="sala-header">🚪 SALA DAS CAIXAS → POÇO INFERIOR</p>
+<p>Para evitar Lisa: vire e tome o túnel ramificado. No túnel, vá para a direita de Jill. Você encontrará uma porta — use o mapa (portas vermelhas = trancadas, brancas = abertas). Na Sala das Caixas, empurre a caixa sobre o elevador e ative-o. Saia. No Túnel de Lisa, evite-a e encontre <span class="npc">Barry</span>. Após Barry sair, encontre a Caixa de Itens e pegue pelo menos 2 ou 3 itens de cura. Desça a escada próxima. A caixa que você enviou está aqui — empurre-a para a esquerda e para frente. Pressione o botão para esmagar a caixa. Pule para obter o <span class="item">Lança-Chamas Quebrado</span>.</p>
+
+<p class="sala-header">🚪 SALA DAS VELAS → QUARTO DA LISA</p>
+<p>Volte ao Túnel de Lisa, evite-a e vá para a porta trancada. Tome o túnel em direção à Sala das Caixas. Ative o interruptor na parede. Vá à porta trancada pelo mapa. Há uma pequena placa — coloque o <span class="item">Lança-Chamas Quebrado</span> nela. Entre. Passe pela Sala das Velas até um túnel com água. Traversse. No quarto: encontre outra <span class="item">Caixa de Joias</span> e uma <span class="item">Adaga</span>. Abra a Caixa de Joias (sem puzzle) para obter o <span class="item">Anel de Pedra</span>. Combine com o <span class="item">Objeto de Metal</span> da Mansão para obter outro <span class="item">Objeto de Pedra e Metal</span>. Suba a escada e o próximo lance.</p>
+
+<div class="parte"><span class="parte-tag">ALTAR</span><h3>Altar da Mansão</h3></div>
+
+<p class="sala-header">🚪 CHALÉ → RETORNO À MANSÃO</p>
+<p>Você está de volta onde conheceu Lisa pela primeira vez. Siga: Segundo Caminho Externo → Cemitério dos Corvos (pegue o Magnum se ainda não tiver) → Caminho Externo → Galpão → Corredor de Saída. Pegue o <span class="item">Objeto de Pedra e Metal</span> perto da porta (o que você usou no início). Siga: Sala das Portas → Corredor dos Corvos → Cemitério → Saguão Principal.</p>
+
+<p class="sala-header">🚪 SAGUÃO PRINCIPAL → PORTAS DUPLAS</p>
+<p>Vá para as portas duplas ABAIXO da grande escadaria. Insira os 2 <span class="item">Objetos de Pedra e Metal</span> nas portas. Entre. Siga o Longo Túnel → Curto Túnel → Escada para baixo.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #8 — LISA TREVOR III · Dificuldade: DIFÍCIL</div>
+  <p>A criatura tem o olho do G-Vírus de <span class="npc">William Birkin</span> (RE2) e o salto e poder de Nemesis (RE3) — combinados! Devolva a arma de <span class="npc">Barry</span> (ou não, se quiser o final ruim). Atire com tudo que tem. Quando cair, continue atirando. Barry também ajudará se você devolver a arma.<br><br>
+  <strong>Estratégia alternativa:</strong> Veja as pedras nos cantos da sala? Empurre-as para dentro do abismo — Lisa pulará atrás, encerrando a batalha. Obrigado a KANE79 pela dica!</p>
+</div>
+
+<p>Fale com <span class="npc">Barry</span> se ele ainda estiver lá. Se não, pegue o <span class="item">Magnum .44 de Barry</span> e a <span class="item">Foto de Barry</span>. Empurre todas as pedras nos cantos. O portão sobe — passe.</p>
+
+<p class="sala-header">🚪 PÁTIO DO LAGO</p>
+<p>Insira a <span class="item">Medalha da Águia</span> e a <span class="item">Medalha do Lobo</span> nas estátuas ao redor do lago. Desça pelas escadas. Use o elevador para descer. <strong>Hora de trocar para o Disco 2!</strong></p>
+
+<div class="dica">💡 Para trocar discos: pressione o botão OPEN do GameCube, retire o Disco 1, coloque o Disco 2 e feche. NÃO desligue o GameCube.</div>
+
+<!-- ── LABORATORIO ── -->
+<h3 id="jill-lab">E. Área do Laboratório</h3>
+
+<div class="itens-lista"><strong>Itens — Explorando:</strong> Disco MO 2 · Fitas de Tinta · Ervas Verdes · Cartucho de Slides · Disco MO 3 · Chave do Laboratório · Cápsula</div>
+<div class="itens-lista"><strong>Itens — Fugindo:</strong> Chave Mestra · Fusível · Foguetes de Sinalização</div>
+
+<div class="parte"><span class="parte-tag">EXPLORANDO</span><h3>Explorando o Laboratório</h3></div>
+
+<p class="sala-header">🚪 ENTRADA DO LABORATÓRIO → SALA DE SAVE → ESCADAS</p>
+<p>Encontre as portas duplas trancadas. Perto delas há escadas para descer. Na Sala de Save, salve e equipe o Magnum. Passe pelas portas. Nas escadas, mate todos os zumbis e pegue as Ervas Verdes. Vire à esquerda e pegue o <span class="item">Disco MO 2</span>. Desça. Passe pelo portão.</p>
+
+<p class="sala-header">🚪 SALA O → CORREDOR DO LAB → SALA DE RAIO-X → SALA DE COMPUTADORES</p>
+<p>Na Sala O, vá para a porta à direita. No Corredor do Lab 1, pegue a Caixa de Primeiros Socorros. Tome a porta à esquerda — Sala de Raio-X. Pegue o arquivo do computador sobre <span class="npc">ADA e JOHN</span>. Pegue os 2 raios-X e cole-os na tela. Você obterá a palavra <strong>CELL</strong>. Volte à Sala O e entre pelas portas duplas abertas.</p>
+
+<p>Na Sala de Computadores, entre com o nome <strong>JOHN</strong> e senha <strong>ADA</strong>. Para desbloquear o andar B2, insira a senha <strong>CELL</strong>. Volte à Sala O → Corredor do Lab → entre pela primeira porta à direita (Escritório). Pegue o FAX depois de eliminar o Cabeça Carmesim. Pegue o <span class="item">Cartucho de Slides</span> na mesa. Use o Disco MO no GameCube da mesa.</p>
+
+<p class="sala-header">🚪 SALA DE PROJEÇÃO → CHAVE DO LABORATÓRIO</p>
+<p>Nas Escadas, vá para a porta desbloqueada perto do Disco MO 2. Use o <span class="item">Cartucho de Slides</span> no projetor. Os números <strong>8462</strong> aparecerão — lembre-se deles. Pegue o <span class="item">Disco MO</span> na prateleira. No painel piscando na parede, insira o código <strong>8462</strong>. Uma nova sala é revelada — entre e pegue a <span class="item">Chave do Laboratório</span>. Veja no console como Kenneth Sullivan morreu no início do jogo. Deposite na Sala O o que não precisar e desbloqueie a porta com a Chave do Laboratório.</p>
+
+<p class="sala-header">🚪 CORREDOR T → CORREDORES DAS QUIMERAS</p>
+<p>No Corredor T, tome a porta defronte à entrada (não a da esquerda). Na Sala de Save 2, descarregue itens desnecessários. Vá ao Corredor T → portas duplas. Nos Corredores das Quimeras há <span class="inimigo">Quimeras</span> — tão perigosas quanto Caçadores! Vire à esquerda e mate a primeira. Vire — não entre na porta. Encontre o botão azul e pressione-o para obter a <span class="item">Cápsula</span>. Continue pelas Quimeras 1 e 2.</p>
+
+<div class="parte"><span class="parte-tag">FUGINDO</span><h3>Fugindo do Laboratório</h3></div>
+
+<p class="sala-header">🚪 DEPÓSITO → SALA DE OPERAÇÕES → SALA DE ENERGIA</p>
+<p>Use a Chave da Sala de Energia para entrar. No Depósito, empurre a estante para trás e suba no balcão. Entre na ventilação. Na Sala de Operações, passe pela outra ventilação. Mate as Quimeras. Encontre o leitor e insira um Disco MO. Empurre a estante e saia.</p>
+
+<p class="sala-header">🚪 ESCRITÓRIO — Radiando a Cápsula</p>
+<p>Radiate a <span class="item">Cápsula</span> no aparelho azul estranho. Ao obter de volta: <span class="alerta">CAMINHE. CAMINHE até o Corredor T. CAMINHE.</span> NÃO CORRA com a Cápsula irradiada ou ela explode. Caminhe por todo o caminho: Corredor T → Sala O → Corredor das Quimeras 1. Coloque-a de volta. Depois corra para o Corredor das Quimeras 2 → Sala de Energia. Pressione SIM no console. Volte correndo.</p>
+
+<p class="sala-header">🚪 ELEVADOR → SALA DO TIRANO</p>
+<p>No Corredor T, corra até o elevador. Salve na Sala de Save próxima se quiser. Ative o elevador e suba.</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #9 — TIRANO I · Dificuldade: DIFÍCIL</div>
+  <p>Após a cutscene, equipe o <span class="item">Magnum</span> ou as <span class="item">Granadas Ácidas</span>. Atire e desvie. Um golpe te leva a CUIDADO. Cai após 9 ou 10 tiros de qualquer arma. O Tirano ataca com a garra perigosa — continue se movendo e atirando. Mais resistente que Lisa, mas não é invencível.</p>
+</div>
+
+<p>Pegue o diário de <span class="npc">William Birkin</span> no corpo de <span class="npc">Wesker</span>. Se <span class="npc">Barry</span> sobreviveu, acorde-o e abra a porta na escrivaninha no fundo. Se não, pegue a <span class="item">Chave Mestra</span>. Com o sistema de autodestruição ativado (se Barry sobreviveu), siga: Corredor T → Sala O → Corredor do Lab 1 → ative 3 switches verdes e passe pela porta → Túnel da Prisão → Cela. Fale com <span class="npc">Chris</span>. Volte ao Laboratório → Escadas → Sala de Save → <span class="alerta">SALVE!</span> Suba a escada.</p>
+
+<p class="sala-header">🚪 TÚNEL DE FUGA → TELHADO DA MANSÃO</p>
+<p>Passe pelo Corredor de Fuga. Pegue as Caixas de Primeiros Socorros. Pegue o <span class="item">Fusível</span> e use o elevador. <span class="alerta">Apenas 3 minutos restam se Barry estiver vivo!</span></p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #10 — TIRANO II · Dificuldade: DIFÍCIL</div>
+  <p>No Telhado, pegue os <span class="item">Foguetes de Sinalização</span> e USE-OS. Após a cutscene, atire com o Magnum ou Granadas Ácidas. Um golpe te leva a CUIDADO. <span class="npc">Barry</span> estará te ajudando. Quando <span class="npc">Brad</span> largar o LANÇADOR DE FOGUETES, Barry será agarrado. Atire um foguete no Tirano para terminar o jogo.<br>
+  <em>OBS: Para um final diferente, deixe o Tirano matar Barry com a garra.</em></p>
+</div>
+
+<p>🎉 <strong>FIM DO JOGO — JILL VALENTINE!</strong> Assista os créditos e comemore! Para mais aventuras, jogue Resident Evil 2 e 3, onde Raccoon City é o próximo cenário.</p>
+
+<!-- ── GUIA DE VELOCIDADE JILL ── -->
+<hr>
+<h2 id="jill-speed">Guia de Velocidade — Jill Valentine</h2>
+<p class="capitulo-intro">Por Orca782. Para obter os bônus ao final, complete o jogo em menos de 2h30 no Modo Normal ou Difícil.</p>
+
+<h3 id="speed-prep">Preparação</h3>
+<ul>
+  <li>Jogue como <span class="npc">Jill</span> (8 espaços + Grampo).</li>
+  <li>Personagens morrerão — não salve <span class="npc">Chris</span> nem resgate <span class="npc">Barry</span> (mais rápido assim).</li>
+  <li>Pule todas as cutscenes possíveis. Não pause, não use o banheiro com o jogo rodando.</li>
+  <li><span class="alerta">NÃO pegue munição, armas ou fitas de tinta desnecessárias.</span> Pegue saúde e no máximo 2 carregadores (45 balas). Mantenha 3 espaços para itens de puzzle.</li>
+  <li>Use o <strong>Glitch do Lançador de Granadas</strong> (veja abaixo).</li>
+  <li>Atire somente quando vir os olhos do inimigo — use a pistola para incapacitar zumbis e passar por eles.</li>
+</ul>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Glitch do Lançador de Granadas (Munição Ilimitada)</div>
+  <p><em>Descoberto por Darkest Embers. Funciona na versão japonesa (BioHazard); testes na versão americana mostram resultados variados.</em></p>
+  <ol>
+    <li>Certifique-se que o <span class="item">Lançador de Granadas</span> está no slot superior esquerdo do inventário.</li>
+    <li>Coloque tudo na Caixa de Itens.</li>
+    <li>Retire as Granadas do tipo oposto ao que quer (ex: se quer Ácidas, equipe Incendiárias primeiro).</li>
+    <li>Com Lançador + Granadas na mão, abra a Caixa.</li>
+    <li>Coloque as Granadas na Caixa. Então selecione-as e pressione A duas vezes — elas equiparão no Lançador com 240 unidades.</li>
+  </ol>
+  <p>Salve antes de tentar. Com 240 granadas, você pode eliminar tudo no caminho.</p>
+</div>
+
+<h3 id="speed-wt">Walkthrough Rápido</h3>
+<p>O guia de velocidade segue a mesma rota geral do walkthrough principal de Jill, mas com as seguintes diferenças críticas:</p>
+<ul>
+  <li>Pule toda cutscene possível. Na Sala do Jantar, não toque na Fita de Tinta.</li>
+  <li>Na primeira área, vá direto ao Saguão Principal, busque a Ponta de Flecha, o Livro da Maldição/Chave da Espada, e explore apenas o necessário.</li>
+  <li>Use o Grampo do Lockpick para evitar usar a Chave da Espada onde possível.</li>
+  <li>No Chalé, evite ou nocauteie <span class="inimigo">Lisa</span> com 3 granadas.</li>
+  <li>No Tanque do Tubarão: use a caixa e alavanca para eletrocutar Netuno.</li>
+  <li>Para a <span class="inimigo">Planta 42</span>: use o Lançador. 2 granadas = estágio 1, repita para estágio 2.</li>
+  <li>No telhado final com <span class="npc">Barry</span> morto (não precisa travar a Mansão): simplesmente use o Foguete quando Brad largar o Lançador.</li>
+</ul>
+
+<div class="dica">🏆 <strong>Bônus por tempo:</strong> Menos de 2:30 → Lançador de Foguetes (munição infinita, 1 hit kill) + Sabre Samurai Edge + Chave do Armário (trajes especiais).</div>
+
+<!-- ── HARD MODE JILL ── -->
+<hr>
+<h2 id="jill-hard">Walkthrough Hard Mode — Jill Valentine</h2>
+<p class="capitulo-intro">O Hard Mode é desbloqueado após completar o jogo. Zumbis são muito mais difíceis de matar, Caçadores decapitam mais, armas são mais fracas e os personagens têm menos resistência.</p>
+
+<div class="dica">⚠️ As diferenças principais em relação ao walkthrough normal são: use a ADAGA para derrubar zumbis antes de usar a Escopeta; no Hard Mode os Caçadores e Varredores têm ainda mais agressividade; use o <span class="item">Cantil de Combustível</span> em quase todo zumbi que você matar para evitar Cabeças Carmesim; a <span class="npc">Lisa Trevor</span> mata em apenas 2 golpes (em vez de 3).</div>
+
+<p>O percurso é praticamente idêntico ao walkthrough normal. As mudanças notáveis são:</p>
+<ul>
+  <li><strong>Mansão — Corredor L:</strong> Empurre a segunda vitrine para encontrar a primeira Adaga.</li>
+  <li><strong>Sala dos Cavaleiros:</strong> A solução é diferente — empurre DIREITA DISTANTE → ESQUERDA MAIS PRÓXIMA → DIREITA MAIS PRÓXIMA.</li>
+  <li><strong>Quarto no Corredor F:</strong> Apenas evite o zumbi com uma Adaga em vez de matar.</li>
+  <li><strong>Sótão — Bocejo:</strong> Dificuldade MUITO DIFÍCIL. Evite batalhar; corra até a <span class="item">Máscara da Morte II</span> no fundo e fuja.</li>
+  <li><strong>Casa de Guarda — Sala das Aranhas:</strong> Evite; não mate.</li>
+  <li><strong>Lisa Trevor 2:</strong> Mata em apenas 2 golpes — fuga ainda mais urgente.</li>
+  <li><strong>Viúva Negra:</strong> Precisa de 5 a 15 Granadas.</li>
+  <li><strong>Altar — Lisa III:</strong> Empurre as pedras para o abismo. Não devolva a arma de Barry.</li>
+  <li><strong>Laboratório:</strong> Sem Disco MO extra — apenas os itens essenciais.</li>
+</ul>
+<p>Para o resto, siga o mesmo walkthrough normal de Jill. <strong>Parabéns por completar o Hard Mode!</strong></p>
+
+<!-- ===================== WALKTHROUGH CHRIS ===================== -->
+<hr>
+<h2 id="chris-wt">Walkthrough — Chris Redfield</h2>
+<p class="capitulo-intro">Chris tem apenas 6 espaços no inventário e usa Chaves Velhas em vez do Grampo. Parceiro: Rebecca Chambers. Recomendado para veteranos. Use o Cantil de Combustível com frequência para economizar munição.</p>
+
+<h3 id="chris-mansao">A. Área da Mansão</h3>
+
+<div class="itens-lista"><strong>Principais itens:</strong> Fita de Tinta · Pistola · Carregador de Pistola · Fita de Kenneth · Erva Verde · Ponta de Flecha · Flecha Dourada · Chave da Mansão (Espada) · Chave Velha (×5) · Apito de Cão · Granada Flash · Adaga · Coleira · Moeda · Chave de Imitação · Chave da Armadura · Caixa de Primeiros Socorros · Soro · Cartuchos de Escopeta · Escopeta · Herbicida · Pedra Azul · Máscaras da Morte I/II/III · Máscara Sem Tudo · Partituras Musicais · Emblemas · Brasão do Vento · Chave do Escudo · Objeto de Pedra e Metal</div>
+
+<p class="sala-header">🚪 SALA DO JANTAR → SALA DE KENNETH</p>
+<p>Equipe a <span class="item">Faca de Sobrevivência</span>. Pegue a <span class="item">Fita de Tinta</span>. Vá ao Corredor de Kenneth → <span class="inimigo">Zumbi</span> à esquerda de Chris → corra de volta. Retorne ao Saguão Principal. Após a cutscene, procure a <span class="item">Pistola</span>. Volte ao Corredor de Kenneth — mate o zumbi (leva ~10 balas). Pesquise o corpo de Kenneth para a <span class="item">Fita de Kenneth</span>. Vá pelo Corredor da Esquerda. No Corredor Z: mate o zumbi com a pistola, pegue a <span class="item">Flecha Dourada</span> e examine para obter a Ponta de Flecha. Pegue o Carregador próximo.</p>
+
+<p class="sala-header">🚪 SALA DE JANTAR SUPERIOR → SAGUÃO PRINCIPAL → CEMITÉRIO → CRIPTA</p>
+<p>Na Sala de Jantar Superior: pegue a <span class="item">Adaga</span>, leia o arquivo. Empurre a estátua pelo vão. Na Cripta: pegue o <span class="item">Livro da Maldição</span>, examine o verso para obter a <span class="item">Chave da Mansão</span>. Examine-a para renomeá-la como <span class="item">Chave da Espada</span>. Use-a na Sala da Estátua → Corredor dos Cães → Corredor M → Banheiro → pegue a <span class="item">Chave Velha</span> da banheira.</p>
+
+<p class="sala-header">🚪 SALA DE SAVE DA DIREITA → CORREDOR U → ESCRITÓRIO</p>
+<p>Na Sala de Save da Direita: pegue o <span class="item">Cantil de Combustível</span>, Carregador, arquivo e mais uma Chave Velha. Encha o Cantil com querosene. Deposite-o. Suba a Escadaria Direita, mate o zumbi. Vá ao Escritório no Corredor U: pegue o <span class="item">Apito de Cão</span> e o Carregador de Pistola.</p>
+
+<p class="sala-header">🚪 VARANDA DO VITRAL → SALA DE SAVE ESQUERDA</p>
+<p>Na Escadaria Esquerda, desbloqueie com a Chave Velha. Na Varanda do Vitral, use o Apito de Cão — 2 cães atacam. Mate-os com a Pistola. Pegue a <span class="item">Coleira</span>. Na Sala de Save Esquerda, examine a Coleira → botão → <span class="item">Moeda</span> → examine para obter a <span class="item">Chave de Imitação</span>. Pegue o Cantil e reabasteça-o.</p>
+
+<p class="sala-header">🚪 SALA DA LÂMINA → CHAVE DA ARMADURA</p>
+<p>Desbloqueie a porta do Depósito (Chave Velha), pegue a <span class="item">Granada Flash</span>. Queime os 2 zumbis na Escadaria Esquerda com Cantil + Isqueiro. Reabasteça. Na Sala da Lâmina: pegue a Chave da Armadura — lâmina gira!</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Lâmina (Chris)</div>
+  <p>Use a <span class="item">Chave de Imitação</span> no encaixe de onde veio a Chave da Armadura. A lâmina para.</p>
+</div>
+
+<p class="sala-header">🚪 SALA DOS CAVALEIROS (Chris)</p>
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Cavaleiros (Chris)</div>
+  <p>Mesma solução que a de Jill (ver seção da Jill), mas empurrando como Chris.</p>
+</div>
+<p>Se não puder pegar a Caixa de Joias agora (inventário cheio), deixe para depois.</p>
+
+<p class="sala-header">🚪 SALA DE RICHARD → SORO</p>
+<p>Desbloqueie a porta simples e as portas duplas no Corredor U. Entre na Sala de Richard — cutscene com <span class="npc">Rebecca</span> e <span class="npc">Richard</span>. Vá à Sala de Save Esquerda e pegue o <span class="item">Soro</span>. Dê o Soro a Richard. Se ele morreu, é tarde — este walkthrough segue como se Richard morreu.</p>
+
+<p class="sala-header">🚪 CORREDOR F → SALA DO PIANO</p>
+<p>Desbloqueie no Corredor de Kenneth (Chave da Armadura). Desça e desbloqueie a porta da Cozinha com a Chave da Espada (descarte-a). Pegue a Chave Velha da Cozinha + Carregador + Adaga. No Quarto: pegue outra Chave Velha. Na Sala da Escopeta: pegue a Adaga, <span class="item">Escopeta</span> e use a <span class="item">Escopeta Quebrada</span> no suporte. Na Sala dos Cavaleiros: pegue a Caixa de Joias.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixa de Joias (Chris)</div>
+  <p>Pressione os botões em formato de meio coração. Dentro está a <span class="item">Máscara Sem Tudo</span>.</p>
+</div>
+
+<p class="sala-header">🚪 PEQUENA SALA DE JANTAR → PARTITURA → SALA DO PIANO</p>
+<p>No Corredor U: acesse a Sala de Richard → Pequena Sala de Jantar. Use o Isqueiro nas velas, empurre a curio, mate o zumbi e pegue a <span class="item">Partitura Musical</span>. Na Sala do Piano: empurre a estante, combine as Partituras para a <span class="item">Sonata ao Luar</span>. Use no piano — <span class="npc">Rebecca</span> tocará. Com a parede aberta, pegue o Diário de Trevor e o <span class="item">Emblema Dourado</span>. Substitua pelo <span class="item">Emblema de Madeira</span> (da lareira).</p>
+
+<p class="sala-header">🚪 SALA DO INSETO → BRASÃO DO VENTO</p>
+<p>No Quarto das Cabeças de Cervo: Sala do Inseto à esquerda. Pegue o Anzol, Isca de Abelha, Espécime de Abelha — combine e troque nos suportes. Pressione o botão → mate o <span class="inimigo">Espécime de Abelha</span> gigante → pegue o <span class="item">Brasão do Vento</span>.</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Relógio (Chris)</div>
+  <p>Use o Emblema Dourado acima da lareira. No relógio: mova o PONTEIRO DAS HORAS duas vezes até 6:00 → pressione B → <span class="item">Chave do Escudo</span>.</p>
+</div>
+
+<p class="sala-header">🚪 SÓTÃO — BOCEJO (Chris)</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #1 — BOCEJO (Chris) · Dificuldade: FÁCIL</div>
+  <p>Chris não tem Lançador de Granadas — é difícil matar o Bocejo. Simplesmente corra até o canto isolado, pegue a <span class="item">Máscara da Morte III</span> e FUJA da sala o mais rápido possível.</p>
+</div>
+
+<p>Se o Bocejo envenenou Chris e Richard não foi salvo, use o Soro da Caixa de Itens. Volte ao Cemitério. Coloque a Máscara da Morte III na tumba final. Um <span class="inimigo">Super Cabeça Carmesim</span> ataca — decapite com a Escopeta ou atire. Pegue o <span class="item">Objeto de Pedra e Metal</span> do caixão. Siga ao Corredor de Saída e use o Objeto na porta.</p>
+
+<h3 id="chris-casaguarda">B. Área da Casa de Guarda (Chris)</h3>
+
+<p>A rota é semelhante à de Jill. Diferenças notáveis:</p>
+<ul>
+  <li>No Galpão: pegue a <span class="item">Granada Flash</span> e o <span class="item">Spray de Primeiros Socorros</span> (em vez de Bateria e Spray).</li>
+  <li>No Tanque do Tubarão: se <span class="npc">Richard</span> sobreviveu, ele estará aqui. Atire no tubarão com a Pistola de Defesa primeiro, depois resolva o puzzle da Sala de Controle.</li>
+  <li>Na Galeria: <span class="npc">Rebecca</span> precisará resolver a parte das ervas químicas do puzzle (ver abaixo).</li>
+</ul>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ CHEFE #4 — PLANTA 42 (Chris) · Dificuldade: DIFÍCIL</div>
+  <p>Chris será atacado pela planta e você assume controle de <span class="npc">Rebecca Chambers</span>. Com Rebecca:
+  <ol>
+    <li>Acenda as 3 lâmpadas no Salão dos Funcionários. Note as cores e os números das bolas: Vermelho = 3, Laranja = 5, Verde = 6.</li>
+    <li>No teclado da Galeria, insira o código correspondente (normalmente 635, mas pode variar — CVXFREAK também obteve 536 no Hard Mode).</li>
+    <li>Faça o V-Jolt como descrito na estratégia alternativa de Jill. Aplique nas raízes.</li>
+    <li>De volta como Chris: use toda a munição para matar. 10 a 20 Cartuchos de Escopeta.</li>
+  </ol></p>
+</div>
+
+<p>Após a Planta 42: na Galeria, cutscene com Rebecca. Ella ficará na sala do V-Jolt. Se você se ferir, cure-se lá. Se Richard morreu, Rebecca dará o rádio dela. Reorganize o inventário na Sala de Save da Casa de Guarda: Pistola, Carregador, Magnum, Balas de Magnum, Chave do Capacete.</p>
+
+<h3 id="chris-retorno">C. Retorno à Mansão (Chris)</h3>
+
+<p>Rota idêntica à de Jill. Principais diferenças:</p>
+<ul>
+  <li>No buraco abaixo do Corredor das Paredes: encontre uma <span class="item">Granada Flash</span> (em vez de Pacote de Bateria).</li>
+  <li>Na Sala Amarela das Gemas: pegue os <span class="item">Cartuchos de Escopeta</span> na cabeça de cervo (em vez de Granadas).</li>
+  <li><strong>Salvar Rebecca:</strong> Ao entrar no Quarto do Emblema, você ouvirá Rebecca gritar. Corra ao Escritório no Corredor U (andar de cima) e mate o <span class="inimigo">Caçador</span> para salvá-la. Retorne ao Quarto e pegue o Objeto de Metal e a Granada Flash.</li>
+  <li>No Depósito no Túnel: <span class="item">Cartuchos de Escopeta</span>, <span class="item">Balas de Magnum</span> e a <span class="item">Bateria</span>.</li>
+  <li>Na Biblioteca (Bocejo II): use Cartuchos de Escopeta em vez de Granadas.</li>
+</ul>
+
+<h3 id="chris-tuneis">D. Área dos Túneis (Chris)</h3>
+<p>Rota idêntica à de Jill. Diferença principal: Chris encontrará o <span class="item">Lança-Chamas</span> na Sala da Pedra — use-o na Aranha Gigante e na porta coberta de teia do Túnel 3. Para entrar no Túnel 3, coloque o Lança-Chamas no painel à direita da porta. No Altar, a cutscene é com <span class="npc">Wesker</span> em vez de Barry — atire junto com Wesker. Alternativamente, empurre as pedras para derrotar Lisa.</p>
+
+<h3 id="chris-lab">E. Área do Laboratório (Chris)</h3>
+<p>Rota idêntica à de Jill, com estas diferenças:</p>
+<ul>
+  <li>Na Sala do Tirano: acorde <span class="npc">Rebecca</span> (se sobreviveu) e abra a porta na escrivaninha. Se não sobreviveu, pegue a <span class="item">Chave Mestra</span>.</li>
+  <li>Se a autodestruição foi ativada e Rebecca sobreviveu, você pode salvar Jill na Cela.</li>
+  <li>No Telhado (Tirano II): Rebecca estará te ajudando. Quando Brad largar o Lançador, atire um foguete. Se Rebecca for morta pelo Tirano, o jogo termina sem o confronto final.</li>
+</ul>
+<p>🎉 <strong>FIM DO JOGO — CHRIS REDFIELD!</strong></p>
+
+<!-- ===================== MODO INVISIVEL ===================== -->
+<hr>
+<h2 id="invisivel">Walkthrough — Modo Inimigo Invisível</h2>
+<p class="capitulo-intro">Desbloqueado ao completar o Hard Mode. Os inimigos ficam transparentes (tecnicamente, modelos poligonais claros). Não é possível mira automática em inimigos invisíveis.</p>
+
+<h3 id="invis-dicas">Dicas para o Modo Invisível</h3>
+<ul>
+  <li><strong>OBSERVE DE PERTO:</strong> Os zumbis não são totalmente invisíveis — são modelos transparentes. Os "jaggies" (bordas dentadas do polígono) ficam visíveis no ar enquanto se movem.</li>
+  <li><strong>LEMBRE-SE DA POSIÇÃO:</strong> Os inimigos estão nos mesmos lugares do jogo principal. Se você já jogou, já sabe onde estão.</li>
+  <li><strong>PISADAS NÃO AJUDAM:</strong> O som dos passos dos zumbis soa igual independente da posição — não é útil.</li>
+  <li><strong>ESPELHOS:</strong> Os zumbis são invisíveis, mas têm reflexo nos espelhos! Use isso a seu favor.</li>
+  <li><strong>TOME SEU TEMPO:</strong> Não há pressa — estude onde os zumbis podem estar antes de avançar.</li>
+  <li><strong>PEGUE TUDO:</strong> Itens de cura e armas são essenciais. Pegue tudo que encontrar.</li>
+</ul>
+
+<h3 id="invis-jill">A. Modo Invisível — Jill Valentine</h3>
+<p>O walkthrough é idêntico ao walkthrough normal de Jill. Use as dicas acima para lidar com os inimigos invisíveis. O Modo Invisível não altera os puzzles, itens ou estrutura do jogo — apenas os inimigos ficam transparentes. Consulte o walkthrough completo de Jill (seções A–E acima) e aplique as dicas de visão descritas nesta seção.</p>
+
+<h3 id="invis-chris">B. Modo Invisível — Chris Redfield</h3>
+<p>O walkthrough é idêntico ao walkthrough normal de Chris. As mesmas dicas se aplicam. Consulte as seções A–E do walkthrough de Chris acima.</p>
+
+<!-- ===================== RELATORIO DE WESKER ===================== -->
+<hr>
+<h2 id="wesker1">Relatório de Wesker I</h2>
+<p class="capitulo-intro">Disponível se você pré-encomendou a versão americana de Resident Evil CODE: Veronica X, comprou a versão japonesa de PS2/DC do CODE: Veronica Complete, ou o Malão do 5º Aniversário de BioHazard. Cobre os eventos do RE original (versão PlayStation).</p>
+
+<h3 id="wk1-intro">Introdução</h3>
+<p><em>"Meu nome é Albert Wesker. Aspirei a me tornar um pesquisador líder na Umbrella Inc., uma empresa farmacêutica que conduzia secretamente o desenvolvimento de Armas Biológicas Orgânicas, conhecidas como B.O.W. Mas no campo de treinamento de desenvolvimento de líderes situado em Raccoon City, conheci um pesquisador brilhante que decidiu tomar um caminho diferente: William Birkin. Com o tempo, mudei minha posição para os S.T.A.R.S., uma unidade especial do departamento de polícia de Raccoon City. A Umbrella, por razões de gestão de crise de seu desenvolvimento ilegal de B.O.W., tinha muitas de suas pessoas trabalhando na polícia."</em></p>
+
+<h3 id="wk1-24julho">24 de julho de 1998</h3>
+<p>Os assassinatos ocorridos na floresta perto da Mansão iniciaram tudo. A Mansão era o laboratório secreto de B.O.W. da Umbrella, e era claro que o T-Vírus em desenvolvimento era a causa. A Umbrella instruiu Wesker a levar os S.T.A.R.S. à Mansão, eliminá-los e usar o combate com os B.O.W. para análise de dados. Primeiro o Time Bravo foi enviado. Como esperado, a elite dos S.T.A.R.S. forneceu dados valiosos ao morrer. Depois, o Time Alpha foi enviado em "busca e resgate". Cinco dos onze membros dos S.T.A.R.S. sobreviveram: <span class="npc">Chris Redfield</span>, <span class="npc">Jill Valentine</span> e <span class="npc">Barry Burton</span> do Alpha; <span class="npc">Rebecca Chambers</span> e <span class="npc">Enrico Marini</span> do Bravo.</p>
+<p>Wesker planejava pegar o Tirano, a arma definitiva da Umbrella, e se unir a uma corporação rival. Para isso precisava de dados de combate reais. Os S.T.A.R.S. sobreviventes eram a isca perfeita. Wesker escolheu <span class="npc">Barry</span> como o "Judas" — um homem que amava família acima de tudo e, portanto, fácil de manipular. O único erro de cálculo foi o alto potencial de <span class="npc">Chris</span> e <span class="npc">Jill</span>. Wesker eliminou <span class="npc">Enrico</span> (que havia descoberto o traidor) usando Barry. Depois injetou em si mesmo um vírus obtido de Birkin que o colocaria em "morte temporária" e depois o ressuscitaria com poderes sobre-humanos. Soltou o Tirano e foi atacado — sua consciência desapareceu certo de que o plano daria certo. Nunca imaginou que os S.T.A.R.S. venceriam o Tirano.</p>
+
+<h3 id="wk1-setembro">Setembro de 1998</h3>
+<p>Dois meses após o Incidente da Mansão. Wesker une forças com <span class="npc">Ada Wong</span> para espionar a Umbrella. <span class="npc">Birkin</span> é assassinado pela equipe de recuperação da Umbrella liderada por HUNK — mas ele se injeta com o G-Vírus, se transformando em sua própria criação e dizimando a equipe. O T-Vírus espalhado por ratos infecta Raccoon City.</p>
+
+<h3 id="wk1-28set">28 de setembro de 1998</h3>
+<p>A Umbrella Europa aplica um novo B.O.W. chamado Nemesis, para caçar <span class="npc">Jill Valentine</span>. A organização de Wesker também precisa dos dados do Nemesis. <span class="npc">Claire</span> e <span class="npc">Leon</span> chegam a Raccoon City tentando desvendar os segredos da Umbrella. Filha de Birkin, <span class="npc">Sherry</span>, guarda o G-Vírus no pingente — Ada vai atrás dela.</p>
+
+<h3 id="wk1-30set">30 de setembro — 1 de outubro de 1998</h3>
+<p>Birkin é usado para tentar eliminar <span class="npc">Leon</span> e <span class="npc">Claire</span>. Falha. Wesker recupera amostras do G-Vírus do corpo de Birkin morto. Em 1 de outubro, o governo bombardeia Raccoon City para conter o vírus. <span class="npc">Claire</span> vai à Europa procurar Chris. <span class="npc">Leon</span> se une a uma organização anti-Umbrella. <span class="npc">Sherry</span> está com a organização de Wesker. <em>"Não subestimarei Birkin. Há algo nesta garotinha..."</em></p>
+
+<!-- ===================== RELATORIO DE WESKER II ===================== -->
+<hr>
+<h2 id="wesker2">Relatório de Wesker II</h2>
+<p class="capitulo-intro">Disponível no site da Capcom Japão. Tradução cortesia de residentevilfan.com e do usuário Saiki (GameFAQs). Contém SPOILERS. Necessário ter jogado RE2 e CODE: Veronica X para compreender totalmente.</p>
+<p><em>Endereçado a Ada Wong.</em></p>
+
+<h3 id="wk2-1978">31 de julho de 1978</h3>
+<p>Wesker tinha 18 anos quando chegou à Mansão Spencer pela primeira vez, há 20 anos. <span class="npc">William Birkin</span>, 2 anos mais jovem, só tinha olhos para seus arquivos de pesquisa. Spencer usava o Laboratório Arklay para pesquisa do T-Vírus. Ao descerem do helicóptero, o presidente do laboratório estava na frente do elevador — Wesker e Birkin o ignoraram completamente enquanto entravam. Spencer os havia escolhido como pesquisadores-chefe, os "escolhidos".</p>
+<p>Os arquivos de Birkin continham informações sobre o vírus Ebola descoberto 2 anos antes na África. O Ebola mata o hospedeiro em 10 dias, sem cura. Birkin queria combinar Ebola com o T-Vírus para criar um vírus aprimorado. Na primeira visita ao laboratório, encontraram uma mulher numa cama de tubos — ela estava lá desde a criação do laboratório, testada com vírus desde 10 de novembro de 1967. 11 anos de testes. Wesker sussurrou algo ao ver ela. Havia chegado a um ponto sem retorno.</p>
+
+<h3 id="wk2-1981">27 de julho de 1981</h3>
+<p>A Umbrella designa uma garota de 10 anos como pesquisadora-chefe da instalação da Antártida: <span class="npc">Alexia Ashford</span>. Wesker tem 21 anos, Birkin 19. Todos os pesquisadores veteranos ficam extasiados com a família Ashford, ignorando os trabalhos de Wesker e Birkin. Birkin, que havia levado orgulho por ter sido designado ao laboratório aos 16 anos, se vê superado por 6 anos pela menina gênio. Wesker decide usar os pesquisadores velhos como cobaias e manter Birkin sob controle. O T-Vírus pode criar zumbis com 90% de eficiência, mas Spencer quer 100% — uma arma perfeitamente controlada. Birkin pesquisa bio-armas de combate — os "Caçadores" (Hunters), usando outras amostras de DNA.</p>
+
+<h3 id="wk2-1983">31 de dezembro de 1983</h3>
+<p><span class="npc">Alexia</span> morre subitamente — aparentemente injetou o T-Vírus Veronica em si mesma. Com a morte de Alexia, Birkin volta ao normal. A família Ashford entra em colapso. Mas Wesker percebe seus limites como pesquisador simples e começa a planejar sua mudança para o serviço de inteligência da Umbrella. Enquanto isso, a mulher teste (que ainda vivia!) permanece esquecida. O projeto "Tyrant" enfrenta um problema: apenas 1 em cada 100 milhões é compatível para se tornar um Tirano — os demais viram zumbis. A Europa envia o "Projeto Nemesis" — um parasita que, ao encontrar um hospedeiro, aumenta suas habilidades de combate. Wesker usa a mulher teste como hospedeira. O parasita desaparece dentro dela — ela o consumiu! Era o começo do projeto G-Vírus.</p>
+
+<h3 id="wk2-1995">31 de julho de 1995</h3>
+<p>4 anos após transferir-se para o serviço secreto, Wesker retorna ao laboratório. Birkin está em Raccoon City com seu laboratório subterrâneo para o Projeto G. Spencer autorizou o G-Vírus apesar de suas mutações imprevisíveis — continua evoluindo o hospedeiro até a morte. A mulher teste, após 21 anos de mutações, havia evoluído tanto que chegou a absorver o parasita Nemesis. Isso deu origem ao projeto G. Wesker encontra o novo pesquisador-chefe <span class="npc">John</span> — um homem normal demais para aquele lugar, que questionava os motivos das pesquisas. O corpo da mulher teste é finalmente descartado após a confirmação de sua "morte". Com o G-Vírus em andamento, o incidente da Mansão Spencer aconteceria 3 anos depois.</p>
+
+<!-- ===================== SINOPSE DA HISTORIA ===================== -->
+<hr>
+<h2 id="sinopse">Sinopse da História de Resident Evil</h2>
+
+<h3 id="sin-re0">Resident Evil Zero</h3>
+<p><strong>23 de julho de 1998.</strong> Um trem na Floresta de Raccoon é atacado por sanguessugas controladas por um homem de robe. O Time Bravo é enviado à floresta. <span class="npc">Rebecca Chambers</span> encontra o trem com zumbis. <span class="npc">Billy Coen</span>, um condenado fugitivo, está a bordo. Juntos eles sobrevivem ao trem e exploram a Mansão Marcus. Descobrem que o misterioso homem de robe é o próprio <span class="npc">Dr. James Marcus</span>, ressuscitado pelas sanguessugas. <span class="npc">Birkin</span> ativa a autodestruição enquanto <span class="npc">Wesker</span> lidera o Time Alpha para a Mansão Spencer. Na manhã do dia 24, Rebecca usa luz solar para matar Marcus. Rebecca "mata" oficialmente Billy e corre à Mansão Spencer.</p>
+
+<h3 id="sin-re1">Resident Evil 1 (Rebirth — GameCube)</h3>
+<p><strong>24 de julho de 1998.</strong> Raccoon City sofre ataques de canibalismo. Os S.T.A.R.S. são enviados. O Time Alpha perde contato com o Bravo e é enviado para buscá-los. Cães zumbis atacam — o piloto <span class="npc">Brad</span> foge. Os sobreviventes entram na Mansão Spencer da Umbrella. <span class="npc">Jill</span> e <span class="npc">Barry</span> exploram separadamente. <span class="npc">Wesker</span> desaparece. <span class="npc">Lisa Trevor</span>, uma monstruosidade imortal, quase mata os heróis. Descobrem um laboratório e que <span class="npc">Wesker</span> era o traidor. Wesker ativa uma autodestruição e no telhado os heróis eliminam o Tirano pela última vez antes de escapar. A Mansão explode.</p>
+
+<h3 id="sin-re3a">Resident Evil 3: Nemesis — Parte 1</h3>
+<p><strong>28 de setembro de 1998.</strong> O T-Vírus vaza em Raccoon City. <span class="npc">Jill</span> foge. Encontra <span class="npc">Brad Vickers</span> — o Nemesis o infecta. <span class="npc">Carlos Oliveira</span> e <span class="npc">Nicholai</span> tentam ajudar. Uma bonde é ativada, mas Nemesis destruiu o helicóptero de resgate. O Nemesis infecta Jill com T-Vírus — <span class="npc">Carlos</span> a toma para a Torre do Relógio, mas ela desmaia.</p>
+
+<h3 id="sin-re2">Resident Evil 2</h3>
+<p><strong>29 de setembro de 1998.</strong> <span class="npc">Claire Redfield</span> e <span class="npc">Leon Kennedy</span> chegam a Raccoon City. Separados. Leon conhece <span class="npc">Ada Wong</span>; Claire encontra <span class="npc">Sherry Birkin</span>. O mutante <span class="npc">Birkin</span> e o Tirano Mr. X perseguem os heróis no RPD e nos esgotos. <span class="npc">Annette Birkin</span> tenta impedi-los. <span class="npc">Hunk</span> recupera o G-Vírus. Leon e Claire chegam ao laboratório da Umbrella, onde Birkin é derrotado num trem em fuga. Todos escapam antes da explosão do laboratório.</p>
+
+<h3 id="sin-re3b">Resident Evil 3: Nemesis — Parte 2</h3>
+<p><strong>1 de outubro de 1998.</strong> Jill acorda. Carlos encontra a cura no hospital. Nicholai é o inimigo. Jill vai à fábrica — lança o Nemesis num banho ácido. Com um canhão laser, Jill finalmente mata o Nemesis. <span class="npc">Barry Burton</span> é o piloto do helicóptero de resgate. Raccoon City é bombardeada pelo governo. Jill jura destruir a Umbrella.</p>
+
+<h3 id="sin-cvx">Resident Evil CODE: Veronica X (resumo)</h3>
+<p><strong>27 de dezembro de 1998.</strong> Claire é capturada infiltrando o laboratório de Paris. Na ilha Rockfort: <span class="npc">Alfred Ashford</span> libera monstros. <span class="npc">Steve Burnside</span> ajuda Claire. Eles fogem à Antártida. <span class="npc">Alexia</span> ressurge (estava em coma criogênico). Chris vai à ilha salvar Claire. Steve é infectado pelo T-Vírus Veronica e morre confessando amor por Claire. Chris destrói a instalação e usa o Linear Launcher para matar Alexia. <span class="npc">Wesker</span> rouba o corpo de Steve. Chris e Claire escapam.</p>
+
+<!-- ===================== PUZZLES ===================== -->
+<hr>
+<h2 id="puzzles">Puzzles</h2>
+<p class="capitulo-intro">Resumo de todos os puzzles do jogo, separados por personagem.</p>
+
+<h3 id="puzz-jill">Jill Valentine</h3>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Lâmina Giratória (Jill)</div>
+  <p>Use a <span class="item">Chave Falsa</span> no encaixe de onde veio a <span class="item">Chave da Armadura</span>. A lâmina para.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Cavaleiros (Jill)</div>
+  <p>Empurre na ordem: ESQUERDA DISTANTE → DIREITA PRÓXIMA → DIREITA DISTANTE → ESQUERDA DISTANTE → ESQUERDA PRÓXIMA → DIREITA DISTANTE → DIREITA PRÓXIMA → ESQUERDA PRÓXIMA → DIREITA PRÓXIMA. Examine o pedestal central e pressione o botão. Resultado: <span class="item">Caixa de Joias</span>.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Quadros (Corredor dos Corvos)</div>
+  <p>Quadro com espada: laranja/vermelho em AMBOS os lados. Quadro do meio: roxo. Último quadro: verde. Ajuste pelos dois lados e pressione o quadro da mulher.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Relógio</div>
+  <p>Mova o PONTEIRO DAS HORAS duas vezes → relógio marca 6:00 → pressione B → <span class="item">Chave do Escudo</span>.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixa de Joias 1</div>
+  <p>Pressione os dois botões em forma de meio coração. Dentro: <span class="item">Máscara da Morte III</span>.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Sala de Controle (Tubarão)</div>
+  <p>1) Desça a escada. 2) Anote o número no quadro branco (1, 2 ou 3). 3) Na janela gigante: switch do computador. 4) Diagonal \ para o segundo switch. 5) Esquerda até a alavanca → ative. 6) Corredor adjacente → à esquerda → tanque com luzes → pressione o número do quadro. 7) Volte ao segundo switch → pressione. 8) Ative a alavanca novamente. 9) Switch da janela → Tanque do Tubarão esvaziado.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Livro Vermelho</div>
+  <p>Alinhe os livros para formar a silhueta de uma mulher deitada. Selecione um livro e troque com outro.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Corredor das Paredes</div>
+  <p>Empurre a estátua até o fundo da sala principal. Vá atrás da parede direita → ative o interruptor. Volte e empurre a estátua para a esquerda antes das paredes te esmagar. Passagem secreta abre.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Gemas Coloridas</div>
+  <p>Empurre gavetas para as cabeças de cervo. Desligue as luzes. Tente a Pedra Amarela (não consegue). CORRA para a Pedra Vermelha. CORRA de volta para a Pedra Amarela. Resultado: ambas as gemas obtidas.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixa de Joias 2</div>
+  <p>Combine a <span class="item">Pedra Vermelha</span> com a Caixa de Joias 2. Resultado: <span class="item">Broche</span> → <span class="item">Chave do Emblema</span>. Para a solução visual, consulte o FAQ de Caixa de Joias de Daniel Engel.</p>
+</div>
+
+<h3 id="puzz-chris">Chris Redfield / Rebecca Chambers</h3>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Lâmina Giratória (Chris)</div>
+  <p>Use a <span class="item">Chave de Imitação</span> no encaixe de onde veio a <span class="item">Chave da Armadura</span>. A lâmina para.</p>
+</div>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Caixa de Joias (Chris)</div>
+  <p>Pressione os botões em meio coração. Dentro: <span class="item">Máscara Sem Tudo</span>.</p>
+</div>
+
+<p>Os puzzles dos Cavaleiros, Quadros, Relógio, Sala de Controle, Livro Vermelho, Corredor das Paredes, Gemas e Caixa de Joias 2 são <strong>idênticos</strong> para Chris. Consulte as soluções na seção de Jill acima.</p>
+
+<!-- ===================== CODIGOS ===================== -->
+<hr>
+<h2 id="codigos">Códigos e Segredos</h2>
+
+<h3 id="cod-munilimitada">Munição Infinita no Lançador</h3>
+<p><em>Funciona principalmente na versão japonesa (BioHazard). Exclusivo de Jill.</em></p>
+<ol>
+  <li>Certifique-se que o Lançador está no inventário.</li>
+  <li>Equipe o Lançador.</li>
+  <li>Abra a Caixa de Itens.</li>
+  <li>Destaque as Granadas.</li>
+  <li>Pressione A, depois A novamente.</li>
+  <li>Destaque as Granadas dentro da Caixa → A → A.</li>
+  <li>Você agora tem muito mais munição do que entrou.</li>
+</ol>
+
+<h3 id="cod-bonus">Bônus por Tempo</h3>
+<p>Complete o jogo como Chris ou Jill em menos de 5 horas no Normal/Difícil → <span class="item">Sabre Samurai Edge</span> (pistola melhorada, tiro rápido, carregador maior).</p>
+<p>Complete o Modo Invisível em 5:00:00 → Mensagem do Diretor + Slideshow de Figurinos Não Utilizados.</p>
+
+<h3 id="cod-modes">Modos Extras</h3>
+<p>Complete o jogo uma vez em qualquer dificuldade com qualquer personagem → Nova tela de título com modos de dificuldade modificados.<br>
+Complete o Hard Mode com qualquer personagem → <strong>Modo Inimigo Invisível</strong> desbloqueado.</p>
+
+<h3 id="cod-chave-armario">Chave do Armário</h3>
+<p>A <span class="item">Chave do Armário</span> é obtida como bônus de tempo. O armário fica na sala da Estátua, no fundo atrás do grande quadro. Para Jill: traje militar e o uniforme do RE3. Para Chris: trajes alternativos.</p>
+
+<!-- ===================== MONSTROS E CHEFES ===================== -->
+<hr>
+<h2 id="monstros">Monstros e Chefes</h2>
+
+<h3 id="mon-comuns">Inimigos Comuns</h3>
+<table>
+  <tr><th>Inimigo</th><th>Estratégia</th></tr>
+  <tr><td><span class="inimigo">Zumbi</span></td><td>Use a Pistola sempre. Desviar é eficiente. Sensíveis a Adagas e Pacotes de Bateria. Queime para evitar que ressuscitem como Cabeças Carmesim.</td></tr>
+  <tr><td><span class="inimigo">Cabeça Carmesim</span></td><td>Zumbi ressuscitado — rápido como um Caçador e com garras. Use a Escopeta. A Pistola pouco efeito. De longe: 3 tiros de pistola, depois Escopeta.</td></tr>
+  <tr><td><span class="inimigo">Vespa</span></td><td>Atirem — causam pouco dano. Em apenas 3 áreas do jogo. Veneno pode eliminá-las.</td></tr>
+  <tr><td><span class="inimigo">Corvo</span></td><td>Perigosos em grupos por ataques de bicada. Elimine rápido. Pistola é boa; Escopeta mata grupos.</td></tr>
+  <tr><td><span class="inimigo">Cão Zumbi</span></td><td>Rápidos. Pistola ou Escopeta preferencial. Geralmente em grupos. Bicadas prolongadas consomem muita saúde — aperte botões rapidamente.</td></tr>
+  <tr><td><span class="inimigo">Aranha</span></td><td>Qualquer Grenade elimina facilmente. Cospem veneno — mantenha distância. Ervas Azuis são limitadas na Mansão.</td></tr>
+  <tr><td><span class="inimigo">Caçador</span></td><td>Podem decapitar. Use Granadas Ácidas. Difícil desviar. Aparecem por janelas/portas — esteja preparado.</td></tr>
+  <tr><td><span class="inimigo">Varredor</span></td><td>Caçadores vermelhos com veneno. Mesma estratégia: Granadas Ácidas.</td></tr>
+  <tr><td><span class="inimigo">Quimera</span></td><td>Garras afiadas. Use o Magnum. Muito perigosas perto. Abundantes nas Salas de Energia do Laboratório.</td></tr>
+  <tr><td><span class="inimigo">Cobra</span></td><td>Ignore e fuja. Podem tirar um nível inteiro de saúde e envenenar. Infinitas no Pátio e Túneis.</td></tr>
+</table>
+
+<h3 id="mon-jill">Chefes — Jill Valentine</h3>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #1 — Bocejo (Yawn) · Dificuldade: DIFÍCIL</div>
+  <p>Use as Granadas Ácidas de Barry. Richard interfere no meio da batalha. Quando ficar sem munição, pegue a Escopeta no chão. Bocejo eventually foge. Se mordido: envenenado. <strong>Alternativa:</strong> Corra até a Máscara da Morte II no fundo e fuja.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #2 — Lisa Trevor · Dificuldade: IMPOSSÍVEL</div>
+  <p>FUJA. 3 golpes = morte. Não atire.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #3 — Netuno (Tubarão) · Dificuldade: FÁCIL</div>
+  <p>Atire até morrer. Alternativa: empurre a caixa verde + lave a alavanca = eletrocutado.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #4 — Planta 42 · Dificuldade: FÁCIL</div>
+  <p>Granadas Incendiárias nas flores abertas. 10–12 granadas. Pode envenenar. Alternativa: use V-Jolt nas raízes e Barry termina a planta.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #5 — Bocejo II · Dificuldade: MÉDIA</div>
+  <p>Granadas Comuns. Sem Richard desta vez. 1 golpe = CUIDADO. Finalmente morre.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #6 — Viúva Negra (Aranha Gigante) · Dificuldade: FÁCIL</div>
+  <p>5–6 Granadas de Fogo. Filhotes também. Pode envenenar.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #7 — Lisa Trevor II · Dificuldade: IMPOSSÍVEL</div>
+  <p>FUGA NOVAMENTE. Mesmas regras.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #8 — Lisa Trevor III · Dificuldade: DIFÍCIL</div>
+  <p>Tem o olho de G-Birkin + salto do Nemesis = extremamente perigosa. Devolva a arma de Barry e atire com tudo. Alternativa: empurre todas as pedras para o abismo.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #9 — Tirano I · Dificuldade: DIFÍCIL</div>
+  <p>Magnum ou Granadas Ácidas. 1 golpe = CUIDADO. 9–10 tiros para derrubar. Continue se movendo.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #10 — Tirano II · Dificuldade: DIFÍCIL</div>
+  <p>Magnum ou Granadas Ácidas. Barry ajuda. Quando Brad largar o Lançador de Foguetes e o Tirano agarrar Barry: atire um foguete. Alternativa: deixe o Tirano matar Barry para um final diferente.</p>
+</div>
+
+<h3 id="mon-chris">Chefes — Chris Redfield</h3>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #1 — Bocejo (Chris) · Dificuldade: FÁCIL</div>
+  <p>Sem Lançador. Corra até a Máscara da Morte III e fuja. Mais simples que a batalha de Jill.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #4 — Planta 42 (Chris) · Dificuldade: DIFÍCIL</div>
+  <p>Rebecca faz o V-Jolt. De volta como Chris: 10–20 Cartuchos de Escopeta.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #5 — Bocejo II (Chris) · Dificuldade: MÉDIA</div>
+  <p>Cartuchos de Escopeta. Pistola quando acabar. 1 golpe = CUIDADO.</p>
+</div>
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe #10 — Tirano II (Chris) · Dificuldade: DIFÍCIL</div>
+  <p>Rebecca ajuda. Pistola se pouca Escopeta. Foguete quando Brad largar. O Tirano pode redirecionar o foguete — atire outro. Alternativa: deixe o Tirano matar Rebecca para final diferente.</p>
+</div>
+
+<!-- ===================== ARQUIVOS ===================== -->
+<hr>
+<h2 id="arquivos">Arquivos do Jogo</h2>
+<p class="capitulo-intro">Transcrição de todos os arquivos encontrados em Resident Evil — Rebirth. Agradecimentos a Nathan Norris (Minesweeper) pelas transcrições. Alguns arquivos variam conforme o personagem escolhido.</p>
+
+<h3 id="arq-mansao1">Mansão — Parte 1</h3>
+
+<h3 id="arq-manual">Manual dos S.T.A.R.S.</h3>
+<p>Explica todos os controles básicos: como acessar a Tela de Status, ler o Mapa, empurrar objetos, escalar, equipar armas, posição de ataque, atacar, virada de 180°, examinar itens e usar Itens de Defesa (como Adagas). Os Itens de Defesa ocupam um menu separado e permitem escapar quando agarrado por um inimigo de frente.</p>
+
+<h3 id="arq-kenneth">Fita de Kenneth</h3>
+<p><em>Não há descrição. Para ver o conteúdo, vá ao laboratório e assista a fita.</em></p>
+
+<h3 id="arq-trevor">Diário de Trevor</h3>
+<p><strong>24 de novembro de 1967</strong> — O arquiteto <span class="npc">George Trevor</span> percebe que foi preso na Mansão que ele mesmo projetou, sabendo que Spencer quer ser o único a conhecer os segredos do lugar. Preocupado com a esposa Jessica e a filha Lisa.</p>
+<p><strong>26 de novembro</strong> — Perdeu o isqueiro favorito que Jessica lhe deu.</p>
+<p><strong>27 de novembro</strong> — Conseguiu sair do quarto mas a Mansão está repleta de armadilhas. Tenta lembrar: Tiger Eyes, Gold Emblem...</p>
+<p><strong>29 de novembro</strong> — Não consegue escapar. Encontrou um sapato de salto alto no corredor — de Jessica? Teme que ela tenha o mesmo destino.</p>
+<p><strong>30 de novembro</strong> — Sem comida nem água. Sentindo enlouquecer.</p>
+<p><strong>31 de novembro</strong> — Em um túnel escuro, encontrou uma pedra gravada com seu próprio nome: "George Trevor." Percebe que Spencer planejou sua morte desde o início. Suas últimas palavras: "Jessica... Lisa... Perdoem-me."</p>
+<p><em>Há também uma nota sem data sobre uma passagem secreta atrás de um quadro na sala de arte.</em></p>
+
+<h3 id="arq-memo">Memorando Amassado</h3>
+<p>O remetente pede ao destinatário que esconda algo valioso protegido por um cão feroz que vive na varanda ocidental do segundo andar. O item está dentro de uma coleira. O cão responde ao som de um apito.</p>
+
+<h3 id="arq-mansao2">Mansão — Parte 2</h3>
+
+<h3 id="arq-botanica">Livro de Botânica</h3>
+<p>Sobre as ervas medicinais das Montanhas Arklay: a Erva Verde recupera a força física; a Erva Azul neutraliza toxinas naturais; a Erva Vermelha não tem efeito sozinha mas intensifica o efeito da Verde quando combinada.</p>
+
+<h3 id="arq-corpos">Descarte de Corpos</h3>
+<p>Instrução especial: os "seres" podem parecer mortos mas voltam à vida. Dois métodos conhecidos impedem a ressurreição: 1) Incineração; 2) Destruição da cabeça. Óleo foi colocado no primeiro andar da Mansão — use à vontade. Você precisará de algo para acendê-lo por conta própria.</p>
+
+<h3 id="arq-diario-guarda">Diário do Guarda</h3>
+<p><em>Uma sequência tragicamente cômica de anotações de 9 a 21 de maio de 1998:</em></p>
+<p>9 de maio: partida de pôquer com os colegas. 10 de maio: nova criatura — "gorila esfolado" que brinca cruelmente com presas. 11 de maio: acidente no laboratório — todos de traje espacial. 12 de maio: coceira em todo o corpo — os cães olham estranho. 13 de maio: na enfermaria — grande bolha nas costas. 14 de maio: cães fugiram. 16 de maio: rumores de que um pesquisador foi baleado tentando fugir. Carne podrecendo. 19 de maio: febre passou; fome; come comida de cachorro. 21 de maio: "Scott chegou com rosto feio então matei. Gostoso." Última entrada: "Coceira. Gostoso."</p>
+
+<h3 id="arq-testamento">Testamento do Pesquisador</h3>
+<p>Uma carta ao amor "Alma": o pesquisador Martin descreve o acidente no laboratório com o vírus, como os colegas estão mortos ou perdendo a sanidade, e como o vírus "rouba a humanidade" de suas vítimas. Ele declara amor eterno antes de decidir acabar com sua vida enquanto ainda é humano, para não se tornar um deles.</p>
+
+<h3 id="arq-mail-seguranca">E-mail do Chefe de Segurança</h3>
+<p>Confidencial. Data: 22 de julho de 1998. O "Dia X" se aproxima. Instruções: (1) Atrair os S.T.A.R.S. para obter dados de combate dos B.O.W.; (2) Coletar 2 embriões de cada espécimen mutante (exceto o Tirano — destruí-lo); (3) Garantir eliminação completa do Laboratório Arklay e disfarçar mortes como acidente. Assinado: Umbrella Inc.</p>
+
+<h3 id="arq-patio">Pátio e Residência</h3>
+
+<h3 id="arq-suicidio">Nota de Suicídio</h3>
+<p>22 de junho de 1998. O sobrevivente Robert apresentou sintomas de infecção — o autor teve que encerrá-lo. Incapaz de escapar, decide tirar a própria vida antes de "virar um deles". "Ao menos que eu termine minha vida como pessoa."</p>
+
+<h3 id="arq-planta42">Relatório da Planta 42</h3>
+<p>Quatro dias após o acidente, a planta no Ponto 42 cresce em ritmo espantoso. O T-Vírus alterou drasticamente sua anatomia. A planta tem duas fontes de nutrição: raízes no porão (conectadas a reservatórios de água química) e tentáculos/vinhas que pendem do teto do primeiro andar. Quando sente presa, as vinhas a capturam e sugam o sangue. A planta tem certa inteligência — quando os pétalas abrem revelando o interior vital, torna-se mais agressiva, como se tentasse se proteger.</p>
+
+<h3 id="arq-quimica">Relatório do Laboratório de Química Orgânica — V-Jolt</h3>
+<p>A substância V-JOLT (UMB nº 20) é tóxica às células da Planta infectada pelo T-Vírus. Aplicada diretamente na raiz, a planta morre em 5 segundos. Pode ser feita misturando químicos VP e UMB em proporção específica. Cuidado: gases tóxicos se mal manuseados. Características de cada químico: UMB nº 3 = vermelho; Yellow-6 = amarelo; UMB nº 7 = verde; UMB nº 10 = laranja; VP-017 = azul; V-JOLT = marrom escuro.</p>
+
+<h3 id="arq-foto-barry">Foto de Barry / Notas de Lisa</h3>
+<p>Na <strong>Foto de Família e Notas</strong>: verso da foto mostra que em 10 de novembro de 1967 foram administrados os testes — Jessica foi descartada (fusão negativa), Lisa sobreviveu (fusão positiva, em observação), e George foi terminado. O diário de Lisa revela o horror de sua infância: injetada com vírus, separada da mãe, coletando "rostos" de outras mulheres para "devolver" à mãe. Uma carta de Jessica para Lisa a conclama a escapar juntas da próxima vez que forem ao laboratório. A <strong>Foto de Barry</strong> tem no verso: "Nós te amamos, papai. Das suas filhas, Moira e Polly."</p>
+
+<h3 id="arq-lab">Laboratório</h3>
+
+<h3 id="arq-carta-john">Carta do Pesquisador (John)</h3>
+<p>"Minha querida Ada": 8 de junho de 1998. O pesquisador John confirma que foi infectado. Pede a Ada que, se ela for a última sobrevivente, pegue o material da Sala de Dados Visuais, ative a Autodestruição na Sala de Energia e escape — tornando o acidente público. Senha de login: nome JOHN, senha ADA. A senha do andar B2 está codificada em uma radiografia. Último pedido: se encontrar John em sua forma monstruosa, por favor o elimine.</p>
+
+<h3 id="arq-vact">V-ACT</h3>
+<p>Nota de pesquisador: quando o hospedeiro perde a consciência, o vírus fica ativo e transforma rapidamente a composição do corpo — o hospedeiro ressurge como criatura humanoide, denominada "V-ACT" (conhecida como "Cabeça Carmesim"). Um espécime protótipo está congelado no porão do cemitério dos fundos.</p>
+
+<h3 id="arq-fax">Fax</h3>
+<p>Confidencial, do Comitê de Contingência de Raccoon City para o Gerente de Saneamento. O surto do T-Vírus é mais grave que o estimado. Preocupações: (1) Mais da metade dos pesquisadores mortos; (2) Equipe de segurança dizimada — pesquisa secreta em risco de exposição; (3) Alta probabilidade de espécimes soltos. A primeira intervenção virá da Polícia Estadual e dos S.T.A.R.S. — recomenda-se agir contra eles primeiro.</p>
+
+<h3 id="arq-seguranca">Protocolos de Segurança</h3>
+<p>Restrições de acesso: Heliporto (executivos), B1 (pesquisadores chefes), B2 (Divisão de Pesquisa Especial / Sala de Dados Visuais), B3 (Divisão de Saneamento controla a Prisão; a Sala de Energia usa nitro como combustível; Terminais de Código de Acesso são exclusivos de pesquisadores sênior). Na B4: dados sobre o "Tirano" após administração do T-Vírus (ilegível).</p>
+
+<h3 id="arq-observacao">Nota de Observação (William Birkin)</h3>
+<p>A descoberta do G-Vírus veio 21 anos após a administração do vírus primogênito. O parasita Nemesis, introduzido no espécime teste, desapareceu dentro dela — ela o absorveu. Após 21 anos de mutações contínuas, o espécime havia evoluído o suficiente para consumir até um Nemesis. Isso deu a Birkin a base para criar o G-Vírus, superando as limitações do T-Vírus. "Mal posso esperar para ver a cara irritante de Alexia quando anunciar minha pesquisa."</p>
+
+<!-- ===================== CAMINHOS ===================== -->
+<hr>
+<h2 id="caminhos">Caminhos ao Longo do Jogo</h2>
+<p class="capitulo-intro">Existem vários caminhos e opções que afetam os finais. Foram descobertos 8 finais no total (4 para Jill, 4 para Chris). <span class="alerta">Esta seção contém SPOILERS.</span></p>
+
+<h3 id="cam-jill">Jill Valentine</h3>
+
+<h3 id="cam-primeiro-zumbi">Primeiro Encontro com Zumbi</h3>
+<ul>
+  <li><strong>Barry encontra junto com você:</strong> Saia da Sala do Jantar quando Jill primeiro entra. Tente sair novamente — Barry faz um comentário. Converse com ele. Tente sair uma terceira vez para ver a cutscene.</li>
+  <li><strong>Você encontra sozinha:</strong> Entre no Corredor de Kenneth diretamente — encontro normal.</li>
+</ul>
+
+<h3 id="cam-barry">Matando Barry Burton</h3>
+<ul>
+  <li><strong>Lisa Trevor — Batalha 3:</strong> Quando perguntado "Devolver a arma de Barry?", selecione NÃO. Barry cai no poço e morre. Recompensas: Magnum .44 de Barry + Foto de Barry.</li>
+  <li><strong>Tirano — Batalha 2:</strong> Deixe o Tirano agarrar Barry. Aguarde sem atirar — Barry será empalado. Sem itens extras nesta versão.</li>
+</ul>
+
+<h3 id="cam-planta42">Matando a Planta 42</h3>
+<ul>
+  <li><strong>Estratégia V-Jolt:</strong> Faça o V-Jolt e aplique nas raízes. Barry aparece com Lança-Chamas e queima a planta.</li>
+  <li><strong>Estratégia de Ataque:</strong> Atire na Planta 42 com Granadas Incendiárias.</li>
+</ul>
+
+<h3 id="cam-escopeta">Pegando a Escopeta</h3>
+<ul>
+  <li><strong>Barry te salva:</strong> Pegue a Escopeta diretamente (sem a Quebrada). Barry salva Jill — mas não estará no corpo de Forest depois.</li>
+  <li><strong>Use a Escopeta Quebrada:</strong> Barry estará no corpo de Forest e dará o Lançador de Granadas.</li>
+</ul>
+
+<h3 id="cam-chris">Chris Redfield</h3>
+
+<h3 id="cam-rebecca">Matando Rebecca Chambers</h3>
+<ul>
+  <li><strong>Encontro com o Caçador:</strong> Ignore os gritos de Rebecca na Missão 3. Ela morre — a Mansão não explode e não há combate com o Tirano II.</li>
+  <li><strong>Tirano — Batalha 2:</strong> Deixe o Tirano agarrar Rebecca e aguarde — ela é empalada. A Mansão ainda explode.</li>
+</ul>
+
+<!-- ===================== CRITERIOS PARA FINAIS ===================== -->
+<hr>
+<h2 id="finais">Critérios para os Finais</h2>
+
+<h3 id="fin-jill">Finais — Jill Valentine</h3>
+<table>
+  <tr><th>Final</th><th>Barry</th><th>Chris</th><th>Mansão Explode?</th></tr>
+  <tr><td><strong>🏆 Melhor</strong></td><td>Sobrevive</td><td>Sobrevive</td><td>Sim</td></tr>
+  <tr><td><strong>👍 Muito Bom</strong></td><td>Sobrevive</td><td>Morre</td><td>Sim</td></tr>
+  <tr><td><strong>😊 Bom</strong></td><td>Morre</td><td>Sobrevive</td><td>Sim</td></tr>
+  <tr><td><strong>😐 OK</strong></td><td>Morre</td><td>Sobrevive</td><td>Não</td></tr>
+  <tr><td><strong>😟 Ruim</strong></td><td>Morre</td><td>Morre</td><td>Sim</td></tr>
+  <tr><td><strong>💀 Muito Ruim</strong></td><td>Morre</td><td>Morre</td><td>Não</td></tr>
+</table>
+
+<h3 id="fin-chris">Finais — Chris Redfield</h3>
+<table>
+  <tr><th>Final</th><th>Rebecca</th><th>Jill</th><th>Mansão Explode?</th></tr>
+  <tr><td><strong>🏆 Melhor</strong></td><td>Sobrevive</td><td>Sobrevive</td><td>Sim</td></tr>
+  <tr><td><strong>👍 Muito Bom</strong></td><td>Sobrevive</td><td>Morre</td><td>Sim</td></tr>
+  <tr><td><strong>😊 Bom</strong></td><td>Morre</td><td>Sobrevive</td><td>Sim</td></tr>
+  <tr><td><strong>😐 OK</strong></td><td>Morre</td><td>Sobrevive</td><td>Não</td></tr>
+  <tr><td><strong>😟 Ruim</strong></td><td>Morre</td><td>Morre</td><td>Sim</td></tr>
+  <tr><td><strong>💀 Muito Ruim</strong></td><td>Morre</td><td>Morre</td><td>Não</td></tr>
+</table>
+
+<h3 id="fin-como">Como Obter Cada Final</h3>
+<p><strong>Jill — Final Melhor:</strong> Barry sobrevive em ambas as batalhas com Lisa e com o Tirano. Complete a missão do Disco MO para salvar Chris.</p>
+<p><strong>Jill — Muito Bom:</strong> Barry sobrevive. Não complete a missão do MO.</p>
+<p><strong>Jill — Bom:</strong> Deixe o Tirano matar Barry. Salve Chris.</p>
+<p><strong>Jill — OK:</strong> Barry morre com Lisa (não devolva a arma). Salve Chris.</p>
+<p><strong>Jill — Ruim:</strong> Deixe o Tirano matar Barry. Não salve Chris.</p>
+<p><strong>Jill — Muito Ruim:</strong> Barry morre com Lisa. Não salve Chris.</p>
+<hr style="margin:12px 0;border-color:transparent;">
+<p><strong>Chris — Final Melhor:</strong> Rebecca sobrevive ao Caçador e ao Tirano. Complete a missão do MO para salvar Jill.</p>
+<p><strong>Chris — Muito Bom:</strong> Rebecca sobrevive. Não salve Jill.</p>
+<p><strong>Chris — Bom:</strong> Deixe o Tirano matar Rebecca. Salve Jill.</p>
+<p><strong>Chris — OK:</strong> Rebecca morre com o Caçador. Salve Jill.</p>
+<p><strong>Chris — Ruim:</strong> Deixe o Tirano matar Rebecca. Não salve Jill.</p>
+<p><strong>Chris — Muito Ruim:</strong> Rebecca morre com o Caçador. Não salve Jill.</p>
+<div class="dica">💡 Para múltiplos finais: faça vários saves antes da 3ª batalha com Lisa (Jill) ou antes de retornar da Casa de Guarda (Chris). Isso permite tentar diferentes resultados sem recomeçar.</div>
+
+<!-- ===================== JOGOS DE RE ===================== -->
+<hr>
+<h2 id="jogos">Jogos de Resident Evil / BioHazard</h2>
+<h3 id="jogos-lista">Lista Completa (até 2003)</h3>
+<table>
+  <tr><th>Jogo</th><th>Plataforma(s)</th><th>Ano</th></tr>
+  <tr><td>Resident Evil / BioHazard</td><td>PlayStation, PC, Saturn</td><td>1996–97</td></tr>
+  <tr><td>Resident Evil: Director's Cut [Dual Shock]</td><td>PlayStation</td><td>1997</td></tr>
+  <tr><td>Resident Evil: Rebirth (BioHazard: Rebirth)</td><td><strong>GameCube</strong></td><td>2002</td></tr>
+  <tr><td>Resident Evil 2 / BioHazard 2</td><td>PlayStation, N64, Dreamcast, GameCube</td><td>1998–2002</td></tr>
+  <tr><td>Resident Evil 3: Nemesis / BioHazard 3: Last Escape</td><td>PlayStation, Dreamcast, GameCube</td><td>1999–2002</td></tr>
+  <tr><td>Resident Evil Survivor / BioHazard Gun Survivor</td><td>PlayStation</td><td>2000</td></tr>
+  <tr><td>Resident Evil CODE: Veronica X</td><td>PlayStation 2, GameCube</td><td>2001–2002</td></tr>
+  <tr><td>Resident Evil Survivor 2 CODE: Veronica</td><td>PlayStation 2 (PAL)</td><td>2002</td></tr>
+  <tr><td>Resident Evil Zero / BioHazard Zero</td><td>GameCube</td><td>2002–2003</td></tr>
+  <tr><td>Resident Evil 4 / BioHazard 4</td><td>GameCube (exclusivo)</td><td>2003 (previsto)</td></tr>
+  <tr><td>Resident Evil: Dead Aim</td><td>PlayStation 2</td><td>2003</td></tr>
+</table>
+
+<!-- ===================== RESENHA ===================== -->
+<hr>
+<h2 id="resenha">Resenha — por CVXFREAK</h2>
+<h3 id="rev-jp">Um Clássico da Capcom Renascido!</h3>
+<table>
+  <tr><th>Categoria</th><th>Nota</th><th>Comentário</th></tr>
+  <tr><td>Gráficos</td><td>10/10</td><td>Os melhores gráficos já vistos em qualquer jogo. A Mansão Spencer parece real — iluminação e sombras perfeitas. Os fundos são pré-renderizados (como no RE original), mas isso não afeta a nota.</td></tr>
+  <tr><td>Jogabilidade</td><td>9/10</td><td>Tão divertida quanto sempre. As animações dos personagens poderiam ser mais fluidas em comparação com RE3 e CVX, mas puzzles e ação foram consideravelmente renovados. O jogo é DIFÍCIL — os zumbis são mais rápidos e resistentes.</td></tr>
+  <tr><td>Som</td><td>10/10</td><td>Cada passo de Chris soa extremamente autêntico. Trovões, gemidos de zumbis — tudo claro e assustador.</td></tr>
+  <tr><td>Controles</td><td>10/10</td><td>Surpreendentemente perfeitos. O C-Stick do GameCube melhora muito a virada de 180°. O botão Z acessa o mapa facilmente. O melhor controle para um jogo de RE.</td></tr>
+  <tr><td>História</td><td>10/10</td><td>Para quem conhece a lore: ataque de zumbis nas Montanhas Arklay → S.T.A.R.S. investigam → Mansão Spencer → revelações sobre a Umbrella. Rica em detalhes para fãs de longa data.</td></tr>
+  <tr><td>Replay</td><td>10/10</td><td>2 campanhas diferentes, múltiplos finais, modos extras desbloqueáveis. O fator susto envergonha Silent Hill.</td></tr>
+  <tr><td><strong>GERAL</strong></td><td><strong>10/10</strong></td><td>O melhor BioHazard já feito. Supera até o favorito do autor, RE3: Nemesis. Compre um GameCube só por este jogo.</td></tr>
+</table>
+
+<!-- ===================== ATORES DE VOZ ===================== -->
+<hr>
+<h2 id="atores">Atores de Voz</h2>
+<table>
+  <tr><th>Personagem</th><th>Ator/Atriz</th></tr>
+  <tr><td>Chris Redfield</td><td>Joe Whyte</td></tr>
+  <tr><td>Jill Valentine</td><td>Heidi Anderson</td></tr>
+  <tr><td>Barry Burton</td><td>Ed Smaron</td></tr>
+  <tr><td>Rebecca Chambers</td><td>Hope Levy</td></tr>
+  <tr><td>Albert Wesker</td><td>Peter Jessop</td></tr>
+  <tr><td>Richard Aiken</td><td>Joe Whyte</td></tr>
+  <tr><td>Brad Vickers</td><td>Adam Paul</td></tr>
+  <tr><td>Forest Speyer</td><td>Ed Smaron</td></tr>
+  <tr><td>Joseph Frost</td><td>Adam Paul</td></tr>
+  <tr><td>Enrico Marini</td><td>Dan Hagen</td></tr>
+  <tr><td>Apresentadora de TV</td><td>Heidi Anderson</td></tr>
+  <tr><td>Voz do Computador 1</td><td>Hope Levy</td></tr>
+  <tr><td>Voz do Computador 2</td><td>Chiaki Shirato (Capcom)</td></tr>
+</table>
+
+<!-- ===================== CREDITOS ===================== -->
+<hr>
+<h2 id="creditos">Créditos e Conclusão</h2>
+<h3 id="cred-conclusao">Conclusão</h3>
+<p>Esperamos que este guia tenha ajudado todos que precisavam de apoio em Resident Evil: Rebirth. Tente conseguir diferentes finais ou melhore seu score. Se quiser saber o que acontece depois no mundo de Resident Evil, pegue cópias de <em>Resident Evil 2</em> e <em>Resident Evil 3: Nemesis</em> (disponíveis no GameCube) — Raccoon City é onde as próximas aventuras acontecem.</p>
+
+<h3 id="cred-lista">Agradecimentos</h3>
+<ul>
+  <li><strong>Jeff "CJayC" Veasey</strong> — Prêmio do Concurso GameFAQs 2001, que resultou na versão japonesa e no GameCube.</li>
+  <li><strong>Saiki</strong> — Tradução do Relatório de Wesker II.</li>
+  <li><strong>Shinji Mikami (Capcom Japão)</strong> — Por criar este magnífico jogo.</li>
+  <li><strong>KANE79</strong> — Dica alternativa de Lisa Trevor.</li>
+  <li><strong>ORCA782</strong> — Guia de Velocidade de Jill Valentine.</li>
+  <li><strong>Ryan Perry</strong> — Correções sobre as chaves Armadura/Escudo.</li>
+  <li><strong>DarqueT</strong> — Estratégia alternativa para Planta 42.</li>
+  <li><strong>Daniel Engel (DEngel)</strong> — FAQ da Caixa de Joias e referências de mapas.</li>
+  <li><strong>Darkest Embers</strong> — Glitch da munição do Lançador.</li>
+  <li><strong>Nathan Norris (Minesweeper)</strong> — Transcrição completa dos arquivos do jogo.</li>
+  <li><strong>Toda a Internet</strong> — Estratégia alternativa do Netuno.</li>
+  <li><strong>Membros do Fórum GameFAQs</strong> — Dicas diversas.</li>
+</ul>
+
+<h3 id="cred-info-versoes">Versões do Jogo</h3>
+<table>
+  <tr><th>Versão</th><th>Plataforma</th><th>Ano</th><th>Destaques</th></tr>
+  <tr><td>Resident Evil (Original)</td><td>PlayStation / Saturn / PC</td><td>1996</td><td>Jogo original que criou o gênero survival horror</td></tr>
+  <tr><td>Resident Evil: Director's Cut</td><td>PlayStation</td><td>1997</td><td>Conteúdo adicional, trilha sonora remixada</td></tr>
+  <tr><td>Resident Evil: Rebirth (este guia)</td><td>Nintendo GameCube</td><td>2002</td><td>Remake completo com gráficos revolucionários, nova história (Lisa Trevor), nova jogabilidade</td></tr>
+</table>
+
+<!-- ===== NAV JS ===== -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">Resident Evil — Rebirth · Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+</div>
+
+<script>
+(function(){
+  const items=[];
+  document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
+    const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
+    const pad=h.tagName==='H3'?'  ':'';
+    items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
+  });
+  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+})();
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
+function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
+let matches=[],currentMatch=-1,lastQuery='';
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+</script>
+</body>
+</html>
