@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,36 +8,37 @@
   :root {
     --bg:#f4f6fa;--bg2:#e8ecf5;--text:#1a1a2e;--text2:#4a4a6a;--border:#ccd;
     --header-bg:#0a0a1a;--h2-color:#1a3a8a;--h2-border:#1a3a8a;--h3-border:#99a;
+    --parte-bg:#1a3a8a;--parte-color:#fff;
     --dica-bg:#eef2ff;--dica-border:#1a3a8a;
     --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#922b21;
-    --puzzle-bg:#eef2ff;--puzzle-border:#1a3a8a;--puzzle-title:#1a3a8a;
     --table-head:#e8ecf5;--bar-bg:#fff;--bar-border:#ccd;
-    --bar-shadow:rgba(0,0,0,0.10);--btn-bg:#1a3a8a;--btn-text:#fff;
-    --search-bg:#f4f6fa;--search-text:#1a1a2e;--search-border:#99a;
-    --highlight-bg:#ffe066;--highlight-text:#111;
     --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
   }
-  [data-theme="dark"] {
-    --bg:#07070f;--bg2:#0e0e1e;--text:#d0d4f0;--text2:#8080a8;--border:#222244;
-    --header-bg:#030308;--h2-color:#5577cc;--h2-border:#5577cc;--h3-border:#2a2a44;
-    --dica-bg:#0a0a1a;--dica-border:#3355aa;
-    --chefe-bg:#1a0808;--chefe-border:#922b21;--chefe-title:#f1948a;
-    --puzzle-bg:#0a0a1a;--puzzle-border:#3355aa;--puzzle-title:#6688dd;
-    --table-head:#0e0e1e;--bar-bg:#07070f;--bar-border:#222244;
-    --bar-shadow:rgba(0,0,0,0.5);--btn-bg:#2244aa;--btn-text:#fff;
-    --search-bg:#07070f;--search-text:#d0d4f0;--search-border:#222244;
-    --highlight-bg:#4a3a00;--highlight-text:#fff;
-    --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#07070f;--bg2:#0e0e1e;--text:#d0d4f0;--text2:#8080a8;--border:#222244;
+      --header-bg:#030308;--h2-color:#5577cc;--h2-border:#5577cc;--h3-border:#2a2a44;
+      --parte-bg:#1a2a4a;--parte-color:#aac8ff;
+      --dica-bg:#0a0a1a;--dica-border:#3355aa;
+      --chefe-bg:#1a0808;--chefe-border:#922b21;--chefe-title:#f1948a;
+      --table-head:#0e0e1e;--bar-bg:#07070f;--bar-border:#222244;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
   }
-  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:20px 16px 90px;background:var(--bg);transition:background .25s,color .25s;}
-  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:22px 26px 18px;margin-bottom:28px;}
-  .game-header h1{margin:0 0 4px;font-size:26px;color:#88aaff;}
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:20px 24px 16px;margin-bottom:28px;transition:background .25s;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#88aaff;}
   .game-header .sub{font-size:15px;color:#6688cc;margin-bottom:6px;font-style:italic;}
   .game-header .meta{font-size:13px;color:#5566aa;font-family:monospace;}
   .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
   .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
-  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;}
-  .cap-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;border-left:4px solid var(--h2-border);padding-left:12px;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;transition:color .25s,border-color .25s;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;border-left:4px solid var(--h2-border);padding-left:12px;}
+  .parte{display:flex;align-items:baseline;gap:12px;margin:32px 0 12px;}
+  .parte-tag{background:var(--parte-bg);color:var(--parte-color);font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;letter-spacing:1px;white-space:nowrap;font-family:monospace;}
+  .parte h3{margin:0;font-size:17px;color:var(--text);border:none;padding:0;}
   h3{font-size:17px;color:var(--text);margin-top:28px;margin-bottom:10px;border-left:4px solid var(--h3-border);padding-left:10px;}
   p{margin:0 0 13px;}
   .npc{color:var(--npc);font-weight:bold;}
@@ -45,53 +46,51 @@
   .alerta{color:var(--alerta);font-weight:bold;}
   .local{color:var(--local);font-weight:bold;}
   .inimigo{color:var(--inimigo);font-weight:bold;}
-  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;}
-  .puzzle-box{background:var(--puzzle-bg);border:2px dashed var(--puzzle-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
-  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--puzzle-title);margin-bottom:8px;letter-spacing:.5px;}
-  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;transition:background .25s;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;transition:background .25s;}
   .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
-  .pers-tag{display:inline-block;font-size:11px;font-weight:bold;padding:2px 8px;border-radius:3px;margin:0 3px 2px 0;font-family:monospace;vertical-align:middle;}
-  .tag-jill{background:#2244aa;color:#adf;}
-  .tag-chris{background:#226622;color:#afa;}
-  .tag-ambos{background:#442244;color:#daf;}
   table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
   td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
   th{background:var(--table-head);font-weight:bold;}
   ul,ol{margin:8px 0 14px 20px;padding:0;}
-  li{margin-bottom:5px;}
+  li{margin-bottom:6px;}
   hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
-  mark.search-hl{background:var(--highlight-bg);color:var(--highlight-text);border-radius:2px;padding:0 1px;}
-  mark.search-hl.current{outline:2px solid var(--alerta);background:var(--alerta);color:#fff;}
   .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
   .sidebar-overlay.open{display:block;}
-  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
   .sidebar.open{transform:translateX(0);}
-  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-header span{opacity:.8;font-size:12px;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
   .sidebar-close:hover{opacity:1;}
   .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
-  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
   .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
-  .menu-h2{font-weight:bold;color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
   .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
-  .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:58px;background:var(--bar-bg);border-top:1px solid var(--bar-border);box-shadow:0 -2px 12px var(--bar-shadow);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;}
-  .bar-btn,.menu-toggle-btn{background:var(--btn-bg);color:var(--btn-text);border:none;border-radius:50%;width:42px;height:42px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;}
-  .bar-btn:active,.menu-toggle-btn:active{transform:scale(0.92);}
-  .search-pill{display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;}
-  .search-input-wrap{display:none;align-items:center;background:var(--search-bg);border:1.5px solid var(--search-border);border-radius:24px;padding:4px 10px 4px 14px;gap:6px;flex:1;max-width:420px;}
-  .search-input-wrap.open{display:flex;}
-  .search-input-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:var(--search-text);flex:1;min-width:0;}
-  .search-count{font-size:12px;color:var(--text2);white-space:nowrap;min-width:32px;text-align:center;}
-  .search-nav-btn,.search-close{background:none;border:none;cursor:pointer;font-size:15px;color:var(--text2);padding:2px 4px;}
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#88aaff;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
 </style>
 </head>
 <body>
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
-  <div class="sidebar-body" id="sidebarBody"></div>
-</div>
-
 <div class="capa-revista">
   <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/resident-evil-1/capa.png"
        alt="Capa Resident Evil 1"
@@ -109,8 +108,6 @@
   <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
   <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
   <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
-  <span style="background:#2244aa;color:#adf;padding:3px 10px;border-radius:4px;font-weight:bold;">JILL</span>
-  <span style="background:#226622;color:#afa;padding:3px 10px;border-radius:4px;font-weight:bold;">CHRIS</span>
 </div>
 
 <h2 id="intro">Introdução</h2>
@@ -134,8 +131,8 @@
 <div class="dica">💡 Apertando Start e Select juntos você ativará a tela de opções com Config (tipos de comando A, B ou C), Edit (personalizar funções) e Sound. No inventário você terá: File (arquivos), Map (mapas), Radio (disponível após conseguir o rádio) e Combn (combinar itens). Aperte R2 para aproximar e L2 para afastar o item no inventário.</div>
 
 <h3 id="personagens-dif">Personagens e Dificuldades</h3>
-<p><span class="pers-tag tag-jill">JILL</span> Pode carregar até <strong>oito itens</strong> em seu inventário, conta com a ajuda de <span class="npc">Barry</span>, tem mais resistência física e conseguirá a <span class="item">Bazooka</span>. Recomendada para iniciantes.</p>
-<p><span class="pers-tag tag-chris">CHRIS</span> Pode carregar apenas <strong>seis itens</strong>, possui mais força e resistência nos combates, mas precisará de <span class="item">Small Keys</span> para trancas simples que Jill abre com o <span class="item">Lockpick</span>. Conta com a ajuda de <span class="npc">Rebecca</span>. Recomendado para jogadores experientes.</p>
+<p><span class="parte-tag">JILL</span> Pode carregar até <strong>oito itens</strong> em seu inventário, conta com a ajuda de <span class="npc">Barry</span>, tem mais resistência física e conseguirá a <span class="item">Bazooka</span>. Recomendada para iniciantes.</p>
+<p><span class="parte-tag">CHRIS</span> Pode carregar apenas <strong>seis itens</strong>, possui mais força e resistência nos combates, mas precisará de <span class="item">Small Keys</span> para trancas simples que Jill abre com o <span class="item">Lockpick</span>. Conta com a ajuda de <span class="npc">Rebecca</span>. Recomendado para jogadores experientes.</p>
 
 <h3 id="ervas">Usando Ervas</h3>
 <table>
@@ -173,7 +170,7 @@
 <hr>
 
 <h2 id="jill-cap1">A Aventura de Jill — Primeiro Capítulo</h2>
-<p class="cap-intro">Estranhos casos de morte aconteceram em Raccoon City. O Bravo Team foi enviado até a montanha para investigar e não se teve mais notícia do grupo. O Alpha Team foi designado para procurar o primeiro grupo e investigar os incidentes. Logo que os destroços do primeiro helicóptero são encontrados, Joseph, um dos integrantes do Alpha Team, encontra parte de um corpo e é morto subitamente. Os integrantes do Alpha Team são então atacados — Brad foge com o helicóptero e Chris, Jill, Barry e Wesker, sem alternativa, refugiam-se em uma velha mansão, onde um estranho pesadelo então tem início.</p>
+<p class="capitulo-intro">Estranhos casos de morte aconteceram em Raccoon City. O Bravo Team foi enviado até a montanha para investigar e não se teve mais notícia do grupo. O Alpha Team foi designado para procurar o primeiro grupo e investigar os incidentes. Logo que os destroços do primeiro helicóptero são encontrados, Joseph, um dos integrantes do Alpha Team, encontra parte de um corpo e é morto subitamente. Os integrantes do Alpha Team são então atacados — Brad foge com o helicóptero e Chris, Jill, Barry e Wesker, sem alternativa, refugiam-se em uma velha mansão, onde um estranho pesadelo então tem início.</p>
 
 <h3 id="jill-a">O desaparecimento de Wesker</h3>
 <p>Dentro da mansão, Jill não encontra Chris e Wesker não a deixa sair para procurá-lo. Pouco depois ouve-se um tiro — Wesker manda Jill investigar e <span class="npc">Barry</span> a acompanhará. Ao entrar na sala de jantar, siga Barry e encontrará sangue no chão. Entre na porta ao lado e, no corredor, siga para o lado esquerdo, até avistar um <span class="inimigo">zumbi</span>. Volte até Barry e, antes de Jill avisá-lo, o zumbi reaparecerá. Após acabar com ele, Barry mandará informar Wesker sobre o acontecido. Voltando até a sala principal, Wesker terá desaparecido.</p>
@@ -247,7 +244,7 @@
 <hr>
 
 <h2 id="jill-cap2">A Aventura de Jill — Segundo Capítulo</h2>
-<p class="cap-intro">Após os incidentes na mansão, Jill passa a suspeitar de que alguém não quer que a verdade apareça. Novos mistérios terão início, especialmente em relação ao comportamento de Barry e suas ações. Wesker também aparecerá e mandará Jill abrir mais portas na mansão, fazendo-a descobrir um laboratório secreto da Umbrella e seus interesses. Ela está desenvolvendo um super vírus capaz de mutacionar um organismo vivo ou matá-lo em pouco tempo.</p>
+<p class="capitulo-intro">Após os incidentes na mansão, Jill passa a suspeitar de que alguém não quer que a verdade apareça. Novos mistérios terão início, especialmente em relação ao comportamento de Barry e suas ações. Wesker também aparecerá e mandará Jill abrir mais portas na mansão, fazendo-a descobrir um laboratório secreto da Umbrella e seus interesses. Ela está desenvolvendo um super vírus capaz de mutacionar um organismo vivo ou matá-lo em pouco tempo.</p>
 
 <h3 id="jill2-a">Os mistérios da casa do jardim</h3>
 <p>No fundo do quarto, mate dois zumbis e pegue a munição de Shotgun na gaveta da mesa. Pegue o <span class="item">Red Book</span> sobre a cama, saia do quarto e entre na porta vermelha ao fundo. Há duas aranhas gigantes — ignore-as e vá para a esquerda, onde encontrará uma mesa de bilhar com tacos cruzados que indicam um código (há <span class="item">Ink Ribbon</span> e munição de Beretta do outro lado da sala). Saia desta sala e guarde todos os itens, exceto a chave que pegou e sua Shotgun com munição. Entre na porta do corredor onde você deixou a estátua e, depois, entre na porta seguinte. Note que há uma porta à sua esquerda com um painel.</p>
@@ -343,7 +340,7 @@
 <hr>
 
 <h2 id="chris-cap1">A Aventura de Chris — Primeiro Capítulo</h2>
-<p class="cap-intro">Apenas Barry não entrou na mansão. De repente, lá dentro, ouve-se um tiro e Chris vai sozinho investigar. Estando na sala de jantar, entre na porta perto da lareira e siga para o lado esquerdo do corredor, para encontrar um zumbi. Faça o caminho de volta ao hall de entrada da mansão e não haverá ninguém — somente a arma de Jill.</p>
+<p class="capitulo-intro">Apenas Barry não entrou na mansão. De repente, lá dentro, ouve-se um tiro e Chris vai sozinho investigar. Estando na sala de jantar, entre na porta perto da lareira e siga para o lado esquerdo do corredor, para encontrar um zumbi. Faça o caminho de volta ao hall de entrada da mansão e não haverá ninguém — somente a arma de Jill.</p>
 
 <h3 id="chris-a">Procurando evidências na mansão</h3>
 <p>Controlando Chris, entre na porta azul à direita, atrás da estátua mais adiante há uma escada. Empurre-a até à estátua e use-a para pegar o <span class="item">1st Floor Map</span>. Ao fundo, empurre o móvel da entrada para o lado esquerdo. No final do corredor você poderá pegar um <span class="item">Ink Ribbon</span>, mas tome cuidado com um zumbi que está caído (mate-o ou passe longe dele). Volte para o hall de entrada e pegue outro Ink Ribbon na máquina de escrever, suba a escada e vá até a porta do lado direito. No pequeno corredor, pegue a <span class="item">Small Key</span> ao lado do vaso azul e entre na porta que tem em frente marcas de sangue no chão. Chegando ao terraço, você encontrará o corpo de <span class="npc">Forest</span> — pegue munição e, caso você examine o corpo, os corvos o atacarão. Volte ao hall de entrada e, no segundo andar, entre na porta do outro lado. Equipe uma <span class="item">Combat Knife</span> e na estátua que está do lado esquerdo, empurre-a até chegar no zumbi.</p>
@@ -406,7 +403,7 @@
 <hr>
 
 <h2 id="chris-cap2">A Aventura de Chris — Segundo Capítulo</h2>
-<p class="cap-intro">Após os incidentes na mansão, Chris perde o contato com Jill, Barry e Wesker. Por outro lado, encontrou Rebecca Chambers, uma sobrevivente do Bravo Team. Novos mistérios terão início e Wesker aparecerá sem dar muitas explicações. Ele mandará Chris abrir mais portas na mansão, fazendo-o descobrir um laboratório secreto da Umbrella e seus interesses.</p>
+<p class="capitulo-intro">Após os incidentes na mansão, Chris perde o contato com Jill, Barry e Wesker. Por outro lado, encontrou Rebecca Chambers, uma sobrevivente do Bravo Team. Novos mistérios terão início e Wesker aparecerá sem dar muitas explicações. Ele mandará Chris abrir mais portas na mansão, fazendo-o descobrir um laboratório secreto da Umbrella e seus interesses.</p>
 
 <h3 id="chris2-a">Desenvolvendo a fórmula V-Jolt</h3>
 <p>Volte até a sala da colmeia e abra a porta do outro lado. Ignore o banheiro e pegue o arquivo <span class="item">V-Jolt Report</span> na estante ao fundo. Vá para a sala do baú e deixe lá seus itens, levando só a Shotgun e munição, o Red Book e uma erva combinada. Volte ao quarto ao lado da colmeia e entre no banheiro para pegar munição de Beretta. Use o <span class="item">Red Book</span> na estante ao fundo do quarto para revelar uma passagem secreta. Equipe a Shotgun e prepare-se para enfrentar uma planta gigante — <span class="npc">Chris</span> será agarrado. <span class="npc">Rebecca</span> escutará seus gritos e tentará ajudá-lo. Ela não poderá fazer nada, a não ser enfraquecer a planta criando a fórmula V-Jolt.</p>
@@ -465,48 +462,6 @@
 </div>
 
 <p>No final do corredor, pegue a <span class="item">Battery</span> e coloque-a no encaixe ao lado do elevador. Em seguida, o sistema de auto destruição será acionado. Rebecca aparecerá e Jill pedirá para Chris tentar entrar em contato com Brad. No heliporto, pegue um <span class="item">Flare</span> na caixa que está na caixa ao lado do elevador. Use-o no centro do heliporto — <span class="inimigo">Tyrant</span> aparecerá e em alguns momentos ele correrá para atacar Chris (escape sempre pelo lado direito dele). Resista até os últimos trinta segundos e Brad jogará uma <span class="item">Rocket Launcher</span> para você destruir Tyrant. Equipe a arma e espere o melhor momento para dar um tiro certeiro em Tyrant e depois assistir ao melhor final.</p>
-
-<hr>
-
-<h2 id="dicas">Dicas — Segredos e Extras</h2>
-
-<h3 id="rocket-launcher">Obter a Rocket Launcher</h3>
-<p>Termine o jogo em menos de três horas e <span class="alerta">não salve seu progresso nenhuma vez</span>. Assim você conseguirá alcançar o ranking máximo — agora salve seu progresso uma última vez. Comece uma nova partida e carregue o último save para começar o jogo com a <span class="item">Rocket Launcher</span> com munição infinita. Para conseguir terminar o jogo em menos tempo, ignore as salas desnecessárias, evite enfrentar os zumbis e procure sempre correr no jogo.</p>
-
-<h3 id="trocar-roupa">Trocar de Roupa</h3>
-<p>Terminando o jogo uma vez em menos de cinco horas e salvando seu progresso uma última vez. Ao começar uma nova partida, carregue o último save e você começará com uma <span class="item">Special Key</span> em seu inventário — ela será usada na porta do vestiário.</p>
-
-<h3 id="finais">Finais Diferentes</h3>
-<table>
-  <tr><th>Final</th><th>Jill</th><th>Chris</th></tr>
-  <tr><td>🏆 Melhor final</td><td>Termine o jogo com Chris e Barry</td><td>Termine com Jill e Rebecca</td></tr>
-  <tr><td>⭐ Final normal</td><td>Termine com Barry ou com Chris</td><td>Termine com Jill ou Rebecca</td></tr>
-  <tr><td>💀 Final ruim</td><td>Deixe Barry morrer e não salve Chris</td><td>Deixe Rebecca morrer e não salve Jill</td></tr>
-</table>
-
-<h3 id="encontros">Encontros Inusitados</h3>
-<p>Jogando com Jill ou Chris, você terá o auxílio de um personagem. O enredo é o mesmo para ambos, mas você poderá criar encontros inusitados e descobrir outros detalhes do enredo ao realizar os eventos em diferentes ordens. Ao fazer isso, você ocasionará alguns encontros entre Jill e Barry ou Chris e Rebecca.</p>
-
-<p><strong>Jill encontrando Barry:</strong></p>
-<ul>
-  <li>Você poderá encontrá-lo no terraço, perto do corpo de Forest (consiga a Shield Key e vá para o terraço).</li>
-  <li>Barry aparecerá no hall de entrada da mansão e entregará a Explosive Rounds (explore todo o primeiro ou segundo andar, então vá para o hall de entrada).</li>
-  <li>Ele poderá aparecer no estúdio do aquário (após receber o Lockpick, tente cumprir os eventos até chegar ao estúdio sem ter qualquer outro encontro com Barry).</li>
-  <li>Se você pegar a Broken Shotgun no lugar, tente abrir a porta da sala armadilha e Barry salvará Jill (você não poderá encontrar Barry mais de duas vezes).</li>
-  <li>Se você se enfrentar a cobra gigante a primeira vez e for envenenado, Jill desmaiará e Barry a ajudará (dependerá do percurso feito e dos encontros anteriores com Barry).</li>
-  <li>Enfrente o monstro planta sem fazer o V-Jolt para Barry salvar Jill.</li>
-  <li>Se você não teve muitos encontros com Barry, escutará ele conversando com Wesker perto da entrada do tanque do tubarão.</li>
-  <li>Entrando no subterrâneo, responda "No" nas duas perguntas e não ande perto de Barry — ele será morto por um Hunter e você obterá uma foto de sua família (um arquivo extra). <strong>Obs.:</strong> se Barry não aparecer no final do jogo, ele lhe entregará a foto de sua família (isso só acontecerá se você tiver muitos encontros com Barry).</li>
-</ul>
-
-<p><strong>Chris encontrando Rebecca:</strong></p>
-<ul>
-  <li>Ao encontrá-la pela primeira vez, responda "No". Dependendo da ordem dos eventos que você cumprir, poderá encontrá-la na sala onde está o Botany Book.</li>
-  <li>Dependendo da resposta que der para o primeiro encontro com Rebecca, Chris poderá desmaiar após seu primeiro confronto com a cobra.</li>
-  <li>Encontrando Rebecca na sala do piano, responda "No". Dependendo da ordem dos eventos que você cumprir, também poderá encontrá-la embaixo da escada do quarto onde a conheceu, ao voltar à mansão.</li>
-  <li>Se você sempre responder "No" para Rebecca, ela poderá morrer na caverna ou no final do jogo.</li>
-</ul>
-
 
 <hr>
 
@@ -624,26 +579,72 @@
   </tr>
 </table>
 
-<div class="bottom-bar" id="bottomBar">
-  <button class="menu-toggle-btn" onclick="toggleSidebar()" title="Índice">☰</button>
-  <button class="bar-btn" id="themeBtn" onclick="toggleTheme()" title="Alternar tema"><span id="themeIcon">🌙</span></button>
-  <div class="search-pill">
-    <button class="bar-btn search-trigger" onclick="toggleSearch()" title="Pesquisar"><span>🔍</span></button>
-    <div class="search-input-wrap" id="searchWrap">
-      <input type="text" id="searchInput" placeholder="Pesquisar no detonado…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
-      <span class="search-count" id="searchCount"></span>
-      <button class="search-nav-btn" onclick="navigateMatch(-1)">↑</button>
-      <button class="search-nav-btn" onclick="navigateMatch(1)">↓</button>
-      <button class="search-close" onclick="closeSearch()">✕</button>
-    </div>
+<hr>
+
+<h2 id="dicas">Dicas — Segredos e Extras</h2>
+
+<h3 id="rocket-launcher">Obter a Rocket Launcher</h3>
+<p>Termine o jogo em menos de três horas e <span class="alerta">não salve seu progresso nenhuma vez</span>. Assim você conseguirá alcançar o ranking máximo — agora salve seu progresso uma última vez. Comece uma nova partida e carregue o último save para começar o jogo com a <span class="item">Rocket Launcher</span> com munição infinita. Para conseguir terminar o jogo em menos tempo, ignore as salas desnecessárias, evite enfrentar os zumbis e procure sempre correr no jogo.</p>
+
+<h3 id="trocar-roupa">Trocar de Roupa</h3>
+<p>Terminando o jogo uma vez em menos de cinco horas e salvando seu progresso uma última vez. Ao começar uma nova partida, carregue o último save e você começará com uma <span class="item">Special Key</span> em seu inventário — ela será usada na porta do vestiário.</p>
+
+<h3 id="finais">Finais Diferentes</h3>
+<table>
+  <tr><th>Final</th><th>Jill</th><th>Chris</th></tr>
+  <tr><td>🏆 Melhor final</td><td>Termine o jogo com Chris e Barry</td><td>Termine com Jill e Rebecca</td></tr>
+  <tr><td>⭐ Final normal</td><td>Termine com Barry ou com Chris</td><td>Termine com Jill ou Rebecca</td></tr>
+  <tr><td>💀 Final ruim</td><td>Deixe Barry morrer e não salve Chris</td><td>Deixe Rebecca morrer e não salve Jill</td></tr>
+</table>
+
+<h3 id="encontros">Encontros Inusitados</h3>
+<p>Jogando com Jill ou Chris, você terá o auxílio de um personagem. O enredo é o mesmo para ambos, mas você poderá criar encontros inusitados e descobrir outros detalhes do enredo ao realizar os eventos em diferentes ordens. Ao fazer isso, você ocasionará alguns encontros entre Jill e Barry ou Chris e Rebecca.</p>
+
+<p><strong>Jill encontrando Barry:</strong></p>
+<ul>
+  <li>Você poderá encontrá-lo no terraço, perto do corpo de Forest (consiga a Shield Key e vá para o terraço).</li>
+  <li>Barry aparecerá no hall de entrada da mansão e entregará a Explosive Rounds (explore todo o primeiro ou segundo andar, então vá para o hall de entrada).</li>
+  <li>Ele poderá aparecer no estúdio do aquário (após receber o Lockpick, tente cumprir os eventos até chegar ao estúdio sem ter qualquer outro encontro com Barry).</li>
+  <li>Se você pegar a Broken Shotgun no lugar, tente abrir a porta da sala armadilha e Barry salvará Jill (você não poderá encontrar Barry mais de duas vezes).</li>
+  <li>Se você se enfrentar a cobra gigante a primeira vez e for envenenado, Jill desmaiará e Barry a ajudará (dependerá do percurso feito e dos encontros anteriores com Barry).</li>
+  <li>Enfrente o monstro planta sem fazer o V-Jolt para Barry salvar Jill.</li>
+  <li>Se você não teve muitos encontros com Barry, escutará ele conversando com Wesker perto da entrada do tanque do tubarão.</li>
+  <li>Entrando no subterrâneo, responda "No" nas duas perguntas e não ande perto de Barry — ele será morto por um Hunter e você obterá uma foto de sua família (um arquivo extra). <strong>Obs.:</strong> se Barry não aparecer no final do jogo, ele lhe entregará a foto de sua família (isso só acontecerá se você tiver muitos encontros com Barry).</li>
+</ul>
+
+<p><strong>Chris encontrando Rebecca:</strong></p>
+<ul>
+  <li>Ao encontrá-la pela primeira vez, responda "No". Dependendo da ordem dos eventos que você cumprir, poderá encontrá-la na sala onde está o Botany Book.</li>
+  <li>Dependendo da resposta que der para o primeiro encontro com Rebecca, Chris poderá desmaiar após seu primeiro confronto com a cobra.</li>
+  <li>Encontrando Rebecca na sala do piano, responda "No". Dependendo da ordem dos eventos que você cumprir, também poderá encontrá-la embaixo da escada do quarto onde a conheceu, ao voltar à mansão.</li>
+  <li>Se você sempre responder "No" para Rebecca, ela poderá morrer na caverna ou no final do jogo.</li>
+</ul>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">RE1 — Detonado</span>
   </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-body" id="sidebarBody"></div>
 </div>
 
 <script>
 (function(){
-  const s=localStorage.getItem('theme')||'light';
-  document.documentElement.setAttribute('data-theme',s);
-  document.getElementById('themeIcon').textContent=s==='dark'?'☀️':'🌙';
   const items=[];
   document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
     const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
@@ -652,17 +653,16 @@
   });
   document.getElementById('sidebarBody').innerHTML=items.join('\n');
 })();
-function toggleTheme(){const h=document.documentElement;const n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);document.getElementById('themeIcon').textContent=n==='dark'?'☀️':'🌙';localStorage.setItem('theme',n);}
 function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
-function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){i.focus();i.select();}else{closeSearch();}}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
 function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
 let matches=[],currentMatch=-1,lastQuery='';
-function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.bottom-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='search-hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
-function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('current');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
-function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('current'));const el=matches[currentMatch];el.classList.add('current');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
 function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
-function clearHighlights(){document.querySelectorAll('mark.search-hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
 function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
 function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 </script>
