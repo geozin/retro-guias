@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     TEMPLATE DE DETONADO — Retro Guias
+     Instruções de uso no final do arquivo
+     ============================================================ -->
+<title>Resident Evil Code: Veronica — Detonado</title>
+<style>
+  /* ── Variaveis de cor do tema ──────────────────────────────
+     Troque {{TEMA_COR}} pela cor principal do jogo.
+     Exemplos:
+       RE1  → #1a3a8a  (azul marinho)
+       RE2  → #8b0000  (vermelho escuro)
+       RE3  → #8b4500  (laranja)
+       DS   → #2d6a2d  (verde)
+  ── */
+
+  :root {
+    --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#1a0000;--h2-color:#d11122;--h2-border:#d11122;--h3-border:#888;
+    --parte-bg:#1a4a1a;--parte-color:#fff;
+    --dica-bg:#fff8f8;--dica-border:#c0392b;
+    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#5c0710;
+    --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
+    --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#0d0000;--h2-color:#ff4d4d;--h2-border:#ff4d4d;--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#2a0000;--dica-border:#c0392b;
+      --chefe-bg:#2a0a0a;--chefe-border:#ff4d4d;--chefe-title:#f1948a;
+      --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
+  }
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+  .capa-info{background:#1a0000;padding:8px 16px;display:flex;align-items:center;justify-content:center;}
+  .capa-badge{font-family:Georgia,serif;font-size:13px;color:#ff9999;letter-spacing:.5px;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:20px 24px 16px;margin-bottom:28px;transition:background .25s;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#ff6666;}
+  .game-header .sub{font-size:15px;color:#f99;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#caa;font-family:monospace;}
+  .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
+  .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;transition:color .25s,border-color .25s;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;}
+  .parte{display:flex;align-items:baseline;gap:12px;margin:32px 0 12px;}
+  .parte-tag{background:var(--parte-bg);color:var(--parte-color);font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;letter-spacing:1px;white-space:nowrap;font-family:monospace;}
+  .parte h3{margin:0;font-size:17px;color:var(--text);border:none;padding:0;}
+  p{margin:0 0 13px;}
+  .npc{color:var(--npc);font-weight:bold;}
+  .item{color:var(--item);font-weight:bold;}
+  .alerta{color:var(--alerta);font-weight:bold;}
+  .local{color:var(--local);font-weight:bold;}
+  .inimigo{color:var(--inimigo);font-weight:bold;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;transition:background .25s;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;transition:background .25s;}
+  .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
+  td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
+  th{background:var(--table-head);font-weight:bold;}
+  ul,ol{margin:8px 0 14px 20px;padding:0;}
+  li{margin-bottom:6px;}
+  hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
+  .sidebar-overlay.open{display:block;}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-header span{opacity:.8;font-size:12px;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
+  .sidebar-close:hover{opacity:1;}
+  .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
+  .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
+  .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
+
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#ff6666;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CAPA DA REVISTA
+     Coloque capa.png na mesma pasta do detonado.html no GitHub.
+     O caminho segue o padrao:
+       geozin/retro-guias → detonados/{{SLUG}}/capa.png
+     Se nao houver capa, o bloco some automaticamente.
+     ============================================================ -->
+<!-- ============================================================
+     CABECALHO DO JOGO
+     TITULO   → Nome completo do jogo  ex: "Resident Evil 4"
+     PLATFORM → Plataforma             ex: "PlayStation 2"
+     ============================================================ -->
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/refs/heads/main/detonados/resident-evil-code-veronica/capa.jpg"
+       alt="Capa Resident Evil Code: Veronica"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>Resident Evil Code: Veronica</h1>
+  <div class="meta">Dreamcast / PS2 / GameCube</div>
+</div>
+
+<!-- ============================================================
+     LEGENDA DE CORES
+     Mantenha sempre — aparece em todos os detonados.
+     ============================================================ -->
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- ── CAPITULO 1 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap1">Capítulo 1 — Introdução, História, Personagens e Controles</h2>
+
+<h3 id="cap1-a">Introdução</h3>
+<p>Resident Evil Code: Veronica... bem, o que mais posso dizer sobre este jogo além de sua pura excelência? Este jogo foi primeiramente lançado no console de 128 bits da Sega no início do ano 2000. Naquela época, o Dreamcast era o melhor console do pedaço e a Capcom usou o seu poder para obter vantagem. Este jogo era infinitamente melhor em termos gráficos do que os outros jogos da série Resident Evil. Além disso, este foi um dos melhores jogos de Dreamcast quando foi lançado. De fato, ele ainda entra no top 10 dos jogos mais vendidos de Dreamcast de todos os tempos. Este jogo também recebeu o título de melhor jogo de Dreamcast de todos os tempos por muitos lojistas.</p>
+<p>Resumindo, CV traz o retorno de 2 dos personagens mais importantes de todos os tempos de RE, e talvez essa seja uma das razões pelas quais vendeu tão bem. O primeiro desses 2 personagens é ninguém menos que o nosso herói favorito de todos os tempos, o senhor <span class="npc">Chris Redfield</span>. Esta será sua primeira aventura após o Resident Evil original e ele está prestes a embarcar na viagem da sua vida, porque ele precisa salvar <span class="npc">Claire</span> antes que algo de ruim aconteça com ela. O segundo dos 2 personagens que retornam é o maligno e incrivelmente legal <span class="inimigo">Albert Wesker</span>. Presumia-se que ele estava morto após o incidente da mansão, mas de alguma forma, de volta do inferno, <span class="inimigo">Wesker</span> está neste jogo, e ele não é mais um humano normal, ele ganhou poderes sobre-humanos. O que ele está fazendo nesta ilha e como ele ficou da maneira que está agora? Todas essas respostas estão no jogo.</p>
+<p>CV foi colocado em 2 discos do Dreamcast e era um jogo grande, mas então chegou a vez do lançamento para PS2 e a Capcom decidiu que eles portariam este jogo incrível para o PS2 para manter os fãs da Sony felizes. Mas isso não seria apenas um port direto, eles decidiram nomeá-lo CV: Complete no Japão e CVx no resto do mundo. A nova versão do jogo era exatamente como a antiga, mas apresentava 3 novas cutscenes relacionadas ao personagem <span class="inimigo">Albert Wesker</span>. CVx também veio com o infame "Wesker's Report" que foi feito pela Capcom para esclarecer aqueles pequenos detalhes da trama.</p>
+<p>No geral, CVx vendeu muito bem no PS2, tanto quanto no DC. Os gráficos foram um pouco melhorados na versão de PS2 e, devido ao DVD, os tempos de carregamento foram reduzidos. O DVD de CVx também vinha com uma demo de Devil May Cry, então era o dobro de diversão para os varejistas.</p>
+<p>Este foi o primeiro jogo de RE que veio com cenários de fundo totalmente em 3D, o que significa que não havia mais câmeras estáticas, e os modelos de inimigos e jogadores pareciam melhores do que nunca. Os ambientes são mais interativos do que antes e os monstros podem passar por portas e janelas devido ao poder gráfico.</p>
+<p>Há também o famoso Battle Game neste jogo, que nos permite jogar como o próprio <span class="inimigo">Albert Wesker</span>. Ok, ele pode estar apenas no Battle Game, mas ainda assim os jogadores ficaram empolgados em jogar com <span class="inimigo">Wesker</span>. Além disso, o Battle Game é, na verdade, o minigame mais divertido de toda a série RE.</p>
+<p>Agora que os jogos da história principal de RE se tornaram exclusivos da Nintendo, a Capcom anunciou que também lançaria CVx para o GC. Teremos que esperar para ver quais novas surpresas assustadoras a Capcom vai adicionar à versão do jogo para GC. (Atualização: A versão do jogo para GC não é diferente de qualquer outra versão do jogo até agora, então todas as pessoas que pensaram em algo novo ficaram desapontadas novamente... Desculpe).</p>
+
+<h3 id="cap1-b">História</h3>
+<p>No incidente de <span class="local">Raccoon City</span>, <span class="npc">Claire Redfield</span> conseguiu escapar viva com outros 2 sobreviventes, um policial chamado <span class="npc">Leon Kennedy</span> e uma garotinha chamada <span class="npc">Sherry</span>. Logo após a fuga, <span class="npc">Leon</span> e <span class="npc">Claire</span> entraram em uma discussão e <span class="npc">Leon</span> pediu para que <span class="npc">Claire</span> os deixasse e fosse procurar seu irmão. <span class="npc">Claire</span>, relutante no início, concorda com <span class="npc">Leon</span> e deixa os dois para trás e entra na selva.</p>
+<p>Três meses após o incidente de <span class="local">Raccoon City</span>, <span class="npc">Claire</span> recebe uma dica anônima de que seu irmão estava em algum lugar nas instalações da Umbrella em sua filial de <span class="local">Paris</span>, e ela vai até lá para investigar. É aí que a nossa história começa. <span class="npc">Claire</span> vê tudo escuro ao seu redor, quando, de repente, um soldado remove um saco da sua cabeça, diz o número de série dela e, em seguida, outro soldado atinge <span class="npc">Claire</span> com a coronha de sua arma, e <span class="npc">Claire</span> cai no chão.</p>
+<p>Seus olhos se fecham e ela se lembra de como chegou lá, de como se infiltrou na instalação de <span class="local">Paris</span>, mas foi descoberta, e os guardas começaram a persegui-la pelos longos corredores. No fim do corredor, <span class="npc">Claire</span> avista um helicóptero prestes a atirar nela, faz um movimento evasivo e evita o helicóptero, enquanto os 2 guardas são atingidos pelas balas. <span class="npc">Claire</span> corre por outro longo corredor, desviando dos tiros, e salta por uma porta aberta descendo umas escadas, onde ela se depara com uma dúzia de soldados. Ela vê um barril de líquidos inflamáveis atrás deles, faz outro movimento legal e descarrega sua arma no barril.</p>
+<p>De repente, outro guarda aparece por trás de <span class="npc">Claire</span> e a captura; a arma dela está sem munição e ela é pega. Seus olhos se abrem na cela da prisão da <span class="local">Ilha Rockfort</span>. Sem que <span class="npc">Claire</span> saiba, o T-virus se espalhou lá também. O mesmo guarda solta <span class="npc">Claire</span> da cela, mas a adverte de que ela não tem a menor chance de escapar.</p>
+<p>Mais tarde no jogo, <span class="npc">Chris Redfield</span> tenta encontrar sua irmã na <span class="local">Ilha Rockfort</span> após <span class="npc">Leon Kennedy</span> encaminhar uma mensagem que <span class="npc">Claire</span> havia enviado a ele através da conexão das instalações. O que <span class="npc">Chris</span> não sabe é que, no momento em que chega a <span class="local">Rockfort</span>, <span class="npc">Claire</span> já partiu para a <span class="local">Antártica</span>, e também que alguém está esperando por ele na ilha, alguém que se autodenomina um fantasma do passado que voltou para assombrá-lo. <span class="inimigo">Wesker</span>.</p>
+
+<h3 id="cap1-c">Personagens</h3>
+<p><strong><span class="npc">Claire Redfield</span>:</strong> Nós vimos <span class="npc">Claire</span> pela primeira vez durante o incidente de <span class="local">Raccoon City</span>, onde ela veio para a cidade procurar o seu irmão <span class="npc">Chris Redfield</span>, o herói do Resident Evil original, mas ela se esbarrou com um jovem policial chamado <span class="npc">Leon S Kennedy</span> por lá. Ela finalmente descobriu que <span class="npc">Chris</span> não estava mais em <span class="local">Raccoon City</span> ao ler o diário dele, depois disso, <span class="npc">Leon</span> e <span class="npc">Claire</span> mal conseguiram escapar da cidade com vida. <span class="npc">Leon</span> ordenou a <span class="npc">Claire</span> que fosse e encontrasse seu irmão, e é o que ela faz neste jogo: se infiltrou nas instalações da Umbrella para procurar seu irmão, mas foi pega e enviada para <span class="local">Rockfort</span>. Em <span class="local">Rockfort</span>, <span class="npc">Claire</span> é libertada pelo mesmo guarda que a capturou. Agora, ela deve encontrar aliados na ilha e uma forma de escapar, enquanto evita qualquer confronto com o mestre da ilha.</p>
+<p><strong><span class="npc">Chris Redfield</span>:</strong> <span class="npc">Chris</span> é o herói do infame incidente da mansão. Ele era originalmente um piloto da Força Aérea dos EUA, mas foi expulso devido ao seu comportamento imprudente, mas um homem chamado <span class="npc">Barry Burton</span> viu o talento nele e o recrutou para o recém-formado esquadrão S.T.A.R.S. de <span class="local">Raccoon City</span>. Logo após, ocorrências estranhas começaram a acontecer ao redor de <span class="local">Raccoon</span>, e o esquadrão S.T.A.R.S. foi enviado para investigar. <span class="npc">Chris</span> foi trabalhar contra a Umbrella na Europa, mas, sem o conhecimento dele, tem estado sob a vigilância da empresa. Agora <span class="npc">Chris</span> recebe um e-mail de <span class="npc">Leon Kennedy</span> informando que sua irmã o estava procurando na <span class="local">Ilha Rockfort</span>, então ele pega as coordenadas e vai até lá.</p>
+<p><strong><span class="npc">Steve Burnside</span>:</strong> <span class="npc">Steve</span> é um dos prisioneiros trazidos para <span class="local">Rockfort</span> junto com <span class="npc">Claire</span>. Eles se conhecem logo no início. <span class="npc">Steve</span> é um garoto imprudente à primeira vista e não se importa com ninguém além de si mesmo, acreditando que armas são mais confiáveis do que seres humanos. Mais adiante no jogo, ele revela a razão de estar lá: seu pai trabalhava para a Umbrella, mas foi pego vendendo informações pelo lance mais alto. A Umbrella atirou em sua mãe na hora e aprisionou ele e o pai na ilha.</p>
+<p><strong><span class="inimigo">Albert Wesker</span>:</strong> "Um fantasma do passado que volta para assombrar seu querido irmão". É assim que <span class="inimigo">Wesker</span> se apresenta neste jogo, e suas palavras são exatamente corretas. Considerado morto após o incidente da mansão, <span class="inimigo">Wesker</span> faz o seu retorno em CV. Ele traiu a Umbrella, e com a ajuda de <span class="npc">William Birkin</span>, pretendia forjar sua própria morte com um vírus que lhe concedeu poderes sobre-humanos. Agora, <span class="inimigo">Wesker</span> veio às instalações de <span class="local">Rockfort</span> para encontrar <span class="inimigo">Alexia</span>, pois ele sabe da existência do vírus T-Veronica, e as forças dele são as que atacam a ilha no início.</p>
+<p><strong><span class="inimigo">Alfred Ashford</span>:</strong> É o homem no comando da prisão de <span class="local">Rockfort</span> e o único sobrevivente da família Ashford após a suposta morte de sua irmã em um acidente de laboratório, anos atrás. <span class="inimigo">Alfred</span> não quer que ninguém saiba disso e cria uma ilusão de que a irmã ainda está viva, chegando ao ponto de se vestir como ela. Ele é um homem doente e distorcido, caçando <span class="npc">Claire</span> por achar que os invasores da ilha estão com ela.</p>
+<p><strong><span class="inimigo">Alexia Ashford</span>:</strong> <span class="inimigo">Alexia</span> foi dada como morta, mas a verdade é que ela fez um experimento em si mesma e se colocou em um sono criogênico de 18 anos. Ela acorda por causa dos lamentos finais de <span class="inimigo">Alfred</span>, e a primeira coisa que faz é se vingar de <span class="npc">Claire</span> e <span class="npc">Steve</span>. Ela é uma gênia nata, contratada pela Umbrella com apenas 12 anos, e foi ela quem realizou a experiência com seu próprio pai.</p>
+<p><strong><span class="npc">Rodrigo Juan Raval</span>:</strong> O mesmo soldado que captura <span class="npc">Claire</span> na área de <span class="local">Paris</span> é o que a solta na cela. Ele é um bom homem trabalhando para uma companhia ruim. Ele a solta, mas avisa que ela não tem chances de fugir. Em gratidão, <span class="npc">Claire</span> encontra o Remédio Hemostático (<span class="item">Hemostatic Medicine</span>) para ele e salva a sua vida.</p>
+
+<h3 id="cap1-d">Controles</h3>
+<p><strong>Dreamcast:</strong></p>
+<ul>
+  <li>X: Ação, Atirar, Pegar itens, Confirmar.</li>
+  <li>A: Correr para frente enquanto segura o direcional, e Cancelar.</li>
+  <li>B: Tela de Inventário, Tela de Status.</li>
+  <li>Y: Mostrar mapa.</li>
+  <li>R: Mirar a arma (mantenha pressionado).</li>
+  <li>L: Mudar de alvo (com auto-aim ativado).</li>
+  <li>START: Menu de Opções, Pausar jogo, Pular cenas.</li>
+</ul>
+
+<p><strong>PlayStation 2 / GameCube:</strong></p>
+<ul>
+  <li>X (A no GC): Ação, Atirar, Pegar itens, Confirmar.</li>
+  <li>Círculo (B no GC): Correr, Cancelar.</li>
+  <li>Triângulo (Y no GC): Mostrar Mapa (No GC, Y é o inventário e Z o Mapa).</li>
+  <li>R1 (R no GC): Mirar a arma.</li>
+  <li>R2 (L no GC): Mudar alvo.</li>
+  <li>Analógico Direito: Abrir tela do inventário ao apertar para baixo (no PS2).</li>
+  <li>START: Pausar, Opções.</li>
+  <li>SELECT: Pular cenas.</li>
+</ul>
+
+<!-- ── PUZZLE (use sempre que houver enigma/combinacao) ────── -->
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — {{NOME DO PUZZLE}}</div>
+  <p><!-- Descricao do puzzle e solucao --></p>
+</div>
+
+<!-- ── BATALHA DE CHEFE ─────────────────────────────────────── -->
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — {{NOME DO CHEFE}}</div>
+  <p><!-- Estrategia para derrotar o chefe --></p>
+</div>
+
+<!-- ── DICA GERAL ───────────────────────────────────────────── -->
+<div class="dica">
+  💡 <!-- Texto da dica -->
+</div>
+
+<!-- ── LIVE SELECTION (exclusivo RE3) ──────────────────────── -->
+<!--
+<div class="live-box">
+  <div class="live-title">⚡ LIVE SELECTION</div>
+  <p>Opcao A → resultado X</p>
+  <p>Opcao B → resultado Y</p>
+</div>
+-->
+
+<!-- ── TABELA (itens, armas, rankings, etc.) ───────────────── -->
+<!--
+<table>
+  <tr><th>Coluna 1</th><th>Coluna 2</th><th>Coluna 3</th></tr>
+  <tr><td>dado</td><td>dado</td><td>dado</td></tr>
+</table>
+-->
+
+<h3 id="cap1-b">Parte B — {{NOME DA PARTE}}</h3>
+<p><!-- Conteudo da parte B --></p>
+
+<!-- ── CAPITULO 2 (copie o bloco acima e repita) ───────────── -->
+<hr>
+<h2 id="cap2">Capítulo 2 — {{NOME DO CAPITULO}}</h2>
+
+<h3 id="cap2-a">Parte A — {{NOME DA PARTE}}</h3>
+<p><!-- Conteudo --></p>
+
+
+<!-- ============================================================
+     VERSOES DO JOGO
+     Documente as diferencas entre cada versao lancada.
+     Adicione ou remova blocos <h3> conforme necessario.
+
+     DICA DE CORES PARA O TAG DE PLATAFORMA:
+       PlayStation  → background:#003087
+       Sega Saturn  → background:#1a1a6e
+       Nintendo DS  → background:#c40000
+       PC           → background:#333
+       GameCube     → background:#4a0080
+       PS2/PS3/PS4  → background:#003087
+       Xbox         → background:#107c10
+       Switch       → background:#e4000f
+     ============================================================ -->
+<hr>
+<h2 id="versoes">As Versões do Jogo</h2>
+<p><!-- Breve introducao sobre o historico de lancamentos do jogo --></p>
+
+<!-- ── VERSAO 1 ───────────────────────────────────────────── -->
+<h3 id="v-original">{{PLATAFORMA}} — Versão Original ({{ANO}})</h3>
+<p><!-- Descricao da versao original. Esta e a base do detonado. --></p>
+
+<!-- ── VERSAO 2 ───────────────────────────────────────────── -->
+<h3 id="v-2">{{PLATAFORMA 2}} ({{ANO 2}})</h3>
+<p><!-- Descricao da segunda versao --></p>
+<ul>
+  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+  <li><strong>Diferenca 2:</strong> <!-- descricao --></li>
+  <!-- Adicione mais <li> conforme necessario -->
+</ul>
+<div class="dica">⚠️ <!-- Nota importante sobre esta versao, se houver --></div>
+
+<!-- ── VERSAO 3 (copie o bloco acima e repita) ─────────────── -->
+<h3 id="v-3">{{PLATAFORMA 3}} ({{ANO 3}})</h3>
+<ul>
+  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+</ul>
+
+<!-- ── TABELA COMPARATIVA ──────────────────────────────────── -->
+<!-- ============================================================
+     Use esta tabela para resumir todas as versoes.
+     Colunas sugeridas:
+       Versao | Ano | Destaques | Recomendado para
+     Adicione ou remova colunas conforme necessario.
+     ============================================================ -->
+<h3 id="v-resumo">Tabela Comparativa</h3>
+<table>
+  <tr>
+    <th>Versão</th>
+    <th>Ano</th>
+    <th>Destaques</th>
+    <th>Recomendado para</th>
+  </tr>
+  <tr>
+    <td><!-- Nome da versao --></td>
+    <td><!-- Ano --></td>
+    <td><!-- Principais diferencas --></td>
+    <td><!-- Publico ideal --></td>
+  </tr>
+  <!-- Adicione mais <tr> para cada versao -->
+</table>
+
+<!-- ============================================================
+     DICAS FINAIS (opcional)
+     Segredos, finais alternativos, itens secretos, etc.
+     ============================================================ -->
+<hr>
+<h2 id="dicas">Dicas e Segredos</h2>
+<p><!-- Dicas gerais --></p>
+
+<!-- ============================================================
+     TOP BAR + BUSCA + MENU LATERAL
+     Nao edite este bloco — e o sistema de navegacao.
+     ============================================================ -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">{{TITULO_CURTO}} — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+</div>
+
+
+<script>
+(function(){
+  const items=[];
+  document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
+    const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
+    const pad=h.tagName==='H3'?'  ':'';
+    items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
+  });
+  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+})();
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
+function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
+let matches=[],currentMatch=-1,lastQuery='';
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+</script>
+
+<!-- ============================================================
+     CHECKLIST ANTES DE SUBIR NO GITHUB
+     [ ] Substituiu {{TITULO}} e {{TITULO_CURTO}} pelo nome do jogo
+     [ ] Substituiu {{SLUG}} pelo nome da pasta (ex: resident-evil-4)
+     [ ] Substituiu {{PLATAFORMA}} pela plataforma (ex: PlayStation 2)
+     [ ] Trocou {{TEMA_COR}}, {{TEMA_COR_DARK}} e {{TEMA_COR_TOPBAR}} no CSS pela cor do jogo
+     [ ] Salvou o arquivo como detonado.html
+     [ ] Subiu capa.png na mesma pasta do GitHub
+     [ ] Preencheu a secao de versoes
+     [ ] Testou no browser antes de subir
+     ============================================================ -->
+</body>
+</html>
