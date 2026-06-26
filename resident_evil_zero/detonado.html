@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     TEMPLATE DE DETONADO — Retro Guias
+     Instruções de uso no final do arquivo
+     ============================================================ -->
+<title>{{TITULO}} — Detonado</title>
+<style>
+  /* ── Variaveis de cor do tema ──────────────────────────────
+     Troque {{TEMA_COR}} pela cor principal do jogo.
+     Exemplos:
+       RE1  → #1a3a8a  (azul marinho)
+       RE2  → #8b0000  (vermelho escuro)
+       RE3  → #8b4500  (laranja)
+       DS   → #2d6a2d  (verde)
+  ── */
+
+  :root {
+    --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#1a0000;--h2-color:{{TEMA_COR}};--h2-border:{{TEMA_COR}};--h3-border:#888;
+    --parte-bg:#1a4a1a;--parte-color:#fff;
+    --dica-bg:#fff8f8;--dica-border:#c0392b;
+    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:{{TEMA_COR_ESCURA}};
+    --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
+    --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#0d0000;--h2-color:{{TEMA_COR_DARK}};--h2-border:{{TEMA_COR_DARK}};--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#2a0000;--dica-border:#c0392b;
+      --chefe-bg:#2a0a0a;--chefe-border:{{TEMA_COR_ESCURA}};--chefe-title:#f1948a;
+      --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
+  }
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+  .capa-info{background:#1a0000;padding:8px 16px;display:flex;align-items:center;justify-content:center;}
+  .capa-badge{font-family:Georgia,serif;font-size:13px;color:#ff9999;letter-spacing:.5px;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:20px 24px 16px;margin-bottom:28px;transition:background .25s;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#ff6666;}
+  .game-header .sub{font-size:15px;color:#f99;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#caa;font-family:monospace;}
+  .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
+  .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;transition:color .25s,border-color .25s;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;}
+  .parte{display:flex;align-items:baseline;gap:12px;margin:32px 0 12px;}
+  .parte-tag{background:var(--parte-bg);color:var(--parte-color);font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;letter-spacing:1px;white-space:nowrap;font-family:monospace;}
+  .parte h3{margin:0;font-size:17px;color:var(--text);border:none;padding:0;}
+  p{margin:0 0 13px;}
+  .npc{color:var(--npc);font-weight:bold;}
+  .item{color:var(--item);font-weight:bold;}
+  .alerta{color:var(--alerta);font-weight:bold;}
+  .local{color:var(--local);font-weight:bold;}
+  .inimigo{color:var(--inimigo);font-weight:bold;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;transition:background .25s;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;transition:background .25s;}
+  .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
+  td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
+  th{background:var(--table-head);font-weight:bold;}
+  ul,ol{margin:8px 0 14px 20px;padding:0;}
+  li{margin-bottom:6px;}
+  hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
+  .sidebar-overlay.open{display:block;}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-header span{opacity:.8;font-size:12px;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
+  .sidebar-close:hover{opacity:1;}
+  .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
+  .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
+  .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
+
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:{{TEMA_COR_TOPBAR}};letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CAPA DA REVISTA
+     Coloque capa.png na mesma pasta do detonado.html no GitHub.
+     O caminho segue o padrao:
+       geozin/retro-guias → detonados/{{SLUG}}/capa.png
+     Se nao houver capa, o bloco some automaticamente.
+     ============================================================ -->
+<!-- ============================================================
+     CABECALHO DO JOGO
+     TITULO   → Nome completo do jogo  ex: "Resident Evil 4"
+     PLATFORM → Plataforma             ex: "PlayStation 2"
+     ============================================================ -->
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/{{SLUG}}/capa.png"
+       alt="Capa {{TITULO}}"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>{{TITULO}}</h1>
+  <div class="meta">{{PLATAFORMA}}</div>
+</div>
+
+<!-- ============================================================
+     LEGENDA DE CORES
+     Mantenha sempre — aparece em todos os detonados.
+     ============================================================ -->
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- ============================================================
+     INTRODUCAO
+     Breve contexto do jogo / enredo.
+     ============================================================ -->
+<h2 id="intro">Introdução</h2>
+<p><!-- Escreva aqui o texto de introducao do jogo --></p>
+
+<!-- ============================================================
+     CONCEITOS BASICOS (opcional)
+     Use para comandos, dicas de sistema, ervas, etc.
+     ============================================================ -->
+<h2 id="conceitos">Conceitos Básicos</h2>
+
+<h3 id="comandos">Comandos</h3>
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>X</td><td>Ação / Confirmar</td></tr>
+  <!-- Adicione mais linhas conforme necessario -->
+</table>
+
+<!-- ============================================================
+     ESTRUTURA DO DETONADO
+     Cada capitulo usa <h2> com id unico.
+     Cada parte usa <h3> com id unico.
+     O menu lateral e gerado automaticamente a partir dos ids.
+
+     CONVENCAO DE IDs:
+       Capitulo 1       → id="cap1"
+       Capitulo 1 A     → id="cap1-a"
+       Capitulo 2       → id="cap2"
+       Capitulo 2 B     → id="cap2-b"
+     ============================================================ -->
+
+<!-- ── CAPITULO 1 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap1">Capítulo 1 — {{NOME DO CAPITULO}}</h2>
+<p class="cap-intro"><!-- Texto introdutorio do capitulo --></p>
+
+<h3 id="cap1-a">Parte A — {{NOME DA PARTE}}</h3>
+<p>
+  <!-- Texto do walkthrough. Use as classes abaixo para colorir: -->
+
+  <!-- NPC / Personagem:  <span class="npc">Nome</span>         -->
+  <!-- Item:              <span class="item">Item</span>         -->
+  <!-- Alerta:            <span class="alerta">Cuidado!</span>   -->
+  <!-- Local:             <span class="local">Sala X</span>      -->
+  <!-- Inimigo:           <span class="inimigo">Zumbi</span>     -->
+</p>
+
+<!-- ── PUZZLE (use sempre que houver enigma/combinacao) ────── -->
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — {{NOME DO PUZZLE}}</div>
+  <p><!-- Descricao do puzzle e solucao --></p>
+</div>
+
+<!-- ── BATALHA DE CHEFE ─────────────────────────────────────── -->
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — {{NOME DO CHEFE}}</div>
+  <p><!-- Estrategia para derrotar o chefe --></p>
+</div>
+
+<!-- ── DICA GERAL ───────────────────────────────────────────── -->
+<div class="dica">
+  💡 <!-- Texto da dica -->
+</div>
+
+<!-- ── LIVE SELECTION (exclusivo RE3) ──────────────────────── -->
+<!--
+<div class="live-box">
+  <div class="live-title">⚡ LIVE SELECTION</div>
+  <p>Opcao A → resultado X</p>
+  <p>Opcao B → resultado Y</p>
+</div>
+-->
+
+<!-- ── TABELA (itens, armas, rankings, etc.) ───────────────── -->
+<!--
+<table>
+  <tr><th>Coluna 1</th><th>Coluna 2</th><th>Coluna 3</th></tr>
+  <tr><td>dado</td><td>dado</td><td>dado</td></tr>
+</table>
+-->
+
+<h3 id="cap1-b">Parte B — {{NOME DA PARTE}}</h3>
+<p><!-- Conteudo da parte B --></p>
+
+<!-- ── CAPITULO 2 (copie o bloco acima e repita) ───────────── -->
+<hr>
+<h2 id="cap2">Capítulo 2 — {{NOME DO CAPITULO}}</h2>
+
+<h3 id="cap2-a">Parte A — {{NOME DA PARTE}}</h3>
+<p><!-- Conteudo --></p>
+
+
+<!-- ============================================================
+     VERSOES DO JOGO
+     Documente as diferencas entre cada versao lancada.
+     Adicione ou remova blocos <h3> conforme necessario.
+
+     DICA DE CORES PARA O TAG DE PLATAFORMA:
+       PlayStation  → background:#003087
+       Sega Saturn  → background:#1a1a6e
+       Nintendo DS  → background:#c40000
+       PC           → background:#333
+       GameCube     → background:#4a0080
+       PS2/PS3/PS4  → background:#003087
+       Xbox         → background:#107c10
+       Switch       → background:#e4000f
+     ============================================================ -->
+<hr>
+<h2 id="versoes">As Versões do Jogo</h2>
+<p><!-- Breve introducao sobre o historico de lancamentos do jogo --></p>
+
+<!-- ── VERSAO 1 ───────────────────────────────────────────── -->
+<h3 id="v-original">{{PLATAFORMA}} — Versão Original ({{ANO}})</h3>
+<p><!-- Descricao da versao original. Esta e a base do detonado. --></p>
+
+<!-- ── VERSAO 2 ───────────────────────────────────────────── -->
+<h3 id="v-2">{{PLATAFORMA 2}} ({{ANO 2}})</h3>
+<p><!-- Descricao da segunda versao --></p>
+<ul>
+  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+  <li><strong>Diferenca 2:</strong> <!-- descricao --></li>
+  <!-- Adicione mais <li> conforme necessario -->
+</ul>
+<div class="dica">⚠️ <!-- Nota importante sobre esta versao, se houver --></div>
+
+<!-- ── VERSAO 3 (copie o bloco acima e repita) ─────────────── -->
+<h3 id="v-3">{{PLATAFORMA 3}} ({{ANO 3}})</h3>
+<ul>
+  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+</ul>
+
+<!-- ── TABELA COMPARATIVA ──────────────────────────────────── -->
+<!-- ============================================================
+     Use esta tabela para resumir todas as versoes.
+     Colunas sugeridas:
+       Versao | Ano | Destaques | Recomendado para
+     Adicione ou remova colunas conforme necessario.
+     ============================================================ -->
+<h3 id="v-resumo">Tabela Comparativa</h3>
+<table>
+  <tr>
+    <th>Versão</th>
+    <th>Ano</th>
+    <th>Destaques</th>
+    <th>Recomendado para</th>
+  </tr>
+  <tr>
+    <td><!-- Nome da versao --></td>
+    <td><!-- Ano --></td>
+    <td><!-- Principais diferencas --></td>
+    <td><!-- Publico ideal --></td>
+  </tr>
+  <!-- Adicione mais <tr> para cada versao -->
+</table>
+
+<!-- ============================================================
+     DICAS FINAIS (opcional)
+     Segredos, finais alternativos, itens secretos, etc.
+     ============================================================ -->
+<hr>
+<h2 id="dicas">Dicas e Segredos</h2>
+<p><!-- Dicas gerais --></p>
+
+<!-- ============================================================
+     TOP BAR + BUSCA + MENU LATERAL
+     Nao edite este bloco — e o sistema de navegacao.
+     ============================================================ -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">{{TITULO_CURTO}} — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+</div>
+
+
+<script>
+(function(){
+  const items=[];
+  document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
+    const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
+    const pad=h.tagName==='H3'?'  ':'';
+    items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
+  });
+  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+})();
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
+function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
+let matches=[],currentMatch=-1,lastQuery='';
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+</script>
+
+<!-- ============================================================
+     CHECKLIST ANTES DE SUBIR NO GITHUB
+     [ ] Substituiu {{TITULO}} e {{TITULO_CURTO}} pelo nome do jogo
+     [ ] Substituiu {{SLUG}} pelo nome da pasta (ex: resident-evil-4)
+     [ ] Substituiu {{PLATAFORMA}} pela plataforma (ex: PlayStation 2)
+     [ ] Trocou {{TEMA_COR}}, {{TEMA_COR_DARK}} e {{TEMA_COR_TOPBAR}} no CSS pela cor do jogo
+     [ ] Salvou o arquivo como detonado.html
+     [ ] Subiu capa.png na mesma pasta do GitHub
+     [ ] Preencheu a secao de versoes
+     [ ] Testou no browser antes de subir
+     ============================================================ -->
+</body>
+</html>
