@@ -620,35 +620,28 @@
      ============================================================ -->
 <hr>
 <h2 id="versoes">As Versões do Jogo</h2>
-<p><!-- Breve introducao sobre o historico de lancamentos do jogo --></p>
+<p>Resident Evil Code: Veronica teve vários relançamentos. O conteúdo base (história, mapas, itens) é praticamente o mesmo, mas a versão "X" (Complete) adicionou cutscenes extras fundamentais para o enredo envolvendo Wesker.</p>
 
 <!-- ── VERSAO 1 ───────────────────────────────────────────── -->
-<h3 id="v-original">{{PLATAFORMA}} — Versão Original ({{ANO}})</h3>
-<p><!-- Descricao da versao original. Esta e a base do detonado. --></p>
+<h3 id="v-original">Dreamcast — Versão Original (2000)</h3>
+<p>Lançado originalmente como um exclusivo temporário do Dreamcast. Trazia os melhores gráficos da série até então, abandonando os cenários pré-renderizados por ambientes 3D em tempo real. Esta é a versão na qual o detonado principal se baseia.</p>
 
 <!-- ── VERSAO 2 ───────────────────────────────────────────── -->
-<h3 id="v-2">{{PLATAFORMA 2}} ({{ANO 2}})</h3>
-<p><!-- Descricao da segunda versao --></p>
+<h3 id="v-2">PlayStation 2 / GameCube — Code: Veronica X (2001/2003)</h3>
+<p>A versão definitiva ("Kanzenban" no Japão) que adiciona 9 minutos extras de cutscenes inéditas detalhando as motivações de Albert Wesker e sua luta contra Alexia. O cabelo do Steve foi levemente modificado.</p>
 <ul>
-  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
-  <li><strong>Diferenca 2:</strong> <!-- descricao --></li>
-  <!-- Adicione mais <li> conforme necessario -->
+  <li><strong>Diferença 1:</strong> Adição do Wesker's Report (Em algumas versões físicas de PS2).</li>
+  <li><strong>Diferença 2:</strong> Requisitos para o Linear Launcher no Battle Game alterados (exige Rank A com todos).</li>
 </ul>
-<div class="dica">⚠️ <!-- Nota importante sobre esta versao, se houver --></div>
 
-<!-- ── VERSAO 3 (copie o bloco acima e repita) ─────────────── -->
-<h3 id="v-3">{{PLATAFORMA 3}} ({{ANO 3}})</h3>
+<!-- ── VERSAO 3 ───────────────────────────────────────────── -->
+<h3 id="v-3">PS3 / Xbox 360 / PS4 / Xbox One — HD Remaster (2011)</h3>
 <ul>
-  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+  <li><strong>Diferença 1:</strong> Gráficos em alta definição (720p), filtros de iluminação refeitos e texturas aprimoradas.</li>
+  <li><strong>Diferença 2:</strong> Suporte a Conquistas/Troféus.</li>
 </ul>
 
 <!-- ── TABELA COMPARATIVA ──────────────────────────────────── -->
-<!-- ============================================================
-     Use esta tabela para resumir todas as versoes.
-     Colunas sugeridas:
-       Versao | Ano | Destaques | Recomendado para
-     Adicione ou remova colunas conforme necessario.
-     ============================================================ -->
 <h3 id="v-resumo">Tabela Comparativa</h3>
 <table>
   <tr>
@@ -658,21 +651,25 @@
     <th>Recomendado para</th>
   </tr>
   <tr>
-    <td><!-- Nome da versao --></td>
-    <td><!-- Ano --></td>
-    <td><!-- Principais diferencas --></td>
-    <td><!-- Publico ideal --></td>
+    <td>Dreamcast</td>
+    <td>2000</td>
+    <td>Jogo Base, Gráficos clássicos 480p</td>
+    <td>Puristas do console da Sega</td>
   </tr>
-  <!-- Adicione mais <tr> para cada versao -->
+  <tr>
+    <td>PlayStation 2 (X)</td>
+    <td>2001</td>
+    <td>Cutscenes adicionais, mudanças de balanceamento</td>
+    <td>Experiência original clássica e completa</td>
+  </tr>
+  <tr>
+    <td>HD Remaster (PS3/X360/PS4)</td>
+    <td>2011</td>
+    <td>Texturas melhoradas, Widescreen e Iluminação refeita</td>
+    <td>A maioria dos jogadores modernos e caçadores de platina</td>
+  </tr>
 </table>
 
-<!-- ============================================================
-     DICAS FINAIS (opcional)
-     Segredos, finais alternativos, itens secretos, etc.
-     ============================================================ -->
-<hr>
-<h2 id="dicas">Dicas e Segredos</h2>
-<p><!-- Dicas gerais --></p>
 
 <!-- ============================================================
      TOP BAR + BUSCA + MENU LATERAL
@@ -681,7 +678,7 @@
 <div class="top-bar">
   <div class="top-bar-left">
     <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
-    <span class="top-bar-title">{{TITULO_CURTO}} — Detonado</span>
+    <span class="top-bar-title">RE Code: Veronica — Detonado</span>
   </div>
   <div style="display:flex;align-items:center;gap:6px;">
     <div class="search-wrap" id="searchWrap">
@@ -726,16 +723,5 @@ function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):naviga
 function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 </script>
 
-<!-- ============================================================
-     CHECKLIST ANTES DE SUBIR NO GITHUB
-     [ ] Substituiu {{TITULO}} e {{TITULO_CURTO}} pelo nome do jogo
-     [ ] Substituiu {{SLUG}} pelo nome da pasta (ex: resident-evil-4)
-     [ ] Substituiu {{PLATAFORMA}} pela plataforma (ex: PlayStation 2)
-     [ ] Trocou {{TEMA_COR}}, {{TEMA_COR_DARK}} e {{TEMA_COR_TOPBAR}} no CSS pela cor do jogo
-     [ ] Salvou o arquivo como detonado.html
-     [ ] Subiu capa.png na mesma pasta do GitHub
-     [ ] Preencheu a secao de versoes
-     [ ] Testou no browser antes de subir
-     ============================================================ -->
 </body>
 </html>
