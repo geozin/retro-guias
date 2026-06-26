@@ -7,7 +7,7 @@
      TEMPLATE DE DETONADO — Retro Guias
      Instruções de uso no final do arquivo
      ============================================================ -->
-<title>{{TITULO}} — Detonado</title>
+<title>Resident Evil Zero — Detonado</title>
 <style>
   /* ── Variaveis de cor do tema ──────────────────────────────
      Troque {{TEMA_COR}} pela cor principal do jogo.
@@ -20,20 +20,20 @@
 
   :root {
     --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
-    --header-bg:#1a0000;--h2-color:{{TEMA_COR}};--h2-border:{{TEMA_COR}};--h3-border:#888;
+    --header-bg:#1a0000;--h2-color:#8b0000;--h2-border:#8b0000;--h3-border:#888;
     --parte-bg:#1a4a1a;--parte-color:#fff;
     --dica-bg:#fff8f8;--dica-border:#c0392b;
-    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:{{TEMA_COR_ESCURA}};
+    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#500000;
     --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
     --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
-      --header-bg:#0d0000;--h2-color:{{TEMA_COR_DARK}};--h2-border:{{TEMA_COR_DARK}};--h3-border:#555;
+      --header-bg:#0d0000;--h2-color:#ff4d4d;--h2-border:#ff4d4d;--h3-border:#555;
       --parte-bg:#0a2a0a;--parte-color:#aaffaa;
       --dica-bg:#2a0000;--dica-border:#c0392b;
-      --chefe-bg:#2a0a0a;--chefe-border:{{TEMA_COR_ESCURA}};--chefe-title:#f1948a;
+      --chefe-bg:#2a0a0a;--chefe-border:#500000;--chefe-title:#f1948a;
       --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
       --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
     }
@@ -91,7 +91,7 @@
   /* ── Top bar ── */
   .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
   .top-bar-left{display:flex;align-items:center;gap:10px;}
-  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:{{TEMA_COR_TOPBAR}};letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#ff9999;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
   .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
   .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
   .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
@@ -120,14 +120,14 @@
      PLATFORM → Plataforma             ex: "PlayStation 2"
      ============================================================ -->
 <div class="capa-revista">
-  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/{{SLUG}}/capa.png"
-       alt="Capa {{TITULO}}"
+  <img src="capa.jpg"
+       alt="Capa Resident Evil Zero"
        onerror="this.parentElement.style.display='none'">
 </div>
 
 <div class="game-header">
-  <h1>{{TITULO}}</h1>
-  <div class="meta">{{PLATAFORMA}}</div>
+  <h1>Resident Evil Zero</h1>
+  <div class="meta">GameCube / Wii</div>
 </div>
 
 <!-- ============================================================
@@ -177,56 +177,244 @@
 
 <!-- ── CAPITULO 1 ─────────────────────────────────────────── -->
 <hr>
-<h2 id="cap1">Capítulo 1 — {{NOME DO CAPITULO}}</h2>
-<p class="cap-intro"><!-- Texto introdutorio do capitulo --></p>
+<h2 id="cap1">Capítulo 1 — The Ecliptic Express</h2>
+<p class="cap-intro">Assista à impressionante cena em CG de introdução. Após terminar, você assumirá o papel de <span class="npc">Rebecca Chambers</span>, que embarcou no trem Ecliptic Express, que misteriosamente parou de funcionar dentro da Raccoon Forest.</p>
 
-<h3 id="cap1-a">Parte A — {{NOME DA PARTE}}</h3>
+<h3 id="cap1-a">Parte A — Passenger Car & Train Car Corridor</h3>
 <p>
-  <!-- Texto do walkthrough. Use as classes abaixo para colorir: -->
-
-  <!-- NPC / Personagem:  <span class="npc">Nome</span>         -->
-  <!-- Item:              <span class="item">Item</span>         -->
-  <!-- Alerta:            <span class="alerta">Cuidado!</span>   -->
-  <!-- Local:             <span class="local">Sala X</span>      -->
-  <!-- Inimigo:           <span class="inimigo">Zumbi</span>     -->
+  <strong><span class="local">Passenger Car</span></strong><br>
+  [Rebecca]<br>
+  Vire à esquerda e passe pela porta para o próximo vagão.
+</p>
+<p>
+  <strong><span class="local">Passenger Car 2</span></strong><br>
+  [Rebecca]<br>
+  Haverá uma cut-scene, e então Rebecca estará lutando contra alguns <span class="inimigo">zumbis</span>. A sala é muito estreita para simplesmente desviar deles, então eu recomendo atirar até matá-los. Após os zumbis se irem, passe pela porta à frente.
+</p>
+<p>
+  <strong><span class="local">Train Car Corridor</span></strong><br>
+  [Rebecca]<br>
+  Siga pelo corredor e entre na primeira porta que Rebecca vir na área central.
+</p>
+<p>
+  <strong><span class="local">Train Bunk Room</span></strong><br>
+  [Rebecca]<br>
+  Dentro desta sala deve haver um arquivo e alguns itens de recuperação e munição para os modos de dificuldade mais fáceis. Quando pegar tudo, saia da sala.
+</p>
+<p>
+  <strong><span class="local">Train Car Corridor</span></strong><br>
+  [Rebecca]<br>
+  Siga pelo corredor por mais alguns passos e passe pela próxima porta que Rebecca encontrar.
+</p>
+<p>
+  <strong><span class="local">Save Room</span></strong><br>
+  [Rebecca]<br>
+  Assim como na sala anterior, há um arquivo e alguma recuperação e munição aqui. Há também uma máquina de escrever, que é usada para salvar o jogo desde que você tenha um <span class="item">INK RIBBON</span> com você. Há um <span class="item">INK RIBBON</span> perto da máquina de escrever. Ainda é bem cedo no jogo agora, então não há necessidade real de salvar ainda, mas você vai querer fazer isso com razoável frequência. Saia da sala quando terminar tudo.
+</p>
+<p>
+  <strong><span class="local">Train Car Corridor</span></strong><br>
+  [Rebecca]<br>
+  Continue se movendo pelo corredor. No final do corredor há um corpo morto segurando a <span class="item">TRAIN KEY</span>. Pegue-a e então uma cut-scene ocorrerá. No final da cut-scene, você estará lutando contra alguns <span class="inimigo">cães zumbis</span>, então mate-os com sua <span class="item">HANDGUN</span>. Reviste o corpo do <span class="npc">Edward</span> para encontrar <span class="item">HANDGUN BULLETS</span>. Vá para a tela de inventário e examine a <span class="item">TRAIN KEY</span>. Ela será renomeada para <span class="item">DINING KEY</span>. Leve esta chave de volta ao <span class="local">PASSENGER CAR</span>, que foi a primeira sala em que o jogo começou.
+</p>
+<p>
+  <strong><span class="local">Passenger Car</span></strong><br>
+  [Rebecca]<br>
+  Outra cut-scene ocorrerá, fique à vontade para assistir ou pular. Depois, vá para a porta na outra extremidade do vagão e destranque-a com a <span class="item">DINING KEY</span> (<span class="item">TRAIN KEY</span>) que você acabou de pegar. Descarte a chave depois, pois você não precisará mais dela.
+</p>
+<p>
+  <strong><span class="local">Dining Car</span></strong><br>
+  [Rebecca]<br>
+  Outra cut-scene ocorrerá. Quando terminar, pegue o arquivo próximo e suba as escadas.
+</p>
+<p>
+  <strong><span class="local">Dining Car 2F</span></strong><br>
+  [Rebecca]<br>
+  Entre na sala, em direção ao homem velho sentado sozinho na mesa distante. Uma cut-scene ocorrerá, e você será colocado em uma batalha contra um <span class="inimigo">Leech Zombie</span>, que é uma forma mais forte e ágil dos zumbis que temos enfrentado até agora. Você pode lutar contra ele, mas é mais sensato economizar munição e tentar correr de volta pelas escadas. Quando você fizer isso (ou se causar dano suficiente ao <span class="inimigo">Leech Zombie</span>), outra cut-scene ocorrerá, e <span class="npc">Billy</span> finalmente será um personagem jogável. Você pode querer continuar usando a Rebecca por enquanto. No extremo oposto da mesa perto de onde o velho estava sentado, há uma janela com uma escada que leva ao teto do trem. Faça o Billy ficar para trás e mande a Rebecca subir. Deixe o Billy para trás nesta sala.
+</p>
+<p>
+  <strong><span class="local">Train Roof</span></strong><br>
+  [Rebecca]<br>
+  Caminhe pelo teto do trem, descendo para onde as faíscas continuam acendendo. Examine os fios elétricos e opte por reconectá-los. Uma curta cut-scene ocorrerá. Rebecca estará agora na <span class="local">KITCHEN 2F</span>.
+</p>
+<div class="dica">
+  💡 <strong>Nota:</strong> Você pode optar por fazer o Billy cair na <span class="local">KITCHEN 2F</span> em vez da Rebecca. Embora o detonado permaneça em grande parte o mesmo, Rebecca é o personagem mais fraco dos dois, e há uma luta contra chefe chegando em que Billy está mais bem equipado para lidar. Este detonado assume que a Rebecca está presa na <span class="local">KITCHEN 2F</span>.
+</div>
+<p>
+  <strong><span class="local">Kitchen 2F</span></strong><br>
+  [Rebecca]<br>
+  Rebecca ficará presa aqui porque a porta que sai da sala está temporariamente emperrada, mas felizmente ela pode mandar itens para o Billy através do conveniente monta-cargas (elevador de transporte de itens) normalmente usado para transportar comida para o primeiro andar. Há vários itens para pegar aqui, incluindo outra <span class="item">TRAIN KEY</span>. Examine-a para que seja renomeada para <span class="item">CONDUCTOR'S KEY</span>. Examine o monta-cargas, coloque a <span class="item">CONDUCTOR'S KEY</span> lá dentro, e mande-a para o primeiro andar. Mude de volta para o Billy em seguida.
 </p>
 
-<!-- ── PUZZLE (use sempre que houver enigma/combinacao) ────── -->
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — {{NOME DO PUZZLE}}</div>
-  <p><!-- Descricao do puzzle e solucao --></p>
-</div>
+<h3 id="cap1-b">Parte B — Billy's Progress</h3>
+<p>
+  <strong><span class="local">Dining Car 2F</span></strong><br>
+  [Billy]<br>
+  Desça as escadas para o primeiro andar do <span class="local">DINING CAR</span>.
+</p>
+<p>
+  <strong><span class="local">Dining Car</span></strong><br>
+  [Billy]<br>
+  Passe pela porta prateada ao lado das escadas, que levará a uma cozinha. Dobre a esquina e corra até o monta-cargas. Examine-o e pegue a <span class="item">CONDUCTOR'S KEY</span>. Agora, retorne ao <span class="local">TRAIN CAR CORRIDOR</span>, onde Rebecca encontrou o Billy pela primeira vez e falou com Edward.
+</p>
+<p>
+  <strong><span class="local">Train Car Corridor</span></strong><br>
+  [Billy]<br>
+  Corra pelo corredor e você verá uma terceira porta em algum lugar no meio pela qual você ainda não passou. Destranque-a com a <span class="item">CONDUCTOR'S KEY</span> e entre.
+</p>
+<p>
+  <strong><span class="local">Conductor's Room</span></strong><br>
+  [Billy]<br>
+  Pode haver algumas <span class="item">GREEN</span> e <span class="item">RED HERBS</span> aqui nos níveis de dificuldade mais fáceis. Você deve verificar o armário na parede e pegar a <span class="item">BRIEFCASE</span>. Na parede oposta, deve haver um interruptor vermelho piscando. Pressione-o para revelar uma escada, e você deve subi-la.
+</p>
+<p>
+  <strong><span class="local">Train Bar</span></strong><br>
+  [Billy]<br>
+  Corra pela sala até que uma cut-scene muito curta ocorra. Após a cena terminar, continue correndo pela sala e passe pela porta no final.
+</p>
+<p>
+  <strong><span class="local">Passenger Car 2F</span></strong><br>
+  [Billy]<br>
+  Mova-se pelo corredor. Você pode ver algumas <span class="item">GREEN</span> e <span class="item">RED HERBS</span>, mas o objeto de que você precisa para progredir está no carrinho. Pegue o <span class="item">ICE PICK</span> e então entre na porta no meio do corredor.
+</p>
+<p>
+  <strong><span class="local">Cabin</span></strong><br>
+  [Billy]<br>
+  Nesta sala estará a poderosa <span class="item">HUNTING GUN</span>, e talvez alguma <span class="item">SHOTGUN AMMO</span>. Pegue a <span class="item">HUNTING GUN</span>. Pegue também a <span class="item">SHOTGUN AMMO</span>. Saia da sala quando terminar de gerenciar seus itens. Lembre-se de manter a <span class="item">HUNTING GUN</span> com você. Retorne ao <span class="local">TRAIN BAR</span>.
+</p>
+<p>
+  <strong><span class="local">Train Bar</span></strong><br>
+  [Billy]<br>
+  Corra para frente e uma cut-scene ocorrerá. Você estará se enfrentando o primeiro chefe do jogo.
+</p>
 
-<!-- ── BATALHA DE CHEFE ─────────────────────────────────────── -->
 <div class="chefe-box">
-  <div class="titulo-chefe">⚔️ Chefe — {{NOME DO CHEFE}}</div>
-  <p><!-- Estrategia para derrotar o chefe --></p>
+  <div class="titulo-chefe">⚔️ Boss #1: Stinger (Giant Scorpion)</div>
+  <p>
+    <strong>Personagem:</strong> Billy ou Rebecca<br>
+    <strong>Dificuldade:</strong> Moderada<br>
+    <strong>Localização:</strong> <span class="local">Train Bar</span><br><br>
+    Esta é a primeira luta de chefe do jogo, e é bastante básica em sua execução. Você é encurralado pelo <span class="inimigo">Stinger</span>, então corra para a parede de trás com a porta e comece a atirar com a <span class="item">HUNTING GUN</span>. Use toda a <span class="item">SHOTGUN AMMO</span> que você tiver contra a criatura antes de trocar para a <span class="item">HANDGUN</span> e continuar a partir daí. O <span class="inimigo">Stinger</span> não é um chefe difícil, mas causa muito dano e é um pouco difícil de evitar. Ter pelo menos um item de recuperação total e munição suficiente garantirá uma vitória por atrito. Basicamente, continue atirando e curando e eventualmente o <span class="inimigo">Stinger</span> morrerá. Quando o <span class="inimigo">Stinger</span> tiver espasmos rumo à morte, tente ficar longe dele, pois ele lançará suas pinças para um último contra-ataque, que causa muito dano. Se por acaso você estiver jogando como Rebecca, tenha cuidado, pois isso pode possivelmente matá-la.
+  </p>
 </div>
 
-<!-- ── DICA GERAL ───────────────────────────────────────────── -->
+<p>
+  Retorne ao <span class="local">DINING CAR</span> após derrotar o chefe. Certifique-se de ter a <span class="item">BRIEFCASE</span> e o <span class="item">ICE PICK</span> com você antes de prosseguir. Você pode deixar a <span class="item">HUNTING GUN</span> para trás já que ela ocupa 2 espaços de inventário. Você provavelmente não precisará dela pelo resto da seção do trem. Você verá um <span class="item">PANEL OPENER</span> em meio aos destroços, então pegue-o também.
+</p>
+<p>
+  <strong><span class="local">Dining Car</span></strong><br>
+  [Billy]<br>
+  Retorne ao monta-cargas e envie para a Rebecca o <span class="item">ICE PICK</span>. Mude de volta para a Rebecca, que ainda está presa na <span class="local">KITCHEN 2F</span>.
+</p>
+
+<h3 id="cap1-c">Parte C — Reunited and The Hookshot</h3>
+<p>
+  <strong><span class="local">Kitchen 2F</span></strong><br>
+  [Rebecca]<br>
+  Procure no monta-cargas pelo <span class="item">ICE PICK</span>. Use o <span class="item">ICE PICK</span> na maçaneta para destravá-la e libertar Rebecca. Pegue qualquer outra coisa de que precise antes de sair. Junte-se ao Billy no andar inferior do <span class="local">DINING CAR</span> imediatamente.
+</p>
+<p>
+  <strong><span class="local">Dining Car</span></strong><br>
+  [Rebecca]<br>
+  Reúna-se com Billy e faça-o seguir você. Descendo a sala, perto dos armários há um painel no chão, que você pode abrir com o <span class="item">PANEL OPENER</span> (Billy deve ter isso). Mude para Billy.
+</p>
+<p>
+  [Billy]<br>
+  Abra o painel e entre no espaço apertado (crawl space) em direção à próxima sala.
+</p>
+<p>
+  <strong><span class="local">Storage Room</span></strong><br>
+  [Billy]<br>
+  Pegue o <span class="item">GAS TANK</span> que você vê perto da porta. Na outra extremidade da sala há um <span class="item">GOLD RING</span>. Pegue-o, e então combine-o com a <span class="item">BRIEFCASE</span> que você encontrou anteriormente. Depois, passe pela porta no final da sala (não aquela perto do espaço apertado).
+</p>
+<p>
+  <strong><span class="local">Hookshot Room</span></strong><br>
+  [Billy]<br>
+  Há um botão na parede do trem que está piscando, certifique-se de dizer à sua parceira (Rebecca, neste detonado) para ficar para trás ou que você irá em frente sozinho. Então, aperte o botão e, sem dar um passo, troque para a parceira.
+</p>
+<p>
+  [Rebecca]<br>
+  Pegue a <span class="item">HOOKSHOT</span>, agora que foi liberada da parede. Tenha cuidado para não fazer o Billy se mover enquanto ele está segurando o botão, ou então a <span class="item">HOOKSHOT</span> ficará presa novamente e você terá que apertar o botão mais uma vez. Com a <span class="item">HOOKSHOT</span> em mãos, retorne ao <span class="local">PASSENGER CAR 2</span>.
+</p>
+<p>
+  <strong><span class="local">Passenger Car 2</span></strong><br>
+  [Rebecca]<br>
+  Ao lado da porta lá pelas escadas há uma janela. Dela, você pode usar a <span class="item">HOOKSHOT</span> para alcançar o teto, então faça isso com a Rebecca. Por favor, certifique-se de que não há <span class="inimigo">zumbis</span> vivos nesta sala, pois você deixará seu parceiro para trás temporariamente (embora não por tanto tempo quanto quando Rebecca ficou presa na <span class="local">KITCHEN 2F</span>).
+</p>
 <div class="dica">
-  💡 <!-- Texto da dica -->
+  💡 <strong>Nota:</strong> Você também pode fazer o Billy usar a <span class="item">HOOKSHOT</span> para chegar à área do teto. A decisão sobre quem enviar não tem efeito sobre a história ou a progressão do jogo.
+</div>
+<p>
+  <strong><span class="local">Train Roof 2</span></strong><br>
+  [Rebecca]<br>
+  Caminhe pelo teto e você verá mais um buraco que leva de volta para dentro do trem. Pule para baixo (ao invés de ser empurrado à força como da primeira vez).
+</p>
+<p>
+  <strong><span class="local">Cabin 2</span></strong><br>
+  [Rebecca]<br>
+  Mate o <span class="inimigo">zumbi</span> aguardando nesta sala, e pegue a <span class="item">HANDGUN AMMO</span> e a <span class="item">JEWELRY BOX</span>. Examine a <span class="item">JEWELRY BOX</span> para encontrar um <span class="item">SILVER RING</span>. Combine-o com a <span class="item">BRIEFCASE</span> para descobrir o <span class="item">BLUE KEYCARD</span> dentro dela. Tente sair da sala e uma cena curta ocorrerá. Após o fim, saia da sala.
+</p>
+<p>
+  <strong><span class="local">Passenger Car 2F</span></strong><br>
+  [Rebecca]<br>
+  Você estará de volta neste corredor, mas agora a montanha de <span class="inimigo">sanguessugas</span> se foi, permitindo-lhe acessar a escada que leva de volta ao <span class="local">PASSENGER CAR 2</span>.
+</p>
+<p>
+  <strong><span class="local">Passenger Car 2</span></strong><br>
+  [Billy]<br>
+  Billy se reunirá com Rebecca, e com o <span class="item">BLUE KEYCARD</span> na mão, agora você pode acessar a área do <span class="local">ENGINE CAR</span>. Retorne ao <span class="local">TRAIN CAR CORRIDOR</span> (a sala com o corpo de Edward). Se quiser, pare na <span class="local">SAVE ROOM</span> e salve o jogo na máquina de escrever antes de prosseguir.
+</p>
+<p>
+  <strong><span class="local">Train Car Corridor</span></strong><br>
+  [Billy]<br>
+  Corra até o final do corredor e use o <span class="item">BLUE KEYCARD</span> para destrancar a porta. Passe por ela depois.
+</p>
+<div class="dica">
+  💡 <strong>Nota:</strong> Certifique-se de que ambos os personagens estejam presentes nesta sala antes de passar pela porta. Você também deve garantir que a sub-personagem (neste detonado, Rebecca) esteja configurada para seguir o personagem principal através da porta. Caso contrário, o jogo não permitirá que você avance.
 </div>
 
-<!-- ── LIVE SELECTION (exclusivo RE3) ──────────────────────── -->
-<!--
-<div class="live-box">
-  <div class="live-title">⚡ LIVE SELECTION</div>
-  <p>Opcao A → resultado X</p>
-  <p>Opcao B → resultado Y</p>
+<h3 id="cap1-d">Parte D — Engine Car & Braking</h3>
+<p>
+  <strong><span class="local">Engine Car</span></strong><br>
+  [Billy]<br>
+  Uma cena ocorrerá e, depois, você poderá seguir pelo vagão. Passe pela porta no fim.
+</p>
+<p>
+  <strong><span class="local">Control Room</span></strong><br>
+  [Billy]<br>
+  Escolha se Rebecca ou Billy deve ficar para trás. Pegue o <span class="item">MAGNETIC CARD</span> e duas caixas de <span class="item">HANDGUN AMMO</span>. Em seguida, faça Rebecca/Billy correr de volta para onde pegou a <span class="item">HOOKSHOT</span>. Rebecca terá uma cut-scene com Edward.
+</p>
+<div class="dica">
+  💡 <strong>Nota:</strong> Você pode escolher qualquer um para ficar para trás, enquanto o outro avança. Honestamente não importa, embora em termos de resistência (stamina) Billy seja a escolha mais sábia, já que há vários <span class="inimigo">zumbis</span> que você terá de contornar.
 </div>
--->
+<p>
+  <strong><span class="local">Hookshot Room</span></strong><br>
+  [Billy/Rebecca]<br>
+  Insira o <span class="item">MAGNETIC CARD</span> no pequeno leitor de cartão à esquerda da porta. Isso ativará um quebra-cabeça que você precisará resolver. Por um motivo estranho, você precisa pressionar um número de 1 a 9 em ordem aleatória por 10 vezes de modo que a soma chegue ao número exibido. Lembre-se, o relógio está correndo, então não perca muito tempo. Algumas soluções encontradas:
+</p>
 
-<!-- ── TABELA (itens, armas, rankings, etc.) ───────────────── -->
-<!--
-<table>
-  <tr><th>Coluna 1</th><th>Coluna 2</th><th>Coluna 3</th></tr>
-  <tr><td>dado</td><td>dado</td><td>dado</td></tr>
-</table>
--->
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Freio do Trem 1</div>
+  <p>
+    Soma para 67: 9 | 9 | 9 | 9 | 9 | 5 | 5 | 5 | 5 | 2<br>
+    Soma para 36: 5 | 5 | 5 | 5 | 5 | 5 | 2 | 2 | 1 | 1<br>
+    Soma para 81: 9 | 9 | 9 | 9 | 9 | 9 | 9 | 9 | 8 | 1
+  </p>
+</div>
 
-<h3 id="cap1-b">Parte B — {{NOME DA PARTE}}</h3>
-<p><!-- Conteudo da parte B --></p>
+<p>
+  <strong><span class="local">Control Room</span></strong><br>
+  [Billy/Rebecca]<br>
+  Após concluir o primeiro enigma, o controle passa para o personagem alternativo e você deve concluir mais um enigma. Este é um pouco mais difícil pois você não verá as somas se acumulando, tendo que usar a cabeça para lembrar da soma atual. Algumas soluções que encontrei:
+</p>
+
+<div class="puzzle-box">
+  <div class="titulo-puzzle">🧩 Puzzle — Freio do Trem 2</div>
+  <p>
+    Soma para 81: 9 | 9 | 9 | 9 | 9 | 9 | 9 | 9 | 8 | 1<br>
+    Soma para 36: 5 | 5 | 5 | 5 | 5 | 5 | 2 | 2 | 1 | 1<br>
+    Soma para 67: 9 | 9 | 9 | 9 | 9 | 5 | 5 | 5 | 5 | 2
+  </p>
+</div>
 
 <!-- ── CAPITULO 2 (copie o bloco acima e repita) ───────────── -->
 <hr>
@@ -314,7 +502,7 @@
 <div class="top-bar">
   <div class="top-bar-left">
     <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
-    <span class="top-bar-title">{{TITULO_CURTO}} — Detonado</span>
+    <span class="top-bar-title">Resident Evil Zero — Detonado</span>
   </div>
   <div style="display:flex;align-items:center;gap:6px;">
     <div class="search-wrap" id="searchWrap">
