@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     TEMPLATE DE DETONADO — Retro Guias
+     Instruções de uso no final do arquivo
+     ============================================================ -->
+<title>The Legend of Zelda: Ocarina of Time — Detonado</title>
+<style>
+  /* ── Variaveis de cor do tema ──────────────────────────────
+     Troque {{TEMA_COR}} pela cor principal do jogo.
+     Exemplos:
+       RE1  → #1a3a8a  (azul marinho)
+       RE2  → #8b0000  (vermelho escuro)
+       RE3  → #8b4500  (laranja)
+       DS   → #2d6a2d  (verde)
+  ── */
+
+  :root {
+    --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#1a0000;--h2-color:#2d6a2d;--h2-border:#2d6a2d;--h3-border:#888;
+    --parte-bg:#1a4a1a;--parte-color:#fff;
+    --dica-bg:#fff8f8;--dica-border:#c0392b;
+    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#1a4a1a;
+    --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
+    --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#0d0000;--h2-color:#50b550;--h2-border:#50b550;--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#2a0000;--dica-border:#c0392b;
+      --chefe-bg:#2a0a0a;--chefe-border:#1a4a1a;--chefe-title:#f1948a;
+      --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
+  }
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+  .capa-info{background:#1a0000;padding:8px 16px;display:flex;align-items:center;justify-content:center;}
+  .capa-badge{font-family:Georgia,serif;font-size:13px;color:#ff9999;letter-spacing:.5px;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:20px 24px 16px;margin-bottom:28px;transition:background .25s;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#ff6666;}
+  .game-header .sub{font-size:15px;color:#f99;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#caa;font-family:monospace;}
+  .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
+  .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;transition:color .25s,border-color .25s;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;}
+  .parte{display:flex;align-items:baseline;gap:12px;margin:32px 0 12px;}
+  .parte-tag{background:var(--parte-bg);color:var(--parte-color);font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;letter-spacing:1px;white-space:nowrap;font-family:monospace;}
+  .parte h3{margin:0;font-size:17px;color:var(--text);border:none;padding:0;}
+  p{margin:0 0 13px;}
+  .npc{color:var(--npc);font-weight:bold;}
+  .item{color:var(--item);font-weight:bold;}
+  .alerta{color:var(--alerta);font-weight:bold;}
+  .local{color:var(--local);font-weight:bold;}
+  .inimigo{color:var(--inimigo);font-weight:bold;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;transition:background .25s;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;transition:background .25s;}
+  .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
+  td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
+  th{background:var(--table-head);font-weight:bold;}
+  ul,ol{margin:8px 0 14px 20px;padding:0;}
+  li{margin-bottom:6px;}
+  hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
+  .sidebar-overlay.open{display:block;}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-header span{opacity:.8;font-size:12px;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
+  .sidebar-close:hover{opacity:1;}
+  .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
+  .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
+  .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
+
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#8cff8c;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CAPA DA REVISTA
+     Coloque capa.png na mesma pasta do detonado.html no GitHub.
+     O caminho segue o padrao:
+       geozin/retro-guias → detonados/{{SLUG}}/capa.png
+     Se nao houver capa, o bloco some automaticamente.
+     ============================================================ -->
+<!-- ============================================================
+     CABECALHO DO JOGO
+     TITULO   → Nome completo do jogo  ex: "Resident Evil 4"
+     PLATFORM → Plataforma             ex: "PlayStation 2"
+     ============================================================ -->
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/main/detonados/zelda-ocarina-of-time/capa.png"
+       alt="Capa The Legend of Zelda: Ocarina of Time"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>The Legend of Zelda: Ocarina of Time</h1>
+  <div class="meta">Nintendo 64</div>
+</div>
+
+<!-- ============================================================
+     LEGENDA DE CORES
+     Mantenha sempre — aparece em todos os detonados.
+     ============================================================ -->
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- ============================================================
+     INTRODUCAO
+     Breve contexto do jogo / enredo.
+     ============================================================ -->
+<h2 id="intro">Introdução</h2>
+<p>Tudo começou em 1986, quando um pequeno jogo conhecido como "The Legend of Zelda" foi lançado para o Nintendo Entertainment System (ou Famicom). Seu distintivo cartucho dourado, memória com bateria e enredo épico mostraram claramente que este não era um jogo normal. The Legend of Zelda abriu caminho para outros títulos influentes, cujas raízes foram esquecidas à medida que a tecnologia avançava. Mas tudo volta a The Legend of Zelda.</p>
+<p>Ocarina of Time, lançado em 1997 para o Nintendo 64, definiu o padrão para o que os futuros jogos de Ação deveriam ser. Seu pioneiro sistema de Z-Targeting logo foi copiado por quase todos os jogos de ação do mercado. Mesmo hoje, Ocarina of Time recebe regularmente o título de "Melhor Jogo de Todos os Tempos" por publicações de jogos em todo o mundo. Este guia cobre todo o jogo, do começo ao fim, sala por sala, em altos detalhes.</p>
+
+<!-- ============================================================
+     CONCEITOS BASICOS (opcional)
+     Use para comandos, dicas de sistema, ervas, etc.
+     ============================================================ -->
+<h2 id="conceitos">Conceitos Básicos</h2>
+
+<h3 id="comandos">Comandos (Nintendo 64)</h3>
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>Analógico</td><td>Mover o Link</td></tr>
+  <tr><td>Botão A</td><td>Ação (Rolar, Falar, Abrir, etc)</td></tr>
+  <tr><td>Botão B</td><td>Atacar com a Espada</td></tr>
+  <tr><td>Botão Z</td><td>Z-Targeting (Travar a mira)</td></tr>
+  <tr><td>Botão R</td><td>Defender com o Escudo</td></tr>
+  <tr><td>C-Buttons</td><td>Usar Itens / Tocar Ocarina</td></tr>
+</table>
+
+<!-- ============================================================
+     ESTRUTURA DO DETONADO
+     ============================================================ -->
+
+<!-- ── CAPITULO 1 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap1">Capítulo 01 — Progresso da Aventura Principal</h2>
+<p class="cap-intro">Os capítulos neste detonado seguem a "progressão preferida" do jogo, e são escritos de forma a assumir que você tem itens cobertos nos capítulos anteriores.</p>
+
+<h3 id="cap1-a">Parte A — O Início</h3>
+<p>O começo do jogo, e as três primeiras dungeons, são sempre iguais. Quando você chega à idade adulta, você DEVE obter o <span class="item">Hookshot</span> antes de poder fazer qualquer outra coisa. Uma vez que você tenha a <span class="npc">Epona</span>, você pode completar a sidequest da <span class="item">Biggoron Sword</span> a QUALQUER momento. Portanto, a primeira parte de QUALQUER progressão no jogo sempre segue esta ordem de capítulos:</p>
+<ul>
+  <li><span class="local">Kokiri Forest</span></li>
+  <li>Dungeon I: Inside the Deku Tree</li>
+  <li><span class="local">Hyrule Castle</span></li>
+  <li><span class="local">Lon Lon Ranch</span> e <span class="local">Lost Woods</span></li>
+  <li><span class="local">Kakariko Village</span> e <span class="local">Death Mountain</span></li>
+  <li>Dungeon II: Dodongo's Cavern</li>
+  <li>Dungeon III: Inside Jabu-Jabu's Belly</li>
+</ul>
+
+<!-- ── CAPITULO 2 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap2">Capítulo 02 — Kokiri Forest</h2>
+
+<h3 id="cap2-a">Parte A — A Casa na Árvore de Link</h3>
+<p>Assista à introdução, que apresenta os personagens principais do jogo. Assim que <span class="npc">Navi</span>, a fada, tiver acordado Link de seu pesadelo, o jogo realmente começará. Saia pela porta no canto noroeste.</p>
+
+<h3 id="cap2-b">Parte B — Explorando a Floresta Kokiri</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Kokiri Sword</span>, <span class="item">Deku Shield</span>, <span class="item">Deku Stick (Upgrade)</span>
+</div>
+<p>Na varanda de Link, você será abordado por <span class="npc">Saria</span>, uma das personagens secundárias mais importantes do jogo. Pule a escada e fale com ela. Siga a estrada de Saria para o norte e depois para o leste. Pule pelo pequeno poço d'água até o grande arco que leva à <span class="npc">Great Deku Tree</span>. Fale com <span class="npc">Mido</span>, o Kokiri que bloqueia seu caminho. Ele se recusará a deixar você passar até que você encontre tanto uma <strong>Espada</strong> quanto um <strong>Escudo</strong>.</p>
+<p>Vire-se e volte para a área perto da Casa do Link. Vá para oeste pelo caminho e pegue a direita subindo a colina. Entre na área cercada (conhecida como Campo de Treinamento Kokiri) e vá até o fundo, na parede sul. Entre no pequeno túnel apertando <code>A</code> e rasteje até o outro lado.</p>
+<p>Do outro lado, vire à esquerda. Espere até ver uma <span class="alerta">grande pedra rolar</span> por você, e siga imediatamente o caminho da pedra virando a esquina à direita, depois esquerda, depois direita. Abra o baú de tesouro em cima do tronco de árvore para encontrar a <span class="item">Kokiri Sword</span>. Equipe-a no submenu de Equipamentos.</p>
+<p>O próximo item da sua lista é um Escudo, que você terá que comprar na loja por <strong>40 rupees</strong>. Há também uma Expansão de <span class="item">Deku Stick</span> que pode ser comprada, que também custa 40 rupees. Portanto, seu objetivo no momento é conseguir 80 rupees recolhendo pelas gramas e casas (a casa no sudeste tem 6 rupees em potes que dão respawn ao sair e entrar). Depois compre o <span class="item">Deku Shield</span> na loja a nordeste.</p>
+
+<h3 id="cap2-c">Parte C — The Lost Woods</h3>
+<p>Volte para a casa do <span class="npc">Mido</span> no noroeste da floresta, suba na saliência atrás da casa dele, escale as trepadeiras e entre no grande tronco oco para acessar as <span class="local">Lost Woods</span>.</p>
+<p>Siga à esquerda pelo tronco. Ignore os dois troncos elevados e passe pelo tronco oco no canto esquerdo. Pule da beirada e vá para o fundo da área. Faça o Z-Target no <span class="inimigo">Business Scrub</span>, que provavelmente vai se esconder no chão. Fique longe para ele sair e atirar <span class="item">Deku Nuts</span> em você. Reflita a noz de volta no rosto dele com o <span class="item">Deku Shield</span>. Fale com ele e ele aumentará sua capacidade de <span class="item">Deku Sticks</span> para 20 por 40 rupees.</p>
+
+<h3 id="cap2-d">Parte D — Caminho para a Deku Tree</h3>
+<p>Retorne para a <span class="local">Kokiri Forest</span>. Vá para o lado leste, pule o lago novamente e fale com <span class="npc">Mido</span>. Agora que você cumpriu o desafio dele, ele vai deixar você passar, mas não vai ficar feliz com isso.</p>
+<p>Entre na passagem. No meio do caminho, você encontrará vários <span class="inimigo">Deku Babas</span>. Eles morrem com um hit da sua espada e deixam <span class="item">Deku Sticks</span>. Derrote-os ou desvie, e chegue até a Clareira. A <span class="npc">Deku Tree</span> vai testar Link e Navi pedindo para eles entrarem em sua boca para derrotar um parasita. Entre na boca dele para iniciar a primeira dungeon.</p>
+
+
+<!-- ── CAPITULO 3 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap3">Capítulo 03 — Dungeon I: Inside the Deku Tree</h2>
+<p class="cap-intro">A primeira dungeon do jogo, Inside the Deku Tree, segue uma das fórmulas mais simples de todas as dungeons do jogo. O corpo principal da dungeon é o interior do tronco, e tem quatro níveis: Top Floor, Main Floor, Basement e Sub-Basement.</p>
+
+<h3 id="cap3-a">Parte A — O Tronco Central (The Trunk)</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Dungeon Map</span>
+</div>
+<p>Comece matando os <span class="inimigo">Deku Babas</span> nos cantos da sala. Segure o seu escudo com o <code>R</code> enquanto usa o Z-Targeting para absorver os ataques deles. Pegue os <span class="item">Deku Sticks</span> e/ou <span class="item">Deku Nuts</span> que eles deixarem cair. Corte os arbustos na parede nordeste, depois suba na parede de heras (trepadeiras) na parte norte da sala. Corra para a direita ao longo da plataforma, com cuidado para não cair. Abra o baú no caminho para encontrar o <span class="item">Dungeon Map</span>. Continue indo para a direita e entre na porta que você chegar.</p>
+
+<h3 id="cap3-b">Parte B — Scrub Room #1</h3>
+<p>Derrote o <span class="inimigo">Deku Scrub</span> usando Z-Targeting e refletindo a <span class="item">Deku Nut</span> que ele atira de volta no rosto dele com o escudo. O Scrub vai se levantar e começar a correr pela sala. Não corra atrás dele; vá e fique em cima do ninho dele. Quando o Scrub tentar retornar ao ninho, ele vai dar de cara com você. Ele abrirá as duas portas e dará uma dica útil para evitar dano de queda (pressione para frente no analógico ao cair). Vá para o nordeste passando pela porta para a próxima sala.</p>
+
+<h3 id="cap3-c">Parte C — Slingshot Room</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Fairy Slingshot</span> e <span class="item">Bullet Bag x30</span>
+</div>
+<p>Pule para a plataforma cinza, mas pule rapidamente para a próxima beirada, pois a plataforma começará a cair. Abra o baú para encontrar o <span class="item">Fairy Slingshot</span> (Estilingue) e um Bullet Bag. Vire à direita e suba na parede de heras. Abra o baú para um Recovery Heart. Vire-se e olhe para baixo, em direção à porta pela qual você entrou. Usando o estilingue, atire na escada que está pendurada acima da porta. Pule para baixo, suba a escada e volte pela porta. Retorne para a sala do Tronco (The Trunk) através da Scrub Room #1.</p>
+
+<h3 id="cap3-d">Parte D — Compass Room</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Compass</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>De volta ao tronco, use o Estilingue para derrubar as três <span class="inimigo">Skullwalltullas</span> presas na parede de heras e suba até o nível mais alto. Pule da parede, ignore as Big Skulltulas e siga para a esquerda até uma porta. Entre nela para a <strong>Compass Room</strong>.</p>
+<p>Vire à direita e pise no interruptor próximo à lanterna. As três plataformas no centro da sala vão subir. Pule rapidamente por elas até a beirada no fundo da sala. Abra o baú para encontrar a <span class="item">Compass</span> (Bússola). Retorne para a entrada da sala, pise no botão novamente e pule para a pequena alcova ao norte. Aqui, mate a sua primeira <span class="inimigo">Gold Skulltula</span> e pegue o Token! Você pode trocar esses tokens na House of Skulltula em Kakariko Village. Para sair, acenda um <span class="item">Deku Stick</span> na tocha acesa, pule de volta e acenda a lanterna apagada perto da porta de saída.</p>
+
+<h3 id="cap3-e">Parte E — Quebrando a Teia</h3>
+<p>De volta ao tronco, vá para a direita e passe pelas <span class="inimigo">Big Skulltulas</span> (você pode matá-las com Jump Attacks). Você agora precisará pular da beirada e pousar diretamente na enorme teia de aranha que cobre o buraco no primeiro andar do tronco. Se você pousar bem no meio da teia, você vai quebrá-la e cair no subsolo.</p>
+<p>Você cairá em uma poça d'água. Suba na beirada no sudeste. Pise no interruptor para ativar a lanterna. Acenda um <span class="item">Deku Stick</span> nela, pule na parte rasa da água e suba na beirada sudoeste, passando pelo Deku Baba, e use o bastão em chamas para queimar as teias na parede, revelando uma porta. Entre nela.</p>
+
+<h3 id="cap3-f">Parte F — Trap Room e Torch Room</h3>
+<p>Derrote o <span class="inimigo">Deku Scrub</span> na <strong>Scrub Room #2</strong> do mesmo jeito de antes. Ele vai revelar que "23 é o número 1", uma dica para o chefe. Atire no olho prateado acima da porta com o estilingue e passe por ela.</p>
+<p>Na <strong>Trap Room</strong>, mergulhe na água e aperte e segure <code>A</code> para afundar e tocar o botão no fundo, logo abaixo do cilindro de espinhos rotatório. Isso baixará o nível da água. Volte para a entrada, pule na plataforma flutuante, segure <code>R</code> para se abaixar e passar por baixo dos espinhos. Empurre o grande bloco de pedra, suba nele e passe pela porta. Na <strong>Torch Room</strong>, acenda as duas tochas apagadas para avançar.</p>
+
+<h3 id="cap3-g">Parte G — Caminho do Chefe</h3>
+<p>Na <strong>Small Nest</strong>, mate a Big Skulltula e corra em círculos no centro da sala para provocar os <span class="inimigo">Gohma Larva</span> do teto. Mate-os com Jump Attacks. Acenda um <span class="item">Deku Stick</span> na tocha ao norte e queime a teia no sul da sala. Rasteje pelo túnel e, do outro lado, empurre o bloco de pedra para cair. Acenda a tocha com a outra e role (`A`) sobre a teia no chão da plataforma enquanto segura o bastão aceso para queimá-la. Caia no buraco para encontrar três <span class="inimigo">Deku Scrubs</span>.</p>
+<p>Acerte-os na ordem da dica (2, 3 e 1, que da esquerda para direita significa: <strong>Meio, Direita e Esquerda</strong>). Fique no ninho do último para finalizá-lo e ele dirá que o chefe só é vulnerável quando estiver atordoado. Entre na porta e olhe para o teto.</p>
+
+<!-- ── BATALHA DE CHEFE ─────────────────────────────────────── -->
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ Chefe — Parasitic Armored Arachnid GOHMA</div>
+  <p>Imediatamente faça o Z-Target na <strong>Gohma</strong>. Ela costuma começar com um ataque de investida, então atire no olho dela com o <span class="item">Fairy Slingshot</span> quando brilhar em vermelho e ataque com a espada (faça um Jump Attack). Ela vai fugir para o teto e botar <span class="inimigo">Gohma Larvas</span>. Mantenha o alvo nela, espere o olho ficar vermelho e atire nela lá no teto. Ela vai cair de costas e ficar atordoada por um longo tempo, permitindo que você a mate rapidamente. Pegue o <span class="item">Heart Container</span> e entre na luz azul.</p>
+</div>
+
+<p>Do lado de fora, a Deku Tree lhe dará a <span class="item">Kokiri Emerald</span> e dirá para você encontrar a Princesa do Destino em <span class="local">Hyrule Castle</span>.</p>
+
+<!-- ── CAPITULO 4 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap4">Capítulo 04 — Hyrule Castle</h2>
+
+<h3 id="cap4-a">Parte A — Saída de Kokiri</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Fairy Ocarina</span>
+</div>
+<p>Após derrotar Gohma, você voltará para a entrada da <span class="local">Kokiri Forest</span>. Fale com o <span class="npc">Mido</span>, que vai te culpar pela morte da árvore e sair emburrado. Siga para a saída oeste da floresta. Nas <span class="local">Lost Woods</span>, na ponte para Hyrule Field, você encontrará <span class="npc">Saria</span>, que aceitará sua partida e lhe dará a <span class="item">Fairy Ocarina</span> de presente.</p>
+
+<h3 id="cap4-b">Parte B — Hyrule Field e Gatehouse</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Dê alguns passos em <span class="local">Hyrule Field</span> e a coruja <span class="npc">Kaepora Gaebora</span> irá te parar para explicar sobre o mapa (responda "Yes" se não quiser ouvir tudo de novo). Siga a estrada de terra rolando (apertando <code>A</code> repetidamente) para chegar em Hyrule Castle antes do anoitecer, senão os portões fecharão. Assim que entrar, vá para a porta à esquerda para entrar na <strong>Gatehouse</strong>.</p>
+<p>Quebre os potes e destrua as caixas rolando nelas. Uma delas contém uma <span class="inimigo">Gold Skulltula</span>. Mate-a para pegar o Token e saia.</p>
+
+<h3 id="cap4-c">Parte C — Market e Shooting Gallery</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Bullet Bag x40</span>
+</div>
+<p>No <span class="local">Market</span>, vá até a fonte e fale com a garota de vestido branco, <span class="npc">Malon</span>. Depois, entre na porta com um grande alvo em cima: a <strong>Shooting Gallery</strong>. Fale com o balconista e jogue o minigame. Para ganhar, acerte todos os rupees que aparecerem na ordem. Se você acertar tudo, ganhará o <span class="item">Bullet Bag x40</span>, que aumenta sua capacidade de munição. Se precisar de dinheiro, quebre os potes na Gatehouse.</p>
+
+<h3 id="cap4-d">Parte D — Garden e o Cachorro Perdido</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>Saia pela passagem atrás da Malon para chegar no <span class="local">Garden</span>. A coruja <span class="npc">Kaepora Gaebora</span> aparecerá de novo. Quando ele voar, role na árvore em que ele estava para revelar uma <span class="inimigo">Gold Skulltula</span> e pegar o Token. Agora espere anoitecer e volte para o <span class="local">Market</span>.</p>
+<p>À noite no Market, procure por um pequeno cachorro branco perto de uma barraquinha de madeira à esquerda. Faça-o seguir você e vá para a viela à direita (Back Alley). Entre na segunda porta à esquerda, a <strong>Little Richard's House</strong>. A mulher gorda vai reconhecer o cachorro (Little Richard) e te dar um <span class="item">Piece of Heart</span> como recompensa.</p>
+
+<h3 id="cap4-e">Parte E — Infiltrando-se no Castelo</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Weird Egg / Chicken</span>
+</div>
+<p>Volte para o <span class="local">Garden</span>. <span class="npc">Malon</span> estará perto das vinhas (se não estiver, espere o dia amanhecer). Fale com ela e ela dirá que seu pai, <span class="npc">Talon</span>, foi entregar leite e não voltou. Ela te dará um <span class="item">Weird Egg</span> que eventualmente chocará em uma <strong>Chicken</strong> (galinha). Escale as vinhas com cuidado para não cair. No topo, corra pela ponte e pule do outro lado do portão, passando os dois primeiros guardas.</p>
+<p>Suba o barranco íngreme no terceiro vinco da textura, passe direto pelas flores e escale a parede de tijolos (fuja da vista dos guardas). Pule no fosso de água (moat), nade e suba no pedaço de terra. Lá você encontrará <span class="npc">Talon</span> dormindo. Se o ovo já tiver chocado, use a galinha nele. Ele vai acordar, lembrar da Malon e sair correndo. Empurre as duas caixas de leite que sobraram para o fosso, pule nelas e entre no cano de esgoto. Lembre-se que precisa ser dia para passar pelo cano.</p>
+
+<h3 id="cap4-f">Parte F — O Courtyard e a Princesa</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Zelda's Letter</span> e <span class="item">Zelda's Lullaby</span> (Canção)
+</div>
+<p>Você chegará no <strong>Courtyard</strong>. Você precisará se esgueirar pelos guardas no labirinto de arbustos, escondendo-se atrás deles e esperando os guardas passarem para seguir adiante. No penúltimo trecho, não tente pegar os rupees; suba as escadas e ande pela viga de madeira. No último guarda, siga caminhando grudado nas costas dele e corra para o arco ao norte.</p>
+<p>Lá você encontrará a <span class="npc">Princesa Zelda</span>. <em>(Dica: atire no vidro da direita para ver fotos do Mario e cia e ganhar um rupee, e no da esquerda para levar uma bomba)</em>. Fale com a Zelda. Confirme que você tem a pedra espiritual. Prometa manter segredo sobre a lenda e concorde em olhar pela janela. Você verá o <span class="npc">Ganondorf</span> pela primeira vez. Concorde em ajudá-la e ela lhe dará a <span class="item">Zelda's Letter</span>.</p>
+<p>Ao tentar sair, <span class="npc">Impa</span> irá bloqueá-lo e lhe ensinará a música mais importante do jogo: a <span class="item">Zelda's Lullaby</span>. Ela vai lhe escoltar para fora do castelo, apontando para a <span class="local">Kakariko Village</span>. Mas antes disso, faremos uma parada em <span class="local">Lon Lon Ranch</span>.</p>
+
+<!-- ── CAPITULO 5 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap5">Capítulo 05 — Lon Lon Ranch and the Lost Woods</h2>
+
+<h3 id="cap5-a">Parte A — Lon Lon Ranch (Dia)</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Bottle #1</span>, <span class="item">Epona's Song</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>Em Hyrule Field, siga para o sul e entre em <span class="local">Lon Lon Ranch</span> (certifique-se de que seja de dia). Na <strong>Ranch House</strong> (a primeira porta à esquerda), o <span class="npc">Talon</span> fará um minigame com você. Ele jogará três cuccos "especiais" no meio dos outros. Encontre os três antes do tempo acabar para ganhar sua primeira <span class="item">Bottle</span> (garrafa) cheia de leite. <em>Dica de trapaça: jogue todos os cuccos normais no canto, atrás do balcão onde o Talon senta, antes de começar.</em></p>
+<p>Saia da casa e vá para a grande área de pasto pelo arco à esquerda. Fale com a <span class="npc">Malon</span> no centro; ela apresentará o pônei <span class="npc">Epona</span>, que fugirá. Fale com a Malon de novo até ela mencionar sua mãe, então pegue sua Ocarina. Ela te ensinará a <span class="item">Epona's Song</span> (Canção da Epona), que te dá leite de graça de qualquer vaca no jogo.</p>
+<p>Vá para o moinho (Mill) nos fundos do rancho. No canto há caixas de leite; empurre-as até revelar um pequeno túnel escondido no canto da parede. Rasteje por ele para encontrar um <span class="item">Piece of Heart</span> no ninho.</p>
+
+<h3 id="cap5-b">Parte B — Lon Lon Ranch e Kokiri Forest (Noite)</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">3x Gold Skulltula Tokens</span>
+</div>
+<p>Espere anoitecer em Hyrule Field e volte ao <span class="local">Lon Lon Ranch</span>. Role na árvore à esquerda do arco do pasto para derrubar uma <span class="inimigo">Gold Skulltula</span> e pegar o Token. Dê a volta por fora, nos fundos do curral de cavalos, para matar outra e pegar seu Token.</p>
+<p>Retorne para Hyrule Field e corra (ignore os inimigos Stalchild) até a <span class="local">Kokiri Forest</span> a leste. Ainda de noite, suba o morro à direita da entrada até a casa dos Know-It-All Brothers (a casa com uma folha gigante em cima). Atrás da casa, mate outra <span class="inimigo">Gold Skulltula</span>. Para pegar o token na parede, fique de costas para ele, segure <code>Z</code> e dê um backflip (Trás + A).</p>
+
+<h3 id="cap5-c">Parte C — Lost Woods e o Bullet Bag Gigante</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Bullet Bag x50</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>Siga para o norte até <span class="local">Lost Woods</span>. Pegue o tronco à direita. Vá até a beirada do penhasco e atire com o estilingue (Slingshot) no alvo (um tipo de tambor) pendurado na árvore. Você tem que acertar o centro exato três vezes seguidas para ganhar 100 pontos e um <span class="inimigo">Deku Scrub</span> aparecer. Ele vai te dar o <span class="item">Bullet Bag x50</span> (o maior pacote de sementes).</p>
+<p>Desça o penhasco e vá para a direita, suba no tronco mais baixo e dois <span class="npc">Skullkids</span> vão aparecer. Puxe a Ocarina e jogue um jogo da memória com eles. Vença as três rodadas, que ficam cada vez mais longas, para ganhar um <span class="item">Piece of Heart</span>.</p>
+
+<h3 id="cap5-d">Parte D — Sacred Forest Meadow</h3>
+<div class="dica">
+  💡 <strong>Nova Canção:</strong> <span class="item">Saria's Song</span>
+</div>
+<p>Volte para a escada e siga as passagens, orientando-se pelo som da música da Saria, ou siga as direções: Direita (após KG), Esquerda, Frente, Esquerda, Direita. Você entrará na <span class="local">Sacred Forest Meadow</span>.</p>
+<p>Você será atacado por um <span class="inimigo">Gray Wolfos</span>. Fique parado, espere ele atacar, dê um backflip e então ataque com um Jump Attack nas costas dele. Com ele morto, o portão abrirá. Siga o caminho pelo labirinto, matando ou desviando dos <span class="inimigo">Deku Scrubs</span>, até chegar no final, onde encontrará Saria em um pequeno jardim. Ela te ensinará a <span class="item">Saria's Song</span>, que te permite falar com ela a qualquer momento telepaticamente.</p>
+<p>Volte pelas escadas e suba a escada de madeira para navegar por cima dos muros do labirinto (há uma Fairy Fountain num buraco no meio do caminho se precisar de vida) e retorne para Lost Woods.</p>
+
+<!-- ── CAPITULO 6 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap6">Capítulo 06 — Kakariko Village</h2>
+
+<h3 id="cap6-a">Parte A — Kakariko Village (Dia)</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Bottle #2</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>Vamos agora seguir o conselho de Impa e ir para a <span class="local">Kakariko Village</span>, cuja entrada fica no canto nordeste de Hyrule Field (1:00 no relógio). Vá direto para lá e ignore quaisquer Stalchildren ou Peahats que você possa irritar no caminho. Certifique-se de que seja de dia antes de entrar.</p>
+<p>Corra para a frente através do arco e imediatamente pegue o <span class="npc">Cucco</span> (galinha) que está correndo por aqui. A primeira ordem de negócios em Kakariko é reunir todos os Cuccos ao redor da cidade e entregá-los à Cucco Lady, que lhe dará uma <span class="item">Bottle</span> (Garrafa) pelo seu trabalho. Entregue o Cucco para ela jogando-o no pasto. A Cucco Lady fica na parte sudeste da cidade, perto do prédio parcialmente construído.</p>
+<p>Pegue o próximo Cucco perto do pasto, perto do arco que leva ao cemitério no canto sudeste. O próximo está em um caixote perto do centro da cidade. O próximo está no lado norte da cidade, no nível superior, perto do portão que leva à Death Mountain. Pegue este Cucco e volte ao nível mais baixo da cidade, mas não o jogue no estábulo ainda.</p>
+<p>Note o Cucco que está preso em uma saliência perto da grande árvore no centro da cidade, bloqueado por uma cerca alta. A cerca não pode ser escalada e a saliência é muito alta para pular. Para alcançá-lo, suba as escadas para o prédio em construção e pule da beirada em direção ao Cucco enquanto segura outro Cucco em suas mãos. Ele o ajudará a flutuar até a saliência. Jogue ambos os Cuccos (o que você segurava e o que acabou de alcançar) da beirada e, em seguida, entregue-os um de cada vez.</p>
+<p>Pegue outro Cucco do pasto, pois precisaremos de mais voos. Suba a longa escada a leste do pasto, corra direto para a beirada e mire na plataforma elevada cercada. Pule e jogue o Cucco de volta por cima da cerca (para cair perto do poço). Desça as escadas e tome cuidado para não cair no buraco (isso reinicia os Cuccos). Pegue o Cucco que corre na pequena gruta atrás da construção. Suba de volta e jogue-o perto do poço também.</p>
+<p>Desça de novo na gruta, suba a escada bem alta, dê a volta por trás do moinho (Windmill) e pegue o último Cucco (às vezes ele anda até o topo da escada). Pule do penhasco planando para o pasto e jogue-o lá. Pegue os outros dois perto do poço e coloque no pasto. Fale com a Cucco Lady e receba sua Bottle!</p>
+<p>A diversão de pular com Cuccos ainda não acabou! Pegue outro Cucco do pasto, pois agora vamos planar até a varanda velha acima do pasto. Suba as escadas para a construção inacabada, vá para a frente da pilha de tijolos. Jogue o Cucco para o primeiro nível da pilha, suba rapidamente e pegue-o antes que caia. Repita para o segundo nível.</p>
+<p>Vire à direita, em direção à viga estreita onde o carpinteiro corre. Espere ele ir para a esquerda, então ande pela viga e, quando a viga virar para a direita, pule da beirada e guie-se para a direita em direção à varanda. Jogue o Cucco de lado e entre na rachadura da construção (<strong>Impa's House</strong>) para pegar um <span class="item">Piece of Heart</span>.</p>
+
+<h3 id="cap6-b">Parte B — Kakariko Graveyard (Dia) e Royal Family's Tomb</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span> e <span class="item">Sun's Song</span>
+</div>
+<p>Passe pelo arco de pedra a sudeste da vila para chegar no <span class="local">Graveyard</span> (Cemitério). Corra para a direita, corte os arbustos e pegue o que tiver. Levante a pedra e capture um inseto em uma garrafa. Siga o caminho de pedra para o lado esquerdo do cemitério, onde há um trecho de terra fofa. Solte o inseto lá (que magicamente se transforma em três), capture um de volta e deixe os outros se enterrarem. Uma <span class="inimigo">Gold Skulltula</span> aparecerá; mate-a e pegue seu Token.</p>
+<p>Vá para o fundo do cemitério onde fica a maior lápide. Fique sobre o símbolo da Triforce na grama e toque a <span class="item">Zelda's Lullaby</span>. A lápide explodirá. Caia no buraco para a <strong>Royal Family's Tomb</strong> (Túmulo da Família Real).</p>
+<p>Corra pela rampa e ande em círculos pelo poço de ossos para atrair todos os <span class="inimigo">Keese</span>. Mate-os para abrir a porta no topo da escada. Na próxima sala, abrace a parede da esquerda e corra até o fim, ignorando os zumbis <span class="inimigo">Redeads</span> (para o Jovem Link, é mais fácil desviar do que matá-los). Entre na porta oposta, passe pelo túnel sombrio e encontre um grande túmulo. Leia a inscrição nele para descobrir as notas da <span class="item">Sun's Song</span> (Canção do Sol), que transforma a Noite em Dia e o Dia em Noite! Sem mais esperas em Hyrule Field. (Entre na luz para sair).</p>
+
+<h3 id="cap6-c">Parte C — Kakariko Graveyard (Noite)</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Hylian Shield</span> e <span class="item">2x Pieces of Heart</span>
+</div>
+<p>Seja noite de verdade ou usando a Sun's Song, à noite você pode interagir com as lápides sem que o fanboy do Dampe brigue com você. Vá para a fileira da frente de lápides e fique atrás do túmulo com flores. Puxe-o para trás para revelar um buraco e desça. (Cuidado ao puxar outras lápides, elas contêm inimigos <span class="inimigo">Poe</span> que ficam invisíveis ao focar neles). No <strong>Shield Grave</strong>, abra o baú para pegar o <span class="item">Hylian Shield</span>. É grande demais para o Jovem Link, mas permite que ele se encolha como uma tartaruga imune a danos. O metal dele será útil para resistir a ataques de fogo em Death Mountain.</p>
+<p>De volta ao cemitério, vá para a fileira de trás. Contando da direita para a esquerda, puxe a 4ª lápide para revelar o <strong>Redead Grave</strong>. Desça e ataque o <span class="inimigo">Redead</span> freneticamente sem parar. Quando ele morrer, toque a Sun's Song para fazer surgir um baú com um <span class="item">Piece of Heart</span>.</p>
+<p>Agora é hora de jogar o <strong>Dampe's Heart-Pounding Gravedigging Tour</strong>. O coveiro <span class="npc">Dampe</span> anda pelo cemitério à noite (apenas na primeira parte da noite; se usar a Sun's Song o horário vai pular ele, então se ele não estiver, espere a noite cair naturalmente). Ele segue um caminho. Fique diretamente no caminho dele, e ele irá parar num dos doze montes de terra. Pague a ele 10 rupees para cavar a terra. O <span class="item">Piece of Heart</span> está escondido aleatoriamente num deles (e muda de lugar cada vez que você entra na área). Tente até achar!</p>
+
+<h3 id="cap6-d">Parte D — Caça às Skulltulas (Noite) e o Adult's Wallet</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">5x Gold Skulltula Tokens</span> e <span class="item">Adult's Wallet</span>
+</div>
+<p>Há várias Golden Skulltulas para encontrar e matar na calada da noite na vila:</p>
+<ul>
+  <li>(1) Na pilha de tijolos do prédio em construção. Use o estilingue antes de pular para não levar dano da espada em curto alcance.</li>
+  <li>(2) Na parede oeste da <strong>House of Skulltula</strong> (a casa ao lado da construção inacabada), logo abaixo de uma janela.</li>
+  <li>(3) Rolando na árvore perto do centro da vila.</li>
+  <li>(4) No topo da torre de observação. Atire com o estilingue antes de subir a escada.</li>
+  <li>(5) No lado norte do prédio mais próximo do portão de Death Mountain.</li>
+</ul>
+<p>Entre na <strong>House of Skulltula</strong>, vire à direita e fale com o homem-aranha. Como recompensa por juntar 10 tokens, ele lhe dará o <span class="item">Adult's Wallet</span>, que aumenta sua capacidade para 200 rupees.</p>
+
+<h3 id="cap6-e">Parte E — Happy Mask Trading Sequence</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Keaton Mask</span> (Empréstimo)
+</div>
+<p>Vá para o norte da vila e fale com o guarda perto do portão para Death Mountain Trail. Mostre a ele a <strong>Zelda's Letter</strong> e ele deixará você passar, embora ache que seja uma piada. Ele pedirá que você vá até o Hyrule Castle Market e pegue uma Keaton Mask para ele. Este é o primeiro passo de uma sidequest opcional. Volte para o <span class="local">Happy Mask Shop</span> (perto do Temple of Time de dia no Market), pegue a <span class="item">Keaton Mask</span> emprestada com o vendedor e retorne para vender ao guarda por 15 rupees. (Depois você terá que voltar lá e pagar os 10 rupees da máscara para alugar a <strong>Skull Mask</strong>, que venderemos mais tarde). Siga pelo portão recém-aberto para Death Mountain.</p>
+
+<!-- ── CAPITULO 7 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap7">Capítulo 07 — Death Mountain</h2>
+
+<h3 id="cap7-a">Parte A — Subindo a Trilha</h3>
+<p>Antes de avançar, equipe o <span class="item">Hylian Shield</span>. Avance e mate os <span class="inimigo">Tektites</span> (aranhas). Se eles pularem, use a "Defesa de Tartaruga" (segure <code>R</code>). Siga o caminho, desviando do Goron rolando. Quando chegar a um mastro de madeira com bandeira vermelha, vá para a direita, passe pelo pedestal de pedra e entre na <span class="local">Goron City</span>.</p>
+
+<h3 id="cap7-b">Parte B — Goron City e o Chefe Darunia</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Goron's Bracelet</span>
+</div>
+<p>Há muita coisa escondida aqui, mas precisamos de bombas para acessá-las. Pule para o nível mais baixo. Fique no tapete na frente da porta selada e toque a <span class="item">Zelda's Lullaby</span> para abrir. Entre e encontre <span class="npc">Darunia</span>, que ficará bravo por você não ser um mensageiro real. Toque a <span class="item">Saria's Song</span> bem na frente dele para animá-lo.</p>
+<p>Darunia contará que Ganondorf selou a <span class="local">Dodongo's Cavern</span> (a principal fonte de comida dos Gorons) e acordou monstros lá dentro. Ele prometerá lhe dar a Pedra Espiritual do Fogo se você limpar a caverna, e lhe dará o <span class="item">Goron's Bracelet</span>, que permite arrancar as Bomb Flowers (flores-bomba) do chão.</p>
+<p>Antes de sair, acenda um Deku Stick na tocha dele, corra lá fora e acenda os braseiros apagados no nível inferior. O vaso gigante começará a girar (isso será útil mais tarde). Você também pode usar o bastão aceso para detonar as Bomb Flowers e abrir a loja (Shop).</p>
+
+<h3 id="cap7-c">Parte C — Atalho para Lost Woods (Opcional)</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">2x Gold Skulltula Tokens</span> e <span class="item">Deku Sticks x30</span>
+</div>
+<p>Suba para o segundo nível. Perto de duas tochas apagadas e um Goron sentado, pegue a Bomb Flower e exploda as rochas no túnel. Entre para sair em <span class="local">Lost Woods</span> (se não quiser fazer as sidequests agora, pule para a Parte D). Siga Esquerda, Esquerda, Esquerda até um beco sem saída. Solte insetos na terra fofa para ganhar um Token de <span class="inimigo">Gold Skulltula</span>. Perto das borboletas na grama, caia no buraco invisível para o <strong>Forest Stage</strong>. Coloque a <strong>Skull Mask</strong> e os Scrubs vão te adorar. Vá para a direita e o líder lhe dará um upgrade para <span class="item">30 Deku Sticks</span>. Volte à superfície.</p>
+<p>Saia da clareira e vá Direita, Direita, Esquerda, Direita, Frente, Frente. Você achará o <span class="npc">Skullkid</span> sozinho. Venda a <strong>Skull Mask</strong> para ele (ele vai pagar barato, mas faz parte). Entre no tronco atrás de você e, do outro lado, solte mais insetos na terra fofa para matar outra <span class="inimigo">Gold Skulltula</span>. Volte pelo labirinto até <span class="local">Goron City</span> e saia de volta para Death Mountain Trail.</p>
+
+<h3 id="cap7-d">Parte D — Abrindo a Caverna</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Piece of Heart</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Na trilha de Death Mountain, vá pela direita até um pequeno nicho com uma <strong>Bomb Flower</strong>. Pegue-a e jogue-a do penhasco para que caia e exploda a rocha gigante que bloqueia a caverna. Pode levar algumas tentativas.</p>
+<p>Com a caverna aberta, não mire em nada (não use <code>Z</code>), corra de costas em direção ao penhasco e, quando bater na cerca, dê um backflip (Trás + <code>A</code>). Se fizer certo, cairá numa plataforma bem em cima da entrada da caverna para pegar um <span class="item">Piece of Heart</span>! Caia no chão, plante um inseto na terra fofa fora da caverna para outra <span class="inimigo">Gold Skulltula</span> e, finalmente, entre na <span class="local">Dodongo's Cavern</span>.</p>
+
+<!-- ── CAPITULO 8 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap8">Capítulo 08 — Dungeon II: Dodongo's Cavern</h2>
+
+<h3 id="cap8-a">Parte A — Antechamber e Torch Room</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Logo na entrada, pegue uma <strong>Bomb Flower</strong> e jogue na parede rachada. Lá dentro, pule para a ilha central e vá para a direita. Pegue uma flor-bomba, foque no <span class="inimigo">Beamos</span> (o totem que atira laser) e jogue a bomba na cabeça dele para destruí-lo. Exploda a parede selada com outra bomba e entre.</p>
+<p>No corredor sudeste, mate os <span class="inimigo">Baby Dodongos</span> — cuidado, eles explodem quando morrem! Faça um deles explodir perto da parede falsa no final para abrir caminho. Na <strong>Torch Room</strong>, mate os Keese. Use o Hylian Shield se eles pegarem fogo. Mate a <span class="inimigo">Gold Skulltula</span> na parede, pegue o Token e volte ao corredor. Suba a borda e empurre a <span class="inimigo">Armos Statue</span> para cima do botão cinza para destravar a porta.</p>
+
+<h3 id="cap8-b">Parte B — Lizalfos Nest e Breeding Ground</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Dungeon Map</span>
+</div>
+<p>Mate os morcegos com o estilingue e siga em frente para lutar contra dois <span class="inimigo">Lizalfos</span>. Use a Defesa de Tartaruga (segure R) para bloquear os ataques e contra-ataque com o Jump Attack (Z + A). Com eles mortos, a porta se abre.</p>
+<p>Na Breeding Ground, mate os 3 <span class="inimigo">Dodongos</span> atacando suas caudas (eles também explodem ao morrer). Volte à entrada da sala, acenda um Deku Stick na tocha e acenda rapidamente as 3 tochas apagadas para abrir a porta no fundo. Você sairá numa "janela" acima da Antechamber. Pise no botão para abrir a porta do outro lado e pule para baixo. Perto da porta noroeste que acabou de abrir, use a Bomb Flower para explodir a parede à esquerda e pegue o <span class="item">Dungeon Map</span> no baú. Depois entre na porta noroeste.</p>
+
+<h3 id="cap8-c">Parte C — Bomb Flower Room e Compass</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Compass</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Na Bomb Flower Room, exploda a parede de cor diferente ao sul com a flor. Na <strong>Armos Trap Room</strong>, deixe uma flor-bomba (botão A para soltar, não jogue) perto da Armos Knight que guarda o baú. Ataque a estátua com a espada um pouco antes da explosão para acordá-la e destruí-la (fique longe). Abra o baú e pegue o <span class="item">Compass</span> (Bússola). Volte para a sala anterior.</p>
+<p>Pegue uma flor-bomba e jogue <strong>exatamente no meio</strong> das fileiras de bombas em volta do pilar central. Todas vão explodir em cadeia, abaixando o pilar gigante. Suba pelos degraus formados. No topo, elimine a <span class="inimigo">Gold Skulltula</span> nas vinhas e suba nelas para pegar o Token. Entre na porta no topo.</p>
+
+<h3 id="cap8-d">Parte D — Pillar Room e Blade Traps</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Bomb Bag x20</span>
+</div>
+<p>Na Pillar Room, mate os <span class="inimigo">Fire Keese</span>. Puxe a estátua (cuidado para não tocar nas erradas que são inimigos disfarçados) para liberar a escada. Suba, aperte o botão e entre na porta a leste. Atravesse a passarela da Antechamber e entre pelo túnel.</p>
+<p>Na <strong>Blade Trap Room</strong>, vá até o fundo, suba no bloco, suba a escada e pule para a pequena plataforma. Pegue a Bomb Flower e segure-a. Quando estiver quase explodindo, jogue-a na parede selada acima da escada. Pule para o túnel e siga em frente.</p>
+<p>Na <strong>Solo Eye Room</strong>, atire no olho dourado acima do fogo com o estilingue para apagar as chamas e pule. Na próxima sala, enfrente mais dois <span class="inimigo">Lizalfos</span>. Na <strong>Double Eye Room</strong>, atire no olho acima do fogo e depois no outro olho na parede da esquerda. Pule pelos pilares apagados.</p>
+<p>Você chegará à área superior da Blade Trap Room. Pule o buraco, vá para a direita e pule para abrir o baú contendo a sua própria <span class="item">Bomb Bag</span> (Bolsa de Bombas)! Agora você pode carregar suas próprias bombas em vez de depender das flores.</p>
+
+<h3 id="cap8-e">Parte E — Olhos do Dodongo e o Abismo</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Volte à Antechamber e pise no botão para ativar o pilar que serve como elevador. Vá para a ponte de madeira e, usando suas novas bombas recém-adquiridas, solte uma bomba em cada um dos dois buracos da ponte (mire para que as bombas caiam exatamente dentro dos olhos do gigantesco crânio de Dodongo lá embaixo). Quando os olhos explodirem, a boca do crânio abrirá!</p>
+<p>Desça, entre pela boca do crânio. Siga pelo corredor leste, pule e exploda a parede selada. Na <strong>Armos Knight Room</strong>, mate a <span class="inimigo">Gold Skulltula</span> na parede com o estilingue e ande devagar para pegar o Token sem acordar a estátua (se acordar, use bombas para matá-la). Volte e vá pelo túnel escuro.</p>
+<p>Você encontrará um bloco marrom encaixado num trilho. Empurre-o para baixo, puxe e empurre até que ele caia no buraco no centro da sala para destravar a porta oeste. Na última sala (<strong>The Pit</strong>), coloque uma bomba no centro da placa de metal no chão. Ela vai estourar, revelando um buraco profundo. Pule!</p>
+
+<h3 id="cap8-f">Parte F — Chefe: Infernal Dinosaur KING DODONGO</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Heart Container</span> e <span class="item">Goron's Ruby</span>
+</div>
+<p>O chefe <span class="inimigo">King Dodongo</span> é incrivelmente fácil. Ele tem duas fases: andar e soltar fogo, ou rolar como uma bola. Quando ele começar a inalar para soltar fogo, jogue uma bomba dentro da boca dele. Ela vai explodir no estômago dele e deixá-lo atordoado. Chegue perto e faça um <strong>Jump Attack</strong> (sua única chance de dano antes que ele acorde). Para desviar da fase de rolamento, fique bem na pontinha da plataforma, encostado na beira da lava, ou nos cantos da sala. Bastam 3 Jump Attacks certeiros e ele estará frito. Pegue o <span class="item">Heart Container</span> e entre na luz para ser transportado.</p>
+<p>Lá fora, Darunia comemorará o sucesso e o declarará Irmão de Sangue, entregando-lhe a sua segunda pedra espiritual, a <span class="item">Goron's Ruby</span>!</p>
+
+<!-- ── CAPITULO 9 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap9">Capítulo 09 — Return to Death Mountain and Hyrule Castle</h2>
+
+<h3 id="cap9-a">Parte A — Rock Maze em Goron City</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Bomb Bag x30</span>, <span class="item">Piece of Heart</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Saindo da caverna, vá para a direita e caia do penhasco. Mate as aranhas, exploda a parede de cor diferente com uma bomba, mate a <span class="inimigo">Gold Skulltula</span> lá dentro com o estilingue e escale a parede para pegar o Token.</p>
+<p>Suba de volta a trilha em direção a <span class="local">Goron City</span> e entre. Na cidade, vá para a esquerda a partir da entrada até achar pedregulhos bloqueando o caminho. Exploda-os com uma bomba e entre no túnel à esquerda. Neste "labirinto de pedras", exploda as rochas marrons na seguinte ordem: Direita, Atrás, Esquerda, Direita, Frente. Você chegará ao final do labirinto. Destrua a caixa rolando nela e mate a <span class="inimigo">Gold Skulltula</span> pelo seu Token. (Os baús contêm 50 rupees cada, guarde para depois se sua carteira estiver cheia).</p>
+<p>Caia para o terceiro nível da cidade, onde um Biggoron gigante fica rolando em círculos. Coloque uma bomba no caminho dele (de preferência no túnel norte) para que exploda bem na hora que ele passar. Ele vai parar e lhe dar de recompensa a <span class="item">Bomb Bag x30</span>!</p>
+<p>Desça ao segundo nível. Daqui, você pode jogar bombas dentro daquele vaso gigante que está girando (se você acendeu as tochas antes). Se a bomba cair lá dentro, o vaso rodará bem rápido e parará. Se parar na cara feliz, ele cuspirá um <span class="item">Piece of Heart</span>!</p>
+
+<h3 id="cap9-b">Parte B — Upgrade de Deku Nuts (Lost Woods)</h3>
+<div class="dica">
+  💡 <strong>Novo Upgrade:</strong> <span class="item">Deku Nut Upgrade x30</span>
+</div>
+<p>Use o atalho para <span class="local">Lost Woods</span> no 2º nível de Goron City. Ao sair do túnel, siga Esquerda, Esquerda, Frente, Esquerda. Exploda o pedregulho no canto com uma bomba e caia no buraco. Derrote os dois Business Scrubs com o estilingue. Um deles venderá um upgrade de capacidade para Deku Nuts por 40 rupees. Aceite a oferta e volte todo o caminho até Goron City, e saia para Death Mountain Trail novamente.</p>
+
+<h3 id="cap9-c">Parte C — Topo da Montanha e a Great Fairy</h3>
+<div class="dica">
+  💡 <strong>Nova Magia:</strong> <span class="item">Magic Meter</span>, <span class="item">Super Spin Attack</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Na trilha da montanha, após a bandeira vermelha, comece a subir a ladeira íngreme. Use bombas nas pedras que bloqueiam as bordas e continue subindo (a última esconde um buraco com uma Vaca, toque a Epona's Song se quiser leite). Continue norte, e o vulcão começará a cuspir lava. Use a Defesa de Tartaruga (segure R com o Hylian Shield) para não tomar dano. Ao chegar na parede de pedra no final, a erupção vai parar.</p>
+<p>Use o estilingue para matar 3 Skulltulas enquanto escala os dois lances de parede de pedra até o topo da montanha. <strong>NÃO FALE</strong> com a coruja Kaepora Gaebora aqui em cima ainda! Exploda a parede de cor diferente à esquerda dele e entre. Fique na marca da Triforce, toque a Zelda's Lullaby, e a <span class="npc">Great Fairy</span> lhe dará a barra de magia (<span class="item">Magic Meter</span>) e o poderoso <span class="item">Super Spin Attack</span>.</p>
+<p>Saia da fonte, <strong>ainda não fale com a coruja</strong>. Entre na caverna à direita dela (<span class="local">Death Mountain Crater</span>). Não ande muito senão vai morrer de calor, mas assim que entrar quebre as duas caixas à esquerda para matar uma <span class="inimigo">Gold Skulltula</span> e pegar seu Token. Saia para a trilha, fale com a coruja e pegue uma carona montanha abaixo!</p>
+
+<h3 id="cap9-d">Parte D — Kakariko Village e Stone of Agony</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Stone of Agony</span> e <span class="item">Spooky Mask</span> / <span class="item">Bunny Hood</span>
+</div>
+<p>A coruja o deixará no telhado da casa de Impa. Se você ainda não pegou o Piece of Heart pelo buraco na varanda desta casa, desça e pegue agora. Depois, entre na <strong>House of Skulltula</strong>. Já temos mais de 20 tokens, então fale com outro homem recém-curado para ganhar a <span class="item">Stone of Agony</span>. (Se você jogar usando o Rumble Pak no controle, a pedra treme perto de buracos secretos).</p>
+<p>Saia e corra para Hyrule Castle Market de dia e vá para o <span class="local">Happy Mask Shop</span>. Pague 20 rupees pela Skull Mask que vendemos antes e pegue a <span class="item">Spooky Mask</span> emprestada. Volte correndo para <span class="local">Kakariko Graveyard</span> de dia e venda a máscara para o menino passeando (Dampe's Fanboy) por 30 rupees. Volte ao mercado de Hyrule, pague 30 rupees, e pegue a <span class="item">Bunny Hood</span> (não venderemos esta por enquanto).</p>
+
+<h3 id="cap9-e">Parte E — Din's Fire e Bombchu Bowling</h3>
+<div class="dica">
+  💡 <strong>Nova Magia:</strong> <span class="item">Din's Fire</span>, <span class="item">Bomb Bag x40</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>Do Market, vá para o <span class="local">Hyrule Castle - Garden</span> (onde tem os guardas). Escale as vinhas à direita e pule para o lado de dentro do portão. Corra até a placa "Dead End", exploda o pedregulho com uma bomba e entre pelo túnel na <strong>Great Fairy's Fountain</strong>. Toque Zelda's Lullaby e receba a magia <span class="item">Din's Fire</span> (bola de fogo em área)! Volte para fora, deixe um guarda o ver para ser expulso de volta ao Market.</p>
+<p>Entre no <strong>Bombchu Bowling Alley</strong> (o lugar recém-aberto perto da escadaria no Market). Pague 30 rupees para jogar o minigame, soltando Bombchus (bombas móveis de rato) para acertar os buracos no fim da pista, desviando de espinhos e galinhas. Você pode ganhar um <span class="item">Piece of Heart</span>, a <span class="item">Bomb Bag x40</span>, e estoques de <span class="item">Bombchus</span>. Jogue até ganhar o prêmio principal e a bolsa, custe o que custar (faça o truque da Sun's Song no portão do castelo se precisar de mais dinheiro).</p>
+
+<!-- ── CAPITULO 10 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap10">Capítulo 10 — Zora's River, Zora's Domain, Lake Hylia e Gerudo Valley</h2>
+
+<h3 id="cap10-a">Parte A — Zora's River</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Magic Beans</span>, <span class="item">2x Piece of Heart</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Em Hyrule Field, vá para a posição 2:00 do relógio para entrar em <span class="local">Zora's River</span>. Role na primeira árvore para matar uma <span class="inimigo">Gold Skulltula</span>. Exploda as pedras bloqueando o caminho e siga o rio até o portão de ferro. Fale com o homem gordo e compre quantos <span class="item">Magic Beans</span> puder (eles ficam mais caros a cada compra). Plante um no buraco de terra macia ao lado dele (não há aranha neste buraco).</p>
+<p>Mais a frente, pule o rio, suba o morro à esquerda, vá até o fim e caia na água. Fique no tronco com o círculo branco. Puxe a Ocarina e toque as 4 músicas que você sabe para os sapos (Saria's Song, Zelda's Lullaby, Epona's Song, Sun's Song) para ganhar 50 rupees por música. Volte e compre mais Magic Beans.</p>
+<p>Pegue a galinha (Cucco) perto do vendedor de feijões. Jogue-a no nível acima de onde você pulou o rio, pule e pegue-a rápido antes que caia na água. Continue subindo e jogue-a na próxima borda. Pule com a galinha para uma plataforma mais abaixo na água. Jogue-a fora, suba a escada e pegue <em>outra</em> galinha. Pule com ela para a plataforma alta que tem um <span class="item">Piece of Heart</span>.</p>
+<p>Caia no rio e volte lá no início para pegar a primeira galinha de novo. Traga-a até a parte rasa do rio (perto da pequena cachoeira). Atravesse, suba o morro, atravesse a ponte de madeira. Suba a trilha em zigue-zague, caia na plataforma de baixo, siga até a placa na frente da cachoeira grande, olhe para a esquerda e pule com a galinha para pegar outro <span class="item">Piece of Heart</span>.</p>
+<p>Toque a Sun's Song para ficar de noite. Perto de onde você pegou o primeiro coração, há uma escada saindo da água no meio da trilha de zigue-zague. Mate a <span class="inimigo">Gold Skulltula</span> nela e pegue o Token. Vá até o topo na placa em frente à grande cachoeira, toque a Zelda's Lullaby e entre na passagem.</p>
+
+<h3 id="cap10-b">Parte B — Zora's Domain e a Escama de Prata</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Piece of Heart</span> e <span class="item">Silver Scale</span>
+</div>
+<p>Siga o caminho à esquerda até chegar ao Rei Zora. Acenda um Deku Stick na tocha perto dele. Desça as escadas correndo e acenda a tocha lá embaixo. Puxe outro Deku Stick, acenda, vá pelo caminho de pedra, entre à esquerda e acenda a tocha do lado de fora da caverninha. Continue pela água rasa e acenda mais uma tocha. Por fim, corra para trás da cachoeira (numa caverna secreta com 2 tochas apagadas) e use a magia <strong>Din's Fire</strong> para acendê-las rapidamente. Um baú aparecerá com um <span class="item">Piece of Heart</span>.</p>
+<p>Volte ao rei e entre no túnel à esquerda dele. Pague 20 rupees para o Zora e jogue o minigame de mergulho (pule e segure A para mergulhar e pegar todos os rupees roxos no fundo). Vença para ganhar a <span class="item">Silver Scale</span> (Escama de Prata), que permite mergulhar mais fundo. Mergulhe na lagoa abaixo da cachoeira e entre no túnel submerso para parar em <span class="local">Lake Hylia</span>.</p>
+
+<h3 id="cap10-c">Parte C — Lake Hylia</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Bottle #3 (Letter)</span>, <span class="item">Piece of Heart</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Assim que sair do túnel, nade um pouco para o sul e mergulhe para pegar uma <span class="item">Bottle</span> (Garrafa) no fundo. Ela já vem com uma carta (<span class="item">Ruto's Letter</span>).</p>
+<p>Nade para a costa leste (onde tem dois espantalhos). Mostre a Ocarina para o espantalho de baixo e toque uma música inventada de 8 notas. <strong>Anote essa música!</strong> Você precisará dela no futuro.</p>
+<p>Vá para a ilha principal (oeste). Perto do laboratório alto, use insetos no buraco de terra para pegar uma <span class="inimigo">Gold Skulltula</span> e plante um Magic Bean. Atravesse a ponte de madeira e olhe para o leste: há uma pequena ilha com dois pilares de pedra. Nade até lá, deixe de noite, mate a <span class="inimigo">Gold Skulltula</span> e pegue o Token.</p>
+<p>Vá para a ilha ao norte e entre no <strong>Fishing Pond</strong>. Pague 20 rupees, fisgue um peixe de 9 pounds (libras) ou mais e mostre ao dono para ganhar um <span class="item">Piece of Heart</span>. Saia do lago e volte para Hyrule Field.</p>
+
+<h3 id="cap10-d">Parte D — Gerudo Valley</h3>
+<div class="dica">
+  💡 <strong>Novo Itens:</strong> <span class="item">3x Piece of Heart</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Em Hyrule Field, antes de ir para Gerudo, suba na parede à esquerda perto do castelo e pule dentro do cercadinho (corral). No centro dele, coloque uma bomba para abrir um buraco. Entre e compre um <span class="item">Piece of Heart</span> do Business Scrub por absurdos 10 rupees! Saia e vá para oeste até <span class="local">Gerudo Valley</span>.</p>
+<p>Pegue a galinha logo após a ponte de tronco. Olhe para a parede oposta do cânion para achar uma pequena plataforma com uma caixa de madeira. Pule com a galinha e plane até lá. Jogue a galinha na parede, role para quebrar a caixa e pegue o <span class="item">Piece of Heart</span> (seja rápido para a galinha não cair na água).</p>
+<p>Daqui, olhe para o norte e caia com a galinha até a parte de terra lá embaixo. Jogue a galinha num canto seguro. Use insetos na terra fofa perto da vaca para pegar uma <span class="inimigo">Gold Skulltula</span> e plante um Magic Bean. Pegue a galinha de novo e pule rumo à cachoeira. Solte a galinha no último segundo e caia na água <em>atrás</em> da cachoeira. Suba a escada escondida lá para pegar mais um <span class="item">Piece of Heart</span>.</p>
+<p>Caia no rio e deixe a correnteza levá-lo de volta ao Lake Hylia. Use o túnel submerso de volta a Zora's Domain.</p>
+
+<h3 id="cap10-e">Parte E — Zora's Fountain e Farore's Wind</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Gold Skulltula Token</span> e <span class="item">Farore's Wind</span>
+</div>
+<p>Mostre a garrafa com a carta para o King Zora. Ele vai, de forma muito lenta, dar passagem. Antes de entrar, desça e capture um peixe raso em uma garrafa vazia. Suba e passe por trás do rei para entrar na <span class="local">Zora's Fountain</span>.</p>
+<p>Vá para o sudeste e role na árvore solitária para pegar uma <span class="inimigo">Gold Skulltula</span>. Perto dali, coloque uma bomba entre os dois grandes pedregulhos encostados na parede. Entre na <strong>Great Fairy's Fountain</strong>, toque Zelda's Lullaby e receba a magia de checkpoint de dungeons: <span class="item">Farore's Wind</span>.</p>
+<p>Vá para o centro, fique na frente da boca do lorde Jabu-Jabu e solte o peixe que você pegou na garrafa. Ele vai engolir o peixe... e você junto!</p>
+
+<!-- ── CAPITULO 11 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap11">Capítulo 11 — Dungeon III: Inside Jabu-Jabu's Belly</h2>
+
+<h3 id="cap11-a">Parte A — O Resgate (Forçado) da Princesa</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Mate os Octoroks e as bolhas (Shaboms). Atire na espécie de botão amarelo no teto com o estilingue para abrir a porta. Na <strong>Elevator Room</strong>, ignore as águas-vivas elétricas (Biri) e siga pela esquerda até a porta. Na <strong>Pit Room</strong>, você encontrará a princesa <span class="npc">Ruto</span>. Ela será grosseira e cairá num buraco. Pule atrás dela!</p>
+<p>Fale com ela duas vezes e ela deixará você carregá-la. Pegue-a e passe pela porta atrás de você. Na <strong>Water Room</strong>, jogue Ruto na borda alta ao norte. Pule na água, mate as raias (Stingers). Na parede oeste cheia de "vinhas", mate a <span class="inimigo">Gold Skulltula</span>. Pise no botão no fundo da água para fazê-la subir. Escale a parede, pegue o Token, pise no botão de novo se a água baixar, suba na borda com a Ruto, carregue-a e atire no botão no teto para abrir a porta.</p>
+<p>Na próxima sala, suba no elevador, que o levará de volta ao topo da Pit Room. Vá pela porta à direita, atravesse a Pit Room saltando os buracos (repare no buraco bloqueado por um tentáculo verde gigante) e entre na <strong>Crawling Hallway</strong>.</p>
+
+<h3 id="cap11-b">Parte B — O Bumerangue</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Boomerang</span> e <span class="item">Dungeon Map</span>
+</div>
+<p>Vá para a direita e pise no botão amarelo <strong>carregando a Ruto</strong> (só o seu peso não basta). Entre na sala destrancada. Na <strong>Stinger Room</strong>, use Deku Nuts para fazer as raias voarem e mate todas com o estilingue. Um baú aparecerá com o valioso <span class="item">Boomerang</span>! Com ele você pode matar os Biris, atordoar inimigos e pegar Tokens de longe. Volte, pegue a Ruto e coloque-a em cima do botão azul no corredor para mantê-lo pressionado, entrando na porta sem ela.</p>
+
+<h3 id="cap11-c">Parte C — Destruindo os Tentáculos</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Compass</span>
+</div>
+<p>Na <strong>Orange Tentacle Room</strong>, use o bumerangue no tentáculo parasita gigante. Mire (Z-Target), espere ele tentar te atacar e jogue o bumerangue enquanto desvia. Quatro acertos o matam. Ao matá-lo, pegue o <span class="item">Dungeon Map</span> e note que os tentáculos laranjas sumiram do labirinto.</p>
+<p>Volte ao corredor, pegue a Ruto de volta (ela vai reclamar) e entre na sala à esquerda que se abriu. Mate todos os Shaboms em 40 segundos para ganhar o <span class="item">Compass</span> (Bússola). Volte ao corredor e vá até a <strong>Blue Tentacle Room</strong>. O esquema é o mesmo: 4 bumerangadas no tentáculo azul enquanto desvia. Volte, vá pelo outro caminho e entre na <strong>Green Tentacle Room</strong>. Mate os Biris com o bumerangue e depois destrua o tentáculo verde. Com todos destruídos, volte ao corredor e vá reto para a Pit Room.</p>
+
+<h3 id="cap11-d">Parte D — O Subsolo e o Mini-Chefe</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Lembra do buraco que o tentáculo verde bloqueava a oeste? Caia nele. Você estará em um novo lugar. Solte a Ruto, olhe para a parede e você verá duas <span class="inimigo">Gold Skulltulas</span>. Mate-as e use o bumerangue para pegar os Tokens. Carregue a Ruto e vá para a porta oeste.</p>
+<p>Na sala do <strong>Mini-Chefe Bigocto</strong>, jogue a Ruto na plataforma central para ela pegar a pedra. A plataforma vai subir e sumir com ela. O polvo Bigocto vai começar a rodar atrás de você. Atordoe-o com o bumerangue (não chegue perto da frente), corra para as <em>costas</em> dele, atordoe novamente e dê um <strong>Jump Attack</strong> no grande olho verde na traseira dele. Repita isso mais algumas vezes para matá-lo.</p>
+
+<h3 id="cap11-e">Parte E — Rumo ao Chefe</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Suba no elevador de onde a Ruto sumiu. Lá em cima, vá para o sul e entre na porta. Na <strong>Pink Thing Room</strong>, atordoe as plataformas de gosma rosa com o bumerangue para pular sobre elas em segurança e passe pela próxima porta. Pule para a plataforma móvel à frente e ela começará a descer (você estará na sala de entrada). Perto da parede há caixotes de madeira. Pegue um e coloque sobre o botão azul. Atravesse a porta destrancada.</p>
+<p>Na <strong>Biri Room</strong>, mate as águas vivas, mate a <span class="inimigo">Gold Skulltula</span> na parede de vinha e escale para pegar o Token. Escale até lá em cima, mire no botão através do vidro e acerte com o bumerangue para destravar a última porta.</p>
+
+<h3 id="cap11-f">Parte F — Chefe: Bio-Electric Anemone BARINADE</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Heart Container</span> e <span class="item">Zora's Sapphire</span>
+</div>
+<p>O chefe <span class="inimigo">Barinade</span> tem várias fases, mas todas focam no Bumerangue.<br>
+<strong>Fase 1:</strong> Ande em círculos rápidos para desviar dos raios e jogue o bumerangue nos pequenos tentáculos que o ligam ao teto até cortar todos.<br>
+<strong>Fase 2:</strong> Atire o bumerangue no corpo principal para atordoá-lo. As bolhas (Baris) que o circulam vão parar; ataque as bolhas para destruí-las.<br>
+<strong>Fase 3:</strong> Agora ele se move rapidamente pelo cenário. Continue atacando com o bumerangue para paralisá-lo, fuja dos raios e limpe as bolhas restantes.<br>
+<strong>Fase 4:</strong> Sem bolhas e sem suporte, atordoe o núcleo dele com o bumerangue e aplique repetidos <strong>Jump Attacks</strong> nele até matá-lo.</p>
+<p>Pegue o <span class="item">Heart Container</span>, pise na luz azul. Do lado de fora, a Ruto lhe dará a cobiçada <span class="item">Zora's Sapphire</span> com a promessa (não opcional) de que você se case com ela no futuro!</p>
+
+<!-- ── CAPITULO 12 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap12">Capítulo 12 — Finishing Up Childhood</h2>
+<p>Antes de avançarmos na história, vamos aproveitar que temos o Bumerangue e coletar vários itens que ficaram para trás, agora que não precisamos nos preocupar com a história por um tempo.</p>
+
+<h3 id="cap12-a">Parte A — Caça Noturna e Giant's Wallet</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Giant's Wallet</span> e <span class="item">6x Gold Skulltula Token</span>
+</div>
+<ul>
+  <li><strong>Zora's Fountain (Noite):</strong> Suba no grande tronco de árvore no sul da área. Na parede oeste do tronco, mate uma <span class="inimigo">Gold Skulltula</span> e pegue o Token com o Bumerangue.</li>
+  <li><strong>Lake Hylia (Noite):</strong> Vá para trás do Observatório e mate a <span class="inimigo">Gold Skulltula</span> na parede usando o Bumerangue.</li>
+  <li><strong>Hyrule Field:</strong> Vá para a entrada do Gerudo Valley. Perto dali, há uma grande árvore isolada e um círculo de pedras. Jogue uma bomba no círculo para revelar um buraco. Lá embaixo, use Din's Fire para queimar as teias. No nicho com a vaca, mate a <span class="inimigo">Gold Skulltula</span>.</li>
+  <li><strong>Gerudo Valley (Noite):</strong> Na ponte de tronco, olhe à direita acima da pequena cachoeira. Mate a <span class="inimigo">Gold Skulltula</span> com o bumerangue.</li>
+  <li><strong>Hyrule Field:</strong> Perto da entrada de Kakariko, ao norte das escadas, há uma árvore solitária. Coloque uma bomba na base dela para abrir um buraco. Desça, mate a aranha grande, olhe no alto da parede e pegue mais uma <span class="inimigo">Gold Skulltula</span>.</li>
+  <li><strong>House of Skulltula:</strong> Com mais de 30 Tokens, entre lá e pegue a <span class="item">Giant's Wallet</span> (Bolsa Gigante, que guarda 500 rupees) com um dos homens curados.</li>
+</ul>
+
+<h3 id="cap12-b">Parte B — Kakariko e Retorno à Dodongo's Cavern</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Piece of Heart</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>De noite no <span class="local">Kakariko Graveyard</span>, olhe no alto da parede do canto sudeste para pegar uma <span class="inimigo">Gold Skulltula</span>. Vá ao canto noroeste, na terra fofa, e plante um <strong>Magic Bean</strong>.</p>
+<p>Entre no moinho (<span class="local">Windmill</span>) pela porta no alto da vila. Perto da entrada, olhe à esquerda e use o Bumerangue para fisgar o <span class="item">Piece of Heart</span> na plataforma alta.</p>
+<p>Siga para a <span class="local">Death Mountain Trail</span> e plante um <strong>Magic Bean</strong> na terra fofa em frente à entrada da Dodongo's Cavern. Entre na caverna. Suba no elevador direito e saia no segundo andar. Passe pela Blade Trap Room, desça a escada e volte à Antechamber. Atravesse a ponte de madeira e chegue à <strong>Bomb Flower Room</strong>. Escale as vinhas, suba na plataforma de metal e, lá de cima, olhe no nicho ao norte. Use o bumerangue para pegar o Token da <span class="inimigo">Gold Skulltula</span>.</p>
+
+<h3 id="cap12-c">Parte C — Lon Lon Ranch e a Máscara</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">2x Gold Skulltula Token</span> e <span class="item">Ocarina of Time</span> / <span class="item">Song of Time</span>
+</div>
+<p>De noite no <span class="local">Lon Lon Ranch</span>, olhe na janela do segundo andar da casa à esquerda para uma <span class="inimigo">Gold Skulltula</span>. Atrás do estábulo redondo, na parede oeste, pegue mais uma <span class="inimigo">Gold Skulltula</span> com o bumerangue.</p>
+<p>Em Hyrule Field (de dia), procure o homem que corre (o <em>Running Man</em>). Corra no sentido anti-horário pela estrada de terra para encontrá-lo. Quando ele parar para descansar, coloque a <strong>Bunny Hood</strong> e fale com ele. Ele comprará a máscara por nada menos que 500 rupees (enchendo sua Giant's Wallet)!</p>
+<p>Agora se aproxime dos portões do castelo. Uma cena dramática acontecerá: Zelda fugirá a cavalo com Impa e jogará algo na água. Ganondorf aparecerá, te intimidará e irá embora. Mergulhe no fosso do castelo para pegar a <span class="item">Ocarina of Time</span>! Em seguida, você terá uma visão com Zelda e ela lhe ensinará a épica <span class="item">Song of Time</span>.</p>
+
+<h3 id="cap12-d">Parte D — Finalizando as Coletas de Criança</h3>
+<div class="dica">
+  💡 <strong>Novo Upgrade:</strong> <span class="item">Deku Nuts x40</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Vá ao <strong>Happy Mask Shop</strong> e pague os 50 rupees da Bunny Hood. Empreste a <span class="item">Mask of Truth</span>.</p>
+<p>Vá a <span class="local">Zora's River</span>, compre todos os Magic Beans restantes. Toque a Song of Time para os sapos e ganhe 50 rupees. Vá ao lago fora do domínio do rei e pegue o atalho aquático para <span class="local">Lost Woods</span>.</p>
+<p>Solte insetos na terra fofa se ainda não pegou a aranha lá. Plante um Magic Bean. Siga até os fundos onde tem as borboletas, caia no buraco invisível para o <strong>Forest Stage</strong>. Com a Mask of Truth equipada, fale com o Deku Scrub com "bigode" para ganhar um aumento para <span class="item">40 Deku Nuts</span>. Volte e continue plantando Magic Beans em todos os buracos (como o da Kokiri Forest perto da loja).</p>
+<p>Atrás da loja em <span class="local">Kokiri Forest</span>, pegue a <span class="inimigo">Gold Skulltula</span> na terra fofa se faltou. Entre na <strong>Inside the Deku Tree</strong> mais uma vez. Desça pelo buraco do chão para o subsolo. Suba no bloco de pedra, engatinhe pelo buraco oeste para a sala do ninho. Queime a teia e exploda a parede para entrar numa <strong>Hidden Room</strong>. Pegue a <span class="inimigo">Gold Skulltula</span> ao lado da porta com o bumerangue.</p>
+
+<h3 id="cap12-e">Parte E — O Temple of Time</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Master Sword</span>
+</div>
+<p>Acabou o descanso. Volte ao <span class="local">Hyrule Castle Market</span> e entre na praça à direita do Happy Mask Shop para acessar o exterior do <strong>Temple of Time</strong>. Entre nele, caminhe até o altar vermelho e toque a <strong>Song of Time</strong>.</p>
+<p>As três Pedras Espirituais flutuarão e as Portas do Tempo se abrirão. Atravesse-as para encontrar o pedestal da espada lendária. Puxe a icônica <span class="item">Master Sword</span> e prepare-se para o verdadeiro início de <em>The Legend of Zelda: Ocarina of Time</em>.</p>
+
+<!-- ── CAPITULO 13 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap13">Capítulo 13 — Vida Adulta, Epona e Kakariko Village</h2>
+
+<h3 id="cap13-a">Parte A — Sete Anos Depois</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Light Medallion</span>
+</div>
+<p>Infelizmente, você foi enganado. Ganondorf aproveitou que você abriu as portas do Reino Sagrado e tomou a Triforce do Poder para si. Como você era muito jovem para ser o Herói do Tempo, a Master Sword selou você por 7 longos anos. Ao acordar, você conhecerá o sábio <span class="npc">Rauru</span>, que lhe entregará o <span class="item">Light Medallion</span> (Medalhão da Luz). Sua missão agora é despertar os outros cinco sábios. Ao voltar ao Temple of Time, você conhecerá a misteriosa <span class="npc">Sheik</span>, que lhe dirá para ir à Kakariko Village primeiro.</p>
+
+<h3 id="cap13-b">Parte B — Resgatando Epona no Lon Lon Ranch</h3>
+<div class="dica">
+  💡 <strong>Novo "Item":</strong> <span class="item">Cavalo Epona</span>
+</div>
+<p>Saia do templo, passe pelo Market (que agora está destruído e infestado de zumbis ReDeads) e vá para Hyrule Field. Corra até o <span class="local">Lon Lon Ranch</span>. Fale com <span class="npc">Ingo</span> (ele tomou o rancho) e pague 10 rupees para montar. <strong>Não monte no cavalo que ele oferece!</strong> Toque a <strong>Epona's Song</strong> e a sua velha amiga Epona, agora crescida, virá até você. Suba nela, pule duas cercas e o tempo acabará.</p>
+<p>Fale com Ingo, pague mais 10 rupees, chame Epona de novo, monte nela e, montado, fale com Ingo. Ele apostará 50 rupees numa corrida. Vença-o ficando sempre na frente dele (use as cenouras com calma). Ele ficará louco e apostará o cavalo. Vença-o de novo (desta vez ele trapaceará e sairá antes). Derrotado, ele trancará o portão para você não sair. Corra pelo pasto, pegue velocidade e pule a grande cerca externa do rancho para fugir com a sua <span class="item">Epona</span>!</p>
+
+<h3 id="cap13-c">Parte C — Dampe's Race e o Hookshot</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Hookshot</span> e <span class="item">Song of Storms</span>
+</div>
+<p>Cavalgue até a entrada de <span class="local">Kakariko Village</span>. No <strong>Kakariko Graveyard</strong>, suba na planta mágica (Magic Leaf) à esquerda e role na caixa na colina para pegar um <span class="item">Piece of Heart</span>. Puxe a lápide com flores ali perto e caia no buraco.</p>
+<p>Você encontrará o fantasma do coveiro Dampe. Acompanhe-o no labirinto correndo sem perder de vista e desviando de chamas. No fim, ele deixará um baú com o famigerado <span class="item">Hookshot</span>! Ele serve para atacar e se puxar até locais distantes (madeira, telhados, alvos). Atravesse a porta, toque a Song of Time para remover os blocos azuis e suba as escadas para sair no <strong>Windmill</strong> (Moinho).</p>
+<p>Mostre a Ocarina para o homem tocando a caixinha de música e ele lhe ensinará a paradoxal <span class="item">Song of Storms</span>.</p>
+
+<h3 id="cap13-d">Parte D — Corações e Aranhas de Adulto</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Piece of Heart</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Saia do moinho e use o Hookshot para mirar e se puxar até o teto azul da casa em frente. Fale com o homem sentado ali e receba um <span class="item">Piece of Heart</span>. De noite, suba na varanda da casa de Impa, use o Hookshot para subir no telhado da House of Skulltula, depois de volta ao teto da casa de Impa. Na parede sul, puxe a <span class="inimigo">Gold Skulltula</span> com o Hookshot.</p>
+<p>Vá para <strong>Ganon's Castle</strong> (onde era o Hyrule Castle antes). De noite, passe pelo arco de pedra e olhe para trás. À direita do arco, sobre a lava, puxe a <span class="inimigo">Gold Skulltula</span> com o Hookshot.</p>
+
+<!-- ── CAPITULO 14 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap14">Capítulo 14 — Return to Kokiri Forest e Lost Woods</h2>
+
+<h3 id="cap14-a">Parte A — Floresta Amaldiçoada</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Siga para a <span class="local">Kokiri Forest</span> (que agora está infestada de inimigos). De noite, vá para a casa dos gêmeos e puxe a <span class="inimigo">Gold Skulltula</span> na parte de trás da árvore com o Hookshot. Vá para <span class="local">Lost Woods</span>.</p>
+<p>Sem a música para guiar, siga: Direita, Esquerda. Fale com Mido (toque Saria's Song para ele deixar passar). Vá para a Esquerda. Você chegará na clareira do <strong>Forest Stage</strong>. Use a planta mágica (Magic Leaf) para subir e matar uma <span class="inimigo">Gold Skulltula</span> no alto. Volte à tela anterior e vá Esquerda, Esquerda, Direita para sair na <strong>Sacred Forest Meadow</strong>.</p>
+
+<h3 id="cap14-b">Parte B — Sacred Forest Meadow e o Labirinto</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Gold Skulltula Token</span> e <span class="item">Minuet of Forest</span>
+</div>
+<p>No labirinto, agora existem enormes guardas Moriblins. Espere eles virarem de costas e atire com o Hookshot para matá-los silenciosamente. No canto superior direito do labirinto antes do final, suba a escada e mate uma <span class="inimigo">Gold Skulltula</span> na parede.</p>
+<p>Chegando à longa escadaria final, você enfrentará um enorme Club Moblin. Fique desviando dos tremores correndo para os lados, passe correndo por ele (ou use o Hookshot para passar pelas costas) e dê golpes por trás. No topo do pátio, Sheik ensinará a música de teletransporte <span class="item">Minuet of Forest</span>.</p>
+<p>Use o Hookshot para grudar no galho da árvore acima da escadaria quebrada, suba e entre na masmorra.</p>
+
+<!-- ── CAPITULO 15 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap15">Capítulo 15 — Dungeon IV: The Forest Temple</h2>
+<p>O Forest Temple é um grande passo na dificuldade, possuindo quebra-cabeças complexos, portas trancadas (Keys) e os primeiros chefes realmente difíceis. Quatro Irmãs Poe roubarão chamas de um altar, desligando um elevador. Seu objetivo geral é matar as quatro e acender as tochas novamente.</p>
+
+<h3 id="cap15-a">Parte A — A Entrada e o Primeiro Encontro com Stalfos</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">2x Small Key</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Mate os Wolfos na entrada da masmorra. Olhe para a parede de trepadeiras ("vinhas") à direita e suba no topo da árvore. No alto da parede, use o Hookshot para matar e pegar o Token da primeira <span class="inimigo">Gold Skulltula</span>. Ande pelo galho, pule para a próxima árvore e abra o baú para pegar uma <span class="item">Small Key</span>. Caia e entre no templo.</p>
+<p>Mate a Big Skulltula com o Hookshot (um tiro basta). Na <strong>Torch Room</strong>, você verá as 4 irmãs Poe roubando as chamas. Atravesse a sala direto para a escadaria oposta. No topo, olhe à direita e pegue a <span class="inimigo">Gold Skulltula</span>. Passe pela porta.</p>
+<p>Mate a Blue Bubble (bata nela com o escudo levantado para tirar o fogo e então ataque). Na sala seguinte (<strong>Lower Stalfos Chamber</strong>), derrote os dois Stalfos (esqueletos guerreiros). Use o escudo, espere eles atacarem e ataque logo depois. Um baú surgirá com uma <span class="item">Small Key</span>. Volte à Torch Room.</p>
+
+<h3 id="cap15-b">Parte B — Os Pátios e o Poço</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Dungeon Map</span>, <span class="item">Small Key</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Na Torch Room, à direita de onde você voltou, toque a Song of Time em frente ao bloco azul para revelar uma porta. No <strong>West Courtyard</strong>, mate a planta (Deku Baba) e o Octorok na água. Escale as vinhas à direita (cuidado com as aranhas) e entre na porta no topo. No corredor de cima, mate a Blue Bubble para ganhar o baú com o <span class="item">Dungeon Map</span> e destrancar a porta.</p>
+<p>No <strong>East Courtyard</strong>, mire no alvo branco na varanda à esquerda e puxe-se com o Hookshot. Pise no botão para drenar o poço. Pule para o chão. Use o Hookshot no baú no topo do penhasco solitário para subir e dar a volta para encontrar uma <span class="inimigo">Gold Skulltula</span> presa na parede. Pule no poço no lado direito do pátio e abra o baú no final para pegar outra <span class="item">Small Key</span>. Suba as vinhas de volta ao West Courtyard e retorne à Torch Room.</p>
+
+<h3 id="cap15-c">Parte C — O Bloco de Pedra e o Arco</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Fairy Bow (Arco)</span>
+</div>
+<p>Na Torch Room, vá para a porta trancada a oeste no andar de cima. No corredor (West Passage), mate a aranha e passe pela porta para entrar na <strong>Stone Block Room</strong>. Mate a caveira e suba as duas escadas. Siga pelos corredores contornando um bloco de pedra gigante até chegar atrás dele. Empurre-o seguindo as setas no chão até que caia. Volte, suba a escada de mão na parede e puxe/empurre o segundo bloco vermelho de forma que os dois blocos formem uma passagem. Escale pelos blocos para o terceiro andar.</p>
+<p>Passe pelas caveiras voadoras e entre na <strong>West Twisted Hallway</strong>. Cuidado com <em>Wallmasters</em> (mãos que caem do teto: se a sombra aparecer, corra em círculos e ataque-a quando cair). Atravesse o corredor retorcido e pule as plataformas para descer a <strong>West Stairwell</strong>.</p>
+<p>Entre na <strong>Upper Stalfos Room</strong>, lute contra um Stalfos e um buraco se fechará. Aparecerão mais dois Stalfos (você tem que matá-los quase juntos ou eles revivem). Ao vencer, pegue o sagrado <span class="item">Fairy Bow</span> (Arco e Flecha) no baú!</p>
+
+<h3 id="cap15-d">Parte D — As Poes Joelle (Vermelha) e Beth (Azul)</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Boss Key</span>, <span class="item">Compass</span>, <span class="item">2x Small Key</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Volte à <strong>West Stairwell</strong>. Atire nos 3 quadros das escadas com o arco de longe para fazer a fantasma Joelle (vermelha) aparecer. Atire nela quando ela ficar visível (não use Z-Target). Pegue a <span class="item">Small Key</span>. Volte pela West Twisted Hallway até a sala dos blocos. Atire uma flecha no "olho" de prata acima da porta para "desentortar" o corredor.</p>
+<p>Passe pelo corredor agora reto e caia no buraco para pegar a <span class="item">Boss Key</span> num baú chique. Caia no buraco no chão. Mate as caveiras para sair. Você estará numa borda superior no <strong>West Courtyard</strong>. Ande por ela, pule para o pilar quebrado para pegar uma <span class="inimigo">Gold Skulltula</span> e volte à borda para entrar na última porta.</p>
+<p>Derrote a <em>Floormaster</em> (mate as três mãozinhas rápido antes que cresçam) para pegar uma <span class="item">Small Key</span>. Saia e passe pela porta à direita da borda. Caia até o chão da sala dos blocos, escale tudo novamente, atire no olho para entortar o corredor e volte à escadaria (West Stairwell). Atravesse a sala dos Stalfos para a <strong>East Stairwell</strong>.</p>
+<p>Atire nos 3 quadros aqui para enfrentar a fantasma Beth (azul). Pegue a <span class="item">Compass</span> no baú. Suba e abra a porta trancada acima para entrar na East Twisted Hallway.</p>
+
+<h3 id="cap15-e">Parte E — O Enigma Congelado e Amy (Verde) e Meg (Roxa)</h3>
+<p>Na East Twisted Hallway, suba a escada e entre na <strong>Flaming Arrow Room</strong>. Suba numa das plataformas giratórias, mire o arco e atire <em>através</em> da tocha acesa do centro no "olho" de gelo na parede. A flecha de fogo derreterá o gelo. O corredor do lado de fora será desentortado. Volte e caia pelo buraco no chão.</p>
+<p>Corra pela <strong>Crushing Ceiling Room</strong>, parando nos vãos quando o teto cair. Pise no botão do chão para abrir a porta no fim. Na sala adiante, atire no quadro com uma flecha e cairão 5 blocos. Empurre-os (ignorando um que é falso) para montar a imagem da fantasma verde (Amy). Quando a imagem se montar, enfrente-a. Siga pela East Hallway para sair na sacada superior da Torch Room.</p>
+<p>Caia e lute contra a última fantasma: <strong>Meg</strong> (roxa). Ela se dividirá em quatro. Aquela que der uma rodadinha ao aparecer é a verdadeira. Atire nela até vencer. O elevador principal subirá. Caia pelo buraco central.</p>
+
+<h3 id="cap15-f">Parte F — Spinner Room e o Chefe Phantom Ganon</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Gold Skulltula Token</span> e <span class="item">Heart Container</span> e <span class="item">Forest Medallion</span>
+</div>
+<p>Na masmorra giratória subterrânea, empurre os painéis nas laterais para girar a sala:
+1. Empurre no sentido anti-horário e pise no botão noroeste.
+2. Empurre no mesmo sentido e pise no botão leste.
+3. Empurre no <strong>sentido horário</strong> e entre na sala sudoeste para pegar a última <span class="inimigo">Gold Skulltula</span> e flechas.
+4. Empurre no sentido anti-horário e pise no botão sul. A porta do chefe se abrirá ao norte.</p>
+<p><strong>CHEFE: Evil Spirit from Beyond PHANTOM GANON</strong><br>
+<strong>Fase 1:</strong> Fique no centro e olhe para as pinturas. O fantasma virá cavalgando de uma delas. Haverá dois: um falso e um verdadeiro. O verdadeiro começa a materializar magia roxa antes de sair. Atire uma flecha nele ao vê-lo saindo da pintura.<br>
+<strong>Fase 2:</strong> Quando ele desmontar, ele jogará bolas de energia. Você precisa rebatê-las jogando "tênis" com sua espada (este clássico ataque é conhecido como "Dead Man's Volley"). Conforme a rebatida acelera, tenha reflexos rápidos. Quando a bola acertá-lo e ele cair atordoado, corra e dê-lhe Jump Attacks.</p>
+<p>Ao vencer, pegue o <span class="item">Heart Container</span>, vá para a luz azul e Saria despertará como a Sábia da Floresta, entregando-lhe o <span class="item">Forest Medallion</span>.</p>
+
+<!-- ── CAPITULO 16 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap16">Capítulo 16 — Retorno à Death Mountain e a Túnica Goron</h2>
+
+<h3 id="cap16-a">Parte A — O Espantalho e a Vaca</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Scarecrow's Song</span>, <span class="item">Cow (Vaca)</span> e <span class="item">Prelude of Light</span>
+</div>
+<p>O título do capítulo engana: vamos fazer várias outras coisas antes. Vá para <span class="local">Lake Hylia</span>. Mostre a Ocarina para o espantalho de baixo e toque aquela música de 8 notas que você inventou quando criança. Agora ela é a poderosa <span class="item">Scarecrow's Song</span>! Tocar esta música em locais específicos faz o espantalho Pierre aparecer, permitindo que você use o Hookshot nele para alcançar lugares impossíveis.</p>
+<p>De dia, vá ao <span class="local">Lon Lon Ranch</span> (com Epona já salva). Fale com Malon e vença a corrida de obstáculos no tempo limite. O prêmio? Uma <span class="item">Vaca</span> que ficará eternamente na sua casa na Kokiri Forest (ela dá leite grátis se você tocar Epona's Song para ela).</p>
+<p>Vá ao <span class="local">Temple of Time</span>, entre na sala da espada e Sheik lhe ensinará o <span class="item">Prelude of Light</span>, que o teletransporta de volta para este templo.</p>
+
+<h3 id="cap16-b">Parte B — Kakariko e a Caverna</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Piece of Heart</span>, <span class="item">Quiver (x40)</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Vá para Kakariko Village. Na <strong>House of Skulltula</strong>, pegue o prêmio de 50 tokens: um <span class="item">Piece of Heart</span>. Na casa em frente ao moinho, jogue o minigame do <strong>Shooting Gallery</strong> (tiro ao alvo). Acerte todos os alvos (a ordem é aleatória, mas segue alguns padrões de espelhamento) e ganhe um <span class="item">Quiver</span> maior (agora você carrega 40 flechas).</p>
+<p>Vá para a <span class="local">Dodongo's Cavern</span>. Suba no elevador direito, pule para a borda inferior, vá para o sul e entre no escuro Lower Southeast Hall. Mate os três Baby Dodongos. Quando Navi voar para o teto, toque a Scarecrow's Song. Pierre aparecerá. Puxe-se até ele com o Hookshot, mate a <span class="inimigo">Gold Skulltula</span> na parede, pegue o Token e saia da caverna.</p>
+
+<h3 id="cap16-c">Parte C — Goron City e a Túnica de Fogo</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Goron Tunic</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Entre em <span class="local">Goron City</span> de noite. Nas pontes de corda no alto da cidade, procure a plataforma central suspensa. Olhe atrás dela, mate a <span class="inimigo">Gold Skulltula</span> e pegue com o Hookshot.</p>
+<p>No andar de baixo da cidade, há um pequeno Goron rolando (o único que restou). Ele fugirá de você. Jogue uma bomba no caminho dele para fazê-lo parar de rolar. Fale com ele (o nome dele é Link, filho de Darunia!). Pergunte sobre o Dragão e sobre os Gorons. Ele lhe dará a <span class="item">Goron Tunic</span> (Túnica Goron), que impede que você morra de calor em áreas vulcânicas.</p>
+<p>Vista a túnica (vermelha). No andar mais baixo, a sala de Darunia se abriu. Puxe a estátua no fundo da sala para revelar uma passagem secreta para a <span class="local">Death Mountain Crater</span>. Lá dentro, vá à esquerda, use o Hookshot para atravessar a ponte quebrada (mirando na trave de madeira). Sheik aparecerá e ensinará o <span class="item">Bolero of Fire</span> (teletransporte para a cratera).</p>
+
+<h3 id="cap16-d">Parte D — Viagens no Tempo por Corações</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">4x Piece of Heart</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Toque o Prelude of Light. No Temple of Time, coloque a espada no pedestal para <strong>voltar a ser criança</strong>.</p>
+<p>Sendo Criança, vá para o pátio de <span class="local">Hyrule Castle</span> (onde você conheceu Zelda) passando pelos guardas furtivamente de novo. Lembra-se de onde você caiu no fosso e passou pelos últimos guardas? Suba do fosso perto da árvore no canto. Toque a Song of Storms embaixo da árvore. Caia no buraco que abriu, exploda a parede à esquerda (perto de onde caiu), mate a <span class="inimigo">Gold Skulltula</span> e pegue o Token.</p>
+<p>Vá para <span class="local">Zora's River</span> (ainda criança). Toque a Song of Storms para os sapos (Musical Frogs) para ganhar um <span class="item">Piece of Heart</span>. Toque todas as outras músicas que sabe. Depois que todas as borboletas crescerem, eles proporão um jogo. Você deve tocar no direcional C (ou A) correspondente ao sapo que tiver a mosca em cima. <strong>A Ordem:</strong> A, Esquerda, Direita, Baixo, Esquerda, Direita, Baixo, A, Baixo, A, Baixo, Direita, Esquerda, A. Vença e ganhe outro <span class="item">Piece of Heart</span>.</p>
+<p>Toque o Bolero of Fire. Você irá (como criança) para a Cratera. Corra (você tem tempo limite) e solte insetos na terra fofa à esquerda. Mate a <span class="inimigo">Gold Skulltula</span> e plante um Magic Bean. Fuja tocando Prelude of Light para voltar ao templo e volte a ser <strong>Adulto</strong>.</p>
+<p>Toque Bolero of Fire novamente (como adulto, com a túnica vermelha). A planta que você acabou de plantar agora cresceu! Suba nela. Quando ela rodear um pilar de pedras vulcânicas (rubble), pule e pegue um <span class="item">Piece of Heart</span>. Caia, pegue a planta novamente. Ela passará perto de uma parede alta na direita, pule na pequena plataforma da parede e agarre a própria parede escalável. Desça até um pequeno nicho escondido para pegar mais um <span class="item">Piece of Heart</span>.</p>
+<p>Toque Bolero de novo para não precisar escalar. Atravesse a ponte, desça a escada e entre no lendário <span class="local">Fire Temple</span>.</p>
+
+<!-- ── CAPITULO 17 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap17">Capítulo 17 — Dungeon V: The Fire Temple</h2>
+<p>O Templo do Fogo tem um design peculiar. O chefe está na sala vizinha à entrada, mas a ponte que leva até ele precisa ser ativada do ponto mais alto da masmorra. Você precisará resgatar Gorons aprisionados ao longo do caminho, pois os baús em suas celas contêm as chaves (Keys) necessárias para avançar.</p>
+
+<h3 id="cap17-a">Parte A — Darunia e os Primeiros Prisioneiros</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">3x Small Key</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Na <strong>Entrance Hall</strong>, suba a escadaria da esquerda (cuidado com morcegos de fogo) e entre na porta. Na <strong>Pillar Room</strong>, você encontrará Darunia. Após a conversa, pule nas plataformas à esquerda, pise no botão para abrir a cela, fale com o Goron para libertá-lo e abra o baú para pegar uma <span class="item">Small Key</span>. Volte à Entrance Hall e siga reto pela porta à frente.</p>
+<p>Na enorme <strong>Lava Cavern</strong>, vá para a plataforma à esquerda. Entre na alcova debaixo do grande Bloco do Tempo (Block of Time) azul. No <strong>Prison Corridor #1</strong>, abra a cela, fale com o Goron, pegue a <span class="item">Small Key</span> e volte.</p>
+<p>Toque a <em>Song of Time</em> na frente do bloco azul. Ele subirá, criando um degrau, mas bloqueando a porta anterior. Suba no bloco e passe pela porta acima. Na <strong>Killer Tile Room</strong>, levante seu escudo contra a parede e deixe os azulejos do chão se quebrarem contra ele. Mate a lesma devoradora (Like-Like), pegue a <span class="inimigo">Gold Skulltula</span> e o Token na parede, e volte à Lava Cavern.</p>
+<p>Desta vez, vá pelo lado direito da caverna de lava. Exploda a parede descolorida e entre no <strong>Prison Corridor #2</strong>. Liberte o Goron, pegue mais uma <span class="item">Small Key</span> e volte. Entre na porta localizada a norte da Lava Cavern.</p>
+
+<h3 id="cap17-b">Parte B — O Labirinto de Pedras</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Dungeon Map</span>, <span class="item">3x Small Key</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Deslize na grade na <strong>Lava Column Room</strong>, escale a parede e ande pelas plataformas no topo. Empurre o grande bloco para baixo, bem em cima da coluna de lava eruptiva (geyser de fogo). Pule no bloco e espere a lava subir, usando-o como elevador até o próximo andar. Na sala adiante, mate os monstros, empurre e puxe o bloco de pedra pela trilha no chão e suba. Jogue uma bomba lá embaixo para acertar o "diamante switch", desativando temporariamente a parede de fogo. Escale a grade rápida e entre na porta.</p>
+<p>No <strong>Boulder Maze</strong>, pedras rolam constantemente num labirinto. Mantenha-se encostado na parede da direita. Perto de um canto baixo da parede, exploda a parede falsa tocando a música secreta do seu coração para encontrar uma <span class="inimigo">Gold Skulltula</span>. Prossiga margeando a parede direita para encontrar a porta para o <strong>Prison Corridor #3</strong> (liberte o Goron, <span class="item">Small Key</span>). Volte, continue rente à direita (passando uma porta trancada) até achar a cela do extremo esquerdo. Liberte o Goron, pegue a <span class="item">Small Key</span> e volte para abrir a porta trancada pela qual passou.</p>
+<p>Na <strong>Narrow Span Room</strong> (Sala da Ponte Estreita), atire no olho na parede com o arco para abrir a porta da direita. Siga por ela, pegue o <span class="item">Dungeon Map</span>, e retorne à Narrow Span Room. Agora sim, abra a porta trancada com a chave. Desvie dos jatos de fogo na passarela e entre pela porta na esquerda do alto das escadas.</p>
+<p>Você chegará <em>em cima</em> das paredes do Boulder Maze. Pule de pilar em pilar. Avance, vá à direita numa ponte, depois esquerda num pilar isolado e esquerda para o botão que abre a cela mais longe. Pule de plataforma em plataforma com cuidado até a cela, fale com o Goron e pegue a <span class="item">Small Key</span>.</p>
+<p>Volte à plataforma que possui uma grande rachadura e exploda-a com uma bomba. Caia pelo buraco para alcançar uma passagem secreta. Liberte mais um Goron (<span class="item">Small Key</span>) e suba pela grade na mesma sala de volta ao topo do Boulder Maze.</p>
+
+<h3 id="cap17-c">Parte C — Scarecrow's Song e o Espantalho Pierre</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Compass</span>, <span class="item">Bombs</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Olhando do buraco do qual acabou de subir, Navi vai voar até uma plataforma. Toque a <strong>Scarecrow's Song</strong>. Pierre vai aparecer! Use o Hookshot para subir. Suba de novo no alvo do elevador secreto. No próximo andar, escale a grade, e num canto você acha mais uma <span class="inimigo">Gold Skulltula</span>. Suba até a porta no topo. Na <strong>Time Trial Room</strong>, aproxime-se da borda do penhasco. Com muito cuidado, use o Hookshot para matar e capturar o Token de outra <span class="inimigo">Gold Skulltula</span> suspensa na parede acima do buraco. Caia nesse buraco (ele o levará em segurança até a sala da ponte estreita, mas caia bem!). Da ponte estreita, volte pela Lava Curtain, salte pelas telas e abra a porta trancada.</p>
+<p>Passe correndo por labirintos de paredes de fogo até encontrar um baú com a <span class="item">Compass</span> (Bússola). Atravesse o percurso de volta à enorme parede de chamas bloqueando a parte norte da sala. Aperte um botão secreto à esquerda para apagar o fogo. Corra rápido! Não abra a porta à esquerda; é uma armadilha. Exploda-a com uma bomba para revelar a porta real. Entre.</p>
+<p><strong>Sub-Chefe: Flare Dancer</strong>. Use o Hookshot para arrancar a parte central do fantasma e ataque essa parte fujona com a espada (Biggoron Sword de preferência) repetidas vezes. Ao vencer, o fogo central apagará e a plataforma será um elevador. Suba e use uma bomba atirada para acertar o diamante-botão lá embaixo e abrir a grade. Suba!</p>
+
+<h3 id="cap17-d">Parte D — Megaton Hammer e o Chefe Volvagia</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Megaton Hammer</span>, <span class="item">Boss Key</span>, <span class="item">Small Key</span>, <span class="item">Gold Skulltula Token</span> e <span class="item">Heart Container</span> e <span class="item">Fire Medallion</span>
+</div>
+<p>Aperte o botão à direita. Você tem poucos segundos para subir correndo a escada da lateral da arena e abrir o baú com o famigerado <span class="item">Megaton Hammer</span>! Pule da beirada e martele com ele a lajota do chão (que tem um rosto) derrubando-a um andar. Depois martele a estátua totem (dos lados) até que uma porta surja. Martele de novo o chão para fazer os degraus caírem e carregue a caixa para destravar a próxima porta. Na sala acima, martele a placa do piso para fazê-lo descer ao térreo. Lá, martele um interruptor enferrujado na parede para soltar um Goron trancado. Caia na fenda para voltar à Pillar Room inicial da Dungeon e siga à direita (para o pátio com estátuas totem).</p>
+<p>Destrua a estátua (usando o Megaton Hammer). Você entrará num longo caminho final cheio de Keese de Fogo e um sub-chefe repetido do começo, até libertar o Último Goron (<span class="item">Small Key</span>). Use o Hookshot no Token da última <span class="inimigo">Gold Skulltula</span> e bata no martelo no último interruptor enferrujado para libertar o Goron e pegar a <span class="item">Boss Key</span>! Vá pelo caminho que você abriu com o Megaton Hammer, volte ao salão com pilares iniciais e ande na nova plataforma caída direto à porta do chefe.</p>
+
+<p><strong>CHEFE: Subterranean Lava Dragon VOLVAGIA</strong><br>
+<strong>Fase 1:</strong> Fique longe dos buracos, quando ela botar a cabeça de fora (cercada por poeira preta vulcânica e labaredas), se aproxime (Jump Attack é mais forte) e dê uma bela MARTELADA NA CABEÇA! Após o stum, acerte a Biggoron Sword ou ataques rápidos.<br>
+<strong>Fase 2:</strong> Voa em sua direção cuspindo fogo. Apenas fuja ou esquive no mesmo padrão contínuo e constante para o lado (como em círculo no meio do cenário).<br>
+<strong>Fase 3:</strong> Sobe no teto, desaba rochas. Permaneça grudado na beira (como se estivesse prestes a cair ou literalmente caia e fique agarrado na borda (hang)). Espere e repita as ações.</p>
+<p>Ao vencer, pegue o <span class="item">Heart Container</span> e Darunia lhe agradecerá, dando o <span class="item">Fire Medallion</span>. Agora o Vulcão não é mais perigoso!</p>
+
+<!-- ── CAPITULO 18 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap18">Capítulo 18 — Retorno a Zora's Domain</h2>
+
+<h3 id="cap18-a">Parte A — O Poder da Fada e o Topo da Montanha</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Magic Meter x2 (Dobro de Magia)</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Antes de sair da <span class="local">Death Mountain Crater</span>, a partir do pedestal da Triforce de onde você saiu do Fire Temple, vá à esquerda, passe pela ponte suspensa e atravesse a ponte usando o Hookshot na madeira. Cruze a ponte pênsil. Há uma entrada bloqueada por pedras avermelhadas: quebre-as com o seu novo Megaton Hammer e entre.</p>
+<p>Na <strong>Great Fairy's Fountain</strong>, toque Zelda's Lullaby sobre o símbolo da Triforce. A Grande Fada aparecerá e dobrará o tamanho da sua barra de Magia!</p>
+<p>Saindo da fonte, martele as pedras para liberar o caminho que sobe. Escale a escada, saia da cratera. Já de noite na <span class="local">Death Mountain Trail</span>, desça a montanha e no trecho antes com pedras rolando, quebre a primeira pedra vermelha à esquerda com o martelo para encontrar uma <span class="inimigo">Gold Skulltula</span>. Continue descendo. Acima da Caverna de Dodongo, quebre a pedra vermelha onde você atirou a flor bomba quando era criança. Mate e pegue a <span class="inimigo">Gold Skulltula</span>. Você terminou na Death Mountain. Toque Prelude of Light para voltar ao templo.</p>
+
+<h3 id="cap18-b">Parte B — O Zora's Domain Congelado</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Piece of Heart</span> e <span class="item">3x Gold Skulltula Token</span>
+</div>
+<p>Vá até <span class="local">Zora's River</span> (à noite). Vá subindo o rio, e usando a mureta ou pilar, mire na parede alta sul (onde pulou com o cucco quando criança, perto do fim do rio). Com o Hookshot (mesmo que a mira não fique vermelha, tente um pouco abaixo), pegue o Token de uma <span class="inimigo">Gold Skulltula</span> presa na parede alta. Um pouco antes de tocar a canção na cachoeira, vire-se para a parede na ponte e olhe no canto esquerdo. Pegue outra <span class="inimigo">Gold Skulltula</span> usando o Hookshot subindo na cerca se precisar. Toque Zelda's Lullaby e entre no <span class="local">Zora's Domain</span>.</p>
+<p>O lugar está totalmente congelado! O Rei Zora está preso em gelo vermelho. (Nós o salvaremos logo). Vá em direção ao precipício da cachoeira congelada, encoste na beirada e olhe à esquerda para ver e pegar a última <span class="inimigo">Gold Skulltula</span> da área com o Hookshot.</p>
+<p>Suba até onde o Lord Jabu-Jabu ficava, na <span class="local">Zora's Fountain</span>. Lord Jabu-Jabu desapareceu, deixando pedaços de gelo flutuantes. Pule com cuidado. Nas plataformas da direita (que giram), salte calmamente para conseguir um <span class="item">Piece of Heart</span> no gelo. Volte saltando nas plataformas rumo ao norte, até achar uma caverna gelada com ar frio. Entre na <strong>Ice Cavern</strong>.</p>
+
+<!-- ── CAPITULO 19 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap19">Capítulo 19 — Mini-Dungeon: The Ice Cavern</h2>
+<p>A Caverna de Gelo é uma área pequena, mas cheia de perigos. O chão é escorregadio, o que dificulta o controle.</p>
+
+<h3 id="cap19-a">Parte A — Blue Fire e o Mapa</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Dungeon Map</span>, <span class="item">Blue Fire</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Desça o corredor quebrando as estalagmites. Numa sala aberta, derrote os 3 inimigos de gelo (Freezzards) — o Hookshot ajuda muito a puxar-se até eles pelo gelo. Evite a lâmina giratória e siga norte pelo corredor seguinte, quebrando o gelo.</p>
+<p>Na sala com a <strong>Lâmina Giratória Gigante</strong> (GFSTIPD - Giant Frozen Scythe Thing of Incredibly Painful Death), você precisa coletar 5 Rupees Prateados. Três estão no caminho da lâmina (pule para trás ou role para desviar). O quarto está atrás de estalagmites azuis à esquerda (aproveite e olhe para o teto para matar e pegar a <span class="inimigo">Gold Skulltula</span>). O quinto está no alto de uma pequena colina. Pegue todos para abrir a grade a norte e suba.</p>
+<p>Corra pelo corredor derrotando os incômodos Ice Keese de longe. Na próxima sala, pule pelas plataformas à esquerda até achar um pedestal brilhando com o <strong>Blue Fire</strong> (Fogo Azul). Equipe uma Empty Bottle (Garrafa Vazia) e guarde o fogo nela. Guarde pelo menos duas garrafas de Blue Fire. Caminhe pela ponte fininha à esquerda, mate o Freezzard e jogue o Fogo Azul no gelo vermelho que prende o baú para conseguir o <span class="item">Dungeon Map</span>. Encha as duas garrafas de Fogo Azul novamente e retorne à sala da Lâmina Giratória Gigante.</p>
+
+<h3 id="cap19-b">Parte B — Bússola e Pedaço de Coração</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Compass</span>, <span class="item">Piece of Heart</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Na sala da Lâmina Gigante, veja que nas paredes existem trechos bloqueados por Gelo Vermelho. Despeje um Fogo Azul na parede esquerda e entre. Na pequena sala, ande em círculos para fazer os pingentes de gelo do teto caírem e mate os morcegos. Encha mais Fogo Azul no pilar central da sala. Jogue Fogo Azul no gelo vermelho da direita para pegar a <span class="item">Compass</span>, e no gelo vermelho da esquerda para pegar um <span class="item">Piece of Heart</span>. Na parede direita, mate e pegue outra <span class="inimigo">Gold Skulltula</span>. Encha duas garrafas com Fogo Azul e volte à sala da Lâmina Gigante.</p>
+
+<h3 id="cap19-c">Parte C — Bloco de Gelo e Iron Boots</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Iron Boots</span>, <span class="item">Serenade of Water</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Derreta a parede de Gelo Vermelho à direita da Lâmina e siga pelo corredor. Na próxima sala há um quebra-cabeça clássico de bloco deslizante (se o empurrar errado num buraco, ele volta ao início). Primeiro de tudo: limpe a sala matando os morcegos de gelo e pegue, na parede direita da entrada, o Token de mais uma <span class="inimigo">Gold Skulltula</span>.</p>
+<p>Coletando as Silver Rupees com o bloco:
+1. Empurre o bloco para frente (leste). Suba nele para pegar a Rupee numa pedra alta.
+2. Desça do lado leste do bloco e empurre-o para leste. Suba nele, pule num nicho e derreta o Gelo Vermelho com seu Fogo Azul para pegar outra Rupee. Jogue o bloco num buraco para reiniciá-lo.
+3. Empurre o bloco para o sul. Suba nele e pegue a Rupee na pedra.
+4. Empurre-o para o oeste. Suba para pegar a Rupee.
+5. Empurre-o para o norte. Suba e pegue a Rupee na pedra. A grade da porta se abrirá.</p>
+<p>Para prosseguir, empurre o bloco para oeste, e depois sul para chegar no Fogo Azul e encher suas garrafas. Agora empurre-o para leste, e depois sul. Pule pelo canto do bloco até a porta destrancada. Entre, desvie das armadilhas de gelo no teto e derreta os potes congelados que formam uma barricada de Gelo Vermelho usando Fogo Azul. Passe pela porta no fim.</p>
+<p>Na última sala, lute com o <strong>White Wolfos</strong> (espere ele atacar, faça um backflip e dê um Jump Attack). Derrote-o e o baú aparecerá. Abra-o para receber a <span class="item">Iron Boots</span> (Botas de Ferro), que permitem andar pelo fundo da água! Sheik vai aparecer e ensinar a <span class="item">Serenade of Water</span>. Vá para o laguinho atrás do baú, equipe a Iron Boots e afunde até o fundo para abrir a porta secreta, o que o levará de volta ao começo da masmorra. Saia da Ice Cavern.</p>
+
+<!-- ── CAPITULO 20 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap20">Capítulo 20 — Preparativos para a Água</h2>
+<p>Antes de ir para a próxima masmorra (Water Temple), há alguns preparativos importantes a fazer, incluindo pegar a Túnica Zora e o útil Gold Scale.</p>
+
+<h3 id="cap20-a">Parte A — A Túnica Azul e os Corações Ocultos</h3>
+<div class="dica">
+  💡 <strong>Novos Equipamentos:</strong> <span class="item">Zora Tunic</span> e <span class="item">2x Piece of Heart</span>
+</div>
+<p>Logo após sair da Ice Cavern, ainda na <span class="local">Zora's Fountain</span>, equipe a Iron Boots e afunde no laguinho profundo no fundo da caverna. Lá embaixo, pegue o <span class="item">Piece of Heart</span>. Suba novamente e vá para <span class="local">Zora's Domain</span>.</p>
+<p>Use um Fogo Azul no Rei Zora (King Zora) para descongelá-lo. Como recompensa, ele lhe dará a tão aguardada <span class="item">Zora Tunic</span> (Túnica Zora), que permite respirar embaixo d'água infinitamente (sem ela, o Water Temple é possível, mas é um estresse constante com o cronômetro). Se tiver outro Fogo Azul sobrando, descongele a porta da loja Zora Shop.</p>
+<p><em>(Nota: Este é o momento ideal para fazer o resto da Missão da Biggoron Sword, se ainda não o fez.)</em></p>
+<p>Siga para o <span class="local">Hyrule Field</span>. Com a Epona, cavalgue para o noroeste do Lon Lon Ranch, até ver uma solitária árvore dourada. Jogue uma bomba no lado sul da árvore para abrir um buraco. Caia e você estará num poço profundo. Equipe a Iron Boots, afunde até o fundo e colete outro <span class="item">Piece of Heart</span>.</p>
+
+<h3 id="cap20-b">Parte B — Pescando a Escama Dourada no Lago Seco</h3>
+<div class="dica">
+  💡 <strong>Novos Equipamentos:</strong> <span class="item">Gold Scale</span>, <span class="item">2x Piece of Heart</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Vá para <span class="local">Lake Hylia</span>. Assustadoramente, o lago inteiro secou! Vá para o <strong>Observatory</strong> (Laboratório). Use a folha mágica do Magic Bean (ou a Scarecrow's Song) para subir no telhado do laboratório. Suba as escadas desviando dos pássaros (Guays) e no topo pegue um <span class="item">Piece of Heart</span>.</p>
+<p>Desça e vá para o nordeste do lago, em direção à casa do minigame <strong>Fishing Pond</strong> (Pescaria). Como a ponte sumiu, chegue perto da ilha, faça a fada Navi ficar verde e toque a Scarecrow's Song. Pierre aparecerá. Use o Hookshot para atravessar e entrar. Você precisa pescar um peixe que pese pelo menos <strong>15 libras (pounds)</strong> para quebrar o recorde de adulto. (Procure-os perto do tronco afundado). Quando conseguir, fale com o dono e ele lhe dará a <span class="item">Gold Scale</span> (Escama Dourada), que permite mergulhar 8 metros sem botas pesadas.</p>
+<p>Saia da pescaria e volte ao <strong>Observatory</strong> (Laboratório). Usando a sua nova Gold Scale (sem equipar a bota de ferro), aperte e segure "A" para mergulhar bem fundo no tanque de água, tocando o fundo. Suba, fale com o velho cientista e ele, impressionado, lhe dará o último <span class="item">Piece of Heart</span> deste capítulo. Agora, equipe as Iron Boots para ir ao fundo do tanque do laboratório. Dê um rolamento e quebre a caixa de madeira no fundo para revelar uma incrível <span class="inimigo">Gold Skulltula</span> subaquática! Mate-a e pegue o Token com o Hookshot.</p>
+<p>Finalmente, vá para a pequena e funda poça de água que restou perto do centro de <span class="local">Lake Hylia</span>. Equipe as Iron Boots e afunde. Caminhe para a parede norte e veja uma porta trancada por uma grade com um interruptor diamante acima. Use o Hookshot no diamante para abrir a grade e entre para iniciar o <span class="local">Water Temple</span>!</p>
+
+<!-- ── CAPITULO 21 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap21">Capítulo 21 — Dungeon VI: The Water Temple</h2>
+<p>O Templo da Água é famoso por sua dificuldade e complexidade. A mecânica principal é alterar o nível da água em três alturas diferentes usando a <em>Zelda's Lullaby</em> nas placas marcadas com a Triforce nas paredes. Preste muita atenção para não ficar travado.</p>
+
+<h3 id="cap21-a">Parte A — O Primeiro Nível e o Mapa</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Compass</span>, <span class="item">Dungeon Map</span>, <span class="item">2x Small Key</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Entre no templo e pule na água com a Iron Boots. Afunde até o fundo, e entre na passagem inferior leste (perto de duas tochas apagadas). No fim do corredor, você encontrará a Princesa Ruto, que mostrará uma passagem para subir. Tire as Iron Boots e flutue até o topo. Você chegará a uma sala com a placa da Triforce na parede. Toque <strong>Zelda's Lullaby</strong>. Isso abaixará a água para o nível mais baixo <strong>(Nível 1)</strong>.</p>
+<p>Entre na porta ao lado. Mate os inimigos Spike com o Hookshot (atire duas vezes) e um baú surgirá com o <span class="item">Dungeon Map</span>. Volte à sala da placa.</p>
+<p>Caia no buraco para voltar ao nível inferior (onde estava a Ruto). Como a água baixou, as tochas se acenderam. Use flechas, passando o fogo pela tocha acesa, para acender as outras duas (ou use Din's Fire). A porta destrancará. Mate os inimigos (Shell Blades - atire o Hookshot quando abrirem a boca) e pegue a <span class="item">Small Key</span>. Volte ao salão principal (Central Room).</p>
+<p>No salão principal, no nível mais baixo, procure um corredor ao sul. Exploda com uma bomba a rachadura no chão. Caia na água com a Iron Boots. Aperte o botão, mate a aranha e pegue a <span class="inimigo">Gold Skulltula</span>. Volte ao salão principal.</p>
+<p>No lado oeste do salão principal, puxe um bloco da parede até que ele caia. Siga por cima dele, afunde com as Iron Boots e siga pelo túnel subaquático batendo num cristal-interruptor. Suba, atravesse a sala saltando por cima do jato d'água na <strong>Whirlpool Room</strong> (Sala do Redemoinho), mate os inimigos usando o Hookshot pelo buraco, pegue outra <span class="item">Small Key</span>, atire no diamante e retorne rapidamente ao salão principal.</p>
+<p><em>(Nota de Compass: Para a bússola, na sala principal com água alta, você afunda e vai para o corredor a leste e puxa um bloco. Abaixo dele tem uma sala com Compass, ou antes de baixar a água). Se a pegou no processo, ótimo.</em></p>
+
+<h3 id="cap21-b">Parte B — O Segundo Nível e a Dark Link</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Longshot</span> e <span class="item">2x Small Key</span>
+</div>
+<p>No salão principal inferior, entre pela porta trancada na <strong>Torre Central</strong>. Use o Hookshot para subir na plataforma acima de você. Lá, toque Zelda's Lullaby na placa da Triforce para erguer a água até o <strong>Nível 2 (Médio)</strong>. Com a Iron Boots, afunde pelo buraco que se abriu no centro da torre. Atire no cristal no teto, derrote os monstros, pegue a <span class="item">Small Key</span>, e volte pelo buraco subindo.</p>
+<p>Saia da Torre Central (a água no salão agora está no Nível 2). Equipe a Iron Boots, caia no chão do salão principal e entre no corredor a leste (onde conheceu Ruto). Suba apenas 1 nível e você verá uma parede rachada à sua frente. Exploda a rachadura com uma bomba e pegue a <span class="item">Small Key</span>. Volte ao salão principal, e boie para o Nível 2. Entre na porta trancada oeste. Ative o diamante no jato de água, suba por ele e entre na porta. Lá você acha a última placa da Triforce. Toque a canção para subir a água para o <strong>Nível 3 (Máximo)</strong>.</p>
+<p>Pule na água, vá para oeste e abra a porta trancada. Na <strong>Waterfall-Elevator Room</strong>, use o Hookshot para escalar as plataformas que descem da cachoeira até chegar ao topo. Entre na porta. Na próxima sala de espinhos, ative os cristais para abaixar/levantar as estátuas e atravesse usando o Hookshot. Na última estátua, suba nela, atire no cristal de novo e ela subirá, levando-o para a passagem. Mate o Like-Like e use o alvo no teto para passar os espinhos.</p>
+<p>Na sala serena e nebulosa, chegue à ilha no centro, olhe para trás, e prepare-se para o <strong>Minichefe: Shadow Link (Dark Link)</strong>. Espere ele se materializar. Usar a espada é inútil (ele rebate e copia). A estratégia perfeita: não use a mira em Z (Z-Targeting), ou melhor, acerte-o com o <strong>Megaton Hammer</strong> ou Din's Fire, que ele não consegue rebater. Ao vencer, a ilusão termina. Siga pela nova porta e abra o baú para conseguir o prêmio maior da dungeon: o <span class="item">Longshot</span>! Toque Song of Time na frente do bloco azul e desça pelo buraco.</p>
+
+<h3 id="cap21-c">Parte C — The River Wild e a Chave do Chefe</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Boss Key</span>, <span class="item">Small Key</span> e <span class="item">4x Gold Skulltula Token</span>
+</div>
+<p>No rio subterrâneo, tenha cuidado com os redemoinhos e troque rapidamente entre Iron Boots e botas normais. Pare na penúltima curva (onde tem o terceiro redemoinho), equipe Iron Boots e pegue no teto a <span class="inimigo">Gold Skulltula</span> com o Longshot. Na última curva com redemoinho antes da queda livre, suba numa plataforma à direita. Atire no olho dourado, use o Longshot num alvo do outro lado correndo contra o tempo, e abra o baú para pegar uma <span class="item">Small Key</span>. Caia pelo fim do rio e você volta à Sala do Redemoinho, e depois ao salão principal.</p>
+<p>Use o Longshot de volta na <strong>Waterfall-Elevator Room</strong>, mate a morcego e pegue mais uma <span class="inimigo">Gold Skulltula</span> na parede à direita, inacessível antes do Longshot. Volte.</p>
+<p>Agora é hora da chave final. Você precisará abaixar e levantar a água novamente:
+1. Vá até o térreo (com Iron Boots), no salão da Ruto, suba tudo, abaixe a água para o Nível 1.
+2. No térreo do salão principal, entre na Torre Central. Suba e aumente a água para o Nível 2. Mate a <span class="inimigo">Gold Skulltula</span> escondida lá no alto da Torre com o Longshot e saia da Torre.
+3. No salão principal (Nível 2 da água), use o Longshot no olho pelo portão na lateral da Torre Central (lado sul). Entre lá e pegue uma <span class="item">Small Key</span>.
+4. Volte, vá para a porta oeste, suba pelo jato de água e toque Lullaby para colocar a água no Nível 3 (Máximo).</p>
+<p>Volte ao salão principal, afunde ao térreo (Iron Boots) e vá pela passagem norte. Você entrará numa vala funda, boie no fundo dela para achar uma pequena saliência acima. Suba lá e atravesse os espinhos puxando-se com o Longshot. Atravesse a sala evitando os pedregulhos. Na sala com as estátuas com olhos d'água, coloque o bloco da caverna em cima do botão amarelo do fundo usando bombas. A água subirá. Pule pelos jatos d'água que surgirem. Atravesse matando monstros. Na sala do buraco d'água, desça (Iron Boots), mate a <span class="inimigo">Gold Skulltula</span> na parede norte. Suba e abra a porta com a chave.</p>
+<p>Abra o baú do chefe e consiga a famigerada <span class="item">Boss Key</span>! Volte ao salão principal (usando Farore's Wind, ou pelo longo caminho de volta). No Nível 3, vá ao norte, use o Longshot no alvo acima para subir, e entre pela porta na estátua. Suba a ladeira desviando das lâminas (não pare de andar ou caia para o começo). Entre na porta do chefe!</p>
+
+<h3 id="cap21-d">Chefe: Giant Aquatic Amoeba MORPHA</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Heart Container</span> e <span class="item">Water Medallion</span>
+</div>
+<p><strong>Fase Única:</strong> Nunca caia ou pise nos 4 pilares do centro da água, pois lá Morpha te alcançará por todos os lados. Fique correndo nas bordas quadradas do cenário. Mantenha distância, e fique sempre mirado no "núcleo" vivo (uma bola vermelha). Quando a água levantar na forma de um longo tentáculo aquático, Morpha levará seu núcleo até lá para atacar (se for pego, sofrerá dano massivo). Espere ele aparecer no tentáculo e use o Longshot! Você arrancará o núcleo de dentro do tentáculo, puxando a bolinha vermelha para os seus pés. Quando ela cair impotente, martele sem dó ou dê um Jump Attack com a Biggoron's Sword. Repita o processo até vencê-lo.</p>
+<p>Pegue o <span class="item">Heart Container</span> e, ao encontrar a Sábia (Ruto), receba o <span class="item">Water Medallion</span>. Lake Hylia voltará ao normal.</p>
+
+<!-- ── CAPITULO 22 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap22">Capítulo 22 — Após o Templo da Água</h2>
+<p>Neste interlúdio, faremos os preparativos necessários para acessar as partes das sombras, incluindo uma viagem de volta ao passado.</p>
+
+<h3 id="cap22-a">Parte A — Fire Arrows e o Topo da Árvore</h3>
+<div class="dica">
+  💡 <strong>Novos Equipamentos:</strong> <span class="item">Fire Arrows</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Após a cutscene final do Templo da Água, você estará na ilha no centro do restaurado <span class="local">Lake Hylia</span>. A placa próxima diz para "atirar na luz da manhã" (<em>shoot for the morning light</em>). Aguarde até o nascer do sol e atire uma flecha direto no sol nascente (se for outro horário, toque a Sun's Song, que te levará à noite, e então espere amanhecer). As lendárias <span class="item">Fire Arrows</span> cairão na pequena ilha à direita. Nade até lá e pegue-as.</p>
+<p>De volta à ilha maior do lago, use o Longshot para agarrar um galho no topo da grande árvore seca. Ao chegar lá em cima, certifique-se de que está de noite, mate e pegue a <span class="inimigo">Gold Skulltula</span> no topo do tronco (não pule, apenas use o Longshot nela). Em seguida, toque o <em>Prelude of Light</em> para voltar ao <span class="local">Temple of Time</span>.</p>
+
+<h3 id="cap22-b">Parte B — Kakariko, Coração da Corrida e a Volta à Infância</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Nocturne of Shadow</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>Siga para <span class="local">Kakariko Village</span>. Ao entrar, haverá uma cena incrível e trágica. Sheik lhe ensinará a música de teletransporte <strong>Nocturne of Shadow</strong> (único meio de acessar o Templo das Sombras no futuro).</p>
+<p>Ainda adulto, vá para <span class="local">Kakariko Graveyard</span> (Cemitério). Puxe o túmulo do coveiro Dampe (o da esquerda que tem flores) e caia no buraco. É hora de fazer a corrida contra o fantasma de Dampe de novo. Seu objetivo agora é cruzar a linha de chegada em menos de 1 minuto! O truque é rolar o caminho todo (que é mais rápido). O outro truque é que, na sala final e alta onde você corre em espiral por uma ladeira enorme, não ande: chegue no pé da sala, aponte a mira para a tocha lá no topo perto da porta final, e suba instantaneamente usando o seu novo Longshot. O fantasma ficará chocado com o seu tempo (sub 1:00) e dará um <span class="item">Piece of Heart</span>. Entre pela porta para o Moinho de Vento (Windmill), saia e volte ao <span class="local">Temple of Time</span>.</p>
+<p>Recoloque a Master Sword no pedestal e volte a ser criança!</p>
+<p><em>(Nota: Se, como criança, ainda não tocou todas as músicas não-teletransporte para os Sapos de Zora's River e completou o minigame deles para ganhar dois Pieces of Heart, faça isso agora!)</em></p>
+
+<h3 id="cap22-c">Parte C — Secando o Poço</h3>
+<p>Como criança, toque o novo <strong>Nocturne of Shadow</strong>. Você será levado à cova do Templo das Sombras no Cemitério de Kakariko. Como criança, você não pode fazer muito lá. Caia pelo cercado, desça e vá para a <span class="local">Kakariko Village</span>. Entre no Moinho (Windmill) e toque a Song of Storms de frente para o tocador de realejo, que ficará louco, e a manivela fará o poço lá fora na vila secar. Vá para o poço sem água, caia lá dentro e siga pela abertura inferior.</p>
+
+<!-- ── CAPITULO 23 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap23">Capítulo 23 — Mini-Dungeon: Bottom of the Well</h2>
+<p>O Fundo do Poço é um labirinto cheio de paredes, pisos e buracos falsos. Sem o item desta masmorra, é quase impossível navegar. Nossa prioridade é o Lens of Truth e depois coletar as aranhas.</p>
+
+<h3 id="cap23-a">Parte A — O Olho da Verdade</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Lens of Truth</span> e <span class="item">Dungeon Map</span>
+</div>
+<p>Engatinhe pelo pequeno túnel de entrada. Desça no <strong>Reservoir</strong> (Reservatório Principal) e mate a aranha no teto. Atravesse a parede à sua frente (é uma parede invisível). Neste salão, tome muito cuidado com buracos cobertos por chão falso. Dica: caminhe apenas pela água rasa circular; onde há água, não há buracos.</p>
+<p>Pule sobre a piscina vazia central para alcançar uma vala nos fundos. Corra até encontrar uma pintura da Triforce no chão. Fique em cima dela e toque <em>Zelda's Lullaby</em> para drenar a água verde. Retorne à primeira piscina vazia por onde entrou (que agora perdeu a água também). Desça no buraco e entre pelo túnel agachado.</p>
+<p>Ao fundo, entre na porta. O <strong>Sub-Chefe: Deadhand</strong> aparecerá. Deixe que uma das mãos dele te agarre. O corpo dele se aproximará. Sacuda os controles para se soltar e espere ele abaixar a cabeça para atacar. Nesse momento, acerte-o com a espada (Jump Attack de preferência). Repita o processo até vencê-lo. Abra o baú que surgir para obter o precioso <span class="item">Lens of Truth</span> (Lente da Verdade), que revela paredes falsas e buracos invisíveis (gasta magia continuamente; ligue e desligue rapidamente para economizar). Com ele ligado, se quiser, pegue uma Huge Rupee invisível num baú invisível atrás de onde pegou a lente. Volte para o Reservoir.</p>
+
+<h3 id="cap23-b">Parte B — Bússola, Chaves e Aranhas</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Compass</span>, <span class="item">3x Small Key</span> e <span class="item">3x Gold Skulltula Token</span>
+</div>
+<p>Suba de volta usando a parede de espinhos de trepadeira. Entre na vala esvaziada. Com a Lens of Truth ativada:
+1. Vá à esquerda e ache um buraco na parede direita; lá dentro tem um baú com uma <span class="item">Small Key</span>.
+2. Dobre a esquina e ache outro buraco à direita; cuidado com o buraco no chão, abra o baú para pegar a <span class="item">Compass</span>.
+3. Volte, vá para o outro lado da vala, e vire na primeira esquina à esquerda. Há outro buraco na parede esquerda com mais uma <span class="item">Small Key</span>.
+4. Volte pelo corredor e ache um buraco secreto à esquerda antes da esquina. Na próxima sala, entre pela porta trancada da direita na <strong>Skulltula Room East</strong>: mate os Keese, use a lente para enxergar um caminho bem estreito invisível à direita. Atravesse e mate a <span class="inimigo">Gold Skulltula</span> e pegue com o Boomerang.</p>
+<p>Volte ao Reservoir. Ligue a lente, vire à direita e ache a porta trancada oposta. Na <strong>Skulltula Room West</strong>: desvie dos potes voadores, mate a planta, mate a <span class="inimigo">Gold Skulltula</span> na parede e pegue-a. Volte ao Reservoir.</p>
+<p>Vire à direita, desça um corredor central oposto e caia num buraco no fundo. Escale a trepadeira e abra a porta. Mate os Gibdos (múmias). Acenda a tocha no canto sudoeste (perto de um caixão) para abri-lo e pegue uma <span class="item">Small Key</span>.</p>
+<p>Volte ao Reservoir, vá para a vala de novo, siga até o nordeste. Evite o buraco falso no chão, engatinhe num pequeno túnel. Ao sair, entre pela porta trancada à direita. Na <strong>Pit Room</strong>, use a lente para não cair. Derrote os morcegos de fogo com bumerangue e o Beamos com bomba. No canto noroeste da sala, entre pela porta e mate uma Like-Like num corredor pequeno, junto com a última <span class="inimigo">Gold Skulltula</span> desta área. Volte para a Pit Room, desative a lente e deixe-se cair de propósito num dos buracos invisíveis do chão.</p>
+<p>Você cairá na <strong>Cess Pool</strong>. Vá para o sul, exploda as pedras pelo caminho escuro com suas bombas. Vire à esquerda no fim. No túnel com tochas, exploda a rocha, mate o Redead (ou apenas paralise com a Sun's Song) e abra o baú com o <span class="item">Dungeon Map</span>. Toque Prelude of Light para ir embora deste lugar e voltar ao Templo do Tempo.</p>
+
+<!-- ── CAPITULO 24 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap24">Capítulo 24 — O Jogo dos Baús Mágicos</h2>
+<p>Ainda criança, temos a chance de usar o Olho da Verdade (Lens of Truth) para ganhar um jogo de azar facilmente.</p>
+
+<h3 id="cap24-a">Parte A — O Jogo dos Baús em Hyrule Market</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Piece of Heart</span>
+</div>
+<p>Antes de voltar a ser adulto, vá para o <span class="local">Hyrule Castle Market</span> de noite (toque a Sun's Song no Market e saia/entre da área para a noite cair). Siga para a porta no canto sudeste do mercado (ao lado do boliche de Bombchus). Entre para jogar o "Treasure Chest Game".</p>
+<p>O jogo funciona assim: pague a taxa para começar. Em cada sala há dois baús; um tem a chave para a próxima sala e o outro apenas uma Rupee que encerra o jogo. A chance de vencer sem ajuda é de 1 em 32. Mas agora você tem o <strong>Lens of Truth</strong>! Use-o para olhar dentro dos baús antes de abrir, pegue apenas o que tiver a chave. Repita até a última sala, onde o baú solitário lhe dará o <span class="item">Piece of Heart</span>.</p>
+<p>Feito isso, volte ao <span class="local">Temple of Time</span> e pegue a Master Sword para voltar a ser Adulto.</p>
+
+<h3 id="cap24-b">Parte B — Abrindo as Portas das Sombras</h3>
+<p>Como Link Adulto, toque a <strong>Nocturne of Shadow</strong>. Você será teletransportado para o penhasco elevado do Cemitério de Kakariko. Desça as escadas e entre numa sala com várias tochas ao redor de um grande vaso no centro. Fique no centro e use o <strong>Din's Fire</strong> para acender todas as tochas ao mesmo tempo. A porta se abrirá. Entre no terrível <span class="local">Shadow Temple</span> (Templo das Sombras).</p>
+
+<!-- ── CAPITULO 25 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap25">Capítulo 25 — Dungeon VII: The Shadow Temple</h2>
+<p>O Templo das Sombras é um percurso mortal repleto de ilusões, guilhotinas e chãos falsos. O uso do <em>Lens of Truth</em> é obrigatório em quase todos os momentos, então fique de olho na sua barra de magia.</p>
+
+<h3 id="cap25-a">Parte A — O Mapa, a Bússola e as Hover Boots</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Dungeon Map</span>, <span class="item">Compass</span> e <span class="item">Hover Boots</span>
+</div>
+<p>No <strong>The Raven Room</strong>, puxe-se com o Longshot pelo abismo à direita. Use a lente para ver qual caveira ao redor da estátua do corvo não some, empurre a estátua para encará-la e abra o portão no abismo. Passe pela parede falsa à direita, entrando nas <strong>Catacombs</strong>. Atravesse paredes falsas até achar a <strong>Redead Room</strong>: mate o Redead e os Keese no teto para o baú com o <span class="item">Dungeon Map</span> surgir. Volte às catacumbas e ache o caminho secreto para a <strong>Deadhand Room</strong>. Enfrente o Deadhand adulto (mesma estratégia, mas agora muito mais rápido com a Biggoron's Sword) e pegue o baú com as fantásticas <span class="item">Hover Boots</span> (Botas Planadoras).</p>
+<p>Volte à Raven Room. Caia da borda com as Hover Boots ativadas na direção da "língua" esticada no abismo. Passe a porta e desça o túnel. Destrua o Beamos (bomba), atravesse a parede falsa e, na <strong>Gibdos Room</strong>, mate as múmias para pegar a <span class="item">Compass</span>. Volte à sala do Beamos e atravesse a outra parede falsa.</p>
+<p>Na <strong>Scythe Room</strong>, evite a foice gigante, colete as Silver Rupees (use o Longshot num alvo perto do teto para pegar as mais altas). Pegue a <span class="item">Small Key</span> no baú e volte para a Raven Room. Exploda a parede irregular a leste, desça o túnel até a Câmara da Guilhotina.</p>
+
+<h3 id="cap25-b">Parte B — Guilhotinas e Pulos Invisíveis</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">2x Small Key</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Na <strong>Guillotine Chamber</strong>, o perigo aumenta. Desvie de guilhotinas e Skulltulas, mate um Wallmaster e atravesse as plataformas passando pelos cortes perfeitos das guilhotinas (pule logo que elas começarem a subir). Mate o Stalfos. Use a lente para ver uma plataforma invisível no vazio e salte até a <strong>Invisible Scythe Room</strong>: mate o Like-Like, pegue a <span class="inimigo">Gold Skulltula</span> e itens. Volte para a câmara.</p>
+<p>Salte para a plataforma que sobe e desce, espere ela descer e pegue uma estreita borda à direita. Desvie de armadilhas afiadas pegando Silver Rupees (uma sob o Beamos). Um portão se abrirá revelando tetos com espinhos que esmagam. Puxe e empurre um grande bloco de pedra com rosto na parede direita para segurar ambos os tetos de esmagamento, evitando a morte. Na cela, pegue outra <span class="inimigo">Gold Skulltula</span>. Suba pelo bloco, pule nos telhados de espinhos (agora travados), ative o botão para pegar uma <span class="item">Small Key</span>.</p>
+<p>Continue passando os pulos calculados nas guilhotinas na sala. Você chegará à <strong>Silver Rupee Room</strong>, lotada de espinhos invisíveis. Use a lente, mate os inimigos e pegue as Silver Rupees (use alvos no teto para as mais altas). Siga para a <strong>Skull Room</strong>, jogue uma bomba dentro do topo oco do crânio gigante para explodi-lo e revelar uma <span class="item">Small Key</span> e uma <span class="inimigo">Gold Skulltula</span> escondida lá atrás (mate os morcegos também).</p>
+
+<h3 id="cap25-c">Parte C — O Barco Fantasma e a Chave do Chefe</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Boss Key</span>, <span class="item">Small Key</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Atravesse corredores com ventiladores poderosos usando a Iron Boots para não ser empurrado. No último ventilador forte, equipe a Hover Boots e deixe o vento o empurrar para a plataforma secreta através de uma parede invisível do lado esquerdo. Na <strong>Other Gibdos Room</strong>, mate os Gibdos, exploda o entulho de terra com bombas e revele a <span class="item">Small Key</span> escondida sob o pó (use a lente). Abra a porta norte.</p>
+<p>Você chegará ao grande <strong>The Cursed Boat</strong>. Puxe um bloco de pedra à esquerda e use-o para alcançar as escadas. Antes de subir no navio e tocar a Lullaby na Triforce, mate a <span class="inimigo">Gold Skulltula</span> num buraco distante com o Longshot. Ao subir no navio fantasma e tocar a música, o navio andará, defenda-se de dois Stalfos. Quando o navio encostar do outro lado, salte! Ele vai afundar.</p>
+<p>Siga pela porta oeste para a <strong>Floor Master Room</strong>, um labirinto de paredes invisíveis cheio de mãos. Navegue (usando a lente) e acesse várias salas vizinhas a partir desse labirinto central:
+1. <strong>Crushing Walls Room:</strong> Duas paredes de madeira pontiagudas tentarão esmagá-lo. Use o <em>Din's Fire</em> para queimá-las. Mate o Redead e pegue a <span class="item">Boss Key</span>.
+2. <strong>Invisible Floor Master Room:</strong> Mate a mão gigante invisível (Din's Fire ajuda nas mãos menores) e pegue uma <span class="item">Small Key</span>.
+3. <strong>Triple Skull Room:</strong> Pegue a <span class="inimigo">Gold Skulltula</span> na parede atrás dos 3 crânios.
+De volta ao local onde desceu do barco. Dispare uma flecha numa flor-bomba do outro lado do penhasco. A explosão fará uma estátua cair, servindo de ponte. Cruze a ponte de pedra.</p>
+<p>Na sala final, use as Hover Boots para caminhar sobre as plataformas invisíveis até a porta do Chefe.</p>
+
+<h3 id="cap25-d">Chefe: Phantom Shadow Beast BONGO BONGO</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Heart Container</span> e <span class="item">Shadow Medallion</span>
+</div>
+<p><strong>Fase Única:</strong> Você vai enfrentar o demônio no topo de um tambor Bongo gigante. A vibração constante do tambor vai dificultar tudo. A tática é muito simples mas perigosa: atire flechas em ambas as mãos desencarnadas dele para atordoá-las (use o Z-Targeting rápido, já que as mãos se movem muito rápido). Assim que atordoar as duas, ative o Lens of Truth imediatamente e o olho gigante de Bongo Bongo ficará visível correndo na sua direção. Atire uma flecha direto no olho para ele cair no tambor indefeso. Corra, equipe a Biggoron's Sword e execute Jump Attacks até ele levantar. Se o tambor estiver batendo muito forte e te levantando, equipe a Hover Boots ou tente timing perfeito.</p>
+<p>Derrotando-o, você ganha outro <span class="item">Heart Container</span> e recebe o <span class="item">Shadow Medallion</span> das mãos da sábia das Sombras, Impa.</p>
+
+<!-- ── CAPITULO 26 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap26">Capítulo 26 — Retorno ao Vale Gerudo</h2>
+<p>Saindo do Templo das Sombras, estamos prontos para ir atrás da tribo do deserto. Chame a Epona (se a tiver) e cavalgue para oeste no campo de Hyrule para entrar no <span class="local">Gerudo Valley</span>.</p>
+
+<h3 id="cap26-a">Parte A — A Ponte Quebrada</h3>
+<div class="dica">
+  💡 <strong>Novos Equipamentos:</strong> <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>No <strong>Gerudo Valley</strong>, suba a ponte de madeira. A ponte pênsil sobre o desfiladeiro está quebrada. Para atravessar, pegue velocidade com a Epona e pule, ou use o Longshot na viga do outro lado. Fale com o carpinteiro chefe do outro lado; ele dirá que seus quatro empregados sumiram para se juntar à gangue Gerudo e foram presos.</p>
+<p>Espere anoitecer. Pegue uma <span class="inimigo">Gold Skulltula</span> na parede atrás da tenda do carpinteiro usando o Longshot. Vá ao sul até o arco de pedra natural e olhe na parte de trás dele para pegar mais uma <span class="inimigo">Gold Skulltula</span>. Siga a oeste pelo desfiladeiro para entrar na fortaleza.</p>
+
+<h3 id="cap26-b">Parte B — Esconde-Esconde e os Quatro Carpinteiros</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">4x Small Key</span>, <span class="item">Piece of Heart</span>, <span class="item">Gold Skulltula Token</span> e <span class="item">Gerudo's Membership Card</span>
+</div>
+<p>Você não é bem-vindo na <strong>Gerudo's Fortress</strong>. Se as guardas o virem, você será jogado na prisão. Se isso acontecer (ou provoque de propósito para entrar na base):
+1. Na cela, olhe para a janela no alto e use o Longshot na madeira para subir. Olhe lá embaixo para ver as guardas. Atordoe-as com flechas, pule e entre pela porta à esquerda.</p>
+<p><strong>Carpinteiro 1 (Ichiro):</strong> Na sala, fale com o carpinteiro através das grades. Uma Gerudo Thief (guerreira) aparecerá. Lute com ela como se fosse um Stalfos (mas evite seu ataque de investida giratória, ou voltará para a cela). Vença-a, pegue a <span class="item">Small Key</span>, abra a cela e liberte Ichiro. Saia pela esquerda.</p>
+<p><strong>Carpinteiro 2 (Sabooro):</strong> Do lado de fora (The Kitchen), ande sem ser visto (você pode usar flechas para atordoar guardas momentaneamente). Siga para a direita, entre no primeiro túnel. Espreite na esquina com Z-Targeting, atire na guarda. Pule a borda e entre na porta à direita. Fale com Sabooro, vença a Gerudo Thief, pegue a <span class="item">Small Key</span>, solte-o. Saia pela direita.</p>
+<p><strong>Exploração do Telhado:</strong> Saindo pela porta, vá pela esquerda para a cozinha, atordoe guardas e atravesse o fosso com a Hover Boots. Na rua, de noite, pule os telhados seguindo para o norte. Na área com paredes de trepadeiras, suba. Você achará um baú solitário no telhado oposto. Mate a <span class="inimigo">Gold Skulltula</span> na parede de pedra no telhado. Para chegar ao baú (muito longo para pular), atire o Longshot direto no baú. Abra para ganhar um <span class="item">Piece of Heart</span>.</p>
+<p><strong>Carpinteiro 3 (Jiro):</strong> Desça num nível inferior adjacente com uma porta solitária. Entre, atire imediatamente na guarda e vá virando as esquinas até achar Jiro. Derrote a ladra, pegue a chave e liberte-o. Saia com cuidado.</p>
+<p><strong>Carpinteiro 4 (Shiro):</strong> Saindo do túnel de Jiro, desça a pequena queda à oeste para o telhado abaixo e entre na porta à direita. Siga para achar Shiro. Mate a última guerreira, pegue a chave e liberte-o. Ao libertar o quarto, a chefe das guardas reconhecerá sua habilidade e lhe dará o <span class="item">Gerudo's Membership Card</span>. Agora você pode andar livremente pela base, e os carpinteiros consertaram a ponte do vale!</p>
+
+<h3 id="cap26-c">Parte C — Arquearia a Cavalo</h3>
+<div class="dica">
+  💡 <strong>Novos Equipamentos:</strong> <span class="item">Arrow Quiver x50 (Biggest Quiver)</span>, <span class="item">Piece of Heart</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Use a Epona (chame com a música se ela não estiver na base) e cavalgue a leste pela base para chegar à área de tiro ao alvo <strong>Horseback Archery Range</strong>.
+- Se estiver de noite, vá até o maior alvo de madeira do norte e mate a <span class="inimigo">Gold Skulltula</span> lá no alto com o Longshot.
+- Fale com a Gerudo na tenda (de dia) montado na Epona para jogar.
+Regras: Epona anda sozinha. Acerte os vasos com flechas (100 pontos) e o centro dos alvos gigantes (100 pontos) para acumular pontos em 20 flechas.
+1. Se fizer <strong>1000 pontos</strong>, ganha um <span class="item">Piece of Heart</span>.
+2. Jogue de novo. Se fizer <strong>1500 pontos</strong>, ganha o sensacional <span class="item">Biggest Quiver</span> para carregar 50 flechas!</p>
+<p>Com as vitórias no bolso, suba ao topo do grande portão no noroeste da base, fale com a guarda e ela abrirá o portão do deserto para o próximo passo.</p>
+
+<!-- ── CAPITULO 27 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap27">Capítulo 27 — Cruzando o Deserto Assombrado</h2>
+<p>O deserto impiedoso é o último obstáculo no mapa principal. Certifique-se de estar com a <em>Hover Boots</em>, o <em>Longshot</em>, o <em>Lens of Truth</em> e o passe Gerudo.</p>
+
+<h3 id="cap27-a">Parte A — The Haunted Wasteland</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Gold Skulltula Token</span>
+</div>
+<p>O <strong>Haunted Wasteland</strong> (Deserto Assombrado) é uma tempestade de areia cega. Siga estas regras e fique perto das bandeiras vermelhas para não se perder e voltar ao início:
+1. Pule o rio de areia e use o Longshot num engradado de madeira do outro lado.
+2. Siga as bandeiras (se perder a próxima, toque a Song of Storms para um relâmpago iluminar o caminho).
+3. Você chegará a uma construção de pedra isolada. Caia no buraco no meio dela e mate a <span class="inimigo">Gold Skulltula</span> e pegue-a. Se quiser, acenda as duas tochas para ganhar Rupees, e volte à superfície.
+4. Suba a rampa da construção de pedra até o telhado e leia a placa.
+5. Ative o <strong>Lens of Truth</strong>, e você verá um fantasma (Poe).
+Acompanhe o fantasma, não perca ele de vista (cuidado ao ligar/desligar a lente para economizar magia e não perdê-lo). Desvie rolando dos monstros (Leevers) da areia. Quando o fantasma desaparecer, você verá postes marcando a entrada da estátua.</p>
+
+<h3 id="cap27-b">Parte B — Desert Colossus e a Magia Final</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Nayru's Love</span>, <span class="item">Requiem of Spirit</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>O <strong>Desert Colossus</strong> é a gigante estátua do Templo. Os inimigos aqui renascem infinitamente, então não perca tempo lutando (pise apenas no chão duro, que os Leevers não atacam).
+Vá para a direita, perto de duas palmeiras, e coloque uma bomba na rachadura da parede. Entre lá na <strong>Great Fairy's Fountain</strong>, toque Zelda's Lullaby, e a Fada lhe entregará o feitiço <span class="item">Nayru's Love</span> (um escudo de energia azul impenetrável temporário).</p>
+<p>Saia. De noite, vá ao oásis seco ao sul. Fique sobre a pedra cinza ali e toque a <strong>Song of Storms</strong> para encher a lagoa (revelando fadas curativas). Lá em cima, nas folhas de uma das palmeiras perto do oásis está uma <span class="inimigo">Gold Skulltula</span>. Use o Longshot para derrubá-la, mas corra muito para não ser pego pelos inimigos de areia ao tentar pegá-la.</p>
+<p>Agora tente entrar no Templo da estátua... para descobrir que um enorme bloco o impede. Saia e Sheik aparecerá. A cutscene se desenrolará, e você aprenderá o <strong>Requiem of Spirit</strong>, a música para retornar aqui instantaneamente! Toque o <em>Prelude of Light</em> para ir ao Templo do Tempo.</p>
+<p>De volta a ser criança (Young Link), toque o <em>Requiem of Spirit</em> para se teleportar de volta para a estátua (como criança!). Vá perto da entrada do templo e ache o último buraco de terra macia. Jogue Insetos ali para soltar a última <span class="inimigo">Gold Skulltula</span> de buracos (se precisar de insetos, tem debaixo da pedra lá no oásis). Plante a última <em>Magic Bean</em> no buraco para que ela cresça. Por fim, entre no Templo, que é o último verdadeiro do jogo.</p>
+
+<!-- ── CAPITULO 28 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap28">Capítulo 28 — Dungeon VIII: The Spirit Temple, Parte I (Criança)</h2>
+<p>O Templo do Espírito é dividido em duas metades: a asa Oeste (explorada como Young Link) e a asa Leste (explorada como Adult Link). Vamos começar pela Oeste com Link Criança.</p>
+
+<h3 id="cap28-a">Parte A — Nabooru e a Asa Oeste</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Small Key</span> e <span class="item">Gold Skulltula Token</span>
+</div>
+<p>Logo ao entrar, suba as escadas desviando dos potes, e fale com a guerreira Gerudo à esquerda, Nabooru. Ela tentou invadir mas é muito grande para o buraco. Responda "Nothing, really" (Nada, na verdade). Ela pedirá que você entre e pegue as Silver Gauntlets para ela. Rasteje pelo pequeno buraco.</p>
+<p>Na <strong>Armos Knight Room</strong>, mate os Fire Keese e exploda a estátua guerreira (Armos) com bombas (cuidado com as armadilhas de chão giratórias). Mate o morcego acima do túnel rasteiro com o bumerangue. A porta da esquerda e a da direita se abrirão. Siga pela da esquerda.</p>
+<p>Na <strong>Stalfos Room</strong>, lute contra o grandalhão Stalfos (use Nayru's Love se precisar, já que você é criança). Mate-o. Use o bumerangue para paralisar a caveira flutuante verde (Bubble) no buraco central e atire com o estilingue. Jogue o bumerangue fazendo curva (mire na beira do abismo para a direita ou esquerda) para atingir o cristal atrás das grades. Uma ponte cairá; atravesse.</p>
+<p>Na <strong>Anubis Pit Room</strong>, há um Anubis (monstro flutuante). Eles só morrem com fogo. Corra para o centro e use <em>Din's Fire</em>. A porta se abrirá.</p>
+<p>Na <strong>Lower Silver Rupee Chamber</strong>, ande em círculos até o Wall Master cair e mate-o. Colete as 5 Silver Rupees pela parede escalável para formar uma ponte. Atravesse a ponte, vire para trás e use o Boomerang para pegar a <span class="inimigo">Gold Skulltula</span> na grade. Use o Din's Fire para acender as duas tochas e revelar um baú do outro lado da ponte com uma <span class="item">Small Key</span>. Atravesse de novo e saia pela porta. Você estará na sala do Armos. Engatinhe pelo buraco da parede norte e destranque a porta do corredor seguinte.</p>
+
+<h3 id="cap28-b">Parte B — Rastejando pelas Areias do Tempo</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Dungeon Map</span>, <span class="item">Small Key</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Na <strong>Sun Cavern</strong>, mate as aranhas na parede (Skullwalltulas). Escale, vire-se de costas e pegue outra <span class="inimigo">Gold Skulltula</span> com o Boomerang. Desça, enfrente 2 Lizalfos. Repare numa pedra rachada bem alta na parede com um feixe de luz batendo nela. Atire um <strong>Bombchu</strong> para subir a parede e explodi-la. A luz iluminará o sol no chão, abrindo a porta.</p>
+<p>Na <strong>Colossus Chamber</strong>, você está na enorme sala principal. Empurre a pequena estátua próxima de você penhasco abaixo para ativar um botão (uma porta em cima abre). Pule lá embaixo, use Din's Fire nas tochas perto das patas da grande estátua para ganhar o <span class="item">Dungeon Map</span>. Volte à borda de onde você caiu pelas trepadeiras no lado leste. Suba as escadas à noroeste e entre na porta que você destrancou com o botão da estátua.</p>
+<p>Na <strong>Upper Silver Rupee Chamber</strong>, muito cuidado com Beamos e guilhotinas giratórias. Puxe o bloco com rosto de sol em direção ao pilar de luz do outro lado da sala (noroeste) para abrir a porta ao sul. Destrua os Beamos com bombas, suba neles para pegar as Silver Rupees. Isso acenderá uma tocha. Use <em>Deku Sticks</em> para transferir o fogo da tocha acesa para as 3 tochas apagadas da sala e um baú com a <span class="item">Small Key</span> cairá.</p>
+<p>Siga pela porta sul para a <strong>Upper West Stairwell</strong>. Olhe acima da porta e pegue a <span class="inimigo">Gold Skulltula</span> com bumerangue. Suba e abra a porta com a chave.</p>
+
+<h3 id="cap28-c">Parte C — Iron Knuckle e as Silver Gauntlets</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Silver Gauntlets</span>
+</div>
+<p>Você enfrentará o brutal <strong>Minichefe: Iron Knuckle</strong> (Guerreiro de Armadura). Ele tira muitos corações por golpe (sugere-se usar o <em>Nayru's Love</em>). Mantenha distância, espere-o golpear o machado no chão, aproxime-se, dê um corte, e afaste-se. Metade da batalha, ele perderá a armadura e ficará rápido (não defenda mais). Vença-o, e a porta de trás abrirá. Saia para chegar à mão direita da estátua do deserto do lado de fora.</p>
+<p>Ouça a coruja, e abra o baú para obter as cobiçadas <span class="item">Silver Gauntlets</span> (Luvas de Prata)! Neste momento, Nabooru será sequestrada pelas bruxas irmãs gêmeas (Koume e Kotake). Toque o <em>Prelude of Light</em> para voltar ao Temple of Time e puxe a Master Sword para virar Adulto.</p>
+
+<!-- ── CAPITULO 29 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap29">Capítulo 29 — Interlúdio do Templo do Espírito</h2>
+<p>Nesta parte, pegamos as últimas <em>Skulltulas</em> fora de masmorras do jogo inteiro e o último <em>Piece of Heart</em> antes da parte final da masmorra.</p>
+
+<h3 id="cap29-a">Parte A — O Poder de Prata e o Último Coração</h3>
+<div class="dica">
+  💡 <strong>Novos Equipamentos:</strong> <span class="item">2x Gold Skulltula Token</span> e <span class="item">Piece of Heart</span>
+</div>
+<p>No <span class="local">Temple of Time</span>, puxe a Master Sword para virar Adult Link novamente. Agora você tem força sobre-humana com as Silver Gauntlets. Vá para <span class="local">Zora's Fountain</span>.</p>
+<p>Espere anoitecer (toque a Sun's Song). Siga ao sudeste em Zora's Fountain até a área onde tem a caverna da Great Fairy. Levante a enorme pedra cinza que bloqueia o caminho com suas luvas de prata (você não precisa equipar, é passivo). Por baixo, haverá outra pedra menor. Quebre com uma bomba e caia no buraco escondido.</p>
+<p>Você cairá no fundo de um caminho em espiral. Acione a <strong>Lens of Truth</strong>: a rampa está cheia de aranhas gigantes invisíveis. Mate-as com o Longshot. Suba até o fim, suba as escadas de madeira, e você achará uma <span class="inimigo">Gold Skulltula</span> presa na parede à esquerda. Pegue-a.</p>
+<p><em>(Nota: Com as Silver Gauntlets, você pode finalmente fazer a Gerudo Training Ground por inteiro e pegar as Ice Arrows se quiser).</em></p>
+<p>Toque o <strong>Requiem of Spirit</strong> para voltar ao <span class="local">Desert Colossus</span> como Adulto.
+- Espere anoitecer. Lembra do buraco de terra onde plantou a Magic Bean? Ela virou um grande broto! Suba no broto voador, e ele começará a dar voltas na área. Quando o broto voador passar pela segunda grande rocha, pule na rocha e pegue a penúltima <span class="inimigo">Gold Skulltula</span> (a última do overworld).
+- Monte de novo no broto voador e passe por cima do grande arco de pedra perto da entrada do templo. Pule no arco e pegue o último <span class="item">Piece of Heart</span> do jogo inteiro! (Seu life deve estar em 19 corações. O último vem do chefe deste templo).</p>
+<p>Pule e entre no <span class="local">Spirit Temple</span> como adulto.</p>
+
+<!-- ── CAPITULO 30 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap30">Capítulo 30 — Dungeon VIII: The Spirit Temple, Parte II (Adulto)</h2>
+<p>De volta ao Templo do Espírito, agora como um adulto musculoso equipado com o arsenal avançado.</p>
+
+<h3 id="cap30-a">Parte A — O Mirror Shield</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Mirror Shield</span>, <span class="item">Compass</span>, <span class="item">2x Small Key</span> e <span class="item">2x Gold Skulltula Token</span>
+</div>
+<p>Suba as escadas iniciais e vire à direita. Empurre o enorme bloco azul até ele cair no buraco. Entre. Exploda o Beamos, atinja o cristal no teto. Vá pela direita. Na <strong>Rolling Boulder Room</strong>, colete as 5 Silver Rupees desviando das pedras (use as Hover Boots para pegar a que está no ar). Isso abre a porta norte. Antes de ir, toque a Song of Time perto do bloco azul com o símbolo do tempo para movê-lo e pegar a <span class="inimigo">Gold Skulltula</span>. Na sala norte, mate o Like-Like e pegue a <span class="item">Small Key</span>.</p>
+<p>Volte à entrada principal e siga pela porta oeste (esquerda). Na <strong>Triforce/Compass Room</strong>, pise no símbolo da Triforce, mate o Wolfos e toque a Zelda's Lullaby. Use o Longshot para alcançar o baú com a <span class="item">Compass</span>. Volte à entrada e passe pela porta trancada ao norte.</p>
+<p>Na <strong>Lower Mirror Chamber</strong>, escale a parede leste. Cuidado com o Floor Master invisível (use Jump Attack para matá-lo fácil). Empurre o cabo esquerdo do espelho para refletir a luz do sol nos 4 painéis de sol na parede. O terceiro destrancará a porta oeste (o quarto faz cair uma mão do teto). Passe pela porta oeste.</p>
+<p>Na <strong>Colossus Chamber</strong> (nível superior), suba as escadas. Olhe a noroeste para a mão esquerda da estátua (tem um símbolo da Triforce nela). Voe até lá com as Hover Boots. Toque Zelda's Lullaby. Um baú surge na outra mão. Use o Longshot para ir até ele e pegue a <span class="item">Small Key</span>. Caia para o chão, escale a parede leste, suba as escadas e olhe para o norte (do outro lado do vão livre). Toque a Scarecrow's Song. O espantalho Pierre aparece. Use o Longshot nele para atravessar o vão, e pegue a <span class="inimigo">Gold Skulltula</span> nas costas dele (esta é a 100ª e última Skulltula do jogo!). Volte e entre na porta trancada a sudeste.</p>
+<p>Passe por Anubis (Fire Arrows neles) e Beamos até chegar à <strong>Quad Armos Room</strong>. Atire uma flecha na estátua Armos do canto nordeste para ela acordar e pular até você, pisando no botão azul. Corra e passe pela porta sul antes que ela feche. Siga os corredores até enfrentar outro <strong>Iron Knuckle</strong>. Use a Biggoron's Sword. Vença e saia pela porta para chegar na mão direita da estátua lá fora, onde pegará o <span class="item">Mirror Shield</span>! (Um escudo que reflete luz e resiste a Like-Likes).</p>
+
+<h3 id="cap30-b">Parte B — Escalando o Colosso</h3>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Boss Key</span> e <span class="item">Small Key</span>
+</div>
+<p>Volte para dentro, equipe o escudo novo, e refaça o caminho reverso até a <strong>Quad Armos Room</strong>. Fique no feixe de luz e use o Mirror Shield (segure R) para refletir a luz no painel solar da parede. Pegue a <span class="item">Small Key</span> na salinha norte e volte. Vá pela porta oeste até voltar à sala dos Anubis e abra a porta trancada a sudoeste.</p>
+<p>Na <strong>Sliding Panels Room</strong>, suba pelos painéis em movimento na parede (ou use o Longshot até o topo). Entre na sala norte, toque a Zelda's Lullaby na Triforce e entre.</p>
+<p>Na <strong>Boss Key Room</strong>, mate as lesmas de fogo. Use o <em>Megaton Hammer</em> nas portas falsas na parede. A porta à esquerda do pilar de fogo esconde um olho dourado. Atire no olho. Uma plataforma surgirá no ar. Use o Longshot para subir nela, pule para a plataforma acima do pilar de fogo e pise no botão para desligar o fogo. Pegue a <span class="item">Boss Key</span>. Volte e siga pela porta oeste.</p>
+
+<h3 id="cap30-c">Parte C — Quebrando o Rosto do Demônio</h3>
+<p>Na <strong>Upper Sun Chamber</strong>, acerte o cristal, mate o Lizalfos, vá para a esquerda. Exploda a parede estranha. Fique atrás do espelho e gire-o para a luz passar pelo buraco novo. Na sala seguinte, mate o Lizalfos e gire o segundo espelho para refletir a luz para a primeira sala. Volte à primeira sala e pule no buraco até o andar de baixo.</p>
+<p>A luz do sol está batendo no grande espelho no chão agora. Fique na luz e use seu <strong>Mirror Shield</strong> para refletir a luz no painel solar na parede, ativando um elevador que o levará para a <strong>Colossus Room</strong> principal.</p>
+<p>De frente para o grande rosto da estátua, reflita a luz do sol no rosto de pedra até ele derreter. Use o Longshot na grade e entre na porta do Chefe.</p>
+
+<h3 id="cap30-d">Chefe: Sorceress Sisters TWINROVA</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Heart Container</span> e <span class="item">Spirit Medallion</span>
+</div>
+<p>Você verá as bruxas Koume e Kotake em uma cena. Elas enviarão um <strong>Iron Knuckle</strong> (Nabooru com lavagem cerebral) para lutar com você. Derrote-o, as bruxas farão Nabooru sumir. Passe pela porta para enfrentá-las de verdade.</p>
+<p><strong>Fase 1:</strong> As bruxas voarão ao seu redor. Koume atira fogo, Kotake atira gelo. <strong>Não use Z-Targeting</strong>. Gire a câmera manualmente, foque em ver as duas. Quando uma carregar seu feitiço e disparar, use o <em>Mirror Shield</em> para rebater a magia nela e mire manualmente na irmã oposta (ou seja, rebata gelo na bruxa de fogo, e fogo na bruxa de gelo). Repita algumas vezes.</p>
+<p><strong>Fase 2:</strong> Elas se fundirão em <strong>Twinrova</strong>, dominando fogo e gelo. Agora você <strong>pode</strong> usar Z-Targeting. O esquema agora é absorver magia: se ela atirar fogo, defenda e o escudo guardará a energia (brilhando). Você tem que defender <strong>três ataques do MESMO elemento seguidos</strong>. Se absorver 2 fogos e ela atirar gelo, fuja! Se tentar defender, o escudo zera e você toma dano. Quando absorver o 3º ataque do mesmo tipo, o escudo soltará um mega raio. Segure a mira para acertá-la, ela cairá. Corra, coloque a Hover Boots, pule na plataforma dela e esmague-a com a Biggoron's Sword. Repita até vencer!</p>
+<p>Pegue o 20º <span class="item">Heart Container</span> (se você pegou todos os pedaços, seus corações estão cheios!). Nabooru despertará como a Sábia do Espírito e lhe dará o <span class="item">Spirit Medallion</span>.</p>
+
+<!-- ── CAPITULO 31 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap31">Capítulo 31 — A Few Final Things</h2>
+<div class="dica">
+  💡 <strong>Novos Itens:</strong> <span class="item">Light Arrows</span>
+</div>
+<p>Toque o Prelude of Light para voltar ao <span class="local">Temple of Time</span>. Uma cutscene gigante acontecerá. Sheik se revelará como a Princesa Zelda! Ela lhe entregará as sagradas <span class="item">Light Arrows</span> (Flechas de Luz), a arma definitiva contra o mal. No entanto, Ganondorf a sequestrará logo em seguida.</p>
+<p>Neste ponto, faça um check-up geral:
+- Conseguiu a Biggoron's Sword?
+- Pegou as Ice Arrows (Gerudo Training Ground)?
+- Tem as 4 garrafas?
+- Acumulou os 100 Gold Skulltula Tokens? (Se sim, vá à House of Skulltula em Kakariko Village falar com a família liberta para ganhar uma Huge Rupee infinita).
+Sua jornada secundária terminou. Vá para o Castelo de Ganon (norte do Market) para o desafio final!</p>
+
+<!-- ── CAPITULO 32 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap32">Capítulo 32 — Dungeon IX: Ganon's Castle and Tower</h2>
+<p>Entre no Castelo de Ganon (onde era o castelo de Hyrule). O castelo real flutua sobre um lago de lava. Os Sábios criarão uma ponte de arco-íris para você entrar.</p>
+
+<h3 id="cap32-a">Parte A — Os Seis Selos</h3>
+<div class="dica">
+  💡 <strong>Novo Equipamento:</strong> <span class="item">Gold Gauntlets</span> e <strong>Defesa Dupla</strong> (Corações Brancos)
+</div>
+<p>Você chegará à sala principal (Keep). Uma barreira de energia envolve a torre central. Para desativá-la, você deve entrar nas seis salas ao redor, cada uma representando um elemento dos Sábios, e quebrar o selo lá dentro (atirando uma <em>Light Arrow</em> no orbe de energia no final de cada teste).</p>
+<ol>
+  <li><strong>Forest Seal (Floresta):</strong> Mate o Wolfos. Use <em>Din's Fire</em> para acender as 4 tochas no chão, e atire uma <em>Fire Arrow</em> na tocha acima da porta. Na sala dos ventiladores, pegue as 5 Silver Rupees usando as <em>Iron Boots</em>, <em>Hover Boots</em> e <em>Song of Time</em> (para criar um bloco). Atire a Light Arrow no orbe da floresta.</li>
+  <li><strong>Water Seal (Água):</strong> Mate os monstros de gelo. Pegue <em>Blue Fire</em> na garrafa para derreter o gelo vermelho bloqueando a porta. Na sala dos blocos de gelo (2 minutos de tempo limit): empurre o bloco mais distante para a direita e para frente até cair no buraco. Empurre o segundo bloco sobre o buraco preenchido, depois para a direita até o fundo da sala. Pule para a borda, derreta o gelo vermelho e use o <em>Megaton Hammer</em> no botão enferrujado. Atire no orbe da água.</li>
+  <li><strong>Shadow Seal (Sombras):</strong> Atire o Longshot no baú (ou toque <em>Song of Time</em>). Atire uma <em>Fire Arrow</em> na tocha e corra pelas plataformas temporárias, mate o Like-Like, acenda a tocha de novo. Siga a trilha invisível (com <em>Lens of Truth</em>) e aperte o botão. UM BAÚ APARECERÁ: Abra para pegar as fantásticas <span class="item">Gold Gauntlets</span> (Luvas de Ouro). Siga a trilha invisível até a porta e atire no orbe das sombras.</li>
+</ol>
+<p><strong>A Fonte da Fada Escondida:</strong> Agora que você tem as luvas de ouro, saia do castelo e vá até o fim da trilha com pedras vermelhas perto de onde você entrava na área. Levante a gigantesca coluna preta com as mãos! Entre na <strong>Great Fairy's Fountain</strong>, toque Zelda's Lullaby, e receba a <strong>Double Defense</strong> (seus corações terão contorno branco e você tomará metade do dano pelo resto do jogo!). Volte ao castelo.</p>
+<ol start="4">
+  <li><strong>Fire Seal (Fogo):</strong> Equipe a Goron Tunic. A sala tem plataformas que afundam na lava. Pegue as 5 Silver Rupees. Levante o obelisco preto enorme para achar a última e formar uma ponte. Atire no orbe de fogo.</li>
+  <li><strong>Light Seal (Luz):</strong> Levante o pilar negro da frente da porta com as Gold Gauntlets para entrar. Na primeira sala há morcegos e aranha invisíveis (use a lente). Mate todos e pegue a chave. Na segunda, toque Zelda's Lullaby na Triforce e pegue outra chave. Na terceira, colete 5 Silver Rupees em um tempo limite, desviando das pedras gigantes. Destranque a porta. Na última sala, o orbe está escondido atrás de uma parede falsa (use a lente). Atire a flecha de luz.</li>
+  <li><strong>Spirit Seal (Espírito):</strong> Colete 5 Silver Rupees no meio de lâminas giratórias. Na sala seguinte, mate as lesmas, atinja o cristal para revelar Bombchus. Mande um Bombchu passar pela fresta acima da grade para bater no outro cristal longe. Na próxima sala, atire <em>Fire Arrow</em> na teia no teto para a luz entrar. Reflita a luz no sol correto da parede (o da direita da entrada). Atire no último orbe!</li>
+</ol>
+
+<h3 id="cap32-b">Parte B — A Escalada da Torre</h3>
+<div class="dica">
+  💡 <strong>Novo Item:</strong> <span class="item">Boss Key</span>
+</div>
+<p>A barreira caiu. Atravesse a ponte central e entre na <strong>Ganon's Tower</strong>.
+Você precisará subir vários lances de escadas com inimigos.
+- <strong>Andar 1:</strong> Mate os Fire Keese.
+- <strong>Andar 2:</strong> Lute contra dois Dinolfos (poderosos dinossauros).
+- <strong>Andar 3:</strong> Derrote dois Stalfos. O fogo central abaixará revelando a <span class="item">Boss Key</span>.
+- <strong>Andar 4:</strong> Dois <strong>Iron Knuckles</strong> na mesma sala! Evite acordar os dois ao mesmo tempo; atire uma flecha em um, puxe-o para longe e mate-o, depois mate o outro.
+Siga até o topo (Andar 5) e destranque a Boss Door.</p>
+
+<h3 id="cap32-c">Chefe Final: King of Thieves GANONDORF</h3>
+<p>O Rei do Mal lhe aguarda. A batalha lembra o Phantom Ganon. Ele lançará esferas de energia; você deve rebatê-las com a espada até ele não conseguir rebater e ser atordoado. (Ele às vezes usa uma magia carregada com ambas as mãos de dezenas de esferas e ondas de choque pelo chão, neste caso atire uma Light Arrow nele).
+Quando a esfera de raio atordoá-lo, imediatamente saque o arco e dispare uma <strong>Light Arrow</strong> nele para paralisá-lo para valer! Use as Hover Boots, pule o abismo central até a plataforma dele e dê-lhe cortes com a Biggoron's Sword! Repita o processo até ele cair.</p>
+
+<h3 id="cap32-d">Parte D — A Fuga da Torre</h3>
+<p>Ganondorf usou as últimas forças para destruir a torre! Você e Zelda têm <strong>3 Minutos</strong> para fugir.
+Desça a torre acompanhando Zelda (apenas ela pode abrir as portas seladas com magia). Desvie dos destroços flamejantes. Em um dos andares, você ficará preso em um anel de fogo e terá que matar dois Stalfos muito rápido (use <em>Nayru's Love</em> se tiver e ataque furiosamente). Continue descendo. Cruze a ponte na entrada (ignore o zumbi) e saia do castelo.</p>
+<p>Vocês conseguiram escapar, mas um barulho vem dos destroços... Vá olhar o que sobrou. Ganondorf, impulsionado pela Triforce do Poder, se transformará no monstro demoníaco gigante: Ganon, que derrubará sua Master Sword para fora da arena com fogo!</p>
+
+<h3 id="cap32-e">Batalha Final: GANON</h3>
+<p>A espada mestre está longe, mas você não está indefeso (aliás, você deve usar a Biggoron's Sword ou o Megaton Hammer). A única parte vulnerável dele é sua <strong>cauda</strong> brilhante.
+- Role rapidamente entre as pernas gigantes de Ganon, ou atire uma Light Arrow no rosto dele para cegá-lo por uns segundos.
+- Estando atrás dele, dê um pulo com a Biggoron's Sword (Jump Attack) bem na cauda dele. 
+- Ele se virará. Repita o processo algumas vezes.
+O fogo que isola a Master Sword abaixará! Corra e recupere a sagrada lâmina de bane do mal.
+Agora com a <strong>Master Sword</strong> em mãos (obrigatório para finalizar o monstro), repita a tática de atirar no rosto/passar pelas pernas e cortar a cauda. 
+Quando o monstro cair, Zelda lhe imobilizará com luz. O jogo pedirá para você desferir o golpe final. Pressione o botão de ataque para finalizar Ganon de uma vez por todas.</p>
+<p>Aproveite um dos finais mais icônicos da história dos videogames.
+<em>The Legend of Zelda: Ocarina of Time</em> está finalizado. Parabéns!</p>
+
+<!-- ============================================================
+     VERSOES DO JOGO
+     Documente as diferencas entre cada versao lancada.
+     Adicione ou remova blocos <h3> conforme necessario.
+
+     DICA DE CORES PARA O TAG DE PLATAFORMA:
+       PlayStation  → background:#003087
+       Sega Saturn  → background:#1a1a6e
+       Nintendo DS  → background:#c40000
+       PC           → background:#333
+       GameCube     → background:#4a0080
+       PS2/PS3/PS4  → background:#003087
+       Xbox         → background:#107c10
+       Switch       → background:#e4000f
+     ============================================================ -->
+<hr>
+<h2 id="versoes">As Versões do Jogo</h2>
+<p><!-- Breve introducao sobre o historico de lancamentos do jogo --></p>
+
+<!-- ── VERSAO 1 ───────────────────────────────────────────── -->
+<h3 id="v-original">{{PLATAFORMA}} — Versão Original ({{ANO}})</h3>
+<p><!-- Descricao da versao original. Esta e a base do detonado. --></p>
+
+<!-- ── VERSAO 2 ───────────────────────────────────────────── -->
+<h3 id="v-2">{{PLATAFORMA 2}} ({{ANO 2}})</h3>
+<p><!-- Descricao da segunda versao --></p>
+<ul>
+  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+  <li><strong>Diferenca 2:</strong> <!-- descricao --></li>
+  <!-- Adicione mais <li> conforme necessario -->
+</ul>
+<div class="dica">⚠️ <!-- Nota importante sobre esta versao, se houver --></div>
+
+<!-- ── VERSAO 3 (copie o bloco acima e repita) ─────────────── -->
+<h3 id="v-3">{{PLATAFORMA 3}} ({{ANO 3}})</h3>
+<ul>
+  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
+</ul>
+
+<!-- ── TABELA COMPARATIVA ──────────────────────────────────── -->
+<!-- ============================================================
+     Use esta tabela para resumir todas as versoes.
+     Colunas sugeridas:
+       Versao | Ano | Destaques | Recomendado para
+     Adicione ou remova colunas conforme necessario.
+     ============================================================ -->
+<h3 id="v-resumo">Tabela Comparativa</h3>
+<table>
+  <tr>
+    <th>Versão</th>
+    <th>Ano</th>
+    <th>Destaques</th>
+    <th>Recomendado para</th>
+  </tr>
+  <tr>
+    <td><!-- Nome da versao --></td>
+    <td><!-- Ano --></td>
+    <td><!-- Principais diferencas --></td>
+    <td><!-- Publico ideal --></td>
+  </tr>
+  <!-- Adicione mais <tr> para cada versao -->
+</table>
+
+<!-- ============================================================
+     DICAS FINAIS (opcional)
+     Segredos, finais alternativos, itens secretos, etc.
+     ============================================================ -->
+<hr>
+<h2 id="dicas">Dicas e Segredos</h2>
+<p><!-- Dicas gerais --></p>
+
+<!-- ============================================================
+     TOP BAR + BUSCA + MENU LATERAL
+     Nao edite este bloco — e o sistema de navegacao.
+     ============================================================ -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">Zelda: Ocarina of Time — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+</div>
+
+
+<script>
+(function(){
+  const items=[];
+  document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
+    const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
+    const pad=h.tagName==='H3'?'  ':'';
+    items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
+  });
+  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+})();
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
+function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
+let matches=[],currentMatch=-1,lastQuery='';
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+</script>
+
+<!-- ============================================================
+     CHECKLIST ANTES DE SUBIR NO GITHUB
+     [ ] Substituiu {{TITULO}} e {{TITULO_CURTO}} pelo nome do jogo
+     [ ] Substituiu {{SLUG}} pelo nome da pasta (ex: resident-evil-4)
+     [ ] Substituiu {{PLATAFORMA}} pela plataforma (ex: PlayStation 2)
+     [ ] Trocou {{TEMA_COR}}, {{TEMA_COR_DARK}} e {{TEMA_COR_TOPBAR}} no CSS pela cor do jogo
+     [ ] Salvou o arquivo como detonado.html
+     [ ] Subiu capa.png na mesma pasta do GitHub
+     [ ] Preencheu a secao de versoes
+     [ ] Testou no browser antes de subir
+     ============================================================ -->
+</body>
+</html>
