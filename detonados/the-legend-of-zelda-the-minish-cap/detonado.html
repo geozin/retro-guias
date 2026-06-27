@@ -1438,138 +1438,29 @@
 </div>
 
 <!-- ============================================================
-     CONCEITOS BASICOS (opcional)
-     Use para comandos, dicas de sistema, ervas, etc.
-     ============================================================ -->
-<h2 id="conceitos">Conceitos Básicos</h2>
-
-<h3 id="comandos">Comandos</h3>
-<table>
-  <tr><th>Botão</th><th>Função</th></tr>
-  <tr><td>X</td><td>Ação / Confirmar</td></tr>
-  <!-- Adicione mais linhas conforme necessario -->
-</table>
-
-<!-- ============================================================
-     ESTRUTURA DO DETONADO
-     Cada capitulo usa <h2> com id unico.
-     Cada parte usa <h3> com id unico.
-     O menu lateral e gerado automaticamente a partir dos ids.
-
-     CONVENCAO DE IDs:
-       Capitulo 1       → id="cap1"
-       Capitulo 1 A     → id="cap1-a"
-       Capitulo 2       → id="cap2"
-       Capitulo 2 B     → id="cap2-b"
-     ============================================================ -->
-
-<!-- ── CAPITULO 1 ─────────────────────────────────────────── -->
-<hr>
-<h2 id="cap1">Capítulo 1 — {{NOME DO CAPITULO}}</h2>
-<p class="cap-intro"><!-- Texto introdutorio do capitulo --></p>
-
-<h3 id="cap1-a">Parte A — {{NOME DA PARTE}}</h3>
-<p>
-  <!-- Texto do walkthrough. Use as classes abaixo para colorir: -->
-
-  <!-- NPC / Personagem:  <span class="npc">Nome</span>         -->
-  <!-- Item:              <span class="item">Item</span>         -->
-  <!-- Alerta:            <span class="alerta">Cuidado!</span>   -->
-  <!-- Local:             <span class="local">Sala X</span>      -->
-  <!-- Inimigo:           <span class="inimigo">Zumbi</span>     -->
-</p>
-
-<!-- ── PUZZLE (use sempre que houver enigma/combinacao) ────── -->
-<div class="puzzle-box">
-  <div class="titulo-puzzle">🧩 Puzzle — {{NOME DO PUZZLE}}</div>
-  <p><!-- Descricao do puzzle e solucao --></p>
-</div>
-
-<!-- ── BATALHA DE CHEFE ─────────────────────────────────────── -->
-<div class="chefe-box">
-  <div class="titulo-chefe">⚔️ Chefe — {{NOME DO CHEFE}}</div>
-  <p><!-- Estrategia para derrotar o chefe --></p>
-</div>
-
-<!-- ── DICA GERAL ───────────────────────────────────────────── -->
-<div class="dica">
-  💡 <!-- Texto da dica -->
-</div>
-
-<!-- ── LIVE SELECTION (exclusivo RE3) ──────────────────────── -->
-<!--
-<div class="live-box">
-  <div class="live-title">⚡ LIVE SELECTION</div>
-  <p>Opcao A → resultado X</p>
-  <p>Opcao B → resultado Y</p>
-</div>
--->
-
-<!-- ── TABELA (itens, armas, rankings, etc.) ───────────────── -->
-<!--
-<table>
-  <tr><th>Coluna 1</th><th>Coluna 2</th><th>Coluna 3</th></tr>
-  <tr><td>dado</td><td>dado</td><td>dado</td></tr>
-</table>
--->
-
-<h3 id="cap1-b">Parte B — {{NOME DA PARTE}}</h3>
-<p><!-- Conteudo da parte B --></p>
-
-<!-- ── CAPITULO 2 (copie o bloco acima e repita) ───────────── -->
-<hr>
-<h2 id="cap2">Capítulo 2 — {{NOME DO CAPITULO}}</h2>
-
-<h3 id="cap2-a">Parte A — {{NOME DA PARTE}}</h3>
-<p><!-- Conteudo --></p>
-
-
-<!-- ============================================================
      VERSOES DO JOGO
-     Documente as diferencas entre cada versao lancada.
-     Adicione ou remova blocos <h3> conforme necessario.
-
-     DICA DE CORES PARA O TAG DE PLATAFORMA:
-       PlayStation  → background:#003087
-       Sega Saturn  → background:#1a1a6e
-       Nintendo DS  → background:#c40000
-       PC           → background:#333
-       GameCube     → background:#4a0080
-       PS2/PS3/PS4  → background:#003087
-       Xbox         → background:#107c10
-       Switch       → background:#e4000f
      ============================================================ -->
 <hr>
 <h2 id="versoes">As Versões do Jogo</h2>
-<p><!-- Breve introducao sobre o historico de lancamentos do jogo --></p>
+<p>The Legend of Zelda: The Minish Cap teve poucas alterações em seu conteúdo ao longo dos anos, sendo lançado originalmente no GBA e depois relançado em serviços virtuais sem modificações técnicas além de filtros de tela e save states.</p>
 
 <!-- ── VERSAO 1 ───────────────────────────────────────────── -->
-<h3 id="v-original">{{PLATAFORMA}} — Versão Original ({{ANO}})</h3>
-<p><!-- Descricao da versao original. Esta e a base do detonado. --></p>
+<h3 id="v-original"><span style="padding: 2px 6px; border-radius: 4px; color: #fff; background: #6c3483;">Game Boy Advance</span> — Versão Original (2004)</h3>
+<p>A versão original em cartucho para GBA. É a base de nosso detonado. Sem dependências de assinaturas virtuais ou features online, apenas o puro jogo original.</p>
 
 <!-- ── VERSAO 2 ───────────────────────────────────────────── -->
-<h3 id="v-2">{{PLATAFORMA 2}} ({{ANO 2}})</h3>
-<p><!-- Descricao da segunda versao --></p>
-<ul>
-  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
-  <li><strong>Diferenca 2:</strong> <!-- descricao --></li>
-  <!-- Adicione mais <li> conforme necessario -->
-</ul>
-<div class="dica">⚠️ <!-- Nota importante sobre esta versao, se houver --></div>
+<h3 id="v-2"><span style="padding: 2px 6px; border-radius: 4px; color: #fff; background: #c40000;">Nintendo 3DS (Programa Embaixador)</span> (2011)</h3>
+<p>Disponibilizado exclusivamente aos "embaixadores" do 3DS (aqueles que compraram o console antes do corte de preço). Não é uma versão vendida comercialmente, rodando nativamente o hardware de GBA pelo 3DS.</p>
 
-<!-- ── VERSAO 3 (copie o bloco acima e repita) ─────────────── -->
-<h3 id="v-3">{{PLATAFORMA 3}} ({{ANO 3}})</h3>
-<ul>
-  <li><strong>Diferenca 1:</strong> <!-- descricao --></li>
-</ul>
+<!-- ── VERSAO 3 ───────────────────────────────────────────── -->
+<h3 id="v-3"><span style="padding: 2px 6px; border-radius: 4px; color: #fff; background: #008ebf;">Wii U Virtual Console</span> (2014)</h3>
+<p>A primeira versão digital disponibilizada para compra geral. Rodando através de emulação, traz suporte a Save States e uso do GamePad, sendo excelente para jogar na tela da TV.</p>
+
+<!-- ── VERSAO 4 ───────────────────────────────────────────── -->
+<h3 id="v-4"><span style="padding: 2px 6px; border-radius: 4px; color: #fff; background: #e4000f;">Nintendo Switch Online</span> (2023)</h3>
+<p>O título foi adicionado ao Nintendo Switch Online + Pacote Adicional. Traz as vantagens do app de GBA do Switch, como retroceder a gameplay (Rewind), Save States e modo portátil/dock com facilidade.</p>
 
 <!-- ── TABELA COMPARATIVA ──────────────────────────────────── -->
-<!-- ============================================================
-     Use esta tabela para resumir todas as versoes.
-     Colunas sugeridas:
-       Versao | Ano | Destaques | Recomendado para
-     Adicione ou remova colunas conforme necessario.
-     ============================================================ -->
 <h3 id="v-resumo">Tabela Comparativa</h3>
 <table>
   <tr>
@@ -1579,30 +1470,49 @@
     <th>Recomendado para</th>
   </tr>
   <tr>
-    <td><!-- Nome da versao --></td>
-    <td><!-- Ano --></td>
-    <td><!-- Principais diferencas --></td>
-    <td><!-- Publico ideal --></td>
+    <td>Game Boy Advance</td>
+    <td>2004</td>
+    <td>Jogo original em cartucho</td>
+    <td>Puristas e colecionadores</td>
   </tr>
-  <!-- Adicione mais <tr> para cada versao -->
+  <tr>
+    <td>Nintendo 3DS</td>
+    <td>2011</td>
+    <td>Programa de Embaixador</td>
+    <td>Quem resgatou na época</td>
+  </tr>
+  <tr>
+    <td>Wii U VC</td>
+    <td>2014</td>
+    <td>Save states, jogar na TV</td>
+    <td>Pessoas que ainda usam ativamente o Wii U</td>
+  </tr>
+  <tr>
+    <td>Nintendo Switch Online</td>
+    <td>2023</td>
+    <td>Rewind, Save states, portátil/TV</td>
+    <td>Assinantes do serviço, melhor forma oficial atual</td>
+  </tr>
 </table>
 
 <!-- ============================================================
      DICAS FINAIS (opcional)
-     Segredos, finais alternativos, itens secretos, etc.
      ============================================================ -->
 <hr>
 <h2 id="dicas">Dicas e Segredos</h2>
-<p><!-- Dicas gerais --></p>
+<ul>
+  <li><strong>Figurines:</strong> Juntar conchas (Mysterious Shells) é crucial ao longo do jogo. Tente sempre pegar a Carlov Medal no final completando 136 figurinos na loteria.</li>
+  <li><strong>As 3 Oráculos:</strong> Fazer as fusões de Kinstone com Farore, Din e Nayru no hotel de Hyrule Town não só as deixa felizes, como libera três Joy Butterflies que aceleram seus movimentos permanentemente!</li>
+  <li><strong>Farm de Rupees Rápido:</strong> Cavar locais específicos na região de Castor Wilds ao longo de todo o mapa do jogo (pós fusão das Kinstones) revela Rupees e áreas ótimas de "grind".</li>
+</ul>
 
 <!-- ============================================================
      TOP BAR + BUSCA + MENU LATERAL
-     Nao edite este bloco — e o sistema de navegacao.
      ============================================================ -->
 <div class="top-bar">
   <div class="top-bar-left">
     <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
-    <span class="top-bar-title">{{TITULO_CURTO}} — Detonado</span>
+    <span class="top-bar-title">The Legend of Zelda: The Minish Cap — Detonado</span>
   </div>
   <div style="display:flex;align-items:center;gap:6px;">
     <div class="search-wrap" id="searchWrap">
@@ -1631,7 +1541,8 @@
     const pad=h.tagName==='H3'?'  ':'';
     items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
   });
-  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+  document.getElementById('sidebarBody').innerHTML=items.join('
+');
 })();
 function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
@@ -1644,19 +1555,7 @@ function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;mat
 function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
 function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
 function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
-function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\]/g,'\$&');}
 </script>
-
-<!-- ============================================================
-     CHECKLIST ANTES DE SUBIR NO GITHUB
-     [ ] Substituiu {{TITULO}} e {{TITULO_CURTO}} pelo nome do jogo
-     [ ] Substituiu {{SLUG}} pelo nome da pasta (ex: resident-evil-4)
-     [ ] Substituiu {{PLATAFORMA}} pela plataforma (ex: PlayStation 2)
-     [ ] Trocou {{TEMA_COR}}, {{TEMA_COR_DARK}} e {{TEMA_COR_TOPBAR}} no CSS pela cor do jogo
-     [ ] Salvou o arquivo como detonado.html
-     [ ] Subiu capa.png na mesma pasta do GitHub
-     [ ] Preencheu a secao de versoes
-     [ ] Testou no browser antes de subir
-     ============================================================ -->
 </body>
 </html>
