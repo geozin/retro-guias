@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     TEMPLATE DE DETONADO — Retro Guias
+     Instruções de uso no final do arquivo
+     ============================================================ -->
+<title>The Legend of Zelda: The Wind Waker — Detonado</title>
+<style>
+  /* ── Variaveis de cor do tema ──────────────────────────────
+     Troque #00BCD4 pela cor principal do jogo.
+     Exemplos:
+       RE1  → #1a3a8a  (azul marinho)
+       RE2  → #8b0000  (vermelho escuro)
+       RE3  → #8b4500  (laranja)
+       DS   → #2d6a2d  (verde)
+  ── */
+
+  :root {
+    --bg:#fafaf8;--bg2:#f0ede6;--text:#222;--text2:#555;--border:#ddd;
+    --header-bg:#1a0000;--h2-color:#00BCD4;--h2-border:#00BCD4;--h3-border:#888;
+    --parte-bg:#1a4a1a;--parte-color:#fff;
+    --dica-bg:#fff8f8;--dica-border:#c0392b;
+    --chefe-bg:#fdecea;--chefe-border:#c0392b;--chefe-title:#0097A7;
+    --table-head:#eee;--bar-bg:#fff;--bar-border:#ddd;
+    --npc:#1a5fb4;--item:#2d7a2d;--alerta:#c0392b;--local:#6c3483;--inimigo:#784212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#0f0a0a;--bg2:#1a1010;--text:#e8e8e0;--text2:#baa;--border:#333;
+      --header-bg:#0d0000;--h2-color:#8BC34A;--h2-border:#8BC34A;--h3-border:#555;
+      --parte-bg:#0a2a0a;--parte-color:#aaffaa;
+      --dica-bg:#2a0000;--dica-border:#c0392b;
+      --chefe-bg:#2a0a0a;--chefe-border:#0097A7;--chefe-title:#f1948a;
+      --table-head:#1e1010;--bar-bg:#1a1010;--bar-border:#333;
+      --npc:#6ab0f5;--item:#6ec96e;--alerta:#f1948a;--local:#c39bd3;--inimigo:#d4a76a;
+    }
+  }
+  body{font-family:Georgia,serif;font-size:16px;line-height:1.85;color:var(--text);max-width:860px;margin:0 auto;padding:72px 16px 40px;background:var(--bg);}
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+  .capa-info{background:#1a0000;padding:8px 16px;display:flex;align-items:center;justify-content:center;}
+  .capa-badge{font-family:Georgia,serif;font-size:13px;color:#ff9999;letter-spacing:.5px;}
+  .game-header{background:var(--header-bg);color:#fff;border-radius:10px;padding:20px 24px 16px;margin-bottom:28px;transition:background .25s;}
+  .game-header h1{margin:0 0 6px;font-size:24px;color:#ff6666;}
+  .game-header .sub{font-size:15px;color:#f99;margin-bottom:6px;font-style:italic;}
+  .game-header .meta{font-size:13px;color:#caa;font-family:monospace;}
+  .legenda{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;font-size:13px;}
+  .legenda span{padding:3px 10px;border-radius:4px;font-weight:bold;}
+  h2{font-size:21px;color:var(--h2-color);border-bottom:3px solid var(--h2-border);padding-bottom:5px;margin-top:48px;margin-bottom:8px;transition:color .25s,border-color .25s;}
+  .capitulo-intro{font-size:14px;color:var(--text2);font-style:italic;margin-bottom:20px;}
+  .parte{display:flex;align-items:baseline;gap:12px;margin:32px 0 12px;}
+  .parte-tag{background:var(--parte-bg);color:var(--parte-color);font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px;letter-spacing:1px;white-space:nowrap;font-family:monospace;}
+  .parte h3{margin:0;font-size:17px;color:var(--text);border:none;padding:0;}
+  p{margin:0 0 13px;}
+  .npc{color:var(--npc);font-weight:bold;}
+  .item{color:var(--item);font-weight:bold;}
+  .alerta{color:var(--alerta);font-weight:bold;}
+  .local{color:var(--local);font-weight:bold;}
+  .inimigo{color:var(--inimigo);font-weight:bold;}
+  .dica{background:var(--dica-bg);border-left:4px solid var(--dica-border);padding:10px 14px;margin:14px 0;border-radius:0 6px 6px 0;font-size:15px;transition:background .25s;}
+  .chefe-box{background:var(--chefe-bg);border:2px solid var(--chefe-border);border-radius:8px;padding:14px 18px;margin:20px 0;transition:background .25s;}
+  .chefe-box .titulo-chefe{font-weight:bold;font-size:15px;color:var(--chefe-title);margin-bottom:8px;}
+  .puzzle-box{background:var(--dica-bg);border:2px dashed var(--h2-border);border-radius:8px;padding:14px 18px;margin:18px 0;}
+  .puzzle-box .titulo-puzzle{font-weight:bold;font-size:14px;color:var(--h2-color);margin-bottom:8px;letter-spacing:.5px;}
+  table{border-collapse:collapse;margin:12px 0;font-size:14px;width:100%;}
+  td,th{border:1px solid var(--border);padding:6px 12px;text-align:left;color:var(--text);}
+  th{background:var(--table-head);font-weight:bold;}
+  ul,ol{margin:8px 0 14px 20px;padding:0;}
+  li{margin-bottom:6px;}
+  hr{border:none;border-top:2px solid var(--border);margin:44px 0;}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1100;}
+  .sidebar-overlay.open{display:block;}
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:88vw;background:var(--bar-bg);border-right:1px solid var(--bar-border);box-shadow:4px 0 24px rgba(0,0,0,0.2);z-index:1200;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .28s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-header{background:var(--header-bg);color:#fff;padding:16px 16px 14px;font-size:13px;font-weight:bold;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+  .sidebar-header span{opacity:.8;font-size:12px;}
+  .sidebar-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7;padding:0 4px;}
+  .sidebar-close:hover{opacity:1;}
+  .sidebar-body{overflow-y:auto;flex:1;padding:8px 0 80px;}
+  .sidebar-body::-webkit-scrollbar{width:4px;}
+  .sidebar-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .menu-item{display:block;padding:8px 16px;font-size:13px;color:var(--text);text-decoration:none;border-left:3px solid transparent;transition:background .15s,border-color .15s,color .15s;line-height:1.4;}
+  .menu-item:hover{background:var(--bg2);border-left-color:var(--h2-border);color:var(--h2-color);}
+  .menu-h2{font-weight:bold;color:var(--h2-color);font-size:13px;margin-top:4px;}
+  .menu-h3{font-size:11px;padding-left:28px;color:var(--text2);}
+
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#8BC34A;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+  pre { max-width: 100%; overflow-x: auto; background: var(--bg2); padding: 12px; border-radius: 6px; font-size: 13px; border: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CAPA DA REVISTA
+     Coloque capa.jpg na mesma pasta do detonado.html no GitHub.
+     O caminho segue o padrao:
+       geozin/retro-guias → detonados/the-legend-of-zelda-the-wind-waker/capa.jpg
+     Se nao houver capa, o bloco some automaticamente.
+     ============================================================ -->
+<!-- ============================================================
+     CABECALHO DO JOGO
+     TITULO   → Nome completo do jogo  ex: "Resident Evil 4"
+     PLATFORM → Plataforma             ex: "PlayStation 2"
+     ============================================================ -->
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/refs/heads/main/detonados/the-legend-of-zelda-the-wind-waker/capa.jpg"
+       alt="Capa The Legend of Zelda: The Wind Waker"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>The Legend of Zelda: The Wind Waker</h1>
+  <div class="meta">GameCube</div>
+</div>
+
+<!-- ============================================================
+     LEGENDA DE CORES
+     Mantenha sempre — aparece em todos os detonados.
+     ============================================================ -->
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+<!-- ============================================================
+     INTRODUCAO
+     Breve contexto do jogo / enredo.
+     ============================================================ -->
+<h2 id="intro">Introdução</h2>
+<p><!-- Escreva aqui o texto de introducao do jogo --></p>
+
+<!-- ============================================================
+     CONCEITOS BASICOS (opcional)
+     Use para comandos, dicas de sistema, ervas, etc.
+     ============================================================ -->
+<h2 id="conceitos">Conceitos Básicos</h2>
+
+<h3 id="comandos">Comandos</h3>
+<table>
+  <tr><th>Botão</th><th>Função</th></tr>
+  <tr><td>X</td><td>Ação / Confirmar</td></tr>
+  <!-- Adicione mais linhas conforme necessario -->
+</table>
+
+<!-- ============================================================
+     ESTRUTURA DO DETONADO
+     Cada capitulo usa <h2> com id unico.
+     Cada parte usa <h3> com id unico.
+     O menu lateral e gerado automaticamente a partir dos ids.
+
+     CONVENCAO DE IDs:
+       Capitulo 1       → id="cap1"
+       Capitulo 1 A     → id="cap1-a"
+       Capitulo 2       → id="cap2"
+       Capitulo 2 B     → id="cap2-b"
+     ============================================================ -->
+
+<!-- ── CAPITULO 1 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap1">Capítulo 1 — A Lenda em Outset (The Legend on Outset)</h2>
+
+<h3 id="cap1-a">O Aniversário e o Sequestro</h3>
+<p>
+Após a narração da história do Herói do Tempo e do que aconteceu em seguida, o jogo começa com uma garotinha (a irmãzinha de <span class="npc">Link</span>) chamando pelo nome de Link. Ela olha em volta com um telescópio até finalmente ver Link dormindo no topo de uma alta torre de vigia, e vai até ele. Ela o acorda e diz que a avó quer vê-lo porque é o aniversário dele.
+</p>
+<p>
+Então, vá até a sua casa para ver sua avó. No caminho, você passará por uma ponte. Pare no meio dela e comece a pular nas rochas que se projetam da água para pegar alguns <span class="item">Rupees</span> de todos os tipos. Agora chegue à sua casa. Uma vez dentro, suba a escada, assista à cena e você receberá as <span class="item">Hero's Clothes</span> (Roupas do Herói), o famoso traje do Herói do Tempo, consistindo de uma túnica e gorro verdes. Após alguma explicação de por que você precisa usá-las, você estará livre para sair da casa. O que você precisa fazer agora é voltar para <span class="npc">Aryll</span>, sua irmã, que ainda está na torre de vigia. No caminho (ou antes de você pegar suas roupas famosas) você será parado por um idoso que deseja ensiná-lo sobre o L-Targeting para falar com as pessoas. Você pode entrar no quarto dele na casa (pela escada) para aprender vários detalhes sobre o jogo.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Hero's Clothes</span>, <span class="item">Telescope</span> </div>
+
+<p>
+De qualquer forma, quando você voltar para <span class="npc">Aryll</span>, ela lhe dará o <span class="item">Telescope</span> (Telescópio) dela como um presente de aniversário! Atribua-o a um dos seus botões e use-o para olhar na direção em que ela está olhando. Olhe ao redor em direção à caixa de correio e aproxime com o C-Stick. Depois que Aryll gritar algo, olhe rapidamente para cima para ver um pássaro gigante com uma garota em suas garras! Piratas parecem estar perseguindo-o... BAM! Uma bala de canhão bem no bico dele! Ele soltou a garota na floresta no topo da montanha, no entanto... Aryll diz que você precisa ajudar a garota, mas você não tem nenhum tipo de arma para se proteger. Hm... coincidentemente, há um mestre espadachim nesta ilha, e ele divide a mesma casa que aquele ancião genial. Vá até a casa e entre pela porta debaixo da varanda. Ele lhe dará uma espada e o instruirá como usá-la. São instruções bem simples; ele aponta claramente como realizar cada tipo de golpe de espada. Após o fim do treinamento, você obtém a <span class="item">Hero's Sword</span> (Espada do Herói). Saia.
+</p>
+<p>
+Para entrar na floresta, siga o caminho de areia para o leste (seguindo o mini-mapa no canto) até que ele contorne uma montanha. Corte qualquer obstrução e siga direto pela ponte para dentro da floresta. Você terá um vislumbre da garota, pendurada em uma árvore. Avance pela pequena rampa e logo você encontrará seu primeiro inimigo: um <span class="inimigo">Bokoblin</span>. Ele não deve ser muito difícil. Assim que ele estiver morto, suba no toco e pule para a próxima borda. Você verá uma pedra gigante aqui, mas ignore-a e vire à esquerda, subindo na árvore caída. Você verá dois <span class="inimigo">Kargaroks</span> voarem por cima e cada um derrubará um <span class="inimigo">Bokoblin</span> para lutar. Derrote-os, e então assista à cena. Essa garota que você queria salvar é, ironicamente, a líder de um grupo de piratas. Uma vez que você, <span class="npc">Tetra</span> (a garota) e um de seus companheiros saem da floresta, você verá uma cena na qual aquele grande pássaro de antes vai e captura a irmã de Link. Ah, coitado. Ele vai querer embarcar com os piratas para salvar sua irmã, e após alguma hesitação, <span class="npc">Tetra</span> deixará você, mas você precisa encontrar algo para se defender, como um escudo.
+</p>
+
+<h3 id="cap1-b">Preparativos e o Forsaken Fortress</h3>
+<p>
+Então vamos ao trabalho! Agora, podemos pegar o escudo imediatamente, ou podemos fazer uma pequena missão secundária aqui já. Se você quiser alguns <span class="item">Rupees</span> extras (você vai precisar deles eventualmente) então vamos terminar a missão secundária. Se não, pule para o último parágrafo antes da mudança de área. Por toda a ilha há três porcos. Eles são como os Cuccos dos jogos anteriores de Zelda. De qualquer forma, um dos residentes aqui adoraria ter alguns desses porcos como animais de estimação, e ela está na casa contra a montanha que continha a floresta. 
+</p>
+<p>
+O primeiro porco está vagando perto da casa. Para pegá-lo, aproxime-se rastejando até ele, e rapidamente agarre-o. Leve-o para a casa mencionada antes e jogue o porco no cercado. Fale com a mulher e ela lhe dará um Red Rupee, que vale 20 Rupees normais! O segundo porco fica logo a leste da casa do espadachim, atrás de alguma grama. É de cor preta. Trazer este para o mesmo chiqueiro lhe renderá mais 20 Rupees. O último fica no lado leste da ilha, bem ao lado da casa no lado sul. Traga este e fale com a mulher para outro Red Rupee. Além disso, rastejando sob as tábuas do chão da casa da avó, você encontrará uma pequena caverna com um Orange Rupee (vale 100). No telhado do cercado de porcos não há muito, e sob a cama na casa perto de Aryll's Lookout há outro Red Rupee.
+</p>
+<p>
+Agora para o escudo. Entre na sua casa e suba a escada para descobrir que o escudo sumiu. Desça e descubra que sua avó o está guardando. Após alguma hesitação, ela finalmente lhe dá o <span class="item">Hero's Shield</span> (Escudo do Herói)! Saia da casa e fale com <span class="npc">Tetra</span> para deixar a ilha e navegar para a <span class="local">Forsaken Fortress</span>... Algum tempo se passa, e Tetra quer que você faça algo. Entre no navio pirata e desça as escadas para encontrar <span class="npc">Niko</span>. Ele o ajudará a se tornar um pirata melhor pulando longas distâncias com cordas do teto. Apenas balance de plataforma em plataforma onde Niko está esperando e ele o deixará pegar o que está no baú. Abra-o para a <span class="item">Spoils Bag</span> (Bolsa de Espólios). Por volta do tempo que você pegá-la, Tetra vai te chamar. Volte para fora, nós chegamos à <span class="local">Forsaken Fortress</span>, e eles o farão entrar atirando-o com um estilingue gigante.
+</p>
+
+<h3 id="cap1-c">Forsaken Fortress</h3>
+<p>
+Muito bem, vamos fa--espere, o quê? Um estilingue!? Agh! ...Onde está a <span class="item">Hero's Sword</span>... Ela voou do seu equipamento, não foi! Que droga. Bem, Link se puxará para fora da água. Avance um pouco e uma voz virá do nada. <span class="npc">Tetra</span>? Link tira uma pedra do bolso. Ela falará com você através dessa pedra mágica. Suba as escadas e verá alguns holofotes. Seu objetivo em toda essa fortaleza é <strong>NÃO SER VISTO</strong>, então é hora de furtividade. Pegue um dos barris aqui com A para se esconder embaixo. Agora, vá em direção às grandes portas, parando de se mover quando um holofote estiver prestes a passar. Uma vez perto das portas, saia do barril e empurre a porta.
+</p>
+<p>
+Vire à direita através do corredor, ignorando os <span class="inimigo">Miniblins</span>, para o próximo corredor onde você verá <span class="inimigo">Moblins</span> à frente. Esconda-se rapidamente no barril e esgueire-se por eles, garantindo não se mover enquanto eles olham. Ao passar, vá para a próxima sala que é a prisão. Mova os barris em um canto para encontrar um interruptor. Pise nele para abrir a porta da cela. Entre e abra o baú para um <span class="item">Piece of Heart</span>! O seu primeiro!
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Piece of Heart #1</span>, <span class="item">Dungeon Map</span>, <span class="item">Compass</span> </div>
+
+<p>
+Volte pela porta grande e volte para fora. O próximo objetivo é desativar todos os holofotes, sem ser visto. Vá à esquerda para uma rampa usando o barril, passe as escadas, suba e escolha a rampa para chegar a um dos holofotes. Suba a escada e o <span class="inimigo">Bokoblin</span> lá o verá e desligará o holofote para enfrentá-lo. Use os Boko Sticks do vaso e acerte-o para desabilitar permanentemente este holofote. Ele pode deixar cair um <span class="item">Joy Pendant</span>. Desça, vá no corredor oeste e balance com a lanterna até o baú com o <span class="item">Dungeon Map</span>. Volte e saia pela porta norte, vire à esquerda fora do salão, suba a escada para derrotar outro <span class="inimigo">Bokoblin</span> no segundo holofote. Volte para baixo e vá no sentido anti-horário (leste). Você chegará a uma sala onde tem que se balançar novamente. Abra o baú atrás dos barris aqui para o <span class="item">Compass</span>.
+</p>
+<p>
+Balançe pelo salão norte para fora, vá à oeste para a rampa e escada do último holofote. Mate o <span class="inimigo">Bokoblin</span>, desça e vá até fora novamente. Empurre o caixote na borda esquerda sob a escada para um atalho. Suba a rampa, pegue a porta oeste e chegue acima da sala com um baú. Pule e pegue um Yellow Rupee em um beliche. Saia pela grande porta com cuidado com a estátua de <span class="inimigo">Moblin</span>. Nade no mar adiante, suba usando o caixote e entre na porta à esquerda para as docas. Esgueire-se pelos <span class="inimigo">Moblins</span> na porta norte, suba as escadas, esconda-se num barril e desvie do <span class="inimigo">Moblin</span> até um caminho estreito na parede. Segure as costas na parede com A para atravessar (sidle). Atravesse até alcançar sua espada, derrote o <span class="inimigo">Elite Bokoblin</span> que o ataca e entre na porta para assistir à cena final do capítulo.
+</p>
+<!-- ── CAPITULO 2 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap2">Capítulo 2 — Dragon Roost Fix-up</h2>
+
+<h3 id="cap2-a">Windfall Island</h3>
+<p>
+Bem, você não conseguiu salvar Aryll, descobriu que outras garotas foram capturadas lá, e foi arrastado para outra ilha. Alguém o acorda... você está em um barco? De onde vem a voz...? Espere, é o barco? UAU, UM BARCO FALANTE! Ele explica que é o <span class="npc">King of Red Lions</span>, e o ajudará a navegar pelo Great Sea. Infelizmente, ele não tem vela, então não podemos partir para o nosso próximo destino tão rápido. Ele também conta sobre o mal que se abateu sobre o Great Sea. É... <span class="inimigo">Ganondorf</span>. Ele retornou de seu confinamento entre dimensões pelos sábios em Ocarina of Time, e agora procura as duas pessoas que portariam as peças restantes da Triforce. Você não pode enfrentá-lo agora, é claro, já que não possui a lâmina que bane o mal... a Master Sword.
+</p>
+<p>
+Mas estou me adiantando. Sua primeira tarefa é encontrar alguém com uma vela e comprá-la. Vá para o sul pelo campo e vire à esquerda para entrar na cidade. Siga o caminho até passar por duas mulheres conversando, e um cara atrás de uma barraca que parece estar usando uma parca. Fale com ele do outro lado do balcão, e ele mencionará que a única coisa que sobrou dos destroços de seu barco é "aquilo", e ele deseja vendê-lo para abrir um negócio aqui em <span class="local">Windfall</span>. Ele venderá "aquilo" por 80 <span class="item">Rupees</span>. Você definitivamente deve ter o dinheiro. Após pagar, você descobrirá que o item é a <span class="item">Sail</span> (Vela)!
+</p>
+<p>
+Vamos fazer algumas coisas aqui em Windfall antes de partirmos. Primeiro, vamos pegar um novo item. Volte para o campo em que você estava antes e suba a rampa de grama ao lado da árvore. Aqui em cima há uma porta. Entre e aproxime-se da cela para encontrar <span class="npc">Tingle</span> preso. Fale com ele e ele implorará para você soltá-lo. Encontre o interruptor aqui e pise nele para abrir a porta. Após alguma conversa, ele lhe dará dois itens: o <span class="item">Tingle Tuner</span> e o <span class="item">Tingle's Chart</span>. O Tingle Tuner permite conectar seu GBA e interagir com Tingle de forma cooperativa.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Sail</span>, <span class="item">Tingle Tuner</span>, <span class="item">Tingle's Chart</span> </div>
+
+<p>
+Entre na cela de Tingle e empurre o caixote para encontrar um buraco. Rasteje para dentro. No final deste labirinto (sempre mova para a direita quando puder a partir da entrada) há uma pequena caverna com um baú de tesouro. Abra-o para a <span class="item">Picto Box</span>, que permite tirar até três fotos em preto e branco. Saia desta caverna e retorne para fora. Dirija-se à casa de <span class="npc">Lenzo</span> (a casa vermelha com um banco ao lado e uma estrutura de madeira de Picto Box acima da porta). Fale com ele, suba e veja as fotos, desça e fale novamente. Ele pedirá que seja seu assistente de pesquisa. Primeiro desafio: tire uma foto de alguém enviando uma carta de amor indesejada! Vá à caixa de correio, afaste-se e tire a foto do cara de macacão no momento em que ele coloca a carta. Mostre a Lenzo.
+</p>
+<p>
+Segundo desafio: encontre o homem mais covarde da cidade mostrando seu medo. Vá ao milk bar e jogue um pote em direção ao homem na mesa. Ele começará a tremer. Tire uma foto de corpo inteiro dele e leve a Lenzo. Último desafio: tire uma foto de duas pessoas apaixonadas que apenas trocam um olhar longo ao passar uma pela outra. A mulher de vestido laranja perto de Lenzo e um homem de chapéu grande. Fique longe e fotografe ambos no momento do olhar. Leve a Lenzo para receber um <span class="item">Joy Pendant</span>!
+</p>
+<p>
+Agora fale com o líder da gangue Killer Bee, depois entre na escola e fale com a professora (duas vezes). Ela pede para você conversar com a gangue. Fale com o líder lá fora e ele o desafia para esconde-esconde. Encontre e pegue todos eles: um em cima da grande árvore (role para derrubá-lo), um atrás da casa no campo (atravesse pela beirada sul), um atrás da lápide de Tott, e o último atrás de um arbusto no arco perto da escola. Ao pegá-los, você recebe o <span class="item">Piece of Heart #2</span>. Fale com a professora para ganhar um Purple Rupee, e os garotos darão um <span class="item">Joy Pendant</span> escondido em uma árvore. Entregue à professora para outro Red Rupee. 
+</p>
+<p>
+Por fim, entre no farol e fale com o cara no balcão para jogar Sinking Ships (Batalha Naval). Destrua as três lulas em 24 tiros para receber o <span class="item">Piece of Heart #3</span>. Ganhando novamente você recebe o <span class="item">Treasure Chart #07</span> e quebrando o recorde (menos de 20 tiros) ganha o <span class="item">Treasure Chart #23</span>. Volte ao barco e navegue para o leste até a <span class="local">Dragon Roost Island</span>.
+</p>
+
+<h3 id="cap2-b">Dragon Roost Island</h3>
+<p>
+Assim que você desembarcar, o <span class="npc">King of Red Lions</span> dirá para você encontrar a Pérola de Din. Antes de deixá-lo sair, ele lhe dá a <span class="item">Wind Waker</span> e ensina a usá-la. Nade até o barco-loja ao redor da ilha, compre a <span class="item">Bait Bag</span> por 20 Rupees e algumas iscas. Limpe as pedras da ilha com flores-bomba para pegar Yellow Rupees e abra caminho para a <span class="local">Rito Village</span>. Siga o carteiro <span class="npc">Quill</span> montanha adentro.
+</p>
+<p>
+Após a conversa, você recebe a <span class="item">Delivery Bag</span>. Suba a rampa e fale com <span class="npc">Medli</span>; ela lhe dá uma carta para o Príncipe Komali. Procure pelo Rito ordenando cartas. Fale com ele e faça o minigame de ordenar cartas. Faça 25 pontos ou mais para impressioná-lo. Desça até a porta não externa e entregue a carta a <span class="npc">Komali</span>. Volte para o andar de cima e, se houver um novo cara nas cartas, faça 25 pontos novamente para ganhar uma carta para entregar à mãe dele (coloque na caixa de correio depois).
+</p>
+<p>
+Saia pela outra porta para encontrar <span class="npc">Medli</span> lá fora. Jogue-a pelo vento para o outro lado e ela lhe dará a sua primeira <span class="item">Empty Bottle</span> (Garrafa Vazia). Encha a garrafa com água, suba até as plantas murchas e regue-as para fazê-las explodir como bombas. Destrua as pedras e avance pelas estátuas para entrar na caverna.
+</p>
+
+<h3 id="cap2-c">Dragon Roost Cavern</h3>
+<p>
+Puxe os blocos para entrar. Acenda um Boko Stick e acenda as tochas para revelar um baú com uma pequena chave. Destranque a porta. Na câmara principal, passe pelas plataformas, exploda a pedra com uma flor-bomba, jogue potes de água na lava e pule para abrir o baú com o <span class="item">Dungeon Map</span>. Suba a escada. Quebre tábuas, derrote <span class="inimigo">Red ChuChus</span> e abra o baú para pegar outra chave. Destranque a porta perto das tábuas incendiadas na câmara principal.
+</p>
+<p>
+Do lado de fora, atravesse a ponte matando os inimigos, evite o fogo, atravesse a prancha e destrua a rocha com a bomba. Dentro, suba pelos blocos para a sala com ratos, use iscas ou ignore-os para pegar a <span class="item">Compass</span> (Bússola). Use um Boko Stick aceso, jogue-o nas tábuas acima e pegue outra chave pequena para voltar para fora. Suba a escada quebrada, pegue a chave no ninho do Kargaroc e destranque a porta. Lá dentro, ilumine com o Boko Stick e acenda duas tochas para abrir a porta com barras.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Dungeon Map</span>, <span class="item">Compass</span>, <span class="item">Treasure Chart #39</span>, <span class="item">Treasure Chart #11</span> </div>
+
+<p>
+De volta à câmara, exploda o vaso gigante para ativar o warp. Cruze a ponte, acenda as tochas para o <span class="item">Treasure Chart #39</span>. Derrote <span class="inimigo">Magtails</span> e siga. Na sala da porta do chefe (que ainda não podemos abrir), use as bombas e vá lá para fora. Escale, derrote dois <span class="inimigo">Elite Bokoblins</span> e liberte <span class="npc">Medli</span>, que lhe dá o <span class="item">Grappling Hook</span> (Gancho). Use o gancho, quebre as tábuas e avance. Desça pela gaiola de pássaro cortando suas cordas, pule na lava e abra o portão usando o gancho num suporte no teto. Atordoe o <span class="inimigo">Magtail</span>, coloque-o sobre o interruptor e abra o baú para pegar a <span class="item">Big Key</span>!
+</p>
+<p>
+Antes de ir ao chefe, volte e pegue o <span class="item">Treasure Chart #11</span> em uma plataforma balançando. Retorne pela sala do vaso gigante de warp e abra a porta do chefe.
+</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: Gigantic Magma Arachnid, Gohma</div>
+  A cauda de <span class="npc">Valoo</span> está pendurada no teto. Desvie de Gohma até que uma de suas garras fique presa. Use o Gancho na cauda de Valoo, balance e pule, fazendo com que parte do teto caia sobre o chefe. Faça isso três vezes até que sua armadura se quebre. Então, use o gancho no olho dela para atordoá-la e ataque com a espada até que seja derrotada. Você receberá um <span class="item">Heart Container</span>.
+</div>
+
+<p>
+Após a batalha, o clima volta ao normal. <span class="npc">Komali</span> aparecerá para lhe dar a <span class="item">Din's Pearl</span> (Pérola de Din). Vá para trás da ilha até o pequeno santuário na água. Siga a canção usando a Wind Waker para aprender a <span class="item">Wind's Requiem</span>, permitindo controlar a direção do vento. O deus dos ventos, <span class="npc">Zephos</span>, aparecerá para dar instruções. Volte ao barco.
+</p>
+
+<!-- ── CAPITULO 3 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap3">Capítulo 3 — A Great Tree's Plight</h2>
+
+<h3 id="cap3-a">Exploração Inicial</h3>
+<p>
+Antes de navegar para o sul, toque a Wind's Requiem e mude a direção do vento para soprar para o sul. Navegue para o sul até ser parado por um peixe. Este <span class="npc">Fishman</span> (Homem-Peixe) falante desenhará a seção atual do Sea Chart na qual você está, para que possa ver onde tudo está neste setor. Eles habitam todos os setores do Great Sea; procure por respingos de água, navegue até eles e espalhe Isca (Bait) para obter o mapa. 
+</p>
+<p>
+Volte rapidamente à <span class="local">Dragon Roost Island</span>. Usando o <span class="item">Treasure Chart #39</span>, navegue pelas espirais de rocha. Quando estiver sobre a marca X no mapa, use o <span class="item">Grappling Hook</span> como braço de salvamento. Você puxará um baú contendo um Silver Rupee (200 Rupees)!
+</p>
+<p>
+Navegue para o sul até o setor C6, tome cuidado com inimigos como <span class="inimigo">Octoroks</span> e <span class="inimigo">Gyorgs</span>. Fale com o Fishman para mapear o setor. No centro dele há um submarino. Entre nele, derrote todos os <span class="inimigo">Bokoblins</span> para fazer surgir um baú com a <span class="item">Empty Bottle #2</span> (Garrafa Vazia). Continue navegando para o sul.
+</p>
+
+<h3 id="cap3-b">Forest Haven</h3>
+<p>
+Chegando a <span class="local">Forest Haven</span>, após a cutscene, se for noite a caixa de correio pode estar se mexendo. Pegue a carta da mãe do carteiro e você receberá o <span class="item">Piece of Heart #4</span>! Avance na ilha matando <span class="inimigo">Boko Babas</span> (corte o caule), balance pelos galhos até a boca do rio. Fique na vitória-régia para ver uma cena com a <span class="npc">Great Deku Tree</span> sendo coberta por ChuChus. Role na árvore para derrubá-los e derrote todos. A Deku Tree pedirá para você resgatar <span class="npc">Makar</span> e produzirá a Deku Leaf no topo da árvore. 
+</p>
+<p>
+Antes de subir, engarrafe um vaga-lume brilhante (Forest Firefly) perto de você. Pule no Baba Bud (a planta saltadora) e seja lançado de um para o outro até o topo para pegar a <span class="item">Deku Leaf</span>! Este item permite planar consumindo magia e criar lufadas de vento. Use-a para planar até o próximo Baba Bud indicado por um Korok, suba até a borda externa, voe para a ilha abaixo e abra o baú com o <span class="item">Treasure Chart #03</span>.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Empty Bottle #2</span>, <span class="item">Piece of Heart #4</span>, <span class="item">Deku Leaf</span>, <span class="item">Treasure Chart #03</span> </div>
+
+<h3 id="cap3-c">Coletando Itens e Retorno a Windfall</h3>
+<p>
+Navegue de volta para o norte pegando mapas com os Fishmen. Compre as iscas restantes no barco de Beedle. No setor D6, fale com os mergulhadores para ganhar o <span class="item">Treasure Chart #34</span> e resgate o tesouro afundado ali mesmo para um Silver Rupee. No setor ao norte, suba a torre, mate o <span class="inimigo">Bokoblin</span> por um Yellow Rupee. Siga até Windfall Island. Mostre o vaga-lume engarrafado a <span class="npc">Lenzo</span> e ele atualizará a Picto Box para a <span class="item">Deluxe Picto Box</span> (tira fotos coloridas)! 
+</p>
+<p>
+Fale com o dançarino <span class="npc">Tott</span> (o imitador do Elvis) e acompanhe seu ritmo apenas com o Wind Waker neutro para aprender a <span class="item">Song of Passing</span>, capaz de alternar rapidamente o dia e a noite.
+</p>
+<p>
+Em Windfall, vá à Casa de Leilão à noite e tente vencer o leilão apostando bastante para receber o <span class="item">Treasure Chart #38</span>. Voe do toldo perto do farol para a varanda acima da loja do Lenzo, entre e pegue o <span class="item">Treasure Chart #29</span>. Fale com a mulher de vestido elegante (fotografe ela inteira para ela mesma) para o <span class="item">Treasure Chart #33</span>. Fotografe a lua cheia e dê ao homem deprimido na escadaria para o <span class="item">Treasure Chart #31</span>. Fotografe Lenzo e sua amiga misteriosa pela varanda secreta e entregue às fofoqueiras para o <span class="item">Treasure Chart #24</span>. Ajude os namorados (tire foto dela de perto e mostre a ele), pule dois dias e pegue o <span class="item">Piece of Heart #5</span> deles no Milk Bar.
+</p>
+
+<h3 id="cap3-d">Forbidden Woods</h3>
+<p>
+Navegue de volta a Forest Haven. Resgate o baú afundado com o Mapa 31 perto da ilha para obter o <span class="item">Piece of Heart #6</span>. Para acessar a galeria da Nintendo, acerte o interruptor de cristal alto fora da floresta usando uma Gaivota (controle com Hyoi Pear).
+Suba até onde pegou a Deku Leaf, saia para o penhasco com grama em forma de seta e plane com ajuda do ciclone até a entrada de <span class="local">Forbidden Woods</span>.
+</p>
+<p>
+Na dungeon, pegue o <span class="item">Dungeon Map</span> no nordeste. Use Boko Nuts atiradas no olho para destruir as barreiras de plantas nas portas. Mate inimigos para baús menores, use o catavento com a Deku Leaf para mover o bondinho e atravesse as salas matando <span class="inimigo">Green ChuChus</span>, <span class="inimigo">Peahats</span> e <span class="inimigo">Morths</span> (bolas pretas espinhentas - gire para tirar do corpo). A <span class="item">Compass</span> (Bússola) está em uma alcova trancada por raízes; jogue uma bomba do outro lado para libertá-la e use o bondinho novamente. 
+</p>
+<p>
+Subindo mais andares, você enfrentará o Mini-Chefe <span class="inimigo">Winged Mothula</span>. Sopre vento para atordoá-la, corte as asas com a espada e destrua-a para ganhar o <span class="item">Boomerang</span>! Use o Bumerangue para mirar em vários alvos, destravando portas cortando vinhas (como a que segura a flor gigante no centro). Na base da sala central, você abrirá caminho explodindo tábuas. Pegue o <span class="item">Treasure Chart #15</span> descendo pelo bondinho e o <span class="item">Big Key</span> resolvendo o enigma dos interruptores de cristal com o Bumerangue. Liberte o caminho até a porta do Chefe (Makar está dentro!). Use a tocha para queimar a madeira do vaso de teletransporte (warp) na última sala.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Boomerang</span>, <span class="item">Dungeon Map</span>, <span class="item">Compass</span>, <span class="item">Big Key</span>, <span class="item">Treasure Chart #15</span>, <span class="item">Treasure Chart #01</span> </div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: Photosynthetic Parasite, Kalle Demos</div>
+  A planta parasita se agarra ao teto no centro da sala. Mantenha distância dos tentáculos até que todos batam no chão e parem. Mire e lance seu <span class="item">Boomerang</span> para cortar os caules espinhosos que seguram a lâmpada da flor no teto. Quando a flor principal despencar, corra e ataque a planta central incansavelmente. Repita até a vitória, só tome cuidado para que a flor não mastigue você!
+</div>
+
+<p>
+Makar está salvo. Pegue o <span class="item">Heart Container</span> e saia no portal. A <span class="npc">Great Deku Tree</span> lhe entregará a <span class="item">Farore's Pearl</span> (Pérola de Farore) como agradecimento!
+</p>
+
+<!-- ── CAPITULO 4 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap4">Capítulo 4 — Pearl of Wisdom</h2>
+
+<h3 id="cap4-a">Greatfish Isle e Windfall Island</h3>
+<p>
+Saia de Forest Haven e vá para o seu barco. A caixa de correio pode ter uma carta do pai de Komali com o <span class="item">Piece of Heart #7</span> anexado! Comece a navegar para o noroeste em direção a <span class="local">Greatfish Isle</span>. No caminho (setor C5, Private Oasis), resgate um Silver Rupee com o Mapa 1. Chegando a <span class="local">Greatfish Isle</span>, você verá que a ilha foi destruída e está chovendo muito. O carteiro Quill diz que o espírito <span class="npc">Jabun</span> escapou. Antes de sair, suba no pedaço espiral de ilha, plane com a Deku Leaf para o pedaço de terra maior com uma pequena alcova saliente e abra o baú para o <span class="item">Piece of Heart #8</span>. Navegue para <span class="local">Windfall Island</span> para encontrar os piratas.
+</p>
+<p>
+Vá por trás da loja de bombas em Windfall (como fez com as crianças), suba as trepadeiras, rasteje pela abertura e assista à cena dos piratas. Preste atenção na senha que eles falam (anote). Siga para o navio da <span class="npc">Tetra</span>, aproxime-se da porta e digite a senha. Desça as escadas para encontrar <span class="npc">Niko</span> novamente. Passe no novo teste de pular cordas e você ganhará <span class="item">BOMBS</span> (Bombas)! Agora você pode explodir coisas a pé ou de canhão no mar. A caixa de correio também terá o <span class="item">Beedle's Chart</span>.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Piece of Heart #7</span>, <span class="item">Piece of Heart #8</span>, <span class="item">BOMBS</span>, <span class="item">Beedle's Chart</span> </div>
+
+<h3 id="cap4-b">Mapeando o Great Sea (Opcional, mas Recomendado)</h3>
+<p>
+Antes de irmos atrás da última pérola, há muita exploração pelo mapa e baús a serem resgatados (se desejar, você pode pular direto para <span class="local">Outset Island</span>). Ao navegar pelos setores e alimentando os Fishmen, você pode coletar:
+</p>
+<ul>
+  <li>Noroeste de Windfall: No interior da ilha de fada, uma Great Fairy lhe dá o <span class="item">Wallet Upgrade</span> (1.000 Rupees). Perto dali (Mapa 24) há um Silver Rupee.</li>
+  <li>Star Island (Oeste): Mapa 7 revela um Silver Rupee.</li>
+  <li>Northern Fairy Island (Leste): Em um submarino próximo, derrote os Moblins e ganhe o <span class="item">Treasure Chart #22</span>.</li>
+  <li>Crescent Moon Island: Um baú exposto tem o <span class="item">Treasure Chart #10</span>. O Mapa 11 revela o <span class="item">Piece of Heart #9</span> perto da ilha. E um submarino iluminado guarda o <span class="item">Treasure Chart #09</span>.</li>
+  <li>Setores Oestes: O Mapa 22 revela um Silver Rupee; Mapa 29 também revela um Silver Rupee. Na torre de vigia sul há um Skull Necklace.</li>
+  <li>Leste: O Navio Especial de Beedle vende a <span class="item">Empty Bottle #3</span> por 500 Rupees. Suba a torre do meio ali para um Red Rupee. </li>
+  <li>Tingle Island: Mapa 10 tem um Silver Rupee. Perto dali, uma Great Fairy dentro da ilha (exploda a pedra) dará o <span class="item">Bomb Upgrade</span> (60 Bombas). O Mapa 3 dá um Silver Rupee.</li>
+  <li>Oeste de Greatfish Isle: O Mapa 38 tem o <span class="item">Piece of Heart #10</span>. No setor sul, destrua os navios dourados para obter o <span class="item">Triforce Chart #05</span>. </li>
+  <li>Oeste de Forest Haven: Há uma <span class="item">Bomb Upgrade</span> (99 Bombas) em outra ilha de fada. O Mapa 23 tem o <span class="item">Piece of Heart #11</span>. </li>
+</ul>
+
+<h3 id="cap4-c">Outset Island e Nayru's Pearl</h3>
+<p>
+Navegue para <span class="local">Outset Island</span>. Vá para a floresta onde encontrou Tetra (precisa usar o vento e planar até lá pois a ponte quebrou). Exploda a pedra com uma bomba e caia no buraco para encontrar outra Great Fairy Fountain. Ela dará outro <span class="item">Wallet Upgrade</span> (5.000 Rupees). Pegue uma Fada e coloque em sua garrafa. Vá até sua casa e solte a fada perto da sua avó doente para curá-la! Em agradecimento, ela encherá sua garrafa com a maravilhosa Elixir Soup (restaura tudo e dobra dano). 
+</p>
+<p>
+Visite a casa do mestre espadachim <span class="npc">Orca</span> e treine. Acertando-o 500 vezes sem levar 3 acertos garante o <span class="item">Piece of Heart #12</span> (dica: ataque e defenda alternadamente).
+</p>
+<p>
+Volte ao seu barco, navegue para o lado sul da ilha e aproxime-se do redemoinho. Atire bombas na grande laje de pedra com desenho assim que as partes piscarem em vermelho. Quando quebrar, o redemoinho some, revelando a caverna. Você entrará e <span class="npc">Jabun</span> lhe dará a <span class="item">Nayru's Pearl</span> (Pérola de Nayru)! Ganon's curse no mar se quebra e a luz do dia volta.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Empty Bottle #3</span>, <span class="item">Wallet Upgrades</span>, <span class="item">Bomb Upgrades</span>, Vários Mapas e Pedaços de Coração, <span class="item">Nayru's Pearl</span> </div>
+
+<h3 id="cap4-d">Um pouco mais de Exploração</h3>
+<p>
+Se estiver caçando tesouros: navegando pelos setores restantes (leste), se encontrar um bando de gaivotas no mar, você cairá no redemoinho de um <span class="inimigo">Big Octo</span>. Exploda seus 4 olhos com bombas para libertar uma Great Fairy que dará a <span class="item">Magic Upgrade</span> (barra mágica estendida).
+Nas Angular Isles (leste), o Mapa 15 revela o <span class="item">Piece of Heart #13</span>. O Mapa 33 revela o <span class="item">Piece of Heart #14</span> no último setor leste. Por fim, compre o <span class="item">Piece of Heart #15</span> e o <span class="item">Treasure Chart #04</span> no navio especial do Beedle (isso custará muito caro, certifique-se de usar os macetes de farmar Rupees recomendados).
+</p>
+
+<!-- ── CAPITULO 5 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap5">Capítulo 5 — The Legend Revived</h2>
+
+<h3 id="cap5-a">Tower of the Gods</h3>
+<p>
+Use o mapa comprado de Beedle para resgatar o <span class="item">Piece of Heart #16</span> no Setor B5. Agora, navegue para as três ilhas triangulares (Southern, Eastern e Northern Triangle Islands) e aproxime-se da estátua em cada uma para colocar as Pérolas em suas mãos. Uma gigantesca torre surgirá do mar! Fale com o Fishman do local e entre na <span class="local">Tower of the Gods</span>.
+</p>
+<p>
+Esta dungeon possui um nível de água que sobe e desce, o que obriga você a navegar com seu barco pelas salas iniciais e usar blocos na hora certa. Explore as salas baixas para obter o <span class="item">Dungeon Map</span> e o <span class="item">Compass</span>, e use os pequenos pilares luminosos para colocar estátuas que abrem portas.
+Numa das salas com água, complete a ponte mágica colocando as caixas de madeira espaçadas corretamente e pegue uma chave. No caminho, você terá que descer aos andares inundados enquanto a água estiver baixa para iluminar tochas. Ao guiar uma estátua mágica brilhante pelos corredores para a câmara principal, você aprenderá a <span class="item">Command Melody</span> com o Wind Waker, permitindo possuir as estátuas e controlá-las!
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Piece of Heart #16</span>, <span class="item">Dungeon Map</span>, <span class="item">Compass</span>, <span class="item">Command Melody</span> </div>
+
+<p>
+Ao seguir explorando, você enfrentará o Mini-Chefe <span class="inimigo">Darknut</span>. Use ataques Parry para remover a armadura dele e derrotá-lo. Um baú aparecerá com o <span class="item">Hero's Bow</span> (Arco do Herói)! Use o arco nos olhos espalhados pelas paredes da dungeon para abrir novos caminhos (retorne à sala da Bússola e atire no olho para pegar o <span class="item">Treasure Chart #06</span>). Usando uma bomba contra uma parede rachada na sala das balanças (depois de equilibrá-la com estátuas), você encontrará o <span class="item">Treasure Chart #30</span>. Continue resolvendo puzzles usando estátuas de balança e paredes de raios laser (controlando a estátua pelo outro lado) até que a sala principal ative o elevador de energia e lhe dê a <span class="item">Big Key</span>. Siga para a sala do chefe!
+</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: The Great Arbiter, Gohdan</div>
+  Atire flechas nos olhos presentes nas mãos deste chefe (no estilo Star Fox) e, quando elas ficarem inativas, dispare flechas nos dois olhos da cabeça flutuante. O rosto cairá no chão e abrirá a boca: jogue uma bomba lá dentro para causar dano. Repita até vencer. Ele vai espirrar flechas pelo nariz caso falte munição!
+</div>
+
+<h3 id="cap5-b">Hyrule Castle e Master Sword</h3>
+<p>
+Pegue o <span class="item">Heart Container</span>, suba a torre e toque o sino usando o <span class="item">Grappling Hook</span>. Um anel de luz aparecerá; navegue com o barco para dentro dele. O barco afundará rumo a um reino submerso no tempo, em tons de preto e branco. Você estará no antigo <span class="local">Hyrule Castle</span>! Inimigos estão congelados. Empurre os 3 grandes blocos triangulares sobre o símbolo da Triforce no chão para mover a estátua do Herói do Tempo e revelar a escada. No fundo, puxe a <span class="item">Master Sword</span> de seu pedestal! O mundo voltará a ter cores, e todos os <span class="inimigo">Darknuts</span> e <span class="inimigo">Moblins</span> acordarão. Derrote todos para remover a barreira do castelo. Volte ao King of Red Lions e suba à superfície.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Hero's Bow</span>, <span class="item">Treasure Chart #06</span>, <span class="item">Treasure Chart #30</span>, <span class="item">Master Sword</span> </div>
+
+<h3 id="cap5-c">Retorno à Forsaken Fortress</h3>
+<p>
+Antes de invadir a fortaleza, vá ao recife próximo e resgate o mapa 6 para um Silver Rupee, o mapa 30 para o <span class="item">Piece of Heart #17</span>, e aproxime-se de um ciclone próximo para atirar flechas em <span class="npc">Cyclos</span>. Ele se renderá e ensinará a <span class="item">Ballad of Gales</span>, permitindo usar furacões como fast-travel no mar! Agora navegue até a entrada oeste da <span class="local">Forsaken Fortress</span> e destrua os portões de madeira com bombas.
+Na fortaleza, ao alcançar a praça com os holofotes, você será confrontado!
+</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ MINI-BOSS: Phantom Ganon</div>
+  Jogue "tênis" com as bolas de energia que ele disparar rebatendo com a Master Sword. Após atingi-lo algumas vezes com a energia, ele cairá; ataque freneticamente com a espada até derrotá-lo. Você ganhará o <span class="item">Skull Hammer</span> (Martelo)!
+</div>
+
+<p>
+Agora use o martelo para destruir todos os bloqueios pontiagudos. Volte pelas rampas matando os vigias de holofotes novamente para que os canhões não disparem. Suba até os aposentos do topo, abrindo as grandes portas trancadas com um golpe de martelo nos botões. Lá dentro, Tetra e os piratas ajudarão a soltar as garotas capturadas e Aryll! No entanto, o gigantesco pássaro e Ganon estarão furiosos. O pássaro começará a inundar a sala forçando você a subir no topo (esmagando o bico dele com o martelo para prosseguir). Na arena superior, lute contra ele.
+</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: Great Leader, Helmaroc King</div>
+  O pássaro voará tentando bater no chão para te bicar. Quando o bico dele prender na madeira, use o <span class="item">Skull Hammer</span> na cabeça de metal dele. Quando a armadura da cabeça rachar por inteiro, o bico ficará exposto e você deverá desviar e golpear a cabeça vulnerável dele com a <span class="item">Master Sword</span> repetidas vezes até ele ser morto.
+</div>
+
+<h3 id="cap5-d">O Segredo de Tetra</h3>
+<p>
+Pegue o <span class="item">Heart Container</span> e entre no covil onde <span class="inimigo">Ganondorf</span> estará esperando. Você descobre que a espada perdeu o poder de banir o mal e não fará nada. Ganondorf tenta atacar, mas Tetra interfere. Ao ser pega, a relíquia dela começa a brilhar, e Ganondorf sorri percebendo que ela é, de fato, a Princesa Zelda! Vocês são salvos e levados embora por <span class="npc">Valoo</span> e os Ritos e retornam ao Hyrule submerso.
+Na câmara da Master Sword com o rei de Hyrule — que revela ser o próprio King of Red Lions —, Tetra recebe a última parte da Triforce e sua forma real desperta: ela veste o traje completo da <span class="npc">Princesa Zelda</span>! Ela ficará no castelo, onde é seguro, e você terá que recuperar o poder divino da espada na superfície.
+</p>
+
+<!-- ── CAPITULO 6 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap6">Capítulo 6 — Sage of Earth Reborn</h2>
+
+<h3 id="cap6-a">Flechas Mágicas e Ilhas Elementais</h3>
+<p>
+Para restaurar a força da espada, precisamos encontrar os Sábios. Primeiro, teleporte-se para <span class="local">Mother & Child Isles</span> usando o Ballad of Gales (você cairá dentro da ilha inacessível). A Fairy Queen lhe dará as <span class="item">Fire & Ice Arrows</span> (Flechas de Fogo e Gelo)! Antes das dungeons elementais, você pode obter os dois últimos <span class="item">Arrow Upgrades</span> (carregar 99 flechas) nas ilhas Western Fairy Island (abaixe as chamas com o martelo) e Thorned Fairy Island (bata os botões). Você também receberá uma carta de Tingle contendo o útil <span class="item">IN-credible Chart</span>.
+</p>
+<p>
+Navegue até a <span class="local">Fire Mountain</span>. Atire uma Flecha de Gelo na montanha flamejante para resfriá-la por 5 minutos. Suba rápido, caia no buraco, mate os inimigos de fogo, e abra o baú para pegar os <span class="item">Power Bracelets</span> (Braceletes da Força), que permitem erguer pedras enormes!
+</p>
+<p>
+Vá até a <span class="local">Ice Ring Isle</span>. Atire uma Flecha de Fogo na corrente de ar gélido para aquecer a ilha por 5 minutos. Desça pela caverna de gelo até encontrar o baú contendo a <span class="item">Iron Boots</span> (Botas de Ferro), que impedem que você seja levado por ventanias fortes! Use-a na mesma sala para passar pelos jatos de vento.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Fire & Ice Arrows</span>, <span class="item">Arrow Upgrades</span>, <span class="item">Power Bracelets</span>, <span class="item">Iron Boots</span> </div>
+
+<h3 id="cap6-b">Muitas Aventuras em Outset e Windfall</h3>
+<p>
+Se você possui 10 Knight's Crests coletados dos Darknuts, entregue a <span class="npc">Orca</span> em Outset Island e ele lhe ensinará o <span class="item">Hurricane Spin</span>! Na mesma ilha, carregue o porco gigante preto até a ilha leste, jogue isca na terra preta e ele cavará o <span class="item">Piece of Heart #18</span>.
+</p>
+<p>
+Em Windfall Island há diversas sidequests essenciais:
+</p>
+<ul>
+  <li><strong>Leilão:</strong> Arremate à noite para ganhar o <span class="item">Treasure Chart #18</span> e o <span class="item">Piece of Heart #19</span>.</li>
+  <li><strong>Menina Pobre (Mila):</strong> Siga-a furtivamente à noite até o cofre de Zunari. Confrontando-a (escolha sempre a primeira opção), ela dará a <span class="item">Empty Bottle #4</span>.</li>
+  <li><strong>Escola:</strong> Entregue Joy Pendants à professora. 20 rendem o <span class="item">Cabana Deed</span>; mais 20 dão o <span class="item">Hero's Charm</span> (máscara que mostra vida dos inimigos).</li>
+  <li><strong>Mestre das Flores (Zunari e Gorons):</strong> Plante flores de Zunari por toda a cidade e fale com o homem no banco para o <span class="item">Piece of Heart #20</span>. Troque itens sequencialmente com os mercadores Gorons espalhados pelo mar para desbloquear todo o estoque de Zunari. Ele então lhe dará a <span class="item">Magic Armor</span>! Essa longa quest de trocas no mar rende o <span class="item">Piece of Heart #24</span>.</li>
+  <li><strong>Moinho e Farol:</strong> Ative o moinho subindo a escada escondida na grama. À noite, suba na cabine da roda-gigante e atire uma Fire Arrow na tocha do farol. O farol acenderá! Fale com o homem abaixo dele para o <span class="item">Piece of Heart #21</span>, e pegue o <span class="item">Piece of Heart #22</span> num baú numa ilhota.</li>
+  <li><strong>Outros:</strong> Entregue 20 Skull Necklaces ao senhor pobre perto do moinho para o <span class="item">Treasure Chart #02</span>. A quest da carta romântica da filha do ricaço dá o <span class="item">Piece of Heart #25</span>. O Mapa 2 revelará o <span class="item">Piece of Heart #23</span>.</li>
+</ul>
+
+<h3 id="cap6-c">O Despertar da Sábia da Terra</h3>
+<p>
+Navegue para <span class="local">Headstone Island</span> (perto de Outset). Use uma Gaivota (Hyoi Pear) para pegar o <span class="item">Piece of Heart #26</span> no cume. Remova a enorme pedra na entrada com seus Power Bracelets, siga em frente e use a batuta para aprender a <span class="item">Earth God's Lyric</span>. O espírito da antiga sábia Zora, <span class="npc">Laruto</span>, pedirá que você encontre sua herdeira em Dragon Roost Island.
+Vá até a ilha, procure por <span class="npc">Medli</span> na sacada superior e toque a canção para ela. O espírito dela despertará! Agora você a levará como parceira até o Earth Temple.
+</p>
+
+<h3 id="cap6-d">Earth Temple</h3>
+<p>
+O templo cooperativo exigirá o uso da <span class="item">Command Melody</span> para alternar o controle entre Link e Medli.
+As habilidades de Medli incluem planar (podendo carregar Link pequenas distâncias se ele segurá-la antes de pular) e o mais importante: seu instrumento reflete os feixes de luz das janelas abertas. Reflita a luz no nevoeiro para dissipá-lo e nas estátuas solares para destruí-las. Não se esqueça do <span class="item">Dungeon Map</span> em um baú oculto que você revela iluminando os altares.
+</p>
+<p>
+Alguns combates notórios aqui envolvem os Moblins, Poes, <span class="inimigo">Red Bubbles</span>, <span class="inimigo">ReDeads</span> (zumbis que paralisam) e os persistentes Floormasters. Se você ou Medli forem pegos no nevoeiro roxo amaldiçoado, ficarão incapacitados por um curto período de tempo. Em uma sala escura lotada de caixões com <span class="inimigo">Stalfos</span>, você achará a <span class="item">Compass</span>. Na sala do mini-chefe Stalfos em formato de arena, bombardeie o corpo e martele as caveiras. O baú final ali dará o valioso <span class="item">Mirror Shield</span> (Escudo Espelho)! Agora o próprio Link consegue refletir a luz!
+</p>
+<p>
+Use o combo de reflexos entre Link e Medli (um mira no outro para redirecionar luz aos cantos) para abrir passagens e desvendar espelhos escondidos no templo. Resolva o grande enigma dos espelhos na cripta gigante para revelar o caminho até os <span class="item">Treasure Charts #20 e #12</span> e finalmente pegar o <span class="item">Big Key</span> após bater em um Darknut.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Dungeon Map</span>, <span class="item">Compass</span>, <span class="item">Mirror Shield</span>, <span class="item">Treasure Chart #20</span>, <span class="item">Treasure Chart #12</span>, <span class="item">Big Key</span> </div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: Protector of the Seal, Jalhalla</div>
+  O gigante fantasma Jalhalla é, na verdade, uma legião de Poes unidos. Use o Mirror Shield para refletir um forte feixe de luz nele, forçando-o a assumir uma forma sólida e tonta. Em seguida, corra até ele, levante-o usando seus Power Bracelets e atire-o contra as paredes de espinhos ao redor da arena. O choque vai separar o grupo de Poes. Mate o máximo deles usando o Hurricane Spin ou ataques rápidos. Repita esse processo até que não sobre Poe nenhum.
+</div>
+
+<p>
+Um novo <span class="item">Heart Container</span> aparecerá e, após um concerto magistral ao lado de Medli, o fio central da Master Sword começará a brilhar! Mas não acabou; precisamos da outra metade de seu poder.
+</p>
+
+<!-- ── CAPITULO 7 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap7">Capítulo 7 — Sage of Wind Reborn</h2>
+
+<h3 id="cap7-a">O Despertar do Sábio do Vento</h3>
+<p>
+Use o Mapa 20 perto da Bomb Island para pescar o <span class="item">Piece of Heart #27</span>.
+Navegue para <span class="local">Gale Isle</span>. Equipe as Iron Boots para resistir ao vento gerado pela estátua na entrada, aproxime-se e destrua-a com o Skull Hammer. Lá dentro, toque a <span class="item">Wind God's Aria</span> no pedestal. O antigo sábio Kokiri, <span class="npc">Fado</span>, aparecerá pedindo que você encontre o herdeiro que toca seu instrumento de folha.
+Vá para Forest Haven. Perto da cachoeira onde a música está saindo, use o Grappling Hook num galho, pule dentro da cachoeira e você encontrará <span class="npc">Makar</span>. Toque a canção para ele; ele despertará como o Sábio do Vento e se juntará a você. Voltem a Gale Isle, toquem juntos a melodia e entrem no templo.
+</p>
+
+<h3 id="cap7-b">Wind Temple</h3>
+<p>
+Como Medli, Makar pode voar (muito mais alto nas correntes de ar) e ajudar você. Mais do que isso, ao pressionar o botão de ação em cima de manchas de areia fofa, ele planta sementes que crescem em árvores num piscar de olhos, abrindo portas ou revelando baús (plante em todas que ver). Ao longo da dungeon, pegue o <span class="item">Dungeon Map</span> em uma das câmaras gigantes de vento, e logo depois você enfrentará o Mini-Chefe.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Piece of Heart #27</span>, <span class="item">Wind God's Aria</span>, <span class="item">Dungeon Map</span> </div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ MINI-BOSS: Wizzrobe Invocador</div>
+  Este Wizzrobe laranja especial é o único capaz de evocar outras hordas de inimigos na batalha (Darknuts, Moblins, Peahats). Ignore as evocações ao máximo e foque suas Flechas de Gelo ou Fogo no Wizzrobe principal sempre que ele reaparecer.
+</div>
+
+<p>
+O baú do Wizzrobe lhe concederá a incrivelmente útil <span class="item">Hookshot</span>! Com isso, você pode se agarrar a alvos nas paredes, nas árvores que Makar planta e no peito de estátuas gigantes (o que você fará para derrubar uma e encontrar a <span class="item">Compass</span>). A Hookshot também é excelente para puxar chaves de inimigos ou arrancar escudos de Darknuts.
+</p>
+<p>
+Usando o combo de plantar árvores com Makar e subir pelas plataformas com a Hookshot de Link, libere os ventos centrais parando as pás gigantes das hélices com suas Iron Boots nos botões de chão. Quebre lajotas rachadas saltando de Iron Boots. O <span class="item">Treasure Chart #35</span> está no fundo de um fosso onde as lajotas se quebram. Resolvendo as salas com Makar — plantando árvores nos lugares corretos para Link poder subir — você destravará a <span class="item">Big Key</span> após lutar contra múltiplos Darknuts ao mesmo tempo. Use as Iron Boots pelo corredor de vento denso e destrave a porta final!
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Hookshot</span>, <span class="item">Compass</span>, <span class="item">Treasure Chart #35</span>, <span class="item">Big Key</span> </div>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: Protector of the Seal, Molgera</div>
+  Uma minhoca gigante de areia do deserto! Molgera voará e mergulhará na areia, criando um funil de morte. Não caia no centro. Quando ela abrir a boca enorme no meio do funil e mostrar a língua vermelha, mire a <span class="item">Hookshot</span> nela e puxe-a! A língua virá até você; ataque-a sem parar com a Master Sword. O chefe também evocará minhocas menores (Baby Molgeras); use a Hookshot para puxá-las e matá-las em um golpe só, que costumam render corações.
+</div>
+
+<p>
+Ao derrotá-lo, receba o <span class="item">Heart Container</span>. Você e Makar restaurarão a glória total da <span class="item">Master Sword</span>! Agora sim a lâmina emite poder divino contra o mal.
+</p>
+
+<h3 id="cap7-c">Sidequest das Árvores Secas (Opcional)</h3>
+<p>
+Antes da caçada à Triforce, vamos completar uma sidequest global. Engarrafe <span class="item">Forest Water</span> brilhante dentro da lagoa de Forest Haven. Você terá exatos 20 minutos no relógio para navegar pelo mar e despejar essa água sobre as pequenas árvores murchas cuidadas pelos Koroks nas ilhas: Cliff Plateau Isles, Private Oasis, Shark Island, Needle Rock Isle, Greatfish Isle, Mother & Child Isles, Star Island e Eastern Fairy Island. 
+Ao curar todas a tempo (use o Ballad of Gales sem dó), você receberá o <span class="item">Piece of Heart #28</span>.
+Para fechar o capítulo de tesouros, o Mapa 5 revela o <span class="item">Piece of Heart #29</span> perto da Thorned Fairy Island.
+</p>
+
+<!-- ── CAPITULO 8 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap8">Capítulo 8 — Ocean-wide Search</h2>
+
+<h3 id="cap8-a">A Grande Busca (Mapas e Corações Restantes)</h3>
+<p>
+Agora é a hora de explorar o Great Sea ao máximo antes do confronto final. Esta etapa é um imenso compilado de sidequests para coletar os pedaços de coração restantes (até chegar aos 20 Corações totais) e os Mapas Especiais que revelarão tudo no mar. Visite:
+</p>
+<ul>
+  <li><strong>Diamond Steppe Island:</strong> Use a Hookshot nas árvores para chegar ao topo, caia no buraco e passe pelo labirinto de potes de teletransporte. No final, você encontra o <span class="item">Ghost Ship Chart</span> (Mapa do Navio Fantasma).</li>
+  <li><strong>Flight Control Platform:</strong> Entre no submarino e derrote os inimigos para o <span class="item">Platform Chart</span>. Na ilha em si, jogue o minigame de planar com a Deku Leaf até a linha de chegada para ganhar o <span class="item">Piece of Heart #32</span>.</li>
+  <li><strong>Boating Course:</strong> Caia no buraco na ilha, derrote os Miniblins e ative 3 cristais com o Boomerang para o <span class="item">Submarine Chart</span>.</li>
+  <li><strong>Reefs (Recifes):</strong> Limpe os canhões e navios das bases Two-Eye, Three-Eye, Four-Eye, Five-Eye e Six-Eye Reef para ganhar vários <span class="item">Treasure Charts</span>.</li>
+  <li><strong>Spectacle Island:</strong> Vença o minigame de canhão de Salvatore duas vezes para um <span class="item">Piece of Heart</span> e um Mapa do Tesouro.</li>
+  <li><strong>Savage Labyrinth (Outset Island):</strong> Voe (ou use a Hookshot) para a floresta no topo da ilha, mas pule pela lateral norte para encontrar uma pedra gigante. Erga-a e entre. Este é um labirinto de 51 andares repletos de inimigos! No andar 31, você pega o <span class="item">Triforce Chart #06</span>. Se aguentar até o final (andar 51), leva o <span class="item">Piece of Heart #42</span>.</li>
+  <li><strong>Cartas Auxiliares:</strong> Pescando tesouros no mar com os mapas que você achou, você conseguirá mapas como o <span class="item">Secret Cave Chart</span>, <span class="item">Light Ring Chart</span>, <span class="item">Island Hearts Chart</span> e <span class="item">Sea Hearts Chart</span>, que revelam todos os segredos no mar.</li>
+</ul>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> Dezenas de <span class="item">Pieces of Heart</span> e <span class="item">Treasure Charts</span> em submarinos e cavernas secretas. Se seguir tudo, você atingirá o máximo de vida: 20 Corações! </div>
+
+<h3 id="cap8-b">A Caçada pela Triforce</h3>
+<p>
+O objetivo principal agora é reunir os 8 <span class="item">Triforce Charts</span> (Mapas da Triforce). Você provavelmente já pegou o #5 na missão do Navio Dourado. Eis onde estão os outros:
+</p>
+<ul>
+  <li><strong>Triforce Chart #01:</strong> Islet of Steel. Destrua os barcos fora, entre na base de metal e toque a Wind's Requiem no emblema azul.</li>
+  <li><strong>Triforce Chart #02:</strong> Private Oasis. Com o Cabana Deed (obtido em Windfall), entre na cabana, use a Grappling Hook no teto para apagar a lareira e desça pelo labirinto de esgotos até tocar a Wind's Requiem no emblema.</li>
+  <li><strong>Triforce Chart #03:</strong> Bird's Peak Rock. Use uma Hyoi Pear para controlar uma gaivota e bata nos cristais nos picos para abrir a grade da caverna.</li>
+  <li><strong>Triforce Chart #04:</strong> O Navio Fantasma (Ghost Ship). Com o Ghost Ship Chart em mãos, verifique em qual ilha o navio está assombrando de acordo com a fase da lua. Navegue até o navio, entre nele, mate os inimigos e pegue o mapa.</li>
+  <li><strong>Triforce Chart #06:</strong> No andar 31 do Savage Labyrinth (Outset Island).</li>
+  <li><strong>Triforce Chart #07:</strong> Stone Watcher Island. Erga a rocha gigante na ilha, limpe a caverna de todos os inimigos e Darknuts.</li>
+  <li><strong>Triforce Chart #08:</strong> Overlook Island. Hookshot de árvore em árvore, caia na caverna, derrote as hordas (Armos, Stalfos, Darknuts).</li>
+</ul>
+
+<h3 id="cap8-c">O Despertar do Herói dos Ventos</h3>
+<p>
+Os mapas da Triforce são ilegíveis por padrão. Vá até <span class="local">Tingle Island</span>, suba na torre e pague a Tingle a exorbitante quantia de <strong>398 Rupees por mapa</strong> (3.184 Rupees no total) para decifrá-los! (Dica: explore todas as ilhas e potes antes se precisar de dinheiro).
+</p>
+<p>
+Com os mapas legíveis, navegue pelas 8 localizações indicadas e use o Grappling Hook no mar brilhante para pescar os 8 <span class="item">Triforce Shards</span> (Fragmentos da Triforce)! Quando você juntar todos, o símbolo sagrado da Triforce of Courage se formará nas costas de Link.
+</p>
+<p>
+Retorne à <span class="local">Tower of the Gods</span>. Os deuses reconhecerão o seu valor: você não é apenas um garoto, você é oficialmente o Hero of Winds (Herói dos Ventos)! O portal para a Hyrule submersa será reaberto. Atravesse-o.
+</p>
+
+<!-- ── CAPITULO 9 ─────────────────────────────────────────── -->
+<hr>
+<h2 id="cap9">Capítulo 9 — Link to the Rescue!</h2>
+
+<h3 id="cap9-a">O Retorno a Hyrule e a Torre de Ganon</h3>
+<p>
+De volta a Hyrule, a estátua do Hero of Time está destruída e Zelda foi raptada! Derrote os dois <span class="inimigo">Mighty Darknuts</span> no porão e saia do castelo pela saída alternativa. Avance pelo Campo de Hyrule, destrua a barreira mágica com a espada, use a Hookshot no penhasco e entre na <span class="local">Ganon's Tower</span>.
+</p>
+<p>
+O Salão Principal de lava exige que você refaça as batalhas contra quatro chefes passados para prosseguir. Ao entrar em cada porta lateral, resolva os curtos puzzles e derrote os chefes com os itens exatos que você tinha na época:
+</p>
+<ul>
+  <li><strong>Porta Inferior Esquerda:</strong> Crie plataformas na lava com as Flechas de Gelo. Refaça a luta contra <span class="inimigo">Gohma</span>.</li>
+  <li><strong>Porta Superior Esquerda:</strong> Use a Deku Leaf nas engrenagens (cataventos) e correntes de ar. Refaça a luta contra <span class="inimigo">Kalle Demos</span>.</li>
+  <li><strong>Porta Superior Direita:</strong> Use o Mirror Shield e pegue os <span class="inimigo">Purple ChuChus</span> petrificados para pôr em cima dos botões. Refaça a luta contra <span class="inimigo">Jalhalla</span>.</li>
+  <li><strong>Porta Inferior Direita:</strong> Use a Hookshot e as Botas de Ferro nas molas, evite os blocos com espinhos. Refaça a luta contra <span class="inimigo">Molgera</span>.</li>
+</ul>
+
+<h3 id="cap9-b">O Labirinto dos Terrores</h3>
+<p>
+A porta central será destrancada. Na sala das tochas numeradas (anote a ordem secreta: 2ª à direita, mais à esquerda, mais à direita, 2ª à esquerda), você pode destruir os cristais na sala seguinte com o Boomerang seguindo essa exata ordem para criar um portal direto de volta para o King of Red Lions (superfície).
+</p>
+<p>
+Caia no fosso para o "Maze of Terrors" (Labirinto dos Terrores). O <span class="inimigo">Phantom Ganon</span> vai assombrá-lo em várias salas. Derrote-o com um Spin Attack quando ele se multiplicar e rebatendo suas bolas de energia. <strong>O Segredo do Labirinto:</strong> observe para que lado o cabo/punho da espada do fantasma aponta quando ela cai no chão; essa é a porta que você deve seguir!
+Na última sala, lute contra ele uma vez mais para conseguir o tesouro supremo do jogo: as <span class="item">Light Arrows</span> (Flechas de Luz), capazes de matar instantaneamente quase qualquer inimigo comum do jogo! Na sala do portal, dê um tiro final no fantasma para desintegrá-lo, pegue a espada sombria que sobrar e use-a para quebrar a parede de tijolos.
+</p>
+
+<div class="dica"> 💡 <strong>Dica/Itens Novos:</strong> <span class="item">Light Arrows</span> </div>
+
+<h3 id="cap9-c">Batalhas Finais</h3>
+<p>
+Suba as últimas escadas aniquilando todos no caminho com as Flechas de Luz. Abrace-se para a primeira grande batalha final.
+</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ BOSS: Puppet Ganon</div>
+  Ganon invoca uma marionete medonha que tem três fases. <br><br>
+  <strong>Fase 1 (Porco Mestre):</strong> Use o Boomerang (2 acertos em cada) para cortar os fios azuis que o sustentam. Quando a cauda cair no chão, corra para trás dele e acerte o orbe azul com uma Light Arrow. Repita três vezes. <br>
+  <strong>Fase 2 (Aranha):</strong> Ele subirá até o teto. Afaste bastante a câmera para olhar o reflexo na água e evitar ser esmagado quando ele cair. Acerte o orbe azul com uma Flecha de Luz. Repita três vezes. <br>
+  <strong>Fase 3 (Minhoca Moldorm):</strong> Ele deslizará super rápido. O orbe ainda está na cauda. Acerte a cabeça dele com a espada para atordoá-lo e rodeá-lo rapidamente, OU fique de longe e atire uma flecha com precisão monstra. Você pode também colocar Isca (Bait) no chão; ele irá comer desesperadamente, abrindo o ângulo perfeito para o seu tiro. (Apenas 4 flechadas matam).
+</div>
+
+<p>
+Com a marionete destruída, suba a longa corda vermelha que ficou no meio do salão. No topo, olhe para os lustres ao lado, prenda-se com o Grappling Hook para subir até o candelabro mais alto, mire a Hookshot na passagem e abra a porta. Assista às cinemáticas finais antes do embate no topo da torre.
+</p>
+
+<div class="chefe-box">
+  <div class="titulo-chefe">⚔️ FINAL BOSS: Ganondorf</div>
+  Na primeira fase, ganhe tempo e mantenha o escudo levantado para que a Princesa Zelda atinja Ganondorf com as Light Arrows; aproveite a distração para descer a lâmina da Master Sword nele! <br><br>
+  Quando ele nocautear Zelda de raiva, ele lutará sozinho. Desvie e foque nele sem parar até conseguir encaixar um <strong>Parry Attack</strong> (Botão A) perfeito, paralisando-o. <br><br>
+  Zelda acordará. Trave a mira em Ganondorf (L-Target) e Zelda começará a atirar flechas de luz <em>nas costas de Link</em>! Levante o seu <span class="item">Mirror Shield</span> para refletir o tiro dela na cara de Ganondorf, deixando-o completamente cego e atordoado. Avance para o grand finale, executando um último e mortífero <strong>Parry Attack</strong> em sua cabeça!
+</div>
+
+<p>
+Parabéns! Assista ao lindo final. Ao término dos créditos e da cena de epílogo, você pode salvar o jogo. O "New Game+" permitirá iniciar a aventura novamente usando os pijamas caribenhos de Link durante todo o jogo, terá a Câmera Deluxe já desbloqueada e todo o texto Hylian traduzido para o inglês!
+</p>
+
+<hr>
+<h2 id="versoes">As Versões do Jogo</h2>
+<p>The Legend of Zelda: The Wind Waker teve dois grandes lançamentos que mudaram algumas dinâmicas de jogo.</p>
+
+<h3 id="v-original">GameCube — Versão Original (2002)</h3>
+<p>Lançado originalmente para o Nintendo GameCube, esta é a versão clássica que serve de base para este detonado, contendo a caça à Triforce original e os gráficos cel-shaded clássicos.</p>
+
+<h3 id="v-2">Wii U — HD Remaster (2013)</h3>
+<p>A versão remasterizada The Wind Waker HD trouxe gráficos em alta definição, iluminação refeita, interface melhorada no GamePad e várias otimizações.</p>
+<ul>
+  <li><strong>Swift Sail (Vela Rápida):</strong> Permite navegar muito mais rápido sem precisar tocar a Wind's Requiem para mudar a direção do vento.</li>
+  <li><strong>Caça à Triforce Simplificada:</strong> 5 dos fragmentos são obtidos diretamente, reduzindo a necessidade de decifrar tantos mapas com o Tingle.</li>
+  <li><strong>Hero Mode:</strong> Pode ser ativado desde o início, fazendo os inimigos causarem o dobro de dano e corações não aparecerem pelo cenário.</li>
+</ul>
+
+<h3 id="v-resumo">Tabela Comparativa</h3>
+<table>
+  <tr>
+    <th>Versão</th>
+    <th>Ano</th>
+    <th>Destaques</th>
+    <th>Recomendado para</th>
+  </tr>
+  <tr>
+    <td style="background:#4a0080; color:white; font-weight:bold; text-align:center;">GameCube</td>
+    <td style="text-align:center;">2002</td>
+    <td>Gráficos cel-shading originais, caçada completa da Triforce, uso do Tingle Tuner.</td>
+    <td>Puristas e fãs da experiência clássica.</td>
+  </tr>
+  <tr>
+    <td style="background:#00509d; color:white; font-weight:bold; text-align:center;">Wii U</td>
+    <td style="text-align:center;">2013</td>
+    <td>Gráficos HD, Swift Sail, menos mapas para decifrar, Hero Mode.</td>
+    <td>Jogadores que buscam a melhor experiência e qualidade de vida.</td>
+  </tr>
+</table>
+
+<hr>
+<h2 id="dicas">Dicas e Segredos</h2>
+<p>
+- <strong>New Game + (Segunda Jornada):</strong> Ao fechar o jogo, inicie um novo save por cima do arquivo zerado. Link usará seu pijama durante todo o jogo (a roupa do Herói será invisível), Aryll usa vestido de pirata, as falas misteriosas em Hylian (de Valoo, Jabun e Deku Tree) estarão traduzidas para o inglês e você já começa com a Deluxe Picto Box!<br>
+- <strong>Hero's Charm:</strong> Se você não estiver jogando no Wii U, essa máscara (que mostra a vida dos inimigos) é obtida entregando 40 Joy Pendants à professora em Windfall Island. No Wii U, ela fica no fundo do Savage Labyrinth.
+</p>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">Zelda: Wind Waker — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span>📋 ÍNDICE</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+</div>
+
+
+<script>
+(function(){
+  const items=[];
+  document.querySelectorAll('h2[id],h3[id]').forEach(h=>{
+    const cls=h.tagName==='H2'?'menu-h2':'menu-h3';
+    const pad=h.tagName==='H3'?'  ':'';
+    items.push('<a href="#'+h.id+'" class="menu-item '+cls+'" onclick="closeSidebar()">'+pad+h.textContent+'</a>');
+  });
+  document.getElementById('sidebarBody').innerHTML=items.join('\n');
+})();
+function toggleSidebar(){const s=document.getElementById('sidebar');const o=document.getElementById('sidebarOverlay');const open=s.classList.toggle('open');o.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.body.style.overflow='';}
+function toggleSearch(){const w=document.getElementById('searchWrap');const i=document.getElementById('searchInput');const open=w.classList.toggle('open');if(open){setTimeout(()=>i.focus(),310);}else{closeSearch();}}
+function closeSearch(){document.getElementById('searchWrap').classList.remove('open');document.getElementById('searchInput').value='';document.getElementById('searchCount').textContent='';clearHighlights();matches=[];currentMatch=-1;lastQuery='';}
+let matches=[],currentMatch=-1,lastQuery='';
+function doSearch(query){clearHighlights();matches=[];currentMatch=-1;const q=query.trim();if(!q||q.length<2){document.getElementById('searchCount').textContent='';return;}if(q===lastQuery)return;lastQuery=q;const regex=new RegExp(escapeRe(q),'gi');const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(node){const tag=node.parentElement.tagName.toLowerCase();if(['script','style','input','mark'].includes(tag))return NodeFilter.FILTER_REJECT;if(node.parentElement.closest('.top-bar,.sidebar'))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});const nodes=[];while(walker.nextNode()){if(regex.test(walker.currentNode.textContent))nodes.push(walker.currentNode);regex.lastIndex=0;}nodes.forEach(node=>{const frag=document.createDocumentFragment();let last=0;const text=node.textContent;let m;regex.lastIndex=0;while((m=regex.exec(text))!==null){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));const mark=document.createElement('mark');mark.className='hl';mark.textContent=m[0];frag.appendChild(mark);matches.push(mark);last=m.index+m[0].length;}if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.parentNode.replaceChild(frag,node);});if(matches.length>0){currentMatch=0;highlightCurrent();}updateCount();}
+function navigateMatch(dir){if(!matches.length)return;matches[currentMatch].classList.remove('cur');currentMatch=(currentMatch+dir+matches.length)%matches.length;highlightCurrent();updateCount();}
+function highlightCurrent(){if(currentMatch<0||!matches[currentMatch])return;matches.forEach(m=>m.classList.remove('cur'));const el=matches[currentMatch];el.classList.add('cur');el.scrollIntoView({behavior:'smooth',block:'center'});}
+function updateCount(){const el=document.getElementById('searchCount');el.textContent=!matches.length?(lastQuery.length>=2?'0':''):(currentMatch+1)+'/'+matches.length;}
+function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>{m.outerHTML=m.textContent;});matches=[];currentMatch=-1;}
+function searchKeyNav(e){if(e.key==='Enter'){e.shiftKey?navigateMatch(-1):navigateMatch(1);}if(e.key==='Escape'){closeSearch();}}
+function escapeRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+</script>
+
+</body>
+</html>
