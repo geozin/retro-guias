@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Legend of Zelda: Skyward Sword — Detonado</title>
+<style>
+  /* ===== THEME VARIABLES ===== */
+  :root {
+    --bg: #f4fafe;
+    --bg2: #e3f2fd;
+    --text: #222;
+    --text2: #444;
+    --border: #bce0f0;
+    --header-bg: #1a5fb4;
+    --h2-color: #2d7a2d;
+    --h2-border: #2d7a2d;
+    --h3-border: #1a5fb4;
+    --dica-bg: #e6f6e6;
+    --dica-border: #6ec96e;
+    --chefe-bg: #fdecea;
+    --chefe-border: #c0392b;
+    --chefe-title: #922b21;
+    --table-head: #d3ecf8;
+    --bar-bg: #fff;
+    --bar-border: #bce0f0;
+    --npc: #1a5fb4;
+    --item: #2d7a2d;
+    --alerta: #c0392b;
+    --local: #6c3483;
+    --inimigo: #784212;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151a24;
+      --bg2: #1e2533;
+      --text: #e8f0fe;
+      --text2: #b4c7dc;
+      --border: #2a3a52;
+      --header-bg: #0b1424;
+      --h2-color: #f0c040;
+      --h2-border: #f0c040;
+      --h3-border: #3f7bbf;
+      --dica-bg: #1e3328;
+      --dica-border: #4ec278;
+      --chefe-bg: #2a0a0a;
+      --chefe-border: #922b21;
+      --chefe-title: #f1948a;
+      --table-head: #1b263b;
+      --bar-bg: #1e2533;
+      --bar-border: #2a3a52;
+      --npc: #6ab0f5;
+      --item: #6ec96e;
+      --alerta: #f1948a;
+      --local: #c39bd3;
+      --inimigo: #d4a76a;
+    }
+  }
+
+  body {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 72px 16px 40px;
+    background: var(--bg);
+      }
+
+  /* Cabeçalho do jogo */
+  .game-header {
+    background: var(--header-bg);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px 24px 16px;
+    margin-bottom: 28px;
+    transition: background 0.25s;
+  }
+  .game-header h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    color: #f0c040;
+  }
+  .game-header .meta {
+    font-size: 13px;
+    color: #aab;
+    font-family: monospace;
+  }
+
+  /* Legenda de cores */
+  .legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  .legenda span {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  /* Seções principais (dungeons, capítulos) */
+  h2 {
+    font-size: 20px;
+    color: var(--h2-color);
+    border-bottom: 3px solid var(--h2-border);
+    transition: color 0.25s, border-color 0.25s;
+    padding-bottom: 4px;
+    margin-top: 40px;
+    margin-bottom: 14px;
+  }
+
+  /* Sub-seções (partes internas da dungeon) */
+  h3 {
+    font-size: 16px;
+    color: var(--text2);
+    margin-top: 24px;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--h3-border);
+    transition: color 0.25s;
+    padding-left: 10px;
+  }
+
+  p {
+    margin: 0 0 12px;
+  }
+
+  /* NPC — azul */
+  .npc   { color: var(--npc);    font-weight: bold; }
+
+  /* Item — verde */
+  .item  { color: var(--item);   font-weight: bold; }
+
+  /* Alerta / atenção — laranja/vermelho */
+  .alerta{ color: var(--alerta); font-weight: bold; }
+
+  /* Local / área — roxo */
+  .local { color: var(--local);  font-weight: bold; }
+
+  /* Inimigo / chefe — marrom escuro */
+  .inimigo{color: var(--inimigo);font-weight: bold; }
+
+  /* Caixa de dica */
+  .dica {
+    background: var(--dica-bg);
+    border-left: 4px solid var(--dica-border);
+    transition: background 0.25s;
+    padding: 10px 14px;
+    margin: 14px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 15px;
+  }
+
+  /* Caixa de chefe */
+  .chefe-box {
+    background: var(--chefe-bg);
+    border: 2px solid var(--chefe-border);
+    transition: background 0.25s;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 18px 0;
+  }
+  .chefe-box .titulo-chefe {
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--chefe-title);
+    margin-bottom: 6px;
+  }
+
+  /* Tabela de Rupees */
+  table {
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  td, th {
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    text-align: left;
+    color: var(--text);
+  }
+  th {
+    background: var(--table-head);
+    font-weight: bold;
+  }
+
+  /* Lista de itens extras */
+  ul {
+    margin: 8px 0 14px 20px;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+  }
+
+  /* Separador entre capítulos */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 36px 0;
+  }
+
+  /* Capa da revista */
+  .capa-info {
+    background: #1a1a2e;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .capa-badge {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: #f0c040;
+    letter-spacing: 0.5px;
+  }
+
+
+  /* ===== HIGHLIGHT DE PESQUISA ===== */
+  mark.search-hl {
+    background: var(--highlight-bg);
+    color: var(--highlight-text);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+  .capa-revista{margin-bottom:24px;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.3);background:#000;text-align:center;}
+  .capa-revista img{width:100%;height:auto;display:block;}
+
+  /* ── Top bar ── */
+  .top-bar{position:fixed;top:0;left:0;right:0;height:54px;background:var(--header-bg);border-bottom:2px solid #2a2a45;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.4);}
+  .top-bar-left{display:flex;align-items:center;gap:10px;}
+  .top-bar-title{font-family:Georgia,serif;font-size:14px;color:#f0c040;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+  .top-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:6px;opacity:.85;transition:opacity .15s,background .15s;flex-shrink:0;}
+  .top-btn:hover{opacity:1;background:rgba(255,255,255,0.1);}
+  .search-wrap{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:22px;padding:4px 10px 4px 12px;width:0;max-width:0;overflow:hidden;opacity:0;transition:width .3s ease,max-width .3s ease,opacity .25s ease,padding .3s ease;}
+  .search-wrap.open{width:260px;max-width:260px;opacity:1;}
+  .search-wrap input{border:none;background:transparent;outline:none;font-size:14px;color:#fff;flex:1;min-width:0;width:100%;}
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.5);}
+  .search-count{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;min-width:28px;text-align:center;}
+  .snav{background:none;border:none;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.7);padding:2px 3px;border-radius:3px;}
+  .snav:hover{color:#fff;}
+  mark.hl{background:#ffe066;color:#111;border-radius:2px;padding:0 1px;}
+  mark.hl.cur{outline:2px solid #ff4444;background:#ff4444;color:#fff;}
+
+  /* ===== SIDEBAR / MENU LATERAL ===== */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1100;
+  }
+  .sidebar-overlay.open { display: block; }
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    background: var(--bar-bg);
+    border-right: 1px solid var(--bar-border);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.2);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform .28s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-header {
+    background: var(--header-bg);
+    color: #fff;
+    padding: 16px 16px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .sidebar-header span { opacity: .8; font-size: 12px; }
+  .sidebar-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: .7;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .sidebar-close:hover { opacity: 1; }
+  .sidebar-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px 0 40px;
+  }
+  .sidebar-body::-webkit-scrollbar { width: 4px; }
+  .sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .menu-item {
+    display: block;
+    padding: 9px 18px;
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background .15s, border-color .15s, color .15s;
+    line-height: 1.4;
+  }
+  .menu-item:hover {
+    background: var(--bg2);
+    border-left-color: var(--h2-border);
+    color: var(--h2-color);
+  }
+  .menu-h2 {
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 4px;
+    color: var(--h2-color);
+  }
+  .menu-h3 {
+    font-size: 12px;
+    padding-left: 30px;
+    color: var(--text2);
+  }
+  .menu-h3:hover { border-left-color: var(--h3-border); color: var(--text); }
+</style>
+</head>
+<body>
+
+
+<!-- ===== SIDEBAR MENU ===== -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <button class="top-btn" onclick="toggleSidebar()" title="Índice">☰</button>
+    <span class="top-bar-title">Zelda: TP — Detonado</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <div class="search-wrap" id="searchWrap">
+      <input type="text" id="searchInput" placeholder="Pesquisar…" oninput="doSearch(this.value)" onkeydown="searchKeyNav(event)" autocomplete="off"/>
+      <span class="search-count" id="searchCount"></span>
+      <button class="snav" onclick="navigateMatch(-1)" title="Anterior">↑</button>
+      <button class="snav" onclick="navigateMatch(1)" title="Próximo">↓</button>
+      <button class="snav" onclick="closeSearch()" title="Fechar">✕</button>
+    </div>
+    <button class="top-btn" onclick="toggleSearch()" title="Pesquisar">🔍</button>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span>📋 ÍNDICE DO DETONADO</span>
+    <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+  </div>
+  <div class="sidebar-body">
+<!-- SIDEBAR MENU -->
+</div>
+</div>
+
+</div>
+
+<div class="capa-revista">
+  <img src="https://raw.githubusercontent.com/geozin/retro-guias/refs/heads/main/detonados/the-legend-of-zelda-skyward-sword/capa.png"
+       alt="Capa The Legend of Zelda: Skyward Sword"
+       onerror="this.parentElement.style.display='none'">
+</div>
+
+<div class="game-header">
+  <h1>The Legend of Zelda: Skyward Sword</h1>
+  <div class="meta">Nintendo Wii</div>
+</div>
+
+<div class="legenda">
+  <span style="background:#dbeafe;color:#1a5fb4;">🔵 NPC / Personagem</span>
+  <span style="background:#dcfce7;color:#2d7a2d;">🟢 Item / Equipamento</span>
+  <span style="background:#fee2e2;color:#c0392b;">🔴 Atenção / Perigo</span>
+  <span style="background:#ede9fe;color:#6c3483;">🟣 Local / Área</span>
+  <span style="background:#fef3c7;color:#784212;">🟤 Inimigo / Chefe</span>
+</div>
+
+
+<div id="conteudo-principal">
+<!-- ── INTRODUÇÃO ────────────────────────────────────────── -->
+<hr>
+<h2 id="intro">Introdução, Controles e Overview</h2>
+
+<h3 id="intro-1">Introdução</h3>
+<p>
+  <i>Skyward Sword</i> é a mais recente instalação (até 2011) da lendária franquia Zelda. É o segundo jogo para o Wii, e inclui muitas novas mecânicas e melhorias nunca antes vistas num jogo de Zelda. Novos recursos incluem corrida (dashing), a barra de estamina, e controles de espada mais precisos (graças ao acessório Wii Motion Plus, obrigatório para jogar este jogo). Comparado com <i>Twilight Princess</i>, este título pode parecer um pouco mais leve e animado, mas ainda é uma aventura imensamente profunda com muito a explorar tanto na superfície quanto no céu (semelhante ao <i>Wind Waker</i> e o mar). Se você é um fã de jogos Zelda, este é um jogo obrigatório para a sua coleção!
+</p>
+
+<h3 id="intro-2">Controles Gerais</h3>
+<ul>
+  <li><strong>Wii Remote:</strong> Mova para realizar ações especiais, como mudar de direção ao voar com o Loftwing, ao cair de grandes alturas, usar a espada, etc.</li>
+  <li><strong>Control Stick:</strong> Move Link enquanto ele estiver no chão.</li>
+  <li><strong>Control Pad Cima:</strong> Pega a Harpa da Deusa (Goddess's Harp) após recebê-la.</li>
+  <li><strong>Control Pad Baixo:</strong> Falar com a <span class="npc">Fi</span>, ou invocar o seu Loftwing (após pular de uma beirada).</li>
+  <li><strong>Botão A:</strong> Realizar ação quando solicitado na tela, correr (enquanto se move), nadar (após pegar a Escama do Dragão da Água).</li>
+  <li><strong>Botão B:</strong> Usar o item atualmente atribuído (segure <strong>B</strong> e aponte para selecionar um item do menu radial), usar o Sailcloth (paraqueda) quando cair de um lugar alto.</li>
+  <li><strong>Botão C:</strong> Olhar ao redor, usar a habilidade de Dowsing (Procurar) (segure <strong>C</strong> e aponte para selecionar o tipo de alvo no menu).</li>
+  <li><strong>Botão Z:</strong> Mirar e realizar vários comandos dependendo da situação.</li>
+  <li><strong>Botão (-):</strong> Usar item atualmente atribuído da Bolsa de Aventura (Adventure Pouch) (segure <strong>-</strong> e aponte para selecionar item da bolsa).</li>
+  <li><strong>Botão (+):</strong> Ver o mapa da área/região atual.</li>
+  <li><strong>Botão (1):</strong> Acessar a tela de Equipamentos (Gear).</li>
+  <li><strong>Botão (2):</strong> Ver uma tela rápida de ajuda.</li>
+</ul>
+
+<h3 id="intro-3">Controles de Batalha</h3>
+<ul>
+  <li><strong>Golpe de Espada:</strong> Balance o Wii Remote no movimento/direção em que quer que o golpe saia.</li>
+  <li><strong>Estocada de Espada:</strong> Aponte o Wii Remote direto para frente e empurre.</li>
+  <li><strong>Levantar Escudo:</strong> Mova o Nunchuk num movimento para cima.</li>
+  <li><strong>Rolar:</strong> Mova o Nunchuk num movimento para cima enquanto estiver correndo.</li>
+  <li><strong>Golpe com Escudo (Shield Bash):</strong> Empurre o Nunchuk para frente (enquanto o escudo estiver levantado). Ideal para rebater ataques.</li>
+  <li><strong>Ataque Giratório (Spin Attack):</strong> Mova o Nunchuk + Wii Remote num movimento horizontal ambos juntos.</li>
+  <li><strong>Golpe Fatal (Fatal Blow):</strong> Mova o Nunchuk + Wii Remote num movimento para baixo juntos (enquanto o inimigo estiver atordoado no chão e você estiver mirando nele com <strong>Z</strong>).</li>
+  <li><strong>Esquiva (Parrying):</strong> Enquanto estiver mirando com <strong>Z</strong>, segure o Control Stick na direção desejada e pressione <strong>A</strong> (para desviar para os lados ou pular para trás).</li>
+  <li><strong>Pular:</strong> Enquanto estiver mirando com <strong>Z</strong>, mova para frente com o Control Stick e pressione <strong>A</strong>.</li>
+  <li><strong>Corte em Pulo (Jumping Slash):</strong> Balance o Wii Remote num movimento vertical (enquanto corre ou quando Link já estiver no ar).</li>
+  <li><strong>Skyward Strike:</strong> Segure o Wii Remote direto para cima para carregar a espada com luz, depois balance-a normalmente para soltar o raio (só funciona depois de ter a Espada da Deusa - Goddess Sword - ou superior).</li>
+</ul>
+
+<h3 id="intro-4">A Bolsa de Aventura (Adventure Pouch)</h3>
+<p>
+  Neste jogo, você terá duas áreas separadas para armazenar equipamentos. Seus itens principais ficarão num menu acessível pelo botão <strong>B</strong>, e são sempre carregados. Você também tem uma Bolsa de Aventura (Adventure Pouch), recebida logo no início do jogo, que guarda itens secundários como escudos, medalhas e Garrafas (Bottles). Você pode acessar os itens da sua bolsa apertando o botão <strong>(-)</strong>. Segure-o e use o Wii Remote para apontar e selecionar o item que deseja usar. Escudos são equipados automaticamente e não são desequipados se você selecionar outra coisa na bolsa, como uma Garrafa.
+</p>
+<p>
+  Inicialmente, sua bolsa tem apenas quatro espaços. Isso significa que, se você receber um item e não tiver espaços para levá-lo, ele será enviado automaticamente para a garota do <strong>Item Check</strong> no <span class="local">Bazaar</span> de Skyloft. Você pode comprar três espaços extras na loja <span class="local">Beedle's Airshop</span>, e achar mais um num baú ativado por um Goddess Cube, totalizando oito espaços no máximo.
+</p>
+<div class="dica">
+  💡 <strong>Dica:</strong> Por conta disso, será importante visitar o Item Check frequentemente para trocar itens e escudos desnecessários dependendo de para onde estiver indo. Por exemplo, você não precisaria de um escudo de madeira em uma região cheia de lava (ele pegaria fogo), então libere um espaço guardando-o no Item Check.
+</div>
+
+<h3 id="intro-5">Corrida e Estamina (Dashing e Stamina Gauge)</h3>
+<p>
+  A adição mais impactante na série Zelda é a habilidade de correr e a barra de cansaço. Quando estiver andando, segure o botão <strong>A</strong> e você começará a correr ao dobro da velocidade normal. Ao correr (ou pendurar-se, ou realizar saltos giratórios na água), a Barra de Estamina verde aparecerá, tornando impossível correr infinitamente! Se esvaziar completamente, você perderá as forças e mal conseguirá se mover até a barra encher sozinha. 
+</p>
+<p>
+  Se você parar a atividade cansativa antes da barra zerar, ela recuperará em poucos segundos. Durante as viagens, você encontrará frutinhas verdes brilhantes no chão ou em paredes, conhecidas como <strong>Stamina Fruit</strong>. Pegue uma e a sua estamina se recuperará instantaneamente.
+</p>
+
+<h3 id="intro-6">Natação (Swimming)</h3>
+<p>
+  Você pode nadar no jogo usando o <strong>Control Stick</strong>, mas até conseguir a <span class="item">Water Dragon's Scale</span> mais à frente, só nadará pela superfície. Após pegar o item, você pode mergulhar segurando <strong>A</strong> e usar a inclinação do Wii Remote para guiar a direção debaixo d'água. Enquanto estiver submerso, um medidor de oxigênio aparecerá e irá diminuir lentamente. Bolhas de ar soltas do chão repõem esse medidor.
+</p>
+<p>
+  Pode-se também executar um ataque giratório impulsionado, tipo um torpedo, balançando o Nunchuk para cima e para baixo. Esse golpe ataca <span class="inimigo">inimigos</span> aquáticos, quebra tábuas frágeis, e gasta uma boa parte do ar. Se você nadar em direção à superfície num ângulo de 45 graus e realizar esse ataque giratório momentos antes de sair da água, saltará fora dela, o que é ótimo para pular cercas em lagos ou subir em pontes altas.
+</p>
+
+<h3 id="intro-7">O Céu e os Loftwings</h3>
+<p>
+  O jogo se passa em um mundo acima das nuvens. A cidade voadora de <span class="local">Skyloft</span> é o eixo central do jogo, cercada de pequenas outras ilhas no céu. O seu transporte ali será o <strong>Loftwing</strong> (aquele pássaro gigante). Para montá-lo, apenas corra, pule da borda da ilha rumo às nuvens e pressione a seta para <strong>Baixo</strong>.
+</p>
+<p>
+  Voar requer inclinar o Wii Remote. Chacoalhar o Wii Remote faz a ave bater as asas (ganhando altitude), e mergulhar dá velocidade. Você possui 3 "cargas" indicadas na tela que agem como um "turbo", que se regeneram após o uso. Vale lembrar que <strong>Loftwings não voam de noite</strong>, e não podem mergulhar até a Superfície pelas nuvens, a não ser que você pule em um dos abismos/colunas de luz. Para voltar aos céus após descer à Superfície, basta usar as <strong>Bird Statues</strong> (estátuas de pássaros salvadoras espalhadas pelo chão).
+</p>
+
+<h3 id="intro-8">Combate e Escudos</h3>
+<p>
+  <strong>Combate:</strong> Inimigos como <span class="inimigo">Bokoblins</span> e <span class="inimigo">Stalfos</span> são espertos. Eles bloquearão seus ataques com a espada deles e revidarão. Atacar enlouquecidamente movendo o Wii Remote apenas resultará em bloqueios. Observe o inimigo e ataque no ângulo (horizontal, vertical ou diagonal) onde a guarda dele estiver aberta.
+</p>
+<p>
+  <strong>Escudos:</strong> O seu escudo leva dano neste jogo. Um medidor abaixo de seus corações mostra a resistência dele. Se zerar, o escudo <strong>quebra para sempre</strong>. Se você erguer o Nunchuk no exato momento do impacto do ataque de um inimigo (dando o Shield Bash), você não receberá dano no escudo e atordoará o inimigo, abrindo espaço para golpeá-lo. Você pode pagar para consertar ou melhorar escudos fracos conversando com o <span class="npc">Gondo</span> no Scrap Shop de Skyloft.
+</p>
+
+<h3 id="intro-9">Dowsing (Modo Procura)</h3>
+<p>
+  Após obter a Espada, você ganhará o modo Dowsing pressionando e segurando a tecla <strong>C</strong>. Ao selecionar um alvo e soltar C, uma área em primeira pessoa aparecerá com um anel roxo; este anel apontará para que direção o objetivo ou pessoa que está procurando se encontra, brilhando forte e fazendo barulho quando apontado para a direção certa. O jogo insistirá que use isso muito, mas não é estritamente obrigatório se você já souber para onde ir.
+</p>
+
+<!-- ── CAPITULO 1 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap1">Capítulo 1: O Início em Skyloft</h2>
+
+<h3 id="cap1-a">Introduction/Knight Academy (Introdução/Academia de Cavaleiros)</h3>
+<p>
+  Após assistir à cena introdutória, você verá um grupo de pássaros conhecidos como Loftwings voando alto no céu. Você verá uma garota tocando uma harpa antes de passar uma carta para um Loftwing, que então voa para longe. Em seguida, você é apresentado a <span class="npc">Link</span>, a quem é falado sobre seu destino aparente antes de acordar.
+</p>
+<p>
+  Link recebe a carta da misteriosa garota, que acaba sendo a <span class="npc">Zelda</span>. A Cerimônia do Voo (Wing Ceremony) é hoje, e ela quer ver você antes disso. Depois disso, você terá controle de Link pela primeira vez. Você começa em seu quarto na Knight Academy (Academia de Cavaleiros), na ilha de <span class="local">Skyloft</span>. Primeiro, cheque a cômoda próxima para encontrar um <span class="item">Blue Rupee</span>, valendo 5 rupees. Depois, saia do seu quarto e você estará no corredor do primeiro andar.
+</p>
+<p>
+  Corra até as escadas próximas e o <span class="npc">Pipit</span> irá te parar. Não há nada para fazer no andar de cima por enquanto, então desça o corredor na outra direção. Você encontrará o <span class="npc">Fledge</span> sofrendo na frente de dois barris. Fale com ele duas vezes e pegue um dos barris. Aceite ajudá-lo, e você será solicitado a carregar o barril para a cozinha, que é o quarto adjacente. Carregue o barril virando a esquina e para dentro da cozinha (você precisará colocá-lo no chão e descansar, senão sua estamina acabará e você o derrubará). A Barra de Estamina é algo que você precisará se acostumar, mas é fácil depois que entender.
+</p>
+<p>
+  De qualquer forma, coloque o barril perto da velha senhora para completar a tarefa, depois volte e fale com o Fledge para receber <span class="item">20 Rupees</span>! Com isso feito, passe pelas portas duplas próximas para sair da academia.
+</p>
+
+<h3 id="cap1-b">Skyloft</h3>
+<p>
+  Você agora está do lado de fora na ilha principal do jogo, conhecida como <span class="local">Skyloft</span>. Há uma estátua de pássaro próxima, então examine-a para salvar o seu jogo. Essas <strong>Bird Statues</strong> (Estátuas de Pássaros) são encontradas pelo mundo todo e provarão ser bem úteis conforme o jogo progride. O portão próximo está trancado, então vá na outra direção até o <span class="npc">Instructor Horwell</span> chamar você lá de cima. A conversa dele servirá como uma espécie de tutorial para usar a mira Z (Z-targeting) e para Correr (Dashing - segure A para correr, mas isso esgota sua estamina). Fale com Horwell mirando nele com Z, depois corra/escale as caixas empilhadas e pule o vão para encontrá-lo cara a cara.
+</p>
+<p>
+  A próxima tarefa será recuperar o bicho de estimação do Headmaster (Diretor), a <span class="npc">Mia</span>. Quando tiver controle, corra para a parede e agarre a borda de madeira, depois mova-se todo para a esquerda. Solte no final e siga o caminho até alcançar algumas trepadeiras. Escale-as para alcançar o telhado, então aproxime-se da caixa de madeira no fundo. Empurre a caixa até a parede e use-a para subir no telhado onde Mia será encontrada. Pegue a mascote e pule do telhado por onde você subiu. Você verá um arco com um sino do outro lado da área, então, enquanto segura Mia, pule para trás daquele arco e aproxime-se de Horwell para devolver o bicho.
+</p>
+<p>
+  Com essa missão feita, Horwell dirá para você ir encontrar a Zelda. Verifique a Bird Statue próxima e fale com o homem consertando o portão se quiser. Você pode pegar a Stamina Fruit colorida aqui (elas são sempre presentes e recuperam totalmente sua estamina). Suba as escadas e continue em direção à área da <strong>Goddess Statue</strong> (Estátua da Deusa), e uma cena entre você, Zelda e o <span class="npc">Headmaster</span> (pai de Zelda) começará. Você aprenderá mais sobre os Loftwings e seu propósito aqui. No entanto, o seu Loftwing está desaparecido, então seu novo problema envolve encontrá-lo!
+</p>
+<p>
+  O Diretor pede para você falar sobre seu problema com o Instrutor Horwell, então volte correndo pelo pátio próximo e desça as escadas para a academia. Fale com Horwell e ele irá falar com o Diretor sobre a Wing Ceremony. Fale com a garota próxima e ela mencionará perguntar a Pipit sobre por que isso está acontecendo. Vá para a academia e desça as escadas para falar com o <span class="npc">Pipit</span> (o cara vestido de amarelo perto das escadas). Ele diz para você perguntar por aí na área da praça, então desça o corredor e saia pelas portas duplas.
+</p>
+<p>
+  Do lado de fora novamente, o portão agora estará aberto, então você poderá explorar o resto de Skyloft. Desça as escadas e siga o caminho até um garoto pedir para você rolar em direção a uma árvore para ele. Faça isso e depois continue seguindo o caminho para a praça ao sul. Você verá alguns alunos parados, aproxime-se deles para iniciar a próxima cena. Você conhecerá o valentão <span class="npc">Groose</span> e seus capangas, então converse com eles até a Zelda intervir. Após Groose e companhia irem embora, Zelda dirá para você contar ao pai dela o que acabou de acontecer.
+</p>
+<p>
+  Sendo assim, volte para a Knight Academy e suba para o segundo andar. Entre na sala grande logo perto das escadas e fale com o Diretor e o Horwell lá. Eles atrasarão a cerimônia por você, o que é ótimo. Então, desça e saia pelas portas duplas perto do Fledge. Do lado de fora, vá para a esquerda, debaixo da ponte até achar Pipit te chamando. Fale com ele e ele forçará o Fledge a confessar que o seu Loftwing foi roubado pelo Groose (vai entender). Ele está sendo mantido próximo a uma cachoeira, que está marcada no seu mapa (será útil checar frequentemente, pressionando o botão +).
+</p>
+<p>
+  Antes de ir para lá, entre no <span class="local">Sparring Hall</span> (Salão de Treinamento) do qual você está na frente. Lá dentro, atravesse a sala e entre na sala dos fundos, onde você pode abrir um baú para encontrar a <span class="item">Practice Sword</span> (Espada de Treino). Com ela, retorne à área principal e corte todos os troncos de madeira (ignore o tronco horizontal pendurado no alto). Depois de cortar os troncos usando o Z-targeting e golpeando, execute o ataque giratório (Spin Attack) quando solicitado, seguido por um golpe fatal (Fatal Blow). Após fazer tudo isso com sucesso, tente sair do salão e o instrutor permitirá que você pegue a espada emprestada para ajudar a encontrar o seu Loftwing.
+</p>
+<p>
+  Saia do salão e corra adiante até que uma <strong>Shiekah Stone</strong> (Pedra da Visão) surja do chão em um canto e fale com você. Depois disso, dê a volta até a Bird Statue e salve seu jogo. Então, passe pelo portão e desça os degraus. Na parte inferior, vire à esquerda e corra ao longo das tábuas de madeira como um atalho para achar a cachoeira diretamente a frente. Pule pelos apoios de pedra acima da água (você pode nadar, não se preocupe em cair). Do outro lado, suba o caminho até encontrar a entrada de uma caverna. Corte os postes bloqueando a entrada, e siga lá para dentro.
+</p>
+
+<h3 id="cap1-c">Waterfall (Cachoeira)</h3>
+<p>
+  Quando você entrar nesta caverna pela primeira vez, siga em frente e verá uma cerca à direita. Vá até a abertura da cerca e desça para a borda inferior. Você poderá então pular o vão para alcançar um baú contendo <span class="item">20 Rupees</span>. Depois disso, desça e continue adiante, derrotando os <span class="inimigo">ChuChus</span> e <span class="inimigo">Keese</span> pelo caminho para ganhar alguns rupees e possivelmente outros tesouros para criação de itens (mais sobre isso depois).
+</p>
+<p>
+  Ao chegar a uma colina íngreme, você precisa usar a corrida (dash) para chegar até o topo. Haverá trepadeiras em uma parede a partir deste ponto; escale-as e abra o baú na borda para achar mais <span class="item">20 Rupees</span>. Continue ao longo do caminho e use o dash para escalar uma borda mais alta, depois enfrente os inimigos na próxima sala.
+</p>
+<p>
+  Há uma borda gramada nas proximidades, escondendo um buraco na parede. Engatinhe por esse buraco para achar adicionais <span class="item">40 Rupees</span>, então volte para fora pelo buraco e prossiga para sair da caverna.
+</p>
+
+<h3 id="cap1-d">Skyloft (Resgate do Loftwing)</h3>
+<p>
+  Do lado de fora novamente, salve na Bird Statue e comece a caminhar pelo caminho. A Zelda vai aparecer, então continue pelo caminho e você encontrará o seu prisioneiro Loftwing! Corte as cordas entre os prendedores na parede para abrir a caverna, libertando o Loftwing. Depois que isso for feito, Zelda dirá para você pular da beirada e chamar sua ave. Quando assumir o controle caindo, aperte Baixo no Control Pad para chamar o Loftwing. Você então receberá instruções dos controles de voo, então brinque com eles para se familiarizar.
+</p>
+<p>
+  Você então voltará para <span class="local">Skyloft</span> com Zelda, de onde ela correrá para fora de vista por alguns momentos. O <span class="npc">Groose</span> vai voltar e provocar você mais um pouco antes de ser assustado com o retorno da Zelda. A Cerimônia do Voo começará logo em seguida, então prepare-se! O Diretor explicará as regras, que basicamente significam que você precisa perseguir um Loftwing dourado e pegar a Estatueta de Pássaro primeiro. Voe rapidamente conforme acabou de praticar e agarre a estatueta uma vez, e então Groose e seus comparsas começarão a atirar ovos em você para o segundo round. Desvie dos ovos e pegue a Estatueta novamente para vencer a cerimônia.
+</p>
+<p>
+  Quando a parte da corrida terminar, a Zelda vai se juntar a você para a próxima parte da cerimônia, no topo da Estátua da Deusa. Durante essa parte, você vai receber o <span class="item">Sailcloth</span> (Paraquedas), que pode ser usado para desacelerar suas quedas (e será muito útil no futuro). Em seguida, você precisará pular do topo da estátua e aterrissar em um desenho circular lá embaixo (o círculo é bem grande, então você não deve errar). Caia e abra o Sailcloth antes de bater no chão e pare dentro do círculo para terminar a cerimônia.
+</p>
+<p>
+  Na próxima etapa, Zelda vai te pedir para voar por perto com ela. Faça isso, e você será interrompido por um furacão sombrio, que irá jogar a Zelda para as nuvens abaixo. A próxima cena mostrará Link acordando no seu quarto novamente, seguido pelo Diretor perguntando o que aconteceu com Zelda. Após ele sair, você se levantará mesmo que já seja noite. Cheque o armário de novo para mais <span class="item">5 Rupees</span> se quiser, e saia do quarto.
+</p>
+<p>
+  A misteriosa figura que você viu no seu sonho estará perto das escadas. Siga-a subindo e passe pela porta no final do corredor. Do lado de fora, siga-a pelo caminho até a estátua, depois desça para a área lateral. Continue seguindo indo de borda em borda, correndo e escalando quando necessário. Você verá um baú em uma área mais abaixo ao longo do caminho; abra para pegar <span class="item">20 Rupees</span>. Em seguida, continue e suba as vinhas para chegar ao topo. Ande ao redor da estátua até a figura parar e abrir uma porta para que você possa entrar na própria estátua.
+</p>
+
+<h3 id="cap1-e">Inside the Statue of the Goddess (Dentro da Estátua da Deusa)</h3>
+<p>
+  Dentro da estátua, vá em frente e se aproxime da espada no pedestal. Você assistirá a uma cena onde a figura se introduz como <span class="npc">Fi</span>, enviada pela Deusa para ajudar o herói. Ela lhe pedirá que pegue a espada; aproxime-se e siga as instruções da tela para retirar a lâmina. Para completar a cena, levante a espada direto pro alto até carregá-la. Agora que você obteve a grandiosa <span class="item">Goddess Sword</span> (Espada da Deusa), o Diretor vai chegar e conversar com você.
+</p>
+<p>
+  Fi vai entregar a você a <span class="item">Emerald Tablet</span> (Tábua de Esmeralda), usada para conseguir acesso ao mundo da superfície a partir do céu. Quando recuperar o controle, precisará usar um <strong>Skyward Strike</strong>. Isso envolve manter a espada em riste (apontada para cima) até carregar, depois movimentá-la para disparar um feixe de luz. Aproxime-se do brasão à sua frente, execute esse movimento no altar abaixo e examine-o para alocar a tábua no espaço vazio. Um raio de luz verde será engatilhado do lado de fora, abrindo um portal pelas nuvens. Feito isso, Fi ficará unida à sua espada para ajudar você (basta apertar para <strong>Baixo</strong> no Control Pad de agora em diante para falar com ela).
+</p>
+
+<h3 id="cap1-f">Skyloft (A Partida)</h3>
+<p>
+  Após as cenas dentro da estátua, você estará no seu quarto de novo. O Diretor deu a você seu uniforme por ter se graduado, e agora sim você parece mais com o herói que conhecemos! Com isso feito, saia do quarto e fale com Fledge, que lhe dará a <span class="item">Adventure Pouch</span> (Bolsa de Aventura). Ela já vem com 4 compartimentos onde você armazenará itens e equipamentos durante o game. Em posse dela, passe pelas portas duplas para deixar a academia.
+</p>
+<p>
+  Do lado de fora, fale com o Instrutor Horwell e ele te dará o <span class="item">Wooden Shield</span> (Escudo de Madeira), que ficará estocado na sua Bolsa. Agora, desça ao sul, passe o portão e vá em direção ao <span class="local">Bazaar</span> (o imenso prédio roxo de portões abertos). Lá você pode olhar as mercadorias. Fale com a moça da <span class="local">Potion Shop</span> (Loja de Poções) no balcão e ela vai dar a você a sua primeira <span class="item">Bottle</span> (Garrafa) vazia! Compre uma poção se quiser e saia do Bazaar.
+</p>
+<p>
+  Quando estiver pronto para prosseguir, corra para uma das plataformas de madeira nas beiradas de Skyloft, corra (dash) e salte. Aperte Baixo para invocar o seu Loftwing para o céu.
+</p>
+
+<h3 id="cap1-g">Overworld</h3>
+<p>
+  Neste jogo, o céu é a sua área livre (Overworld), e você o atravessa voando. Existem várias ilhas nas quais você pode pousar. Há também pedras habitadas por <span class="inimigo">Octoroks</span> que irão atacá-lo, então é bom evitá-los. Outras aves também carregam Rupees; você pode se jogar contra elas no ar para roubar o dinheiro. Portais nas nuvens oferecem melhor impulso se passados por dentro.
+</p>
+<p>
+  Por hora, voe até o enorme pilar de luz verde que surgiu recentemente e mergulhe em direção ao buraco que se abriu. Link irá saltar de seu Loftwing em queda livre para a Superfície lá embaixo.
+</p>
+
+<!-- ── CAPITULO 2 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap2">Capítulo 2: A Superfície e Faron Woods</h2>
+
+<h3 id="cap2-a">Sealed Grounds (Terras Seladas)</h3>
+<p>
+  Quando você chegar aqui, você aterrissará num parapeito calmo. Siga o caminho ao redor da área e derrote os <span class="inimigo">Deku Babas</span> ao longo do caminho. No final do caminho, desça para a plataforma inferior e assista a cena envolvendo um grande fosso lá embaixo. Uma vez terminada, desça até o fundo/centro do poço pulando em queda livre e usando a <strong>Sailcloth</strong> para pousar em segurança. No fundo, aproxime-se do pedestal e use um Skyward Strike nele para remover a aura maligna. Isso também fará com que lufadas de ar abram pelo fosso inteiro. Use os jatos de ar com sua Sailcloth para voar de volta até o nível mais alto, e em seguida aproxime-se da porta perto de onde você começou. Abra-a para entrar num templo.
+</p>
+
+<h3 id="cap2-b">Sealed Temple (Templo Selado)</h3>
+<p>
+  Aqui dentro, use a Bird Statue do lado esquerdo para salvar o seu jogo. Depois, suba os degraus no outro extremo da sala e fale com a velha senhora sentada ali. Ela apontará em direção à <span class="local">Faron Woods</span> (Bosque Faron) a leste, e te ensinará a colocar marcadores (beacons) no seu mapa para ajudar o progresso. Coloque o marcador no X que ela demarcou, feche o mapa e continue conversando. Quando ela terminar, desça para a área inferior da sala e abra o baú pequeno para receber mais uma <span class="item">Bottle</span> (Garrafa), esta aqui contendo uma <span class="item">Revitalizing Potion</span>!
+</p>
+<p>
+  Feito isso, salve de novo se quiser, e então saia pela porta leste.
+</p>
+
+<h3 id="cap2-c">Sealed Grounds (Terras Seladas)</h3>
+<p>
+  Fora do templo de novo, você verá o marcador no céu à distância. Você pode removê-lo do mapa se quiser. Siga o caminho e desça para a área mais abaixo, onde encontrará um Goron cercado por vários inimigos. Aproxime-se e derrote os <span class="inimigo">Bokoblins</span> para resgatá-lo. Fale com <span class="npc">Gorko</span> sobre a estátua perto de vocês, então aproxime-se da mesma e ative as Bird Statues da Superfície. Salve o seu jogo aqui e você estará pronto para prosseguir.
+</p>
+<p>
+  Antes de continuar para Faron Woods contudo, você verá algumas vinhas perto. Escale-as e passe pela caverna para chegar à área anterior. Empurre o tronco da beirada para criar um atalho para cá de volta. Depois, desça e vá para a esquerda, pro local exato onde você aterrissou aqui da primeira vez, e interaja com a Bird Statue dali para registrá-la. 
+</p>
+<div class="dica">
+  💡 <strong>Dica:</strong> Você deve verificar todas as Bird Statues que vir pela frente, mesmo que não queira salvar. Desse modo, o local fica registrado e você pode escolher pousar lá caso pule do céu de novo.
+</div>
+<p>
+  Suba o tronco e passe pela caverna para retornar para onde o Gorko está esperando. Siga pelo caminho ao leste até ver uma beirada mais alta. Empurre o tronco de árvore contra a parede, suba nele, escale a parede e prossiga para Faron Woods.
+</p>
+
+<h3 id="cap2-d">Faron Woods (Bosque Faron)</h3>
+<p>
+  Após Fi dar uma introdução à área, siga em frente e use a Bird Statue. Siga pelo caminho pulando com um <i>dash jump</i> para agarrar o cipó solto, e balance-se até o outro lado. Corte as árvores adiante e siga pelo caminho para encontrar dois Bokoblins atacando uma criatura tipo planta. Derrote os inimigos e fale com o bichinho, que corre de medo de você morro acima. Corra com um dash subindo a encosta atrás dele, alcançando uma área lotada de cogumelos gigantes. Use a Bird Statue do lado direito, e comece a procurar pela criatura. Ele se esconde atrás dos cogumelos; dê uma rolada no cogumelo para derrubá-lo e o bicho correrá assustado para longe de novo.
+</p>
+<p>
+  Após repetir isso duas vezes, fale com o bichinho que agora ficará encostado numa árvore. Ele é na verdade um <span class="npc">Kikwi</span>, de nome <span class="npc">Machi</span>. Terminada a conversa com ele, empurre o tronco por cima do barranco para criar um atalho, pegue a <span class="item">Amber Relic</span> (Relíquia de Âmbar) e retorne à estátua.
+</p>
+<p>
+  Perto da estátua você achará uma descida com um Deku Baba no meio. Use um dash pra descer a rampa e atire uma pedra (boulder) morro abaixo para matar o inimigo rolando. Continue o caminho batendo nos inimigos Bokoblins. Também há um <span class="inimigo">Deku Scrub</span>; rebata o projétil que ele cospe dando um Shield Bash com o escudo. Pelo caminho você achará um tronco ao lado direito; derrube-o para outro atalho e prossiga pela espiral subindo, cortando mais árvores. Pule e balance de outro cipó para chegar na frente de um Kikwi Gigante, o <span class="npc">Elder Bucha</span> (Ancião Bucha). Ele lhe dirá que há três outros Kikwis desaparecidos e que precisa que você os resgate antes dele poder ajudar.
+</p>
+<p>
+  <strong>Achando os Kikwis:</strong> Comece engatinhando pelo túnelzinho à direita dele. Do outro lado, ande pela corda bamba com cuidado para não cair. Após cruzá-la, siga e desça para achar o Líder dos Bokoblins aterrorizando um Kikwi numa árvore. Aproxime-se e mate a horda de inimigos toda. Chegue perto da árvore e dê uma cambalhota / cabeçada no tronco para fazer o Kikwi cair junto a uma trepadeira. Fale com <span class="npc">Lopsa</span> (o Kikwi). Depois balance e pule de volta no alto e empurre o tronco.
+</p>
+<p>
+  Volte para perto do início do lago (atravessando o tronco que desceu), ande pelas margens contornando a árvore central gigante e lide com os Deku Scrubs. Ao final você verá um pequeno buraco coberto de mato no chão à direita. Entre lá engatinhando e derrote mais Bokoblins. Escale a plataforma pelo lado esquerdo e salte entre duas paredes cobertas de vinhas até chegar na grama lá em cima. Você verá um Kikwi engatinhando sorrateiro no chão. Espere-o parar, corte a grama envolta dele e converse com <span class="npc">Erla</span>.
+</p>
+<p>
+  Apenas um Kikwi falta. Desça da parede para a área cheia de Deku Scrubs, e rume ligeiramente para o sul, onde verá uma rampa subindo para um caminho em cima de galhos e cercas de madeira. Escale-o matando o Deku Baba, e se seguir pela esquerda andará pela corda bamba e pegará seu primeiro <span class="item">Piece of Heart</span> (Pedaço de Coração). Depois, pegue a rota pela direita até chegar em uma árvore com um buraco no chão perto. Caia no buraco, ande pelo túnel de terra e o terceiro Kikwi estará lá! Tente pegar <span class="npc">Oolo</span> do chão e fale com ele.
+</p>
+<p>
+  Agora volte até o Ancião Kikwi (você pode pular das cercas de volta para a rampa espiral). Fale com ele e ele admitirá que Zelda foi para o templo lá no fundo do bosque. Ele entregará como prêmio o item <span class="item">Slingshot</span> (Estilingue), o qual você deve escalar as costas dele e pegar do topo! Com ele, você pode atordoar inimigos atirando bolotas, ativar switches remotos ou desatar cipós encolhidos. Use o Slingshot para desatar o cipó perto do Ancião, pule nele para balançar e suba até a área do templo a nordeste. Antes de mais nada, salve na Bird Statue (Suba as escadas de trás do templo primeiro para achá-la - chamada Viewing Platform).
+</p>
+<div class="dica">
+  💡 <strong>Dica / Upgrades Opcionais:</strong> Como você acabou de pegar o Slingshot, recomendo voltar à Skyloft (pela Bird Statue) e procurar uma casa flutuante com um sino no fundo no ar, pilotada de bicicleta. Atire no sino e use a corda que vai cair para subir à loja do <span class="npc">Beedle</span>. Compre a <span class="item">Bug Net</span> (Rede de Insetos) por 50 Rupees, e as Carteiras Extras (100 Rupees cada, se conseguir pagar). Volte para Faron Woods (Viewing Platform) após terminar a lojinha para seguir com a aventura!
+</div>
+
+<h3 id="cap2-e">Deep Woods (Bosque Profundo)</h3>
+<p>
+  Ao chegar do lado de fora do Templo, atire no cipó a norte da Viewing Platform e cruze para os "Deep Woods". Siga o caminho da direita em formato de túnel. Atire na colmeia de abelhas pendurada antes de cruzar a corda bamba, para que as abelhas não ataquem. Atravesse e desça o tronco para liberar um atalho.
+</p>
+<p>
+  Retorne ao caminho principal e suba a montanha; você verá o Gorko logo mais. Vá se esquivando ou lutando contra os inimigos pelas cordas bambas. O truque se um Bokoblin entrar na corda bamba ao mesmo tempo que você, é dar as costas se ele atacar, fazendo-o cair no abismo; ou melhor ainda, atirar nele com o Estilingue no meio da corda para derrubá-lo no abismo!
+</p>
+<p>
+  Lá na frente, bata papo com Gorko e ele falará sobre os Goddess Cubes (Cubos da Deusa). Esses blocos especiais disparam magia aos céus quando golpeados, liberando tesouros lá nas nuvens! Aceite a oferta e use o <strong>Skyward Strike</strong> da sua espada contra o <strong>Goddess Cube #1</strong>. Jogue o tronco ao lado da tela para formar o atalho, desça pelos declives de terra batida (na beira ative também o <strong>Goddess Cube #2</strong>). Finalmente, chegue de frente pro portão do Templo.
+</p>
+<p>
+  Olhe pra cima do portão gigantesco fechado. Haverá um cristal vermelho. Atire um projétil do seu Estilingue em cima dele; a chave irá quebrar e o olho piscará, abrindo o portão do Skyview Temple. (Note os outros cristaizinhos ao redor, se atirar neles eles derrubarão Rupees).
+</p>
+
+<!-- ── CAPITULO 3 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap3">Capítulo 3: Skyview Temple</h2>
+
+<h3 id="cap3-a">Entrando no Templo</h3>
+<p>
+  No Skyview Temple, salve e desça escadarias quebrando teias de aranha. Derrube as árvores bloqueando uma parede cheia de trepadeiras com sua espada, dê uns passos para trás e use o Estilingue (Slingshot) para acertar o switch (cristal) nas costas do Deku Baba na parte alta do cenário; isso abrirá a porta principal.
+</p>
+<p>
+  Você chegará a uma sala com um portão trancado e um "olho" grudado acima dele. O Olho observa e segue a ponta de sua espada. Posicione-se no centro da ponte e chacoalhe/gire o Wii Remote (sem atacar) para fazer movimentos circulares com a ponta da espada até o Olho ficar vesgo, girar em vermelho e "quebrar". O portão abrirá! Pela próxima sala (com os Deku Babas do teto), lembre-se de limpar as trepadeiras infestadas de Walltulas pelo caminho usando o Estilingue, para encurtar a passagem quebrando as madeiras, gerando acesso rápido do começo.
+</p>
+
+<h3 id="cap3-b">Elevando o Nível da Água</h3>
+<p>
+  Você chegou ao Salão Central, mas há portas trancadas. Para começar, mire no cristal rosa reluzente na porta à sua direita e atire nele. Entre na sala, quebre a teia, desça o vão, encontre um túnel pequeno à leste no rodapé da parede e engatinhe. No fim do túnel, atire em mais um cristal. A sala toda será inundada por água. Nade imediatamente em direção à trepadeira mais próxima antes que você afunde e morra afogado. Escale-a para a porta e retorne ao Salão Central.
+</p>
+<p>
+  O Salão Central agora também terá água. Pule no fosso que encheu de água, mergulhe embaixo do pequeno corredor suspenso onde se encontrava o baú da porta oeste, e atire o Estilingue em mais um switch rosa escondido por baixo dessa mesma ponte! A porta ocidental será desbloqueada. Nade, escale e entre lá.
+</p>
+<p>
+  Lá, você topará com algumas aranhas (Skulltulas). Ignore as que balançam nas teias do meio por ora e contorne a ponte indo pro fundo. Acerte os dois cipós ressecados na parede à distância com o estilingue. Balance de cipó em cipó, atravesse o vão e derrote o Quadro Baba. Não volte agora: suba a escada e entre na salinha com baú contendo o <span class="item">Dungeon Map</span>!
+</p>
+
+<h3 id="cap3-c">Beetle (O Besouro Mecânico)</h3>
+<p>
+  Equipado com o Mapa, volte para a sala das aranhas nas teias (mas agora você as enxerga por trás!). Atinja as barrigas roxas, onde o ponto fraco fica evidente, e mate-as. Olhe nas laterais no meio da ponte de madeira; escondido num beco pequeno entre dois muros há outro cristal de luz vermelha. Atire nele e o nível da água do salão inteiro subirá pela 2ª vez. Regresse ao Salão Central, e atravesse-o até a porta Leste de novo (pule em um tronco flutuante, atire na trepadeira da parede à leste para limpar as aranhas que ficam na parede e escale). 
+</p>
+<p>
+  Aqui dentro, agora com o novo acesso provido pelas águas, desça a escadaria da nova parte e encare uma Skulltula que anda no chão (Ataque-a de cima-baixo, fazendo-a dar um flip, e ataque o umbigo de perto, ou acerte-a horizontalmente para ela balançar e mostrar o ponto fraco roxo se for de teia). Na parte funda você verá um portão metálico trancado e dessa vez DOIS olhos de vigilância na fechadura. Pare exatamente em um ponto em que <strong>ambos os olhos</strong> se abram e olhem para a sua espada (se chegar muito perto um se fecha). Movimente a ponta em formato circular longo até os dois morrerem juntos de tontura! Pegue a <span class="item">Small Key</span> no baú.
+</p>
+<p>
+  Siga ao Salão Central mais uma vez. Escale na porta norte e abra-a com a sua Nova Small Key.
+</p>
+<p>
+  Um mini-chefe <span class="inimigo">Stalfos</span> lendário com Duas Espadas Gigantes! Preste atenção nos braços de esqueleto dele. Sempre que o braço dele bloquear um lado específico de ataque, acerte-o no flanco aberto sem defesa! (por exemplo, se ele defender verticalmente do lado esquerdo, acerte-o com um corte de direita, e assim sucessivamente). Se ele se aproximar pra te bater, dê Shield Bash para aparar. Ao explodir o Stalfos, reclame a vitória e colete o maravilhoso e novo item de Zelda Skyward Sword: O <span class="item">Beetle</span> (Besouro Voador Tele-Guiado)!
+</p>
+
+<h3 id="cap3-d">Utilizando o Besouro</h3>
+<p>
+  As grades trancaram vocês dentro da arena. Lance seu <strong>Beetle</strong> novinho por uma reentrância minúscula do teto acima do grande portão do Boss que parece um templo, voe com ele e bata o Beetle na chave-cristal vermelha. As grades onde você está vão se abrir!
+</p>
+<div class="dica">
+  💡 <strong>Item Extra:</strong> Se jogar o Besouro numa área perto do teto do domo central de volta pela mesma reentrância da porta, e ir ainda mais para cima, há outro cristal lá! Ao bater o besouro, um portão da lateral do Salão vai descer. Explore-o a pé e encontrará um cobiçado <span class="item">Piece of Heart</span>!
+</div>
+<p>
+  Vá à porta à oeste (onde uma Bird Statue jaz, salve) e use o Besouro pra percorrer os furinhos e bater nas plantas comedoras de longe cortando o talo delas. Em seguida bata o besouro na última alavanca switch por trás do portão de grades para abri-lo e avance!
+</p>
+
+<h3 id="cap3-e">O Enigma dos Três Olhos e Chave do Chefe</h3>
+<p>
+  Atrás da porta teremos uma descida até a porta oposta, onde há um portão de segurança que tem, imagine só, TRÊS Olhos o guardando simultaneamente! Atravesse tudo na primeira sala. 
+  Quando você entrar no "Cofre", um portão cai e o encarcera junto das aranhas. Derrote a Skulltula. Suba as trepadeiras pela sala, voe com seu Beetle na caixa amarrada pendurada pelas amarras por teias. Uma caixa oca de bronze vai desabar. Salte para onde ela desabou e empurre a caixa de bronze de volta, de modo que ela caia, puxe-a pro centro inferior da sala. Use ela como degrau de elevação parando exatamente em cima dela (onde fica um centro perfeito perante o portão) — então puxe a espada girando em circulos até atordoar todos os Três Olhos ao mesmo tempo! Uma segunda <span class="item">Small Key</span> está no baú.
+</p>
+<p>
+  Como a porta está bloqueada pelas grades que bateram nas suas costas, voe o Besouro da porta acima de onde você puxou a Small key e persiga a teia de aranha (corte e bata a máquina em direção do switch de água rosado ali nas profundezas do túnel distante das costas da caverna). O abismo à sua frente transbordará de água! Atravesse a nado os galhos ocos e pule os tijolos quebrados para se evadir daquela prisão, regressando ao grande recinto anterior da Bird Statue pela passagem secreta que acaba de emergir na água!
+</p>
+
+<h3 id="cap3-f">Staldra e Golden Carving</h3>
+<p>
+  Dirija-se ao caminho leste do mapa e com a ajuda de seu Beetle amado elimine à distância todos os perigos das plantas no teto e limpe a corda bamba! Com a sua mais nova e última Small Key, abra a porta e ache a Quimera de 3 cabeças <span class="inimigo">Staldra</span>. A tática genial é atacar duas delas sem sincronia só de propósito, esperar e aguardar até todas as 3 se regenerarem em exata linha. Aí você disfere o <strong>Spin Attack</strong> pegando todas ao mesmo tempo. 
+</p>
+<p>
+  Siga para a sala leste. Destrua o monstrinho, use o Besouro contra os tecidos acima da aranha e jogue a aranha no penhasco infinito. Salte, dispare em mais um cristal para destrancar a atalho pros salões antigos. Em seguida atordoe o bokoblin do outro lado e derrube-o da ponte de cipó antes que ele passe para você. Passe pela dita ponte com Link. 
+  Escale trepadeiras subindo no balcão que domina as folhagens. Ao pular, corte cipós em rolos usando o Estilingue do outro lado. 
+  Pule os cipós que o Link balança agarrado feito macaco para atravessar o vão profundo. Chegue e colete a <span class="item">Golden Carving</span>! Você obteve o item em formato tridimensional usado pra trancar o Portão do Chefe!
+</p>
+
+<h3 id="cap3-g">BOSS: Demon Lord Ghirahim</h3>
+<p>
+  Ao chegar ao templo maior, você se valerá de seu Motion Plus: a Golden Carving necessita que você pressione 'A', movendo fisicamente as pontas tridimensionais do controle encaixando como as maçanetas espelhadas da porta gigante do Chefão do Calabouço!
+</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">Demon Lord Ghirahim</div>
+  <p>Na primeira parte desta primeira luta épica de chefe, Ghirahim andará até você levantando a sua mão nua vermelha radiante. Se tentar atacar feito cego sem técnica com a espada ele irá AGARRÁ-LA com a mão suja dele sem esforço, e a roubará de suas mãos se você não sacudir agressivamente para se libertar!</p>
+  <p><strong>Estratégia Parte 1:</strong> O "truque" é guiar a mão flutuante dele fingindo estar indo prum lado (digamos, posicionando a espada pela direita), e então no exato último centésimo de segundo, bater pelo flanco esquerdo oposto enquanto a mão dele demorar em acompanhar a reflexão física de seus golpes em formato isca!</p>
+  <p><strong>Estratégia Parte 2:</strong> Assim que tomar um bocado do próprio remédio, o vilão sacará sua própria cimitarra diabólica e negra! O combate fica frenético agora, sem pegadinhas. Ele invocará 5 lâminas e magias rubras para as jogar - corra! Se teleportará nas suas costas e nos seus pulmões se não andar pra trás. Ghirahim efetuará disparadas onde a única saída ou melhor opção é contra-atacar a investida dele com <strong>Shield Bash</strong> no milissegundo de colisão, seguido por incontáveis golpes brutais quando estiver enfraquecido.</p>
+</div>
+<p>
+  Com seu Inimigo enxotado, suba correndo os degraus e adentre o altar <span class="local">Skyview Spring</span> (Primavera Skyview) pegando sem pestanejar seu mais suado e primeiríssimo gigantesco <span class="item">Heart Container</span>!
+</p>
+
+<!-- ── CAPITULO 4 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap4">Capítulo 4: Retorno aos Céus e Eldin Volcano</h2>
+
+<h3 id="cap4-a">Skyview Spring (A Primavera Skyview)</h3>
+<p>
+  Nesta primavera (espécie de gruta da deusa com fonte de água) prazerosa, suba os degraus e você terá uma visão panorâmica da área. Se quiser uns trocados extras, use o Besouro sobre as pilastras da porta de entrada e cate <span class="item">20 Rupees</span>. Tem um brasão divino no altar, porém, antes de bater nele com a espada, jogue-se na água rasa e dê a volta pela parte de trás das costas da estátua lá do outro lado. 
+</p>
+<p>
+  Lá se esconde o <strong>Goddess Cube #3</strong>! Ative-o agora (ele despachará tesouros pra alguma ilha lá nos céus). Uma vez feito isso, fique em pé no pedestal de frente para a Estátua Gigante da Deusa no salão central e use o Skyward Strike (um raio com a espada) no emblema. A estátua irá falar telepaticamente e lhe confiará a mística <span class="item">Ruby Tablet</span> (Tábua de Rubi). 
+</p>
+<p>
+  Uma cutscene automática lhe devolverá ao lado de fora do Templo, no bosque.
+</p>
+
+<h3 id="cap4-b">De volta ao Bosque Profundo</h3>
+<p>
+  Agora que o primeiro templo repousa derrotado nas suas costas, ande em frente; o Kikwi vai chamar você. Converse com ele, e em seguida chegue na Bird Statue para gravar seu arquivo e usar a opção "Return to the Sky" (Retornar aos Céus).
+</p>
+
+<h3 id="cap4-c">Passeio no Céu e Upgrade Opcional</h3>
+<p>
+  Ao regressar para as nuvens, seu destino é, claro, <span class="local">Skyloft</span>. No entanto, é absurdamente recomendável voar ao redor nas ilhas flutuantes minúsculas do mapa para localizar e abrir os báu mágicos desfeitos pela magia dos três <strong>Goddess Cubes</strong> que acabamos de usar lá na terra firme. O baú derivado do primeiro Cubo lhe concede mais um espaço extra inteiro na sua Adventure Pouch (Bolsa de Aventura), e esse é um upgrade absurdamente crucial. Olhe o mapa (+) para ver onde eles caíram.
+</p>
+<p>
+  Terminando os extras, faça seu voo regular a Skyloft e mergulhe em direção à gigantesca estátua principal de lá.
+</p>
+
+<h3 id="cap4-d">Skyloft e a Tábua de Rubi</h3>
+<p>
+  Quando pisar novamente na sua cidade natal, não hesite e dirija-se à sala por debaixo da base da Estátua da Deusa Gigante. Assim que entrar no santuário vazio, cheque o Altar para inserir sua recente Ruby Tablet. Como antes, a magia ecoará nos céus rasgando um feixe colossal avermelhado de luz descendo às nuvens: o caminho para a abrasadora região vulcânica (<strong>Eldin Volcano</strong>). Saia do templo da estátua.
+</p>
+<div class="dica">
+  💡 <strong>Sidequest: Cristais de Gratidão!</strong>
+  Assim que sair da estátua de volta pro pátio de luz do sol, uma mãe aflita gritará por auxílio. Sua filha se perdeu. Aceite se quiser; esse encontro engatilha toda a <i>Sidequest de Gratitude Crystals</i> no jogo! Resolvendo os problemas dos aldeões, o morcego "Batreaux" vai te dar carteiras maiores, para portar cada vez mais dinheiro!
+</div>
+<p>
+  Antes de levantar voo, vá obrigatoriamente no <strong>Bazaar</strong> novamente, converse com o armeiro, e substitua seu podre escudo de madeira pelo valioso e novato <span class="item">Iron Shield</span> (Escudo de Ferro), senão seu escudo de madeira virará cinzas! 
+</p>
+<p>
+  Com seu arsenal, atire-se de Skyloft pro vácuo abaixo, invoque o Loftwing, mire na torrente Rubra no céu vermelho sangue e mergulhe para Eldin Volcano.
+</p>
+
+<!-- ── CAPITULO 5 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap5">Capítulo 5: O Vulcão de Eldin e o Templo da Terra</h2>
+
+<h3 id="cap5-a">Eldin Volcano (O Vulcão Eldin)</h3>
+<p>
+  Ao pousar aqui em baixo, <strong>equipe de imediato o Escudo de Ferro apertando o botão (-).</strong> Salve na Bird Statue perto e pise no caminho de rochas. Elimine a lesma de fogo de ChuChu Vermelho e olhe pro barranco da esquerda. Ali reside o <strong>Goddess Cube #4</strong>; caia lá embaixo, ative-o com um Skyward Strike. O chão adiante é puro rio de lava derretida, então escale a rocha de volta pro caminho firme. À frente você topará com a cômica raça toupeira <span class="npc">Mogma</span>, e lhe falarão da Zelda.
+</p>
+<p>
+  Margeie a trilha adiante, bata de espada em mais Fire Keese (Morcegos de Fogo) e aguarde pacientemente uma pequena represa de lava recuar (subir e descer) permitindo seu avanço para a esquerda. Entre lá na esquerda para um buraco e uma gruta rodeada de vegetações de <strong>Bomb Flowers</strong> (Flores Bomba).
+</p>
+<div class="dica">
+  💡 <strong>Dica de Flores Bomba:</strong> Nesse jogo, as bombas naturais podem ser colhidas pressionando e balançando. Treine jogar as Bombas ou ROLAR as bombas feito boliche pra estourar as pilhas de pedra obstruindo as 3 saídas desse cômodo! Tem até uma rocha num mezanino alto para você arremessar. Uma esconderá um ChuChu gigante, outra leva a um banco de repouso restaurador, e a última o segue na missão.
+</div>
+<p>
+  Vá para fora (estacionando na Bird Statue chamada Volcano East) para salvar. Desça pelo corredor escondidinho no canto e lance como boliche uma Bomba pra destruir pedras e rasteje pra faturar <span class="item">20 Rupees</span>. Volte ao percurso pra bifurcação. Vá para a esquerda primeiro para ativar o <strong>Goddess Cube #5</strong>. Logo em seguida vá na direita com outro Mogma. 
+</p>
+<p>
+  Você se deparará com os vermes de fogo <span class="inimigo">Pyrups</span> (espécies de tartarugas que cospem lava se escondendo sob pequenas frestas e tocas). Eles tentarão soprar fogo para prevenir seu avanço; rolando flores bomba de longe dentro da boca das tocas deles você os mata. Limpe o Pyrup, escale a borda. Esmague e estupre os exércitos da raça dos Bokoblins. Caia no piso. A brincadeira agora é matar Pyrups escondidos DENTRO dos grandes crânios gigantes arremessando (encestando) a bomba na abertura de cima dos crânios, matando o bicho na explosão!
+</p>
+<p>
+  Lá na frente tem uma ponte gigante de osso para a esquerda, ou paredes para subir a direita. Escolha subir a direita pro topo, onde fica um quarto de repouso e mais um Pyrup num crânio fechado: espanque o monstro batendo a espada para cima! Pule pro vácuo no precipício onde estava e voe pro ressalto pegando um cobiçado <span class="item">Piece of Heart</span> na aterrissagem.
+</p>
+<p>
+  <strong>A Ponte de Ossos:</strong> Pule ao nível inicial de volta, vá até a ponte de ossos. Outro Mogma ressaltará uma pedra gigantesca no formato de ralo que drena ou tranca o rio de magma (uma "rolha"). Volte para onde tem a Flor Bomba na ponte de ossos que você passou agora e jogue no estilo "Boliche Forte" a bomba de modo que role A PONTE INTEIRA pelo chão e caia exatamente de quina destruindo a pedra e esvaziando toda a represa de fogo rodeando a coluna. Maravilha.
+</p>
+
+<h3 id="cap5-b">Mergulho de Queda Livre</h3>
+<p>
+  Vá pela ponte cruzando, desça no piso do que foi a barragem. Olhe nos dutos de ar na beira do barranco e atire-se em um deles (o da direita). O vento vai impulsionar você alto para uma rampa gradeada sobre um <strong>FOSSO ENORME E GIGANTESCO!</strong>
+</p>
+<div class="dica">
+  💡 <strong>Loot no Mergulho:</strong> Preste extrema atenção e não pule às cegas ainda! Se olhar por todas as quinas do fosso tem muitas pedras escondidas nos recortes da rocha antes do chão, incluindo o <strong>Goddess Cube #6</strong> em uma beirada minúscula, baús (Eldin Ore) e pedras pra explodir com flores nas estantes das paredes. Se você errar ao pular em queda livre, tem um respiradouro gigante no fundão do poço ao leste para ser soprado pra rampa de metal em cima novamente e tentar quantas vezes preferir!
+</div>
+<p>
+  Chegando sãos e salvos na planície inferior do poço, grave na estátua e avance pela gruta. O Mogma pedirá que purgue toda a ralé Bokoblin ao lado; dê uma canseira violenta em todos os inimigos ali dentro — a dica é priorizar escalar primeiro os tocos de madeira eliminando o líder chato dos berrantes Bokoblins que revive e convoca os demais sem fim! O Mogma recompensará todo esse extermínio sangrento com um dos itens cruciais desta Dungeon: <span class="item">Digging Mitts</span> (Luvas de Escavar)! As luvinhas toupeiras te liberam de chafurdar os punhados circulares de terra (X) espalhadas na franquia para escavar Ruppes infinitos, insetos, ou passagens vitais! E já tem uma ali pra você experimentar de graça (escave, sairá uma lufada de vento para se jogar e subir nela).
+</p>
+<p>
+  Nesta subida nova, vá ao caminho da esquerda. Escave outra fenda de ar na rocha. Escala, sobe a estante, despache um mero Bokoblin em um buraco de índio de argila, note que tem três frestinhas ou tobogãs. Se enfie no tobogã do meio que você derrapará deslizando e pousando caprichosamente bem na face de um baú guardando <span class="item">Eldin Ore</span> (Minério de Eldin).
+</p>
+<p>
+  Agora, usando as lufadas, se dirija pro caminho da sala grande ao NORTHEAST (onde os Pyrups bloqueavam as saídas com rajadas de lava que o Besouro passava longe da distância para matá-los). Bomba (com boliche) em todos os bichos Pyrup enfiados. A parede norte lascada? Exploda com a Flor Bomba e colete seus preciosos <span class="item">100 Rupees</span> num Baú mágico!
+</p>
+<p>
+  Vá para a região final mais a leste da caverna, escave, pule no vento, use a lufada mestre pra <strong>Sair de Volta ao Ar Livre das Montanhas!</strong> Perto dali a ponte vai aparecer sob gritos no meio de Mogmas, pise pelo vão dela com segurança e use a estátua (Volcano Ascent). Tem um peito de madeira ali, bata nas pedras entre duas barracas e exploda pra revelar <span class="item">20 Rupees</span>.
+</p>
+
+<h3 id="cap5-c">Escalada da Encosta Mortal e as Chaves Partidas</h3>
+<p>
+  Tome o trecho esquerdo e aniquile Keese. Corra veloz numa subida íngreme e arenosa escorregadia. Pouse no mini pátio da rocha no limiar. Derrote o Bokoblin e empurre/jogue uma bomba morro arenoso ABAIXO a explodir e encurtar de forma épica o trajeto anterior de seu caminho do início poupando tempo na morte! Elimine com Slingshot o arqueiro arremessador em sua colina longínqua que desce grandes pedregulhos.
+</p>
+<p>
+  Escale tudo novamente ao topo. Tem um acampamento no topo cheio de Bokoblins. Veja a torre de madeira onde reside o Líder Arqueiro. Jogue uma mera bomba lá, explodindo as toras, derrubando a torre em uma utilitária ponte esmagadora sobre os Bokoblins (exploda uma parede lascada no flanco esquerdo entre tendas, tem o minigame "Thrill Digger" lá, volte se curtir apostar e garimpar Rupees mais tarde!). Atravesse a ponte-torre, escale montanhas pela vinha.
+</p>
+<p>
+  Subindo o longo e infindável novo declive de terra escorregadia cheio de mini pátios. Na segunda ou terceira rocha de repouso, equipe novamente seu lindo Estilingue, porque agora são os malditos Bokoblins de pedra pra tentar amassar o Link. Atire um tiro leve em qualquer capanga assim que ele "elevar" e tentar segurar um pedregulho pro alto acima de sua cabeça com as mãos suadas; a pedra gigante cairá em suas cabeças matando todos sem gasto calórico! Alcance o patamar supremo do fim de encosta e depare-se com as doces portas do temível <strong>Earth Temple</strong>! 
+</p>
+<p>
+  Só que o portão gigantesco não abre! Conversando com o duo dos Mogmas, Fi fará as <strong>5 Partes que compõem o Chave do Templo</strong>, dispersas, brilhar no seu radar do Dowsing (Mire C e vasculhe o local!). Tem areia escavável em todo os 10 quilômetros daqui. Escavando:
+</p>
+<ol>
+  <li><strong>Key Piece #1:</strong> Diretamente num barranquinho na lateral esqueda exterior do Templo. Ali ao lado cave de novo num ponto pro ar soltar um vento, lance a bomba (a flor bomba será alçada pros ares) pra explodir a parede superior na pedra bruta, revelando nada menos que o <strong>Goddess Cube #7</strong>! Voa e dê um belo Skyward Strike!</li>
+  <li><strong>Key Piece #2:</strong> Volte ali pro gramadinho com matinhos de flores bombas. Olhe pelo parapeito pra uma torre de madeira no buraco abaixo de um abismo. Atire, ou encaçape um boliche suicida de Bomb flower na cabeça dos coitados (ou na ponta da torre). Assim que demolir a torre pro precipício, atire-se e escave, e pegue a Chave #2.</li>
+  <li><strong>Key Piece #3:</strong> Lembra onde caindo do pátio você desceu o monte cheio de ladeiras íngremes? (Sim, desça o monte de novo no precipício). Num patamar nas pedras, olhe no lado da terra esquerda cheia de rocha fofa e paredes quebradiças. Boliche lá em mais buracos e cave o Key Piece #3 nas pedras escondidas na ladeira das pedras no canto do tobogã!</li>
+  <li><strong>Key Piece #4 & #5:</strong> Suba TUDO de novo pros portões. Caminhe todo o longo espaço ao LESTE do templo batendo com sua lâmina em todo inimigo infeliz no flanco direito. Quebre a última torre (bombas), passe por ela. Desça ao sul pela lava se equilibrando, o <strong>Goddess Cube #8</strong> ficará ofuscado por ali à leste! Feito as bagagens celestes ativadas, passe por Keese a leste; ande contornando a rocha pendurado, caia. Pule, não tente atravessar onde a ponte arrebentou (o abismo desabado)! Ao invés disso, desça dependurando das mãos pelo beiral da calha esquerdo, balançando de cipós (dash) escalando a pedra para cruzar a enorme montanha ao redor do fim pro abismo!</li>
+</ol>
+<p>
+  Você atracará à sala calorenta! As labaredas castigam e se queimar, corre logo pra primeira fresta no flanco esquerdo de túnel/tobogã (de 3 aberturas). Na rampa, deslize. Escorregue (Bota ou <i>Sailcloth B</i> para amortecer se voar!) pro duto à Esquerda. Tem ali embaixo um recuo abrigando o <strong>Goddess Cube #9</strong>, bata nele. Desça (deslizando de tobogã) tudo à esquerda até pular pro estande do fundo! Pule pra parte da rocha das águas rasas ou do pedregulho de Bomba, e bata a bomba na barragem de lava e a drene. Jogue a flor de boliche e arrebente a parede oculta da terra ali! Pronto: <strong>Key Piece #4</strong>. Desse fundo jogue uma flor no começo subindo escada e exploda pro Atalho do meio (pula as subidas). E pro duto escorregar DE NOVO do tobogã mestre no calor do cão até mirar no duto ventoso de AR (da Direita/Meio) dessa vez pra <strong>Key Piece #5 (A derradeira).</strong> Escorregue pro fim, voa nas caldeiras e use toda a ponte gigante recém forjada pro templo pra reaver o Portal Maior com suas Peças montadas na porta, entrando no Templo Terrestre!
+</p>
+
+<h3 id="cap5-d">Earth Temple (Templo da Terra)</h3>
+<p>
+  Dentro do perigoso Templo, pule nas pedras na lava adiante antes de sucumbir afundando, use as lufadas matando os Keese. O Mogma pedirá apoio na sala. Espere os jatos de fogo darem uma folga para escalar (plataformas de rocha preta sobem nas explosões de lava por baixo pra te erguer!) nas paredes. A ponte grande levantou, o que faremos?! É trivial: pique o cordão grosso da direita segurando a roldana da ponte com sua espada, e jogue seu Besouro Mecânico (Beetle) para roer o cordão oposto da esquerda! Ponte no chão. 
+</p>
+<p>
+  Corte o monstro Lizalfos perigoso, atire de estilingue em mais uma rocha cheia de Flores Bombas para a estrutura ceder no magma. Um olho cego esférico enorme (Feito de PEDRA BRUTA) rolará até seu pé e te servirá como BOLA DE EQUILÍBRIO NA LAVA. Sim: ande em cima da Pedra como palhaço de circo rolando o olho (o pé do Link controlará o eixo esférico pro rumo escolhido no rio incandescente!) sem cair, até o mogma encurralado na ponte quebrada na direita extremo e leste!
+</p>
+<p>
+  Ledd o Mogma te prometerá um belo presente se achar os explosivos dele perdidos. Engatinhe o buraquinho e exploda. Você entrará num ring de luta onde será fatiado por uma <strong>DUPLA MORTAL de Lizalfos ao mesmo momento</strong>. (Contra-ataque ou defenda um pouco, ataque se esquivando ou os faça tombarem na bomba). Abraças a vitória e colete o fabuloso presente no Baú: Uma <span class="item">Bomb Bag (Sacola de Bombas)</span>! Leve ao Ledd e surpreenda-se: o Mogma deixará o item para você eternamente de brinde em conjunto de +5 estopins! 
+</p>
+<p>
+  <strong>A Chave de Mapas:</strong> Deslizando em pé no Olho de Pedra mágico pelo mar encandescente: vá para oeste. Jogue flor-bomba para explodir estátua num jatinho quente, escale ao tesouro (Minério). Depois, navegue para o pilar central com a rocha azul. Suba a escadaria da rocha pátio à esquerda matando o Lizalfos para explodir e seguir adentro pro Oeste Extremo. A sala Oeste se reduz a pular em plataformas nos chafarizes e pegar o <span class="item">Dungeon Map</span> em um glorioso baú ao centro, antes de regressar em fuga à praça azul!
+</p>
+<p>
+  <strong>Mecanismos pelo Mar Rubro:</strong> Pise seu Olho Esférico e rode o lado oposto pelo Lado Ocidental da praça, descendo a passagem oculta passando as estruturas inferiores. Num recuo na parece central, bata (chocando a BOLA do globo em que o link cavalga!) contra um botão esférico encrustrado lá, fazendo pontes e caminhos de plataforma se reorganizarem. Agora vá até o lado Oriental Leste da Praça Azul gigante: observe uma rachadura sutil numa das paredes, atire (com as MÃOS) duas Bombas suas lá (a Bomb bag possibilita guardar flores de bombas de fora segurando Botão B pra elas, o truque supre os baús!). Estoure! A parede oculta quebrará! Entre derrapando nas curvas fechadíssimas (ou seja, se queime umas duas vezes infelizmente), para achar o painel que empurra outro trecho do cenário pelo mecanismo do chão. A portinhola das Grades e um monte de rochedos obstruindo serão liberados nos botões e cordas usando um inseto Voador Besouro na frestinha pelo teto leste. A Passagem Maior do Olho foi criada por trás para o Norte!
+</p>
+<p>
+  O caminho longo te trará a frente do domo gigantesco subindo a estrutura circular para o norte no templo! Encarem a subida arenosa infernal: Corra para a encosta. Mas cuidado; pedras brutais irão despencar pra te aplastar. Use a primeira fenda ao lado esquerdo pra respirar! Em seguida escale o duto, contorne a escadinha, e jogue em arco longo tipo encestando pela estante que você tá a Bomba perfeita num barranquinho e rachaduras com entulhos na frente! Os entulhos sumiram revelando uma mini valeta extra direita na rampa de terra. Caia lá em baixo no meio, faça boliche, respire. Corra em direção dessa exata valeta de repouso recém criada pelas pedras caídas pra ter folego com <span class="item">Stamina</span> e subir a Ladeira inteira para salvar e achar o <strong>Grande Portão Dragão</strong> bloqueando a arena de fogo e a chave escondida. Suba a estrada montanhosa labiríntica acima para achar: a lendária <span class="item">Dragon Sculpture</span> (Escultura do Dragão)!
+</p>
+<div class="dica">
+  🚨 <strong>FUJA!</strong> Ao tentar se apossar do baú, uma Pedra Cinética Redonda Absurda tipo Indiana Jones esmagadora descerá com velocidade doida ladeira abaixo pra aniquilar você! Não bata em nada, apenas desça e despenque o morro sem errar de caminho pulando pro poço ao fim com força e velocidade e stamina pra cair em solo seguro sem se achatar! A Bola tapará milagrosamente a boca do Dragão Gigante cessando o mar de lava descendo do portão final. Encaixe a Dragon Sculpture (girando o braço e Wii Remote fisicamente encaixando a estatueta nos slots) na maçaneta gigantesca para encarar o Chefão!
+</div>
+
+<h3 id="cap5-e">BOSS: Scaldera (A Fera Piroclástica)</h3>
+<p>
+  No cume do calabouço encontra-se Ghirahim pra conversar mais baboseiras. Mas dessa vez, a "Bolinha" redonda vai inflar monstruosamente se tornando <strong>SCALDERA</strong>: um besouro gigante coberto em fogo, casca rochosa negra vulcânica invulnerável.
+</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">Scaldera</div>
+  <p><strong>A Mecânica:</strong> A luta é numa rampa. Se ele for se rastejando ou empurrar você, se esquive ao canto. Scaldera subirá a colina cheia de Flores Bombas nos extremos; não tem pra onde o Boss escapar e ele explodirá batendo em bombas, rolando desmaiado ladeira abaixo com carapaças se desintegrando feito rocha podre! Corra ao pé dele ladeira abaixo!</p>
+  <p><strong>Para causar Dano:</strong> Ao tentar reerguer o corpo no pé do morro, o monstrengo abrirá a bocarra pra inflar o papo tentando cuspir dezenas de granadas e bolas de fogo. No EXATO momento que ele "respirar ar" e chupar oxigênio pra sua boca de Sapo (ele puxará lufadas), mande uma bela bomba direto GOELA ABAIXO nele, atordoando-o. O Monstro se desmontará perdendo as couraças negras! Aparecerá o Grande Único Olho Amarelado sem proteção alguma. Ataque-o enlouquecidamente até as forças vulcânicas reviverem. A casca reaparece e o Boss corre a ladeira novamente! Repita atirar granadas ladeira abaixo e a mecânica das explosões de boca na descida umas par de vezes!</p>
+  <p>Seja sagaz: evite fogo e colete a recompensa divina de mais um <span class="item">Heart Container</span> e triunfe! Suba e abra os Portões para o templo menor e reze!</p>
+</div>
+
+<h3 id="cap5-f">Earth Spring</h3>
+<p>
+  Nesta fonte do santuário, desfrute da conversa épica com Zelda, ImPa e os insultos. Dê com a espada (Skyward) a magia sagrada no pedestal para agarrar a <span class="item">Amber Tablet</span> (Tábua de Âmbar) contendo suas pistas cruciais sobre a terceira localização, as escaldantes Areias do <strong>Lanayru Desert</strong> (Deserto de Lanayru). Salve a aventura, e suba à sua ave até Skyloft, descansando com prestígio seus combates pesados!
+</p>
+
+<!-- ── CAPITULO 6 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap6">Capítulo 6: O Deserto de Lanayru</h2>
+
+<h3 id="cap6-a">Lanayru Mine (Mina de Lanayru)</h3>
+<p>
+  Tendo comprado e equipado tudo, voe até a coluna de luz amarela nos céus que você liberou para entrar na Mina de Lanayru. 
+</p>
+<p>
+  Ao pousar, desça pro piso inferior. Contorne a plataforma onde você caiu por trás para achar o <strong>Goddess Cube #10</strong>! Ative-o e salve o jogo.
+  Vá para a caverna adiante. Mate os morcegos Keese e empurre o carrinho de mineração enferrujado pelos trilhos até ele cair da beirada. Mate os ChuChus Amarelos (elétricos) e puxe/empurre esse mesmo carrinho encostando-o na parede oposta, para subir nele e pular no patamar superior. No canto direito empurre o segundo carrinho de mina até o fim do trilho na parede e entre na próxima sala.
+</p>
+<p>
+  <strong>Timeshift Stones (As Pedras do Tempo):</strong> No centro do salão haverá um cristal luminoso peculiar. Essas são as Timeshift Stones. Ao golpear (ou atirar nelas), elas criarão um campo de força que distorce a área em volta levando-a exatos mil anos no passado, na Era Próspera! A grama viva surgirá, e as máquinas e robôs voltarão à vida! 
+</p>
+<p>
+  Bata no cristal de pedra azul. Os robôs e a área vão reviver. Pule dentro do carrinho agora funcional e ele andará para a salinha do norte, onde o baú tem <span class="item">20 Rupees</span>. Volte com o carrinho e agora ande para a direita e entre no carrinho de mina número 2 que você havia empurrado antes. Ele cruzará para o sul. Ao descer na nova sala, cate do chão a cobiçada <span class="item">Ancient Flower</span> (Flor Ancestral). Ela será hiper necessária pro futuro.
+</p>
+<p>
+  Exploda as pedras da parede revelando um segundo cristal de Tempo. Bata nele. Jogue (boliche) uma bomba na cesta de vime que a pequena estátua carrega; explodirá e ela tombará, liberando a porta atrás dela. Corra (dash) rapidamente cruzando os trechos de areia movediça (Sinksand - ela drena estamina incrivelmente rápido e te engole se parar). Use Bombas arremessadas sobre as cestas das estátuas fincadas ali na areia para usá-las de plataforma para recuperar fôlego. Em uma parede paralela há um túnel contendo baú de <span class="item">20 Rupees</span>.
+</p>
+<p>
+  Cruze para o salão grande. Haverá peixes chatos da areia (<span class="inimigo">Electro Spumes</span>) que atiram bolas de choque. Atordoe eles atirando com o estilingue, ou os mate jogando bombas na areia movediça em cima deles. Corra de ilha em ilha descansando, puxe um carrinho de mina pro fim do trilho, suba a duna arenosa matando mais Keese de eletricidade, reabasteça Bombas numa flor isolada. Role bombas como boliche atravessando o corredor de areia pra destruir o entulho bloqueando a ilhota do meio! Mande o Besouro bater no cristal temporal na ilha limpa, mudando areia para grama viva! Agora use o carrinho para ser transportado a uma nova área nortenha.
+</p>
+
+<h3 id="cap6-b">Lanayru Desert (O Deserto de Lanayru)</h3>
+<p>
+  Salve e desça o morro. O monstro grande elétrico de concha roxa redonda na areia chama <span class="inimigo">Ampilus</span>. Defenda-se com Shield Bash se ele atropelar, para o tombar, em seguida bata-o de espada. Rume ao norte pras três grandes jaulas gigantes na areia firme. À direita tem um baú alto, suba a duna ruída para pegar Tumbleweeds (Emaranhados de mato seco). 
+</p>
+<p>
+  Suba pela jaula mais baixa para a do meio (a que tem furo no teto). Jogue uma bomba no buraco para explodir uma pedra internamente, e jogue SEGUNDA BOMBA no buraco para acertar e ativar o Cristal do Tempo oculto dentro! A área será envolta no passado. Os robôs acordarão e os Bokoblins de Ossos virarão <span class="inimigo">Technoblins</span> (eles defendem com armas de choque laser). Derrote os monstros todos para abrir a outra jaula. O robozinho agradecido fará um incrível Upgrade para você: Seu item evoluiu para o magnífico <span class="item">Hook Beetle</span> (Besouro Gancho), agora ele possui garras capazes de pegar Bombas soltas em flores lá de cima e arremessar bombardeios tipo Drone voador sobre os inimigos na areia em baixo!
+</p>
+<p>
+  Ao norte daqui tem um imenso mar de areia movediça e uns pássaros de bombardeio (<span class="inimigo">Hroks</span>) sentados em totens. Voe seu <i>Drone (Hook Beetle)</i> com bombas capturadas sobre a cabeça deles para assassiná-los sem dó antes de pisar lá. O mar de areia agora é vasto demais. Qual o pulo do gato? Use o Besouro Gancho segurando bomba, e jogue uma bomba em cima dos Ampilus elétricos patrulhando a areia! Quando o bicho morrer ele deixará a carapaça imensa dele de caranguejo boiando sobre a areia. Você usa o pulo do Dash subindo nela feito uma plataforma balsa, onde sua estamina não desgasta e você respira para saltar pro próximo pedaço! Use essa tática e no flanco sul ali ative o sagrado <strong>Goddess Cube #11</strong>!
+</p>
+<p>
+  Vá avançando para o Norte fazendo essa tática de usar a carcaça de bicho morto até chegar a uma nova areia movediça em formato rio. Dessa vez a correnteza da areia está empurrando você pro abismo esquerdo. Mate o bicho, pule na carapaça dele, e fique parado SURFANDO a carapaça pela esteira rolante de areia enquanto ela desce. Desça os degraus e adentre a nova região, não sem antes jogar o último carrinho fora pro atalho.
+</p>
+
+<h3 id="cap6-c">Temple of Time (Templo do Tempo)</h3>
+<p>
+  Grave, chegue na beirada dos trilhos, atire ou mande um Besouro até a ponta rochosa do centro e ative a Pedra do Tempo! Mate o Bokoblin chato e suba no vagão que vai magicamente se religar atravessando a fenda. Daqui: Mande o Besouro de Gancho por dentro do pequeno buraco de túnel (acima dos trilhos) para bater de frente no switch cristalino rosinha para abrir as grades. Mande mais um Besouro equipado de bomba e lance dentro da cratera central pra ativar A Pedra de tempo interna e criar o pasto verde com um robô e dois monstros Technoblins que baterão em você. Pule no Carrinho do vagão novo e passe pelo meio; mate os Bokoblins. 
+</p>
+<p>
+  Você achou a porta massiva do Templo do Tempo. Gorko o goron tá lá, e as portas estão lacradas de destroços intransponíveis! A dica é que a <strong>Lanayru Mining Facility</strong> tem caminho por debaixo dos escombros! O robô amigável modificará seu Mapa aperfeiçoando-o mostrando trilhas e estradas pavimentadas ocultas por debaixo de TODA A AREIA DE LANAYRU! Sim, agora basta seguir as linhas invisíveis marcadas no mapa sem se afogar! 
+</p>
+<p>
+  Desça ali pra área, bata com o Drone Beetle no cristal pra recuar no tempo novamente. Entre de vagão e puxando espada carregada em luz pelo carrinho em movimento! Ao passar e dar de cara com ele no morro lateral: Dispare o Skyward Strike acertando e ativando o <strong>Goddess Cube #12</strong> enquanto o vagão anda a mil! Saia pro Deserto novamente.
+</p>
+
+<h3 id="cap6-d">Lanayru Desert: Os 3 Geradores de Energia</h3>
+<p>
+  Use o seu mapa atualizado que o robô cedeu. Observe as listras pavimentadas (agora você pode correr e ficar em pé em certas trilhas da areia sem afundar) marcando o percurso pra a instalação principal, matando um pássaro atirador. Salve e chegue no centro que controla os três nós de força trancados do gerador no mapa:
+</p>
+<ol>
+  <li><strong>Nó Norte:</strong> Bombe a porta e entre. Passe pela beira da areia correndo, bata na Pedra de Cristal revelada num monte de entulhos de pedra no centro do chão que o Besouro deve explodir! Com as areias zeradas, pegue as baterias redondas dos ex-inimigos Ampilus em formato <span class="item">Ampilus Egg (Ovo)</span> de choque. (Puxe, esbarre o ovo até levá-lo empurrando à caçapa / plataforma pra erguer o portão metálico. Dê espadada pra inserir o cabo e gire o mecanismo para ativar o 1º Ponto Cego!).</li>
+  <li><strong>Nó Sudeste (Stone Cache):</strong> Volte usando as teias viárias ocultas da areia; quebre e entre pela estátua. Mesma coisa; exploda e revele o cristal mas AINDA NÃO O BATA! Derrote o Ampilus para sua carapaça sobrar; suba nela que estará navegando, surfando nela (com dash pra equilibrar) vá até ao fim distante norte do portão da grade. Lá em cima, atire (com o besouro) no Cristal! O mundo altera, a água flui, a sala ganha vida. Pilote e agarre com a garra do Besouro-Gancho um ovo de Ampilus lá de baixo e solte na caçapa ao seu lado pro portão. Entre, gire a trava da tomada! 2º Gerador ativado.</li>
+  <li><strong>Nó Sudoeste:</strong> Use o deserto todo caminhando pra oeste, exploda duas estátuas com Cestas e quebre a parede escondida de pedra rachada para desvendar uma Pedra Temporal! Ative; os pátios ficarão de grama, mate os Bokoblins. Insira e ative a última chave.</li>
+</ol>
+<p>
+  Volte correndo com o gerador central. Verifique no centro das máquinas girando os mostradores: Fogo no meio, Água na Esquerda (3 vezes) Raio e Trovão pra Direita (4 vezes). Encaixe perfeitamente e <i>voilà</i>: Uma colossal Masmorra Máquina brotará da areia engolindo os céus! É hora da Indústria. Suba, penetre a masmorra!
+</p>
+
+<!-- ── CAPITULO 7 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap7">Capítulo 7: A Fábrica (Lanayru Mining Facility)</h2>
+
+<h3 id="cap7-a">Caminho da Esquerda: Obtendo O Soprador (Gust Bellows)</h3>
+<p>
+  Salve nos pássaros. Limpe escorpiões da sala. Use seu besouro voador com gancho pescando bombas da planta de cima na cestinha lá ao longe e destruindo-a para se equilibrar correndo na areia pela esquerda à cesta estourada e puxando com o salto a alavanca da parede que levantará a grade mestre!
+</p>
+<p>
+  O hall dos pátios, empurre as grandes caixas para poder ir e vir, salte nas beiradas com caixotes empilhados (use o besouro de gancho pra atirar uma bomba explodindo a pilha pra passar!) e pule até chegar no Baú contendo a <span class="item">Small Key</span>! Volte, e desça o caminho destrancando as portas do Leste (East).
+</p>
+<p>
+  Sala dos tapetes voadores sujos ou Correias de bagagem rolantes com os balões elétricos Froaks. Cuidado; bater no balão faz ele ricochetear nas paredes parecendo bilhar, e quando estourar causará dano grave e elétrico massivo. Limpe as trepadeiras infestadas de escorpiões com boliches antes, suba. Voe seu inseto pra mandar bomba no caixote segurando a escada final e destrave um super cristal roxo milenar lá em cima batendo o inseto mecânico. A Indústria voltará aos velhos tempos. Tudo elétrico! As <span class="inimigo">Estátuas Beamos</span>, tótens lasers, despertarão da soneca milenar pra ti trucidar com laser e serras. Elimine cortando a coluna vertebral delas com fatiamento horizontal de espada para deixá-las curtas, e dê uma ESTOCADA (Thrust frontal) violenta dentro de seus globos oculares saltados vermelhos e veja os ciborgues tombarem em explosões! Corra pela esteira infinita de trás para frente pegando as maçãs verdes da esteira de energia para não ser arrastado.
+</p>
+<p>
+  Suba correndo em mais uma contra-esteira no túnel superior, destrua o totem, acione a chave da tranca na parede na cara da estátua pulando, caia na esteira debaixo e entre no corredor a noroeste que se abriu. Chegue à ponte das tartarugas que inflam e as empurre com boliche estilingue antes que morra pra passar pra direita oculta que abriga o Baú Mestre com o cobiçado e inestimável Item Principal: <span class="item">Gust Bellows</span> (Fole de Vento ou Secador Gigante). A arma dispara um jato constante de turbina de ar impulsionada pra você varrer TODAS E QUALQUER pilhas de areia fofa e lixo de dunas acumulados deste calabouço e do deserto de Lanayru da existência! Use isso inclusive para arrastar escorpiões pros penhascos infinitos!
+</p>
+
+<h3 id="cap7-b">A Era do Secador: Navegando na Indústria</h3>
+<p>
+  Vá soprando a sala toda de toda sujeira (abrindo um baú surpresa de ruppe!), e no meio do sopro derrube os insetos do pátio pra pular; empurre um trambolho. Volte pra sala da entrada usando o arruinado pátio (Soprando todas as dunas gigantes do portão central que impedia o retorno à primeira câmara de toda a dungeon!). Desça; limpe dunas para ativar o peso/chave do piso que liberta os domínios do oeste (Oeste). Vá Oeste.
+</p>
+<p>
+  Corra nos chafarizes até a montanha do fundo. Há um morro gigante; varra as areias revelando do meio dos grãos o Cristal Roxo de Tempo escondido! Uma tijolada do estilingue nele transformará todo este maquinário a vida! As hélices das plataformas móveis do precipício começam girar! Assopre as engrenagens centrais ("Vanes") para gerar impulsos no vento, impulsionando e deslocando toda essa plataforma (feito uma gôndola) pros trilhos do sul na beirada da escadinha à chave da estátua. Atire e mire (assoprando ar contínuo da sua arma de vento!) nos Moinhos e Cata-ventos pendurados pelas portas pras trancas suspenderem-nas aos céus. Mova as gôndolas girando o mecanismo do ar no centro dos palcos, abata as Torres Ciborgues, abra portões, detone o ciborgue Voador Atirador ("Sentrobe", que repele ataques com espelhos de choque; apenas de Shield bash com escudo na cara dos discos que ele arremessar sem dó!).
+</p>
+
+<h3 id="cap7-c">Mapa do Calabouço e Armos</h3>
+<p>
+  Destranque mais cata-ventos (assoprando com ar). Uma saleta fecha sob seus ossos; varra as areias encobrindo e limpe insetos empurrando rochedos até um paredão metálico com janelas de ferro. Sopre ar nas aberturas e o Cristal se exporá pra um Estilingue afiado (o tiro deve encaçapar)! Tudo gira vivo de novo... Só que estátuas diabólicas indestrutíveis "Armos" pulam pra devorá-lo! Elas possuem cataventos de ar nas suas testas; atire rajadas no catavento da cabeça com seu fole (Gust Bellows) abrindo a boca e dando Estocadas furiosas com sua Espada nos grandes diamantes rosados em seus estômagos espetando suas almas! Mate Armos para o portão erguer pro lindo Baú do <span class="item">Dungeon Map</span>!
+</p>
+
+<h3 id="cap7-d">Esteiras Ocultas</h3>
+<p>
+  Use o recém pego Mapa do Calabouço agora! Você descobrirá que na extensa câmara deserta (no oeste) há esteiras transparentes escondidas embaixo dos grandes lagos de Areia movediça! Se atire nelas de forma segura orientando-se cegamente pelo Menu do Map (+). Você vai fuçar buracos para engatinhar pela lateral esquerda nas bordas rochosas, explodindo areias pra desvendar baús paralelos. Ande por este labirinto encoberto sem afundar pra subir num novo saguão do leste onde seu Fole (arma de ar) revelará por completo botões do solo (após espancar um tsunami infindável de areia tapando e desenterrando os quadrados certos nas proximidades da subida do portão e cata-vento).
+</p>
+
+<h3 id="cap7-e">Os Carrinhos de Fenda Temporal</h3>
+<p>
+  Você chegará em uma garagem onde o carrinho da mina e os cascalhos transbordam de minério mágico! Uma Fenda Mágica do Tempo se assenta lá dentro do vagão! Golpeie-o com sua arma para reviver o raio ao redor de somente a Aura de onde ele transita. Ele andará no trilho iluminando e transformando magicamente tudo que ficar dentro de seu brilho elétrico. Siga-o a pé de perto para usá-lo como "lanterna" da era passada, se pisar ou correr fora do rastro amarelo de campo de força dele... Cairemos das bordas na perdição temporal invisível! Siga o seu vagão mágico desviando dos inimigos reanimados (e dos raios), mandando rajadas de AR com sua máquina pros cata-ventos de portões pesados nos cruzamentos subirem à força a tempo pro seu vagão não se esborrachar fechado!!
+</p>
+<p>
+  Repita a corrida mágica atrás de outros vagões, abrindo atalhos, matando Totens a milésimos da vida real. Cruza pro Leste e encare câmara onde vento te arrasta na beira do abismo. Pule à frente de caçapas de cestas jogando as Bombas pelas caçapas saltando até outro cascalho/areia mágico onde uma segunda pedra se entoca! Três Totem Torres de Laser bloqueiam o desfiladeiro... Varra e voe até uma plataforma, e se dirija aos painéis na parede nas três Cestas em linha no final. Insira bombinhas neles, acerte pelo painel a pedra rosada no <strong>padrão rústico pintado</strong> que os cartazes mostram pelo caminho: <br><i>(Esquerda, Direita e Centro / "2 3 1" etc)</i>! Isso deslacrará o portal que guarda os tesouros e relíquias do templo, permitindo faturar o <strong><span class="item">Ancient Circuit</span> (Circuito Ancestral)</strong> - o "Golden Carving" industrial para girar nas portas do Chefe (Boss Key)!
+</p>
+<p>
+  Fugindo para a Bird statue na rampa do Chefe, ligue o derradeiro carrinho final pra acompanhá-lo voando (e atirando cata-ventos simultâneos) escapando das ventanias laterais mortais até encaixar (Pressionando 'A') o circuito na formidável porta eletrônica final gigante.
+</p>
+
+<h3 id="cap7-f">BOSS: Moldarach (O Aracnídeo Milenar)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">Moldarach</div>
+  <p>Enfrente a escorpião rainha do Saara. Uma batalha colossal que usará 100% de precisão direcional do seu braço! </p>
+  <p><strong>Fase 1 - As Garras (Pinças):</strong> Ela avançará com duas gigantescas garras escancaradas cheias de areia. Em seus núcleos pulsão belos globos oculares gigantescos perfeitamente saudáveis. Não dê cortes loucos e burros ou os braços bloquearão machucando e triturando sua espada te agarrando na tenaz infernal. Se o punho dela se abrir "horizontalmente" deitada igual uma porta normal = efetue e rebata um exato golpe idêntico <strong>Corte Horizontal!</strong> Se os dentes da pinça arreganharem igual uma boca de crocodilo (verticalmente pra cima) = ataque instantaneamente com <strong>Corte Vertical</strong> de cima pra baixo! Ela morrerá aos poucos quando destruir com as perdas dos dois imensos braços decepados caindo ao redor de si sangrando!</p>
+  <p><strong>Fase 2 - Escavação nas Sombras:</strong> Enfurecido de dor na alma, o insetão correrá ensandecido soterrando todo seu chassi diabólico nas calhas da duna da arena sumindo do mundo visual! E agora? Calma, empunhe a maravilhosa Bazuca Voadora <i>(Gust Bellows)</i> do seu arsenal nas mãos! Persiga a poeira e rastros na área que ondulam e salientes sob a superfície de areia onde ele camuflado foge! Assopre rajadas extremas destelhando areia de seus cascos até arrancar (esvoaçando pelos ares!) sua tampa dorsal, jogando-o pra fora brutalmente indefeso da trincheira! Seu olho magno de ciclope central despontará no lombo! Pique frenético dezenas de estocadas frontais estourando sua catarata no globo, e mandando a peste dos desertos pro inferno eternamente e recebendo a chuva estelar de diamantes e corações!</p>
+</div>
+<p>
+  Abocanhe com delírios de conquista o majestoso e quente <span class="item">Heart Container</span> do templo. Suba o trem pelo vagão usando as engrenagens voadoras e entre de fininho no corredor da cutscene fenomenal fora da Instalação Mineira!
+</p>
+
+<!-- ── CAPITULO 8 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap8">Capítulo 8: O Aprisionado (The Imprisoned) e a Harpa</h2>
+
+<h3 id="cap8-a">O Templo do Tempo e a Velha no Templo Selado</h3>
+<p>
+  De volta ao <strong>Temple of Time</strong>, após usar o Mine Cart milenar cruzando a ponte, você sairá pela imponente fachada frontal do templo. A tão esperada cutscene desenrola. O diabólico Ghirahim quebra a proteção. Impa e Zelda escapam pelo portal sagrado (Gate of Time), e Zelda, em prantos de gratidão e pressa, arremessa até as mãos de Link a relíquia lendária: A mística <span class="item">Goddess's Harp</span> (Harpa da Deusa)!
+</p>
+<p>
+  Você precisa visitar urgentemente a velha anciã misteriosa do <strong>Sealed Grounds</strong>. Pule pros céus e caia lá pelo feixe verde. Na descida para as terras seladas, o fanfarrão Groose infelizmente despenca do céu e esbarra em você caindo nas terras seladas!
+</p>
+<p>
+  Adentre o <strong>Sealed Temple</strong> para falar com a velhota (Groose vai surtar ao ver os monstros e fugirá lá para dentro chorando escondido com choque de realidade). Fale com a Velha. Fi e a velhota farão você testar a Harpa sagrada de Zelda: Empunhe-a tocando no ritmo do balançar do pêndulo brilhante até engatilhar com perfeição a épica canção mágica (<strong>Ballad of the Goddess</strong>).
+</p>
+<p>
+  A Canção forçará um grande selo a desabrochar sob o solo ali da sala: Um novo <span class="item">Gate of Time</span> (Portal do Tempo). Mas espere... os terremotos violentos castigam a área. Aquele pino selado espetado no fundo do fosso gigante lá fora, a prisão mística demoníaca lá de baixo do abismo... foi rompida! Corra para o abismo, desça até o fundo! O demônio gigantesco monstruoso <span class="inimigo">The Imprisoned</span> acorda!
+</p>
+
+<h3 id="cap8-b">BOSS: The Imprisoned (A Besta do Fosso)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">The Imprisoned</div>
+  <p><strong>Fase 1 - O Massacre dos Dedos:</strong> Esse Kaiju abismal caminha num tranco de bípede em câmera lenta montanha acima (na rampa espiral). Cuidado; a cada pisada estúpida dele, uma aura colossal vermelha queima você e drena toda a energia e estamina! Ele tem três bofes (dedos nojentos brancos) em cada um dos pés maciços na frente e um calcanhar atrás. Engula a dor, defenda-se, ataque e mutile e ampute arrancando no fio da espada TODAS as unhas de seu pé gigante o mais rápido que puder! Não seja pisoteado, seja um psicopata das unhas! Se decepar os 8 dedos das patas asquerosas dele... ele desequilibra e cai nocauteado desmaiado de costas caindo na ladeira!</p>
+  <p><strong>Fase 2 - Purgando a Besta:</strong> Como uma barata, ele tombará no chão de barriga pra cima. Dê a volta (ou passe por cima de suas escamas) subindo em sua barrigona gorda nojenta com escamas negras até chegar na testa cega, boba e desprotegida do ser! Aquele enorme <strong>Pilar Sagrado (O Selo)</strong> cravado no chifre ou testa dele é seu verdadeiro e ÚNICO alvo. De três estocadas/cortes em sequências brutais com a espada ENFIANDO o selo de volta no crânio desgraçado dele! O Demônio gritará, a pedra empurrará pros seus miolos, ele levantará reerguido para fugir ainda pra subir a ladeira! E com novos chifres brotados. Repita esse abate violento 3 dolorosas vezes até encravar a estaca na moleira da praga para sempre!</p>
+  <p>💡 <strong>Tática Ninja Speedrunner:</strong> Ao invés de ficar igual bobo fatiando a unha chata do monstro correndo risco de sofrer dano da onda de choque dos pés pesados dele... Use a corrente de ar gigantesca ali pra planar e saltar por CIMA (como um paraquedas) nas ladeiras superiores a ele! Se estiver sobre os degraus ACIMA do nível da cabeça do Kaiju que caminha estúpido na sua perseguição à ladeira, atire-se igual Kamikaze DO ABISMO MIRANDO CAIR E POUSAR DIRETAMENTE SOBRE O TOPO DA CABEÇA da fera andante! Sim, aterrize na jaca cega. Isso ignora quebrar patas ou esperar desmaio: ataque 3 vezes direto o chifre estando em pé (equilibrado e de carona clandestino!) no cocuruto careca dele e mande-o pro sono eterno em fração de minutos!</p>
+</div>
+<p>
+  Uma vez lacrado, salte ao fundo do poço e profira de uma vez o derradeiro Skyward Strike com espada para refazer o selo mágico cravado! E volte de pronto ao Templo!
+</p>
+
+<h3 id="cap8-c">Skyloft: O Concerto do Vento</h3>
+<p>
+  De volta com a Velha no Templo, você descobre a jornada principal do jogo agora em diante: Retornar aos 3 Mundos Terrestres, e aprimorar (evoluir os minérios) da fraca espada original nas 3 Sagradas Chamas, e poder penetrar no Portal! A Velha sugere regressar para a sua Cidade (Skyloft).
+</p>
+<p>
+  No vilarejo celeste, fale com o Pai da Zelda (Headmaster Gaepora) sobre o grande Moinho de Vento na base da cidade. Saia pelo vilarejo; vá no <strong>Cata-vento ao sul (da praça)!</strong> Utilize sua Bazuca de Vento (Gust Bellows) para assoprar e girar toda a hélice gigante do moinho! Sintonize para que a flecha ponteiro de base da cúpula aponte retamente em alinhamento visual em direção <strong>à grande Torre de Luz Central ali do Vilarejo</strong>. Ponto; o Moinho emite um raio verde para o céu provando que ancorou!
+</p>
+<p>
+  Corra para o 2º moinho ao topo sudeste atrás de uma ilhota com pontes e cachoeiras, e descubra um problema: a ventoinha do cata-vento quebrou, e sumiu nos ares (e caiu no vulcão!). Fale com o velho que lamenta a ausência, e em seguida vá procurar o mecânico dono do Scrap Shop (Bazaar)! O mecânico dirá que seu robô de carga (<strong>Scrapper</strong>) de transporte está quebrado; oferte uma flor extinta (Ancient Flower) da mina que ele ressuscita a Máquina com a poção mágica e reanimando o Scrapper. Você ganhou sua transportadora pessoal (Fi chamará o robô de guincho aos locais solicitados!).
+</p>
+<p>
+  Pule aos ares de volta à <strong>Eldin Volcano (Pouso em Temple Entrance)!</strong> Escorregue pro barranco de areia inicial (aquela base de rampa lá trás que você estourou a torre de bomb flower caindo por cima dos inimigos) e observe o cata-vento amarelo perdido ali enfiado nas ruínas de encostas quentes. Examine a joça. Fi invocará o Robô para o reboque! 
+</p>
+<p>
+  Em Skyloft com a peça nas mãos; o homem reconstrói as pás do Moinho, você pega o secador a ar de mão e gira a roda desse 2º moinho também com pontaria perfeita de raio de luz em direção à mesma torre! Um elevador para o telhado da <strong>Torre de Luz Gigantesca da Cidade brota!</strong> Suba lá em cima; fique na base divina tocando na harpa as exatas harpejadas no violão nas cordas enquanto sincroniza à áurea vermelha até atirar um Raio de luz nas imensas Nuvens Sombrias de Tempestade impenetráveis (<strong>Thunderhead</strong>) lá longe aos confins obscuros dos limites celestes a noroeste do mapa abrindo fissura num clarão verde! Voe com o seu pássaro por este novo portal rasgado nos céus pro submundo místico obscuro. 
+</p>
+
+<h3 id="cap8-d">Isle of Songs (A Ilha do Canto)</h3>
+<p>
+  Navegue nas tempestades (e raios mortais elétricos aleatórios) neste domo fechado até a ilha gigante torre encastelada <strong>Isle of Songs!</strong> Na arena com a alavanca; alinhe a ponte movendo paredes para trancar fileiras ou travar hastes até os 3 muros encaixarem juntos e descerem ao rio abrindo o caminho do Domo interior (A dica da charada: Puxe o Switch <i>(Direita, Meio, Empurra, Direita, Centro)</i> engastalhando o bloco curto e rodando os mais compridos nas engrenagens até a parede os parar no esbarrão parando e juntando todos como imãs na direção reta rumo ao templo central)! 
+</p>
+<p>
+  Derradeiramente entre. Pique um bom golpe no cristal da coroa celestial (Símbolo de Lanayru) pra adquirir a mágica divina e canção de Zelda com o novo hino (e trial sagrado): <strong>Farore's Courage</strong> (Coragem de Farore), apontando sua nova jornada ao Bosque Florido!
+</p>
+
+
+<!-- ── CAPITULO 9 ────────────────────────────────────────── -->
+<hr>
+<h2 id="cap9">Capítulo 9: O Reino do Silêncio e Cisterna Antiga</h2>
+
+<h3 id="cap9-a">Farore's Silent Realm (Reino do Silêncio)</h3>
+<p>
+  Pule nos abismos voando até a selva <strong>Faron Woods!</strong> Você precisará abrir as portas invisíveis testando sua fé. Aproxime-se e vá ao noroeste (Temple Ruins). Haverá os enxames místicos das <strong>Blessed Butterflies</strong> (Borboletas Celestiais Abençoadas). Toque a música no ponto delas, invoque e golpeie espadadas cravando os dentes de chumbo da sua arma na relva de pétalas ao fundo pro chão te abduzir ao submundo de luz! O Mundo Fantasma da Provação! (Silent Realm).
+</p>
+<div class="dica">
+  💡 <strong>O Desafio Espiritual:</strong> Uma prova cruel e terrível que separará meninos de homens. Guardiões espectrais de instakill empunham sabres colossais mortais. A pantera negra das trevas e as tochas zumbis levitam em sua caça. Sua meta: coletar <span class="item">15 Tears of Farore</span> (Lágrimas) sem falhar ou levar míseros acertos de nada! Dicas matadoras: (1) Pisou em água barrenta (Waking water)? O Alarme soa na hora! Fuga aos prantos se pisar! (2) O campo de força de 90 segundos reseta ao pegar a Lágrima da Luz. Nunca esgote o relógio ou sinta o martelo cair. (3) Drene os frutos de orbes da luz espalhados por toda a pista de corrida pra ter um pilar raio laser balizando verticalmente TODAS as 15 posições! Fique atento ao medidor de vigor na corrida mortal pra não perder o fôlego pulando de cipó! 
+</div>
+<p>
+  Ao concluir majestosamente o percurso de tortura infernal com os corações nas mãos e os cabelos grisalhos e retornando ao piso sagrado; o mundo voltará do plano espiritual com a mais adorável dádiva recebida dos Deuses nos bolsos: <span class="item">Water Dragon's Scale</span> (Escama do Dragão de Água!). Link agora pode nadar submerso, rodopiar furando madeiras debaixo da água na profundez extrema de rios e lagos sem limite ou oxigênio de fôlego ridículos!
+</p>
+
+<h3 id="cap9-b">Lake Floria (O Lago Floria) e a Dragão da Água</h3>
+<p>
+  Em frente a Grande Árvore Gigante agora com as barbatanas, salte ao poço de água! Nade submerso evitando as vitórias-régias canibais, mergulhe para além da fresta e raiz nas cavernas. (Seja hábil em abater morcegos pulando pendurado nas vitórias ou no rio subterrâneo, abra o caminho para uma cutscene deslumbrante revelando cavernas azuis majestosas em <strong>Lake Floria</strong> (Siga nadando pelo rio correnteza abaixo empurrando destroços de espinhos, rodopiando e abalroando troncos)! Destrua um baiacu cego jogando-os na parede rochosa pra quebrar escombros abrindo alas!). Na base abismal da caverna encontre com os amáveis (ou horrorosos pra alguns) povos-lula amigáveis, os <span class="npc">Parella</span>. Pela sua audácia (usar impulsos do rodopio pra saltar cercas metálicas!) você será guiado a deusa regente da Água escondida: 
+</p>
+<p>
+  A colossal e lendária Entidade Dragão, <span class="npc">Faron, o Water Dragon (Dragão da Água)</span> que está ferida numa bacia rasgante e ríspida pela lâmina cortante do desgraçado Ghirahim. A deusa exige água doce abençoada pra cicatrizar sua mutilação para te abrir a cachoeira mística e revelar a chama e a dungeon!
+</p>
+<p>
+  Vá para a fresta atrás do altar da bacia; abra e destranque a passagem do matagal pulando à beira do grande rio e voltando à relva densa Faron woods puxando os tocos, atalhos etc. Seu destino é voltar, refazer todo o caminho chato até a masmorra (Primeiro Calabouço do game!), sim: o <strong>Skyview Temple!</strong> (Que por sinal agora tem Moblins feios e arqueiros fortes renascidos da morte mais perigosos na área matosa do lado de fora). 
+</p>
+<p>
+  Dentro da masmorra inteira que você esvaziou a dois mil séculos atrás, encare inimigos escuros piores, três esqueletos espadachins duros na sala do Chefe com estocadas em triplo. Vá até a abóbada mística do calabouço na cachoeira (onde pegou os cristais pra Zelda anteriormente) e pesque em uma garrafa vazia a límpida <span class="item">Sacred Water</span> (Água Sagrada). Entregue e dê um banho milagroso na dragonesa que varrerá os rios pra fenda colossal aquática secreta brotar da pedra para sua entrada de Rei. Corra às cavernas para esbarrar no maravilhoso (E visualmente perfeito) <strong>Ancient Cistern</strong>!
+</p>
+
+<h3 id="cap9-c">Ancient Cistern (A Cisterna Antiga)</h3>
+<p>
+  A masmorra mais bela do jogo! Uma temática divina de puro lótus e budismo indiano! (Um rio paradisíaco rodeia os deuses centrais acima e nas partes mortais; a lama venenosa e o mundo dos mortos macula o piso sombrio subterrâneo!). Ande pelos domínios divinos contornando, abra cadeados trancados com lógicas simplistas (O cadeado giratório de porta onde se examina as chagas vermelhas do peito de um totem sagrado indiano para reproduzir a senha visual nas espadadas verticais e horizontais "<strong>Cima, Baixo, Esquerda, Direita</strong>". Entre nela. Suba na parte superior para puxar chaves ocultas; desça mergulhando raso. Lute contra um <span class="inimigo">Stalmaster</span> (Mini boss esqueleto cruel possuidor de QUATRO braços macabros com 4 facões retalhadores indomáveis!). Espere as facas estarem "Abertas" (desprotegidas nos ângulos) para retalhar esse lorde na carne podre pra o chão ruir de chaves divinas ao abater o covarde. Pegando a arca fantástica: <span class="item">Whip</span> (O Chicote). Acessório de Indiana Jones. 
+</p>
+<p>
+  Pendure na roda da estátua com o chicotão estalando nele (O estalo é usado para ativar chaves de roda redonda longes para fazer águas verterem das bocas dos deuses esguichando água pra te impulsionar ou para virar alvos do avesso). Vá desbravando o reino, use seu chicote em folhagens de vitórias-régias para DESVIRAR (deixando de cabeça pra baixo suas escamas e pernas farpadas de mato) pros galhos se tornarem plataformas pra não se afogar na água peçonhenta! Estale em botões inacessíveis balançando na selva para libertar escadarias ou sugar pássaros fênix para puxá-los pelo bico e matá-los aos seus pés! 
+</p>
+<p>
+  Após varrer salas ocultas do fundo usando cipós longos pro pátio; retorne a cachoeira mística pro meio da estátua de Buda gigante dourada central e a ative. Invertendo a estátua imponente com botões de manivelas chicoteadas aos montes e puxe e estale a chave roxa redonda pro Deus de pedra afundar ao submundo. Vá pro lado mais escuro, macabro, sombrio, de podridão pútrida de sangue e trevas absolutas repleta de crânios dos exércitos pecadores do Inferno de sangue: o Subsolo ("Hades") com rios roxos tóxicos de chumbo matando ao triscar, lotados de zumbis (<span class="inimigo">Cursed Bokoblins</span> imortais). Cuidado; matar os mortos-vivos (só de Fatal Strike os lacra, espadas não machucam e só decepam os revivendo na horda zumbi infindável para devorar). E eles encurralarão num muro se não for ligeiro! Estilingue ou quebre tudo pra se proteger da toxina. Desça nas entranhas invertendo espinhos e resolvendo chafarizes sangrentos invertendo mecanismos até pegar em um baú nos abismos enegrecidos do porão trancado (com medo de desabar o piso aos zumbis na teia mortal caindo os bichos nas costas no escuro em desespero) e resgatar ofegante o sagrado <strong>Blessed Idol (Chave do Boss)</strong>. E escale de fininho de volta na estátua. Escapando do fio de teia frágil imitando a mitologia de subida aos céus!
+</p>
+<p>
+  Use o elevador hidráulico nos céus para os pátios divinos limpos celestiais ao topo da sala para encaixar na enorme engrenagem e mergulhar em sua terceira purificação épica brutal de Chamas!
+</p>
+
+<h3 id="cap9-d">BOSS: Koloktos (O Autômato Abençoado)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">Koloktos</div>
+  <p>Enfrente a estátua colossal dourada budista autômata armada até os dentes!</p>
+  <p><strong>Fase 1 - Destruindo Armaduras:</strong> Embelezado, de pernas cruzadas feito monge; esse colosso gigantesco abanará dois braços com sabres colossais mortais. Uma aura impiedosa cobre o corpo peitoral encouraçado onde mora o núcleo do demônio. Use seu glorioso e maravilhoso chicote para atar e laçar exatamente <strong>o Pino de encaixe redondo roxo na axila dos ombros</strong>. Amarre lá o chicote nas articulações das omoplatas dos braços dourados gigantes robóticos em plena execução deles tentarem descer a marreta na tua cabeça, e DÊ UM PUXÃO DO CHICOTE COM O BRAÇO ARRANCANDO-O INTEIRO DA ESTRUTURA PARA FORA! O Braço cairá. Destrua os outros dois braços das ombreiras frontais dessa mesma forma. Sem escudos peitorais das mãos fechadas protegendo, o peito vulnerável clama dor: fuzile estocadas profundas com o aço do herói! Destrua os cacos e pedregulhos e fuja (as machadinhas revoadoras arremessadas ao longe ricocheteiam te ceifando, defenda!).</p>
+  <p><strong>Fase 2 - Koloktos Despertado e a Grande Espada:</strong> Ele levanta, furioso. Uma jaula metálica trancafia a rocha escarlate do peito; e ele adota as incríveis Pernas Mecânicas correndo para pisotear e 6 enormes cutelos dourados! Os 6 Braços de monstro o atacarão numa teia infalível em linha de combo cortante giratório para moer você no suco em segundos! Desvie aos deuses, desfaça os esquemas puxando e arrancando qualquer junta de axilas ou engrenagem lateral inferior do braço desprendendo um deles contendo uma destas lâminas (<strong>Os Grandes Cutelos e Espadões Dourados!</strong>). Quando o braço colossal espatifar moído no tapete... COLETE você aquele sabre quebrado absurdo empunhando no chão (O item será uma Espada Excalibur GIGANTE de duas toneladas usada pro Chefão!). Empunhe essa super lâmina das trevas: E use contra o próprio criador rasgando numa talhada absurda que fende (com a força do <i>Wiimote chacoalhado destrutivo sem escrúpulos</i>!) as PERNAS de pedra dourada estripando Koloktos ao chão e estilhaçando a grade da armadura no peito num barulho explosivo ensurdecedor de carnificina sagrada até picá-lo ao nada revelando em luz e glória a extinção da maldição com a vitória majestosa em lágrimas na cinza!!</p>
+</div>
+<p>
+  Restaure a saúde com seu brilhante e épico <span class="item">Heart Container</span> ganho do Buda mecânico. Enfie a lâmina nas chamas sagradas divinas verdes ao final do corredor: Farore fortalecerá a Master Sword ao nível estendido da <span class="item">Goddess Longsword (Espada Mais Longa com Lâmina Verde)</span>! E um upgrade brutal de ataque é garantido! Fi lhe intimará que os trovões soam pelas tempestades divinas clamando uma nova valsa. Suba com a glória! O mar de lava o aguarda mais perigoso!
+</p>
+
+<!-- ── CAPITULO 10 ───────────────────────────────────────── -->
+<hr>
+<h2 id="cap10">Capítulo 10: O Mar de Areia e o Navio Pirata</h2>
+
+<h3 id="cap10-a">Isle of Songs e Nayru's Silent Realm (O Reino de Nayru)</h3>
+<p>
+  A deusa pede para você ir atrás da próxima chama sagrada. Voe aos céus e retorne para a <strong>Isle of Songs (Ilha das Canções)</strong> nas tempestades! Bata no brasão na parede lá no final para absorver sua nova magia da Harpa: <strong>Nayru's Wisdom</strong> (A Sabedoria de Nayru). 
+</p>
+<p>
+  Seu objetivo apontado será agora as desérticas terras quentes! Mergulhe pro deserto <strong>Lanayru Desert (Pouse em North Desert)</strong>! Observe que dezenas de inimigos fortes guardam a areia do passado. No flanco direito em uma plataforma, tem borboletas rodeando. Toque sua bela canção harpejada da nova música, e crave a lâmina no chão arenoso quando o símbolo florir. Bem-vindo ao inferno parte 2.
+</p>
+<div class="dica">
+  💡 <strong>O Segundo Desafio Espiritual (Nayru):</strong> Colete as 15 Tears of Nayru em exatos 90 segundos evitando os vigias no deserto. Aqui o problema é pior: As areias movediças! Lembre-se, o seu mapa do mundo real funciona aqui no submundo! Abra-o para ver as trincheiras e linhas (piso invisível pavimentado debaixo da areia movediça) para correr pela areia pisando em cima dos muros para não afundar! Tem carrinho de mineração pra escorar, subir nas gaiolas. Após o suador e concluir as 15...
+</div>
+<p>
+  Você ganha o prêmio mais fantástico da franquia: as <span class="item">Clawshots</span> (Garras Duplas / Gancho de Escalar)! Agora você é o Homem-Aranha. Mire (em primeira pessoa) atirando o gancho nas <strong>Trevas ou Alvos Metálicos Redondos</strong> estampados em paredes, tetos e pilastras para ser içado pelo cabo de aço à elas num piscar de olhos e ficar pendurado! O luxo é que ao estar pendurado por UMA das mãos na parede, a sua OUTRA mão estará livre para disparar o segundo gancho de forma encadeada de parede em parede não encostando os pés no chão.
+</p>
+
+<h3 id="cap10-b">Acessando Lanayru Caves (Cavernas de Lanayru)</h3>
+<p>
+  Explore o deserto de posse da Garra-Dupla coletando tesouros e ativando baús <i>Goddess Cubes</i> antes inalcançáveis no cânion à leste. Prossiga para oeste onde há cachoeiras de areia escorrendo, e olhe os paredões (Alvos Clawshots ali!), e escale pendurando-se de buraco em buraco pelo vale abismal da cachoeira até infiltrar-se em um buraco negro caindo nas cavernas ocultas de Lanayru!
+</p>
+<p>
+  Mate inimigos nos escombros. Se quiser doe 10 reais para um Goron explorador (Golo) desenterrar escavações lhe cedendo a chave (Small Key) por gratidão na tranca final. Destranque a porta. Enganche-se na outra fenda e pise maravilhando-se no gigantesco porto do <strong>Lanayru Sand Sea</strong> (Mar de Areia de Lanayru).
+</p>
+
+<h3 id="cap10-c">O Mar de Areia (Sand Sea) e O Almirante Robô</h3>
+<p>
+  Atravesse pulando sobre as pilastras colunais fincadas pelo desfiladeiro de areia usando as Garras-Duplas em ziguezague no ar até bater num acampamento pirata arruinado com um barco enferrujado atracado em docas com um Robô pífio morto. Bata no Cristal do Tempo incrustado misteriosamente dentro do mastro desse Barquinho com um espadão (Ou pedra no teto, dependendo)!
+</p>
+<p>
+  MAGIA! As águas do passado revigoram num piscar em forma de bolha e um MAR cristalino brota engolindo a areia por todos os lados criando oceanos de glória! O Robozinho acordará se apresentando. Ele é o glorioso Capitão Skipper de Lanayru, almirante das frotas da deusa. E conta que piratas roubaram seu Galeão invisível contendo o Fogo de Nayru! E aceita você como grumete e marujo! Você agora pode <strong>Navegar pelo Barco de Motor e Canhões</strong>! Ele possui aceleração, turbos gastando estamina e Canhões para afundar oponentes apertando botões de mira!
+</p>
+
+<h3 id="cap10-d">A Casa do Almirante (Skipper's Retreat) e o Mapa Marítimo</h3>
+<p>
+  Dirija o barquinho até um arquipélago rochoso escarpado e cheio de cactos lá ao sul <strong>(Skipper's Retreat)</strong> e atraque! O capitão robô manda você escalar lá nos céus pra buscar o Mapa dos Mares. Mate as plantas (PeaHats voadoras? Elas tem cascos tipo gancho de clawshot... mire e engate NELAS, sim nas plantas voadoras pra ser sugado pra cima aos ares tipo um táxi!!). Varra inimigos com fole e suba voando até o telhado de casa nas nuvens!
+</p>
+<p>
+  Dentro da casinha fofa suja de poeira; desenterre escorpiões da sala usando fole de vento e assopre abrindo o báu com o <strong><span class="item">Ancient Sea Chart</span> (Mapa Antigo dos Mares)</strong>. Pule da ponte lá em cima direto para água (compara-quedas Sailcloth), suba no barco e mostre o mapa pro almirante que preencherá em azul os oceanos inexplorados no lado ocidental da sua tela! E trace a rota pro Estaleiro <i>Shipyard</i> (para onde o X vermelho marca no mapa longe na esquerda!).
+</p>
+
+<h3 id="cap10-e">Estaleiro (Shipyard) - O Labirinto do Carrinho de Mina</h3>
+<p>
+  Afunde caranguejos, barcos no trajeto de tiro até descer atracando na estação. Lute contra Lizalfos lagartos. Vá a recepção dos carrinhos de minas na montanha cheia de teias e converse com o Goron Golo, e PULE NO CARRINHO DE MINA da montanha russa maluca!
+</p>
+<div class="dica">
+  💡 <strong>Montanha-Russa de Mineração:</strong> Você andará em alta velocidade em abismos desgovernado. Você só tem O FREIO, e precisa IMPULSIONAR e TOMBAR O PESO DO SEU CORPO (Inclinando o controle Wii Remote pros lados) para a Esquerda ou Direita nas curvas em forma de foice da pista infernal do esgoto, sob pena de voar longe, descarrilhar pro precipício e morrer (cair). O mais legal: Quando bifurcar pra duas estradas à frente, curve para o caminho de trilho que quiser pra mudar o vagão pra aquela trajetória escolhida (o truque é pender para o trilho interno ou esquerdo nas encruzilhadas mortais com X de tapumes quebrados no horizonte!). 
+</div>
+<p>
+  Passe pela fase 1 inteira. Na câmara do fosso mate todas formigas aranha, ande a pé, desvie das teias, suba no segundo carrinho maluco (Fase 2) passando desfiladeiros mais difíceis! Concluindo a jornada aterrorizante insana de mineração a 150 km/h num trilho com ferrugem, chegue na Oficina de Navios gigante redonda arenosa na doca seca interior! Limpe toda areia com o seu secador, e tome susto: uma velha chefa escorpião <span class="inimigo">Moldarach</span> emergirá surpresa das docas (aquela derrotada do Templo). Esmague suas duas garras atacando do lado oposto que ela te pinçar para estourar o olho e espete o terceiro na cabeça fugindo dela enterrada matando-a! O Almirante confirma triste: Os piratas não estão no estaleiro! Resta 1 lugar: Voe com o barco em direção aos domínios e a <strong>Base Secreta Pirata (Pirate Stronghold)</strong> (uma ilha gigante que parece dentes pontiagudos do mal no mapa à frente no rio!).
+</p>
+
+<h3 id="cap10-f">Base Secreta dos Piratas (Pirate Stronghold)</h3>
+<p>
+  Atraque na ilha de pedra dente maciça gigante na costa do horizonte! Ao invés da porta lacrada mestre, infiltre-se pela porta menor do flanco da montanha descendo corredor matando répteis até bater numa <strong>Timeshift Orb (Orbe de Cristal)</strong>. Pegue-a NAS MÃOS (tipo bola de futebol magica!). O orbe portátil carregará com o Link em torno de si um campo de força de aura temporal, que reanima os ossos pra monstros vivos de carne e energia e portas do passado em todo canto! Use inteligência: Você andará, reviverá o inimigo perto de você pra te matar, deixe a bola no chão perto das grades enferrujadas sumirem, puxe as chaves de cobre nas paredes destrancando atalhos paralelos para carregar a bola sem morrer fritado em grades elétricas que ressurgem na era milenar. Explore com a bola pelo labirinto reanimando até plataformas surgirem. (Num puzzle específico pise nas plataformas e afaste e solte a bola pra elas rebaixarem, desativando os painéis solares para passar!). 
+</p>
+<p>
+  Carregando sua preciosa orbe por tudo até o saguão primário; reencaixe-a no pedestal de entrada destrancando os portões massivos centrais pra ilha abrindo o bocarro da boca do morcego na rocha revelando os oceanos... E mais: O Almirante usará Fi para escanear a água pra detectar navios invisíveis! 
+</p>
+
+<h3 id="cap10-g">Escaneando o Navio Fantasma (Sandship)</h3>
+<p>
+  Pegue o seu barco motorizado, ative o Dowsing (Mire C e fique com tela roxa esquadrinhando o oceano de ponta a ponta feito um GPS caçador). Fi te apitará cada vez mais estridente e forte quando uma sombra no oceano aberto (um encouraçado inteiro INVISÍVEL pirata navegante) patrulhar sobre as águas no leste ou norte batendo em você se tentar atropelar. Localizando de onde o sinal ensurdece nos apitos: Mire o barco e DISPARE AS BALAS DE CANHÃO contra o puro vento d'água na areia ilusória! BOOM! Um Navio piscará! Ele fugirá. Cerque-o com a lancha em disparada metralhando mais duas belas bolas de fogo em cheio na carcaça pro navio pirata abandonar a camuflagem mágica dele de vez, tombando à mostra sob âncora pras suas vistas nos mares arenosos! <strong>Um Navio da Dungeon Colossal.</strong> Pule a bordo marujo!
+</p>
+
+<h3 id="cap10-h">O Navio da Areia (Sandship) e O Arco de Flechas</h3>
+<p>
+  O belo calabouço do barco de 5 andares! Ao embarcar não se intimide: Salve; desça direto pela porta na proa aos porões (<i>B1</i>) obscuros. Limpe os corredores cheios de morcegos para descer na <i>B2</i>. Atravesse os salões de escorpiões da <i>B2</i>, chegando na grande Casa das Máquinas cheia de areia (sopre a maldita suja por todo lado) e visualize no assoalho e teto as figuras <strong>De Estrelas Do Leme da Roda de 4 Pontas Vermelhas</strong>. Anote. A porta exige espadadas nestes cantos na exata ordem numérica "Baixo, Cima, Baixo, Direita". Dentro pegará a <strong><span class="item">Small Key (Chave)</span></strong>!
+</p>
+<p>
+  Suba todo o fardo da viagem para o Deck Superior do Barco novinho da onde você entrou e deslacrou as correntes. E siga ao estibordo abrindo a porta pra um minichefe bizarro: O Imediato Robô ciborgue <strong>Scervo!</strong>
+</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">Scervo (Sub-chefe Capitão Ciborgue Pirata)</div>
+  <p>Luta linda no pátio do mastro pendurada aos céus numa prancha afunilada de madeira! Espadas de choque chocando no escudo! Você deve espancar o robô macaco no fio da prancha empurrando-o até ele ser desequilibrado e tropeçar espetado nas grades e atirado no mar para perecer!</p>
+  <p>Encurrale-o! Cada vez que avançar ele fará estocadas rápidas. Rebata com <i>Shield Bash (Defesa firme de rebote do escudo sacudindo nunchuk)</i> atordoando seu peito. E esmague-o forçando pro abismo. Se fizer três vezes; caindo ele recuará e botará barreiras com lanças elétricas te fechando na prancha minúscula! Agora lute corpo a corpo com facões de choque giratórios insanos; rebata na hora X pro escudo bater ferro no ferro e estocá-lo! Cortou o braço dele de espadão? Ele puxará um "Gancho do Capitão Gancho de pirata". Defenda, desvie e arremesse o trambolho final e fatal pro mar ganhando o combate!</p>
+</div>
+<p>
+  O espólio formidável deixado na caixa de pau do pirata no mar será O seu sagrado <strong><span class="item">Bow (Arco e Flecha)!</span></strong> Agora equipe mirando de Z, segurando C pra esticar a corda tencionada e lançando ao alto e mar afora as suas estacas furadoras mortais para arrancar inimigos que voam ou alavancas inalcançáveis de paredes de longe!
+</p>
+
+<h3 id="cap10-i">Resgate da Tripulação e O Motor do Porão</h3>
+<p>
+  Use o lindo arco já de cara no Mastro Gigante a meia nau! Olhe na janelinha entrelaçada no alto! Mire na alavanca ocular vermelha <i>(Eye switch)</i> batendo em um olho ocular para o mastro revelar as hélices. Atire mais uma flechada NO CRISTAL DA PEDRA DE TEMPO exposta no alto de todo o Navio inteiro! (O barco reviverá pros dias de glória num convés límpido cheio de monstros piratas na madeira recém polida, varra todos inclusive atiradores caindo de cima nos cestos de gávea e use as tirolesas recém descidas a tiros pro mastro pra puxar alavancas abrindo caminho pros andares inferiores!). Suba nos mastros de tirolesa destrancando prisões, libere com Clawshots báu de Peça de Coração caindo no fundo da popa oculta nos fundos do barco pendurado com garra.
+</p>
+<p>
+  Sua tarefa agora é libertar a Tripulação no B2! Desça tudo novamente! Falando com eles, descobrirá que a trava de abertura é elétrica pelo reator e painéis solares. É imperioso achar o painel que ativa as chaves das grades da prisão das <strong>Duas Casas de Máquina do Porão!</strong> O barco precisará alternar entre passado (Máquinas Vivas) e Futuro (Ferrugem p/ grades caírem abertas)! Para isso, você atirará flechas no cristal do mastro pelo <strong>Buraquinho Grelha Do Teto de Ventilação Aberto!</strong> (Uma brecha do teto deixa ver o sol e mirar lá pra acertar do subsolo!).
+</p>
+<p>
+  Faça isso alternando; empurre caixas travando e estourando portinholas laterais pros robôs do motor. Vá ao convés de sol em cima, desça pelas janelas <i>(Portholes)</i> nas cordas do barco de fuga de salva-vidas e adentre na base mortífera com pistões de esmaga-ossos no porão <strong>B3</strong>. Atravesse o suplicio nas entranhas quentes dos motores da fornalha pulando buracos (use a chicotada de aço na trava no teto, pra se balançar e correr nos pistões assassinos pra salvar todos no fim das fornalhas giratórias). Na casa forte dos Pistões desça o chicotão, voe subindo as alavancas com garra pra sala secreta pegando chaves e rúpias de Evil Crystals até acionar a <strong>Small Key</strong>, abra as cadeias do B2 atirando de chaves elétricas salvando os tripulantes engaiolados, e abocanhando do Almirante resgatado a cobiçada e estranha Chave Lulas (<strong>Squid Carving</strong>).
+</p>
+<p>
+  Vá à sala no topo destrancando do Capitão de porta vermelha; lute contra Beamos e mate a pedrada, abra frestas nas masmorras matando insetos e atirando (de novo, pelo furo minúsculo do teto que dá visão ao cristal no sol rachando e ativando o navio inteiro pro passado onde os olhos piscarão liberando trancas de barras!). Salte das escadarias pro nível principal com a chave da lula, desça às salas reais de <strong>B2 (Na Sala Azul de estátuas na popa!)</strong> Salve o jogo; empunhe o bicho de prata da Lula (Squid Carving) pra fenda real cravando-o no encaixe mecânico, abrindo as grandes portinholas reais pra luta do calabouço! 
+</p>
+<p>
+  Mas o navio estala, a água jorra! Os oceanos reviram os porões; O Navio está afundando por um Polvo Monstro! Corra pra subir os andares em fuga alucinante, correndo de barris, cortando os cipós macabros com garras grossas destruidoras perfurando os tacos de madeiras! Corra pros pátios abertos subindo à superfície (no convés onde o sol arde, e chuva despenca), e sinta as garras roxas da entidade milenar no convés principal destruído.
+</p>
+
+<h3 id="cap10-j">BOSS: Tentalus (O Leviatã Abissal)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">Tentalus</div>
+  <p>Monstro Ciclópico devorador de Navios! Medusa asquerosa cheia de braços!</p>
+  <p><strong>Fase 1 - As Garras da Profundeza:</strong> A criatura cercará o convés estilhaçado na chuva, varando o assoalho de madeira sob seus pés com tentáculos roxos mortais sugadores com ventosas! Eles irão te abraçar! Se te pegar chacoalhe (o wii remote) igual louco para ele soltar, e o esfaqueie com golpes na direção precisa cortando e varando-os como borracha gorda! Carregue a Master Sword erguida num <span class="item">Skyward Strike (Brilho e Raio)</span> na corda tencionada e lance o corte de luz fatal nos braços fatiando eles fora! </p>
+  <p><strong>Fase 2 - O Olho da Cabeça Desponta!:</strong> Quando rasgar as entranhas decepando 4 ou mais tentáculos em fatias e picados de sangue, a grande massa obesa central do chefão despontará imponente das profundezas na proa do navio! Tentalus abre o seu pavoroso e colossal Olho Amarelão medonho (e sua bocarra gigante feia e cheia de dentes) te berrando na fuça! <strong>PUXE O ARCO E FLECHA!</strong> Estique a corda brutalmente mirando no meio de sua pupila asquerosa. ZÁS! O disparo no globo ocular cegará a besta derrubando ela com a cabeça inteira estatelada de dor sobre os tablados de madeira quebrando o navio e tremendo o assoalho no meio dos mastros! Corra ensandecido aos prantos para as bordas batendo espadadas brutais, contundentes, violentas, em chamas rasgantes perfurando seu OLHO cego mole atordoado de pancadas enquanto ele chora e volta a si e se submerge a água sumindo covardemente nas sombras. (Desvie e limpe a cabeça cheia de mini cabelos-cobras de tentáculos caso elas cresçam matando ou metralhando em sequência pra livrar a testa de monstros chatos!). </p>
+  <p>Repita as perseguições pulando em cima de grandes caixas quadradas e engradados no navio que flutuam para ganhar teto seguro nas partes que desabaram e afundaram em água no meio do mar se precisas na Fase Final e afunde 5 flechas cegas na face horrenda exterminando o monstro!</p>
+</div>
+<p>
+  Deixe os polvos afundarem para suas covas líquidas! Recolha em paz sob chuvas celestiais, calmaria, trovões dissipados num céu azul majestoso os lindos corações bônus (<span class="item">Heart Container</span>). Eleve espadas aos brasões sagrados do templo no barco: As deusas trarão <strong>Nayru's Flame!</strong> Sua arma glorificará recebendo sua luz branca divinal se transfigurando na eterna <span class="item">Goddess White Sword</span>!
+</p>
+
+<!-- ── CAPITULO 11 ───────────────────────────────────────── -->
+<hr>
+<h2 id="cap11">Capítulo 11: O Reino de Din e o Santuário de Fogo</h2>
+
+<h3 id="cap11-a">Isle of Songs e Din's Silent Realm (Reino de Din)</h3>
+<p>
+  Retorne a Deusa em <strong>Isle of Songs</strong> batendo no brasão do fundo de novo, e escute e aprenda na harpa a <strong>Din's Power</strong> (Poder de Din). Voe para as terras de fogo, mergulhando no pilar do <strong>Eldin Volcano (Pouse em Volcano Ascent)</strong>! Escale o pé da rampa até borboletas e toque sua harpa puxando o 3º piso maligno: O Mundo Silencioso de Din.
+</p>
+<div class="dica">
+  💡 <strong>O Terceiro Desafio Espiritual (Din):</strong> Novamente a tortura. Colete 15 Tears of Din correndo como doido nas ladeiras vulcânicas de terra em 90 segundos sem tomar hit. Dica de ouro: Comece coletando os altos escorregando na grande descida de areia central controlando a queda para não se esborrachar na água! Pegue nos ventos altos antes e deixe o chão e beiradas rasas pro final. Completando, receba uma joia fashion valiosa que vira estátus de armadura passiva infinita: Os <strong><span class="item">Fireshield Earrings</span> (Brincos de Proteção de Fogo)</strong>! Eles o tornam imune às chamas, pisando nos rios quentes derretidos sem suar uma gota e poder finalmente pisar no cume infernal trancado.
+</div>
+
+<h3 id="cap11-b">O Cume do Vulcão (Volcano Summit) e o Pires de Água</h3>
+<p>
+  Com os brincos azuis na orelha, entre de vez pelas portas ardentes de fogo extremo nas montanhas adentro <strong>(Volcano Summit)</strong>. Derrote chu-chus gigantes (Use Dowsing caçando mais Goddess Cubes lá fora nas varandas esquecidas saltando pelas janelas). Na caverna principal ache o sábio Gorko na frente dos muros de labaredas e os Sapo-estátuas na parede com sede!
+</p>
+<p>
+  Encha seu frasco (Bottle) com água no pântano aquático fresco dali de perto na montanha e despeje água com o frasco engarrafado na boca do sapo estátua. Ele arrotará água apagando as chamas! Passe pra 2ª sala de chamas engarrafando mais água da praça, usando Clawshot em cipós para jogar água de cima. Ao chegar no TERCEIRO muro maciço colossal ardendo as portas do Templo as chamas lá no topo cobram água de um Sapo Gigante! Frascos não servem! Vá no poço raso; o Mogma contará que só oceanos da <strong>Dragão da Água (Water Dragon)</strong> no mundo de mato apagam aquilo. O bicho pegou.
+</p>
+<p>
+  Volte para os céus. Desça pro Bosque (Faron Woods) pousando em <strong>Lake Floria</strong> (Floria Waterfall). Entre nas cachoeiras no altar; Fale com Faron e ela te emprestará amigavelmente sua gigantesca Bacia (Water Basin) divina cheia de água santa. O seu robô escravo Scrapper transportará o Pires de 10 mil litros pelas costas com suas hélices. Suba com a glória. Pule pros céus e caia direto no <strong>Eldin Volcano</strong> de novo com a encomenda!
+</p>
+
+<h3 id="cap11-c">Escolta Sangrenta no Vulcão</h3>
+<p>
+  Você cairá no PÉ do vulcão (base do mapa) pra tristeza. O Robô reclamará e pedirá proteção. Você precisa SUBIR A MONTANHA E LADEIRAS TUDO DE NOVO A PÉ ATÉ O TOPO MÁXIMO sendo babá do Scrapper enquanto ele carrega o pires de água. Não deixe nada atirar ou encostar no robô mofino chorão! E a montanha agora tem Moblins com escudos de ferro, chuva de Bokoblins arqueiros no alto de guaritas. Mire, use Slingshot, Arcos ou defesas de rebote com paciência dizimando hordas subindo até o cume!
+</p>
+<p>
+  Após escoltar, a máquina chegará na frente da muralha final (Sapo Mestre) no <strong>Volcano Summit</strong> despejando o dilúvio da bacia de uma vez apagando o colosso de chamas liberando de vez a gloriosa entrada da Masmorra e 6ª Dungeon: <strong>Fire Sanctuary</strong>. 
+</p>
+
+<h3 id="cap11-d">Fire Sanctuary (Santuário de Fogo)</h3>
+<p>
+  Este templo perigoso de magma brinca com lógicas reversas de plantas aquáticas molhadas virando gelo e esfriando vulcões! Use o Besouro e atire-o nos bulbos (bolhas d'água de seiva roxas/azuis caindo dos cipós) estourando eles em pleno ar em cima dos rios de lava virando rocha maciça por segundos pra você pisar sem assar o pé! 
+</p>
+<p>
+  Você achará as monstruosidades <strong><span class="inimigo">Magmanos</span></strong> (Mãos Gigantes Vermelhas de Lava) que afundam nas frestas de ferro do piso. Não tente lutar! Espere o Magmanos te levantar pelo chão pro alto! Pise na chapa de ferro e use a mão inimiga de elevador para sacadas imundas pegar baús e avançar!
+</p>
+<p>
+  A primeira caçada em salas complexas envolverá as luvas de topeira <strong><span class="item">Mogma Mitts</span> (Luvas dos Mogmas)</strong> após você abater Magmanos que torturava um mogma enjaulado acionando pedras frias, destrancando-o. Diferente da anterior agora a MOGMA MITT permite VOCÊ escavar o túnel por dentro feito topeira. Deslize nas raízes na terra (Em Visão Noturna Top-down 2D incrível) batendo em rochas por baixo com o Wiimote em soco para estourar caminhos, batendo chaves pra abrir catracas superiores! Corra até mesmo das centopeias da areia (<span class="inimigo">Moldorms</span>) batendo na bundinha (cauda) brilhante deles antes deles girarem ou foge que eles correm mais! Brinque de pega-pega com um toupeira e libere as <strong><span class="item">Mysterious Crystals</span> (Cristais Misteriosos)</strong> ligando a ordem dos 5 totens de asa iluminados (escondidos na terra, observe de Z!). Caia no Templo Final abrindo as presas do Dragão com os cristais.
+</p>
+
+<h3 id="cap11-e">BOSS: Demon Lord Ghirahim (2ª Luta)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">Demon Lord Ghirahim</div>
+  <p>Ghirahim retorna enlouquecido num anfiteatro infernal tentando arrombar as muralhas santas do Templo de Zelda (e falhando ao te ver de novo!).</p>
+  <p><strong>Fase 1 - As Espadas Flutuantes Douradas:</strong> A malandragem dele subiu de nível. Ao invés da mão dele pegar e chupar tua espada de primeira igual lá atrás (ele ainda faz se você bater lerdo onde a aura da mão aponta!), agora ele tem duas malditas Adagas Vermelhas espectrais voadoras que flutuam ao redor dele em sincronia o tempo todo pra te furar de forma autônoma! Gire no giro de espada estraçalhando as faquinhas quando ele arremessar. E ataque cruzado o punho que ele não está escorando!</p>
+  <p><strong>Fase 2 - As Espadas Negras:</strong> Após apanhar muito de você e cair ofegante, Ghirahim rasgará o teatro invocando dois espadões imensos retalhadores! Aqui, paciência é ouro. Ele fará poses (segurando os cutelos retos protegendo em paralela, ou horizontais) feche a fresta, espere a guarda baixar onde a ferida está aberta e entre metendo porrada cortando no ângulo inverso à proteção (ou fura cruzado nos espaços)! Cuidado com a fúria final insana cheia de sangue onde ele tentará te matar pulando no ar metralhando lanças cadentes espetando do teto. Use pulo pra trás nas horas certas que as barras caírem do teto ou vai ser peneirado!</p>
+</div>
+<p>
+  Ghirahim frustrado teletransportará embora praguejando. Recobre as energias coletando o magnífico <span class="item">Heart Container</span> do chão de mármore e mergulhe a antiga deusa para o batismo no grande fogo! Din descerá derretendo em seu glorioso <span class="item">Din's Flame</span>. O Aço branco esmaga e racha. Uma cor púrpura/azul inquebrável renasce sob brilho do prisma: A <strong><span class="item">Master Sword (A Lâmina dos Heróis)</span></strong> original abençoada! 
+</p>
+
+<!-- ── CAPITULO 12 ───────────────────────────────────────── -->
+<hr>
+<h2 id="cap12">Capítulo 12: O Retorno do Mal e o Espírito dos Céus</h2>
+
+<h3 id="cap12-a">O Retorno de "The Imprisoned" e o Passado</h3>
+<p>
+  Caia de volta ao <strong>Sealed Grounds</strong> no clarão verde na floresta para encontrar um desespero! A besta maldita do fundo do buraco acordou de novo! Groose, o brigão de Skyloft te chamará, pois construiu trilhos de madeira e uma Catapulta de Bombas (A "Groosenator") na borda superior do fosso. Desça tudo!
+</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">The Imprisoned (2ª Luta)</div>
+  <p>Mais veloz e mais diabólico! Agora a praga asquerosa criou braços (duas mãos imensas escamosas com garras!). E ele usará elas para <strong>escalar os barrancos escorregadios em linha reta</strong> até o topo de uma vez ignorando a ladeira!</p>
+  <p><strong>A Tática da Catapulta:</strong> A novidade! Aperte "Acima" no D-Pad do Wii para assumir a mira da Catapulta que Groose controla lá do alto! Mire e atire uma Bomba GIGANTE na cara do monstro! Isso o atordoará interrompendo a escalada nos barrancos de terra. Aproveite o tombo dele, estilhace os 8 dedos nojentos dos calcanhares (Cuidado, as ondas de choque ao pisar agora te derrubam longe!) para ele cair e você poder estocar O SELO em sua testa por três vezes. 💡 (Dica: O Pulo suicida do andar de cima, direto no topo da cabeça careca dele ignorando pés e garras ainda funciona magistralmente e poupa minutos vitais!).</p>
+</div>
+<p>
+  Celebre lacrando a praga com o último raio e corra com o velho para a igreja do Sealed Temple (Templo Selado). Fique no altar onde o moinho de vento atirou no passado, puxe um golpe brilhante Skyward Strike nas engrenagens ativando o imponente <strong>Gate of Time (Portal do Tempo)</strong>. Entre! 
+</p>
+<p>
+  Volte para o <strong>Temple of Hylia</strong> milhares de milênios no Passado. Fale com Impa, ande e ache a sagrada e mística Zelda! Uma estonteante e dramática cutscene revela toda a dor e profecia do mundo de Hyrule envolvendo Zelda e a deusa. Ao fim, ela abençoará sua lâmina purificando sua espada na mítica e eterna forma da <strong><span class="item">True Master Sword (A Verdadeira Espada Mestre)!</span></strong> De volta para o presente, o zelador Gaepora sugere que procure Levias! O espírito mestre das nuvens enclausurado na Thunderhead (A Nuvem de Tempestade).
+</p>
+
+<h3 id="cap12-b">A Investida Espiral e o Demônio Levias</h3>
+<p>
+  Vá aos instrutores na <strong>Knight Academy</strong> de Skyloft pedir ajuda para abater o monstro. Owlan ensinará a manobra de dogfight mais incrível: <span class="item">Spiral Charge (A Investida Espiral)</span>, onde seu pelicano (Loftwing) rolará feito uma broca perfuratriz rasgando armaduras inimigas a toda velocidade apertando 'A'. Treine e destrua 10 alvos pelo céu para provar seu valor! 
+</p>
+<p>
+  Acesse a Ilha da Abóbora (<strong>Pumpkin Landing</strong>), e o dono do bar cozinhará sua famosa <span class="item">Pumpkin Soup</span> (Sopa de Abóbora quentinha) em uma panela colossal. Chame seu Robô voador fofoqueiro Scrapper para erguer a bacia. E o siga de guarda-costas, dirigindo seu pássaro protegendo a carga pelo céu, até mergulharem fundo nas tormentas tenebrosas da <strong>Thunderhead</strong>! Lá dentro a Sopa atrairá o titã adormecido saindo do mar de nuvens: O Colosso das Tormentas (Baleia gigante de 1 km), Levias!
+</p>
+
+<h3 id="cap12-c">BOSS: Levias & Bilocyte (O Parasita)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">Levias & O Parasita Bilocyte</div>
+  <p><strong>Fase 1 - Destruindo os Tentáculos no Céu:</strong> Voe com seu humilde Pássaro vermelho em paralelo a carcaça de 1 quilometro cúbico dessa Baleia voadora celestial (Cuidado pra calda que abana feito chicote matando mosca!). Mire em seus 4 buracos com grandes <strong>Tentáculos Verdes Oculares flutuantes</strong>. Acelere emparelhando e dispare freneticamente "Spiral Charge" para espetar os quatro olhos cortando os parasitas voando a jato! Pule a bordo pousando com tudo no lombo de corais rachado das costas gigantescas da Baleia.</p>
+  <p><strong>Fase 2 - O Parasita Bilocyte Enraizado:</strong> Do buraco central jorrará o demônio Bilocyte (Uma lesma com asas asquerosas que dominava o cérebro da criatura!). A luta será "Tennis of Death" (Tênis Mortal estilo Ganondorf de Ocarina). A lesma cuspirá meleca de ácido verde explosiva. Rebata elas DE VOLTA para a cara dele com SUA ESPADA (não rebata com escudo). Dê o <i>Swing Horizontal (corte da esquerda para direita)</i> para rebater a bola espirrando na asinha ESQUERDA, destruindo-a. Dê outro corte da Direita pra Esquerda noutra bola pra rebater na asa da DIREITA. Sem asinhas tortas e quebradas, agora dê o famoso Corte VERTICAL rasgando o centro do balão! O monstro cambaleará caindo de cara: pule em cima fatiando em combos seu olho sem dó! Duas repetições varrerão a praga nojenta para extinção limpando e sarando Levias de seu controle mental! </p>
+</div>
+<p>
+  O sábio titã revelará a busca final da <strong>Triforce!</strong> Ele lhe dirá para escutar as canções dos 3 Antigos Dragões (Fogo, Trovão, Água) pelas terras para montar e aprender a derradeira canção: <span class="item">Song of the Hero (A Canção do Herói)!</span>
+</p>
+
+
+<!-- ── CAPITULO 13 ───────────────────────────────────────── -->
+<hr>
+<h2 id="cap13">Capítulo 13: A Canção do Herói e os Três Dragões</h2>
+
+<h3 id="cap13-a">A Prisão Quebrada pela Terceira Vez (Faron Woods)</h3>
+<p>
+  Voe aos Bosques primeiro para a 1ª Canção (Evite ir pro Deserto Lanayru por causa de um bug famoso sem antes fazer os de Floresta e Fogo). Pouse em <strong>Sealed Grounds</strong>, Groose berrará em pânico. A Coisa (The Imprisoned) arrebentou o selo mais um vez! 
+</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">The Imprisoned (3ª Luta - A Fuga Alucinante)</div>
+  <p>A batalha mais injusta e rápida. A criatura agora parece ter bebido adrenalina de cavalo! Ele voará e andará numa rapidez de guepardo! </p>
+  <p>Pule, martele a bocarra (Catapulta de bombas!) dele a tiros enquanto ele voa pelo campo pra ele desmontar desmaiado na encosta permitindo os seus estocões com as 3 batidas na testa e no pino! Numa das fases apelonas de fuga, os braços mecânicos da catapulta são desativados de munição. Só restará você se ENFIAR DENTRO DO BURACO CANO da própria Catapulta feito a bala! Mire nas testas dele voando pelo poço, atirando Link de ponta-cabeça como tiro em cheio aterrizando com espadas afiadas em sua testa perfurando o crânio nojento pondo-o para dormir no inferno para todo o sempre selando com sua dança final.</p>
+</div>
+
+<h3 id="cap13-b">Faron Woods Submersa e a Dragão de Água</h3>
+<p>
+  Faron Woods, O Bosque... está embaixo de DEZ MIL litros de água inundada e morta. Groose o catapultará de bala de canhão pelo bosque encharcado. Nade no Grande Árvore central (afundada). Desça ao poço nas raízes, infiltre-se caverna abaixo. No topo da árvore onde estaria o teto de folhagens... quem repousa relaxando e nadando? <strong>Faron, A Dragão de Água (Water Dragon)</strong>. Ela inundou tudo de sacanagem (e purificação de pragas). 
+</p>
+<p>
+  Faron mandará você usar natação e pegar as <span class="item">Tadtones</span> (Criaturinhas Notas Musicais Musicais girinos coloridas espalhadas nos quatro cantos da imensa floresta imersa e morta!). Colete com rodopio turbinado de natação pegando o conjunto exato de girinos juntos na fila antes deles despistarem. Resgate girinos embaixo de raízes, buracos roxos. Pegando as 17 sessões; fale com a Dragão (Water Dragon), ela te entoará a sua parte melódica abrindo e ralo sugando todas as águas pro mar e secando o mundo de volta a terra e bosques maravilhosos! Você pegou a Parte 1 da <strong>Canção (Song of the Hero)</strong>! 
+</p>
+
+<h3 id="cap13-c">A Fuga Alucinante Sem Itens (Eldin Volcano)</h3>
+<p>
+  Voe pro 2º mundo de lava. Ao cair nos ares de paraquedas, um vulcão colossal de fumaça cinzenta expele lavas e cinzas que te fulminam desmaiando o herói! Você acordará pelado. SÓ COM A ROUPA DO CORPO, amordaçado NUMA CELA! TODOS os seus itens da tela principal (espada, escudo, luvas) FORAM ROUBADOS por goblins imundos. 
+</p>
+<p>
+  O seu amiguinho Toupeira o libertará escavando o chão devolvendo a Luva de Topeira (<strong>Mogma Mitts</strong>). Cave o buraco na parede do esgoto, destranque as travas de baixo fugindo pras colinas na espreita do acampamento gigantesco nas pontes dos Moblins! <strong>Você não tem a Espada (Master Sword), se te verem na Lanterna ou sirenes, morre!</strong> Furtividade Solid Snake nele. Varra as áreas: se esconda por detrás dos barris das pontes enquanto um sentinela vira, engatinhe nas cercas, roube na marreta e socos as covas desenterrando aos poucos de báu em baú <strong>TODOS OS SEUS ITENS DE VOLTA:</strong> (Bolsa de Bombas destrói muros atirando pra longe; O secador Gust Bellows limpa brasas da torre, Clawshot puxa das folhagens). 
+</p>
+<p>
+  Com todos em mãos, o último grande baú incandescente está ao lado da ponte (Eldin Summit). Abra puxando a magnífica <span class="item">True Master Sword</span> embainhada em suas mãos estraçalhando de pavor as carnes dos lacaios desgraçados de raiva ao longe com disparos elétricos! Atravesse tudo até o fundo do vulcão cume <strong>(Fire Dragon)</strong>. O Imponente deus Eldin se desculpará por suas hordas enlouquecidas que te assaltaram num surto das chamas de sua erupção e lhe fará de glória presenteando cantado seu trecho divino Parte 2 da <strong>Canção (Song of the Hero)</strong>!
+</p>
+
+<h3 id="cap13-d">Curando a Doença (Lanayru Gorge)</h3>
+<p>
+  Por fim voe ao deserto Lanayru. Pouse em Mine Entry. Explore com garras, abra a Lanayru Caves (A Caverna). Ache atalhos nos escombros na mina de escorpiões chegando aos confins desfiladeiros perigosos esquecidos de <strong>Lanayru Gorge</strong>! Atravesse, chame o robô nas pedras azuis batendo nos orbes temporais (Timeshift Stones) para construir uma nova trilha empolgante no Mine Cart para desbravar na escuridão. 
+</p>
+<p>
+  A pedra revelará o <strong>Deus Dragão do Trovão (Thunder Dragon)</strong>! Ele está tossindo catarro de velho. Está muito esclerosado, ressecado e doente. O seu tempo e prazo de milênios já passou. Ele precisa da Fruta Curativa da Árvore da Vida (Tree of Life). Ache na ilhota do lado dele desenterrando aos trancos na poeira o <span class="item">Life Tree Seedling (Brotinho minúsculo semente da árvore de vida)</span>.  Pegue a semente!
+</p>
+<p>
+  Voe pras <strong>Sealed Grounds (Templo Selado de Hyrule)</strong>. Entre no altar e vá pro Portal do Passado (Templo de Hylia há milênios). No salão onde Zelda repousava durmindo ou com Impa, cave no grande círculo negro orgânico fértil (perto da idosa / impa do passado). PLANTE a Sementinha Verde. Volte pela porta do tempo ao ano ATUAL. Vá pra mesma sala do altar onde plantou... E BINGO! Terá crescido e desabrochado no teto uma gigantesca arvore verde majestosa! Chute, soque batendo de barriga dando cabeçada (roll attack), pra que a pesada e grande maçã <span class="item">Life Tree Fruit (Fruto da Árvore da Vida)</span> despenque na sua boca e mão! 
+</p>
+<p>
+  Retorne com o santo remédio da vovó pra cara do moribundo <strong>Thunder Dragon</strong> no Lanayru Gorge de volta no seu mapa velho seco desértico! Curado milagrosamente ele estampará saúde em rugidos altíssimos lhe cedendo a bela Parte 3 da <strong>Canção (Song of the Hero)</strong>! <br> (E desbloqueando agora o formidável modo Arcade Boss Rush The Lightning Round para ganhar o <i>Hylian Shield Infinito/Imortal!</i>). 
+</p>
+<p>
+  Por fim, suba a Thunderhead e chegue nas costas de <strong>Levias</strong>! Ele ouvirá e somará as 3 harpejadas doentes criando e cantando a unificação máxima. Você acaba de aprender o poder da força mágica: <strong>A Sagrada Canção: Song of the Hero</strong> inteira (E abrir os caminhos finais do jogo do apocalipse em Skyloft!).
+</p>
+
+<!-- ── CAPITULO 14 ───────────────────────────────────────── -->
+<hr>
+<h2 id="cap14">Capítulo 14: O Templo Divino e a Batalha Final</h2>
+
+<h3 id="cap14-a">O Último Desafio: Goddess's Silent Realm</h3>
+<p>
+  De posse da majestosa canção que reúne os céus e a terra, retorne para o ponto de partida do jogo todo: <strong>Skyloft</strong>! Vá à pracinha ensolarada central das pombas coloridas no sul (Light Tower) com a música, puxe a Lira tocando o milagre abrindo o Portal do Reino Silencioso Supremo! 
+</p>
+<div class="dica">
+  💡 <strong>O Quarto e Último Reino (Goddess):</strong> Esse é o pior de todos os pesadelos. Skyloft no modo Noturno/Trevas e 15 Lágrimas (Tears) perigosas. Colete-as o mais rápido possível evitando ao máximo os espectros da água, as lanternas que rodam o mapa com vigias e os Waking Waters. Uma das piores (e que exigirá subir em engradados vigiados) fica no cemitério com escorregões (Waking water), e nas poças no beco e ilhas flutuantes. Complete tudo sem morrer. Você ganhará o sagrado cristal gêmeo (<strong><span class="item">Stone of Trials</span></strong>).
+</div>
+<p>
+  Com a Pedra de Prova em mãos na realidade, siga Fi e ache a Estátua Cíclope quebrada com um olho cavo solitário (a mesma perto da caverna da cachoeira). Encaixe o olho nela... A pedra ativará mecânicas de milênios! Um Canhão destruirá um penhasco inteiro, fazendo levitar cipós mágicos de gancho até o Abismo de Nuvens abaixo da estátua revelando o Palácio de Deus flutuando invisível no ar: O <strong>Sky Keep</strong>.
+</p>
+
+<h3 id="cap14-b">A Última Masmorra (Sky Keep) - O Templo Deslizante</h3>
+<p>
+  Você está no <span class="local">Sky Keep</span>! Pegue o Mapa da Dungeon no primeiro baú com uma mecânica revolucionária de quebra-cabeça <i>Slide-Puzzle</i> (daquelas que movem quadradinhos)! A dungeon é um tabuleiro dinâmico gigantesco! <strong>A cada nova sala concluída você achará painéis eletrônicos para REARRANJAR E MOVER a arquitetura do castelo!</strong>
+</p>
+<p>
+  Seu objetivo é mover e limpar as salas temáticas antigas (Sala de Gelo/Água com correntes, Sala de Fogo/Magma de carona com orbes de tempo em plantas, e Sala do Vento e Trevas lutando contra o pirata mecânico <span class="inimigo">Scervo</span> ou o mestre Caveira de Espadas). A cada triforce descoberta na porta de fundo (Coragem, Sabedoria e Poder), estocar a marca colorida no chão te arremessará numa alucinação de ouro tocando os fragmentos flutuantes. Encontre a terceira parte e... você formará a Onipotente <span class="item">Triforce</span> Original no Céu, estabilizando e restaurando o desejo para banir o Mal, destruindo O Aprisionado lá no tempo presente para sempre!
+</p>
+
+<h3 id="cap14-c">O Desespero de Hylia e A Batalha na Ladeira (Hylia's Realm)</h3>
+<p>
+  O Demônio O Aprisionado (Demise) sumiu da cratera esmagado, graças a Triforce. Mas o lunático e vaidoso Ghirahim enlouquecido não perdoará você. Ele sequestrará e arrastará a Zelda e pulará para dentro do Portal do Tempo (pro passado milenar na cratera aberta onde a besta ainda era viva!). Corra desesperado, salve o jogo, desça e <strong>atravesse o portal de tempo indo atrás dele</strong>!
+</p>
+<p>
+  Chegando no <strong>Temple of Hylia (Passado)</strong>, saia pelas portas sul do templo. Abaixo no poço infernal, Ghirahim estará fazendo os piores e mais asquerosos rituais de dança bizarra em torno da Zelda flutuando inerte! Para te deter de salvar a alma dela, ele estalará os dedos conjurando e evocando O APOCALIPSE inteiro escalado de exércitos que marcham o morro espiral de baixo para cima contra um único homem (você).
+</p>
+<div class="dica">
+  💡 <strong>A Horda Maldita do Abismo:</strong> Desça rasgando o morro enfrentando ondas absurdas, gigantescas de centenas de monstros em massa (Bokoblins de archote, granadeiros, chefões Azuis apitando berrantes e hordas de Moblins Gigantes de escudos de madeira, Caveiras de ouro e mais). Corra, esmague o exército de escudo na marra (Gire pra estilhaçar todos ou mande Bombas) varrendo tudo no matadouro de centenas sem olhar para trás até chegar no poço da rituália macabra!
+</div>
+
+<h3 id="cap14-d">BOSS: Demon Lord Ghirahim (A Terceira e Última Luta)</h3>
+<div class="chefe-box">
+  <div class="titulo-chefe">Demon Lord Ghirahim (O Rei do Ritual)</div>
+  <p>A insanidade chegou ao limite, a pele dele é de adamantium sombrio sem coração. Ele te arrastará com uma barreira invisível e você terá que quebrar Ghirahim pelas plataformas que voam no ar!</p>
+  <p><strong>Fase 1 - O Empurrão (Beirada):</strong> Esqueça a magia agora, é porradaria. Vá pra cima, espanque e espaderre a cara de Ghirahim com violência até encostar ele na BEIRA do penhasco suspenso onde vocês pisam (Cuidado quando as mãos dele acenderem de roxo-preto esmagador pra não atacar e ser contra-atacado). Jogue-o beirada a baixo com um espadada, e não perca 1 segundo: dê o bote pro vácuo metendo o Final Blow (Fatal Golpe no chão!) atravessando o peito da praga noutra plataforma lá em baixo repetidas vezes até chegarem no chão esmagador da cratera.</p>
+  <p><strong>Fase 2 - O Grande Espadão Trevas:</strong> Ghirahim invoca uma Lâmina Larga Colossal com sangue mágico negro tentando bloquear de lado. Bata NA LÂMINA DELE para causar fendas e rachaduras vermelhas no aço dele se estilhaçando! Quebre a espada batendo nas falhas da lâmina e emende no cristal do peito rasgando a energia do peito dele. Vença-o de uma vez por todas!</p>
+</div>
+
+<h3 id="cap14-e">A Batalha Final: DEMISE (O Precursor do Mal)</h3>
+<p>
+  Inútil. A energia divina de Zelda que restava já vazou e ressuscitou o rei absoluto de todo o caos da história de Hyrule que explodiu os céus de raiva e poder e transformou Ghirahim numa Lâmina Obscura: O Titã <strong>DEMISE</strong>! Demise fará um Portal sombrio em outro reino nos confins etéreos (O Mar das Estrelas com céu infinito) convidando você a pisar e ter o fim da maldade ou do mundo.
+</p>
+<p>Prepare-se (Equipe tudo de Hylian Shield imortal curado e as suas últimas poções na bolsa) antes de pular e mergulhar em destino a glória final.</p>
+<div class="chefe-box">
+  <div class="titulo-chefe">O Destruidor - DEMISE</div>
+  <p>A Batalha mais Épica de Espadas numa arena infinita de água espelhada e ventos de lótus ao som dos raios e trovões furiosos.</p>
+  <p><strong>Fase 1 - O Duelo Sagrado de Lâminas Espelhadas:</strong> A batalha começa com puro combate corpo-a-corpo insano com espadões. Ele virá para cima batendo reto; DEFESA ABSOLUTA aqui (Use Shield Bash em tempo perfeito no milissegundo empurrando seu Nunchuck/escudo para afastar a espada de chamas grossa dele criando segundos de desequilíbrio, aí meta a porrada nele!). Se você não acerta Parry de escudo (Shield Bash), você está lascado e não conseguirá bater no gigante sem morrer. Após fatiar muito as carnes negras ele soltará o poder absoluto, trocando o cenário para uma tormenta demoníaca pesada.</p>
+  <p><strong>Fase 2 - A Tormenta de Raios:</strong> O céu escurece e raios imensos caem absorvidos pela espada negra de Demise. SE ELE LEVANTAR A ESPADA sugando o raio... Você leva morte certa tomando o arco de choque atirado por ele (Cancele o tiro dele desviando ou atire o seu Raio para anular)! A sua <span class="item">Master Sword</span> TAMBÉM pode sugar raios celestiais! Ao invés do tradicional Skyward Strike lerdo, LEVANTE a sua espada pro Céu (Wii Mote pra cima nos raios!) muito rápido, carregue o poder absoluto sagrado e DESCARREGUE o relâmpago divino na Cara De Demise primeiro! Isso fará o Deus maligno agonizar paralisado pelo trovão caindo ao chão desmaiado... Avance e não exite, salte, gire aos ares e faça o FATAL BLOW na nuca do Tirano destruindo a essência da maldição na terra selando os séculos e finalizando de vez e para todo sempre esse épico Jogo!!</p>
+</div>
+<p>
+  Assista maravilhado a um dos mais lindos, longos, amarrados e chorosos finais de todas as obras contando a criação de tudo que já viu em The Legend of Zelda, o início dos deuses, das espadas heroicas e lágrimas pelas nuvens, e receba os gloriosos Créditos Finais acompanhados de uma trilha orquestrada avassaladora! 
+</p>
+<br>
+<center><strong>Z E L D A &nbsp;&nbsp; - &nbsp;&nbsp; S K Y W A R D &nbsp;&nbsp; S W O R D <br><br> F &nbsp; I &nbsp; M</strong></center>
+
+</div>
+
+<script>
+// ===== SIDEBAR =====
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  const open = s.classList.toggle('open');
+  o.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== SEARCH =====
+let matches = [];
+let currentMatch = -1;
+let lastQuery = '';
+
+function toggleSearch() {
+  const w = document.getElementById('searchWrap');
+  const i = document.getElementById('searchInput');
+  const open = w.classList.toggle('open');
+  if (open) { setTimeout(() => i.focus(), 310); } else { closeSearch(); }
+}
+
+function closeSearch() {
+  document.getElementById('searchWrap').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchCount').textContent = '';
+  clearHighlights();
+  matches = []; currentMatch = -1; lastQuery = '';
+}
+
+function doSearch(query) {
+  clearHighlights(); matches = []; currentMatch = -1;
+  const q = query.trim();
+  if (!q || q.length < 2) { document.getElementById('searchCount').textContent = ''; return; }
+  if (q === lastQuery) return;
+  lastQuery = q;
+  const regex = new RegExp(escapeRe(q), 'gi');
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const tag = node.parentElement.tagName.toLowerCase();
+      if (['script','style','input','mark'].includes(tag)) return NodeFilter.FILTER_REJECT;
+      if (node.parentElement.closest('.top-bar,.sidebar')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) {
+    if (regex.test(walker.currentNode.textContent)) nodes.push(walker.currentNode);
+    regex.lastIndex = 0;
+  }
+  nodes.forEach(node => {
+    const frag = document.createDocumentFragment();
+    let last = 0;
+    const text = node.textContent;
+    let m;
+    regex.lastIndex = 0;
+    while ((m = regex.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const mark = document.createElement('mark');
+      mark.className = 'hl';
+      mark.textContent = m[0];
+      frag.appendChild(mark);
+      matches.push(mark);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  });
+  if (matches.length > 0) { currentMatch = 0; highlightCurrent(); }
+  updateCount();
+}
+
+function navigateMatch(dir) {
+  if (!matches.length) return;
+  matches[currentMatch].classList.remove('cur');
+  currentMatch = (currentMatch + dir + matches.length) % matches.length;
+  highlightCurrent();
+  updateCount();
+}
+
+function highlightCurrent() {
+  if (currentMatch < 0 || !matches[currentMatch]) return;
+  matches.forEach(m => m.classList.remove('cur'));
+  const el = matches[currentMatch];
+  el.classList.add('cur');
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function updateCount() {
+  const el = document.getElementById('searchCount');
+  if (!matches.length) {
+    el.textContent = lastQuery.length >= 2 ? '0' : '';
+  } else {
+    el.textContent = (currentMatch + 1) + '/' + matches.length;
+  }
+}
+
+function clearHighlights() {
+  document.querySelectorAll('mark.hl').forEach(m => { m.outerHTML = m.textContent; });
+  matches = [];
+  currentMatch = -1;
+}
+
+function searchKeyNav(e) {
+  if (e.key === 'Enter') { e.shiftKey ? navigateMatch(-1) : navigateMatch(1); }
+  if (e.key === 'Escape') { closeSearch(); }
+}
+
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+</script>
+</body>
+</html>
